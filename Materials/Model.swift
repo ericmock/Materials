@@ -22,29 +22,43 @@ class Model: Node {
 												 vertexDescriptor: vertexDescriptor,
 												 bufferAllocator: allocator)
 		
-		if findTangents {
-			for sourceMesh in asset.childObjects(of: MDLMesh.self) as! [MDLMesh] {
-				sourceMesh.addOrthTanBasis(forTextureCoordinateAttributeNamed: MDLVertexAttributeTextureCoordinate,
-																	 normalAttributeNamed: MDLVertexAttributeNormal,
-																	 tangentAttributeNamed: MDLVertexAttributeTangent)
-				sourceMesh.vertexDescriptor = vertexDescriptor
-			}
-			self.hasTangents = true
-		}
+//		if findTangents {
+//			for sourceMesh in asset.childObjects(of: MDLMesh.self) as! [MDLMesh] {
+//				sourceMesh.addOrthTanBasis(forTextureCoordinateAttributeNamed: MDLVertexAttributeTextureCoordinate,
+//																	 normalAttributeNamed: MDLVertexAttributeNormal,
+//																	 tangentAttributeNamed: MDLVertexAttributeTangent)
+//				sourceMesh.vertexDescriptor = vertexDescriptor
+//			}
+//			self.hasTangents = true
+//		}
 		
 		// load Model I/O textures
 		asset.loadTextures()
 		
-		var mtkMeshes: [MTKMesh] = []
-		let mdlMeshes = asset.childObjects(of: MDLMesh.self) as! [MDLMesh]
+//		var mtkMeshes: [MTKMesh] = []
+//		let mdlMeshes = asset.childObjects(of: MDLMesh.self) as! [MDLMesh]
+//		if findTangents {
+//			_ = mdlMeshes.map { mdlMesh in
+//				mdlMesh.addTangentBasis(forTextureCoordinateAttributeNamed:
+//					MDLVertexAttributeTextureCoordinate,
+//																tangentAttributeNamed: MDLVertexAttributeTangent,
+//																bitangentAttributeNamed: MDLVertexAttributeBitangent)
+//				//      Model.vertexDescriptor = mdlMesh.vertexDescriptor
+//				mtkMeshes.append(try! MTKMesh(mesh: mdlMesh, device: Renderer.device))
+//			}
+//			self.hasTangents = true
+//		}
+		
+		let (mdlMeshes, mtkMeshes) = try! MTKMesh.newMeshes(asset: asset, device: Renderer.device)
+
 		_ = mdlMeshes.map { mdlMesh in
 			mdlMesh.addTangentBasis(forTextureCoordinateAttributeNamed:
 				MDLVertexAttributeTextureCoordinate,
 															tangentAttributeNamed: MDLVertexAttributeTangent,
 															bitangentAttributeNamed: MDLVertexAttributeBitangent)
-			//      Model.vertexDescriptor = mdlMesh.vertexDescriptor
-			mtkMeshes.append(try! MTKMesh(mesh: mdlMesh, device: Renderer.device))
 		}
+		
+		let zippedMeshes = zip(mdlMeshes, mtkMeshes)
 		
 		meshes = zip(mdlMeshes, mtkMeshes).map {
 			Mesh(mdlMesh: $0.0, mtkMesh: $0.1, findTangents: findTangents)
@@ -53,7 +67,6 @@ class Model: Node {
 		self.samplerState = Model.buildSamplerState()
 		self.name = name
 	}
-	
 	
 	// the normal vectors should be in the first buffer
 	func render(commandEncoder: MTLRenderCommandEncoder, submesh: Submesh) {
@@ -77,8 +90,6 @@ class Model: Node {
 	}
 }
 
-
-
 extension Model: Renderable {
 	func render(commandEncoder: MTLRenderCommandEncoder,
 							uniforms vertex: Uniforms,
@@ -91,17 +102,17 @@ extension Model: Renderable {
 		uniforms.modelMatrix = worldMatrix
 		commandEncoder.setVertexBytes(&uniforms,
 																	length: MemoryLayout<Uniforms>.stride,
-																	index: 21)
+																	index: Int(uniformsBufferIndex.rawValue))
 		commandEncoder.setFragmentBytes(&fragmentUniforms,
 																		length: MemoryLayout<FragmentUniforms>.stride,
-																		index: 22)
+																		index: Int(fragmentUniformsBufferIndex.rawValue))
 		
 		for mesh in meshes {
 			for vertexBuffer in mesh.mtkMesh.vertexBuffers {
 				
-				//                let uniformBuffer = Renderer.bufferProvider.nextUniformsBuffer(projectionMatrix: uniforms.projectionMatrix, modelViewMatrix: uniforms.modelMatrix)
+//				let uniformBuffer = Renderer.bufferProvider.nextUniformsBuffer(projectionMatrix: uniforms.projectionMatrix, modelViewMatrix: uniforms.modelMatrix)
 				// 5
-				//commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 0)
+//				commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 0)
 				
 				
 				commandEncoder.setVertexBuffer(vertexBuffer.buffer, offset: 0, index: 0)
@@ -109,9 +120,9 @@ extension Model: Renderable {
 				for submesh in mesh.submeshes {
 					commandEncoder.setRenderPipelineState(submesh.pipelineState)
 					var material = submesh.material
-					//                    commandEncoder.setFragmentBytes(&material,
-					//                                                    length: MemoryLayout<Material>.stride,
-					//                                                    index: 11)
+					commandEncoder.setFragmentBytes(&material,
+																					length: MemoryLayout<Material>.stride,
+																					index: Int(materialsBufferIndex.rawValue))
 					commandEncoder.setFragmentTexture(submesh.textures.baseColor, index: 0)
 					
 					if let samplerState = samplerState {

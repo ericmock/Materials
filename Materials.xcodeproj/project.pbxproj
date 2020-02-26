@@ -55,8 +55,8 @@
 		0B5DC9FB24060E2200827383 /* TitleQuad.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9F924060E2200827383 /* TitleQuad.mtl */; };
 		0B5DC9FC2406C55800827383 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9D82405D62100827383 /* Extensions.swift */; };
 		0B5DC9FD2406C55800827383 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9D82405D62100827383 /* Extensions.swift */; };
-		130EDE6B22C9BE9100288A31 /* PBR.metal in Sources */ = {isa = PBXBuildFile; fileRef = 130EDE6A22C9BE9100288A31 /* PBR.metal */; };
-		130EDE6C22C9BE9100288A31 /* PBR.metal in Sources */ = {isa = PBXBuildFile; fileRef = 130EDE6A22C9BE9100288A31 /* PBR.metal */; };
+		0B5DCA012406F21800827383 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DCA002406F21800827383 /* BufferProvider.swift */; };
+		0B5DCA022406F21800827383 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DCA002406F21800827383 /* BufferProvider.swift */; };
 		130EDE7422C9C21C00288A31 /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE6E22C9C21B00288A31 /* chest.obj */; };
 		130EDE7522C9C21C00288A31 /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE6E22C9C21B00288A31 /* chest.obj */; };
 		130EDE7A22C9C21C00288A31 /* chest.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE7122C9C21B00288A31 /* chest.mtl */; };
@@ -139,6 +139,7 @@
 		0B5DC9EF2406032900827383 /* Title3.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Title3.obj; sourceTree = "<group>"; };
 		0B5DC9F02406032900827383 /* Title4.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Title4.obj; sourceTree = "<group>"; };
 		0B5DC9F924060E2200827383 /* TitleQuad.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TitleQuad.mtl; sourceTree = "<group>"; };
+		0B5DCA002406F21800827383 /* BufferProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
 		130EDE6A22C9BE9100288A31 /* PBR.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PBR.metal; sourceTree = "<group>"; };
 		130EDE6E22C9C21B00288A31 /* chest.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chest.obj; sourceTree = "<group>"; };
 		130EDE7122C9C21B00288A31 /* chest.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chest.mtl; sourceTree = "<group>"; };
@@ -232,6 +233,7 @@
 			children = (
 				1384A37422C1B389006036BA /* Assets.xcassets */,
 				0B5DC9CC2405D3C800827383 /* BasePolygon.swift */,
+				0B5DCA002406F21800827383 /* BufferProvider.swift */,
 				130F080E22C434CF001B7909 /* Camera.swift */,
 				1343BA5622C2DB1B007EA044 /* Common.h */,
 				0B5DC9D82405D62100827383 /* Extensions.swift */,
@@ -367,7 +369,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1100;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = Razeware;
 				TargetAttributes = {
 					1384A36E22C1B388006036BA = {
@@ -473,6 +475,7 @@
 				139D235322C851DC00C6DB03 /* Texturable.swift in Sources */,
 				130F082A22C43C57001B7909 /* ViewControllerExtension.swift in Sources */,
 				0B5DC9BB2405D28C00827383 /* TitleIntegrator.swift in Sources */,
+				0B5DCA012406F21800827383 /* BufferProvider.swift in Sources */,
 				0B5DC9BE2405D29F00827383 /* SQLiteDatabase.swift in Sources */,
 				130F080F22C434CF001B7909 /* Camera.swift in Sources */,
 				1384A38122C1B3C2006036BA /* ViewController.swift in Sources */,
@@ -490,7 +493,6 @@
 				13A7ABC522C2374400609310 /* MathLibrary.swift in Sources */,
 				0B5DC9CA2405D39800827383 /* Polyhedron.swift in Sources */,
 				0B5DC9FD2406C55800827383 /* Extensions.swift in Sources */,
-				130EDE6B22C9BE9100288A31 /* PBR.metal in Sources */,
 				0B5DC9C12405D2A400827383 /* Words.swift in Sources */,
 				130F080C22C4343D001B7909 /* Node.swift in Sources */,
 				0B5DC9B82405D28300827383 /* TitleScene.swift in Sources */,
@@ -510,6 +512,7 @@
 				139D235422C851DC00C6DB03 /* Texturable.swift in Sources */,
 				130F081022C434CF001B7909 /* Camera.swift in Sources */,
 				0B5DC9BC2405D28C00827383 /* TitleIntegrator.swift in Sources */,
+				0B5DCA022406F21800827383 /* BufferProvider.swift in Sources */,
 				0B5DC9BF2405D29F00827383 /* SQLiteDatabase.swift in Sources */,
 				1384A3F122C1F12C006036BA /* Shaders.metal in Sources */,
 				1384A3EE22C1F0A7006036BA /* LocalClasses.swift in Sources */,
@@ -527,7 +530,6 @@
 				13A7ABC622C2374400609310 /* MathLibrary.swift in Sources */,
 				0B5DC9CB2405D39800827383 /* Polyhedron.swift in Sources */,
 				0B5DC9FC2406C55800827383 /* Extensions.swift in Sources */,
-				130EDE6C22C9BE9100288A31 /* PBR.metal in Sources */,
 				0B5DC9C22405D2A400827383 /* Words.swift in Sources */,
 				130F080D22C4343D001B7909 /* Node.swift in Sources */,
 				0B5DC9B92405D28300827383 /* TitleScene.swift in Sources */,
@@ -684,6 +686,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Materials-macOS/Materials.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 567YC6JLS4;
@@ -703,6 +706,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Materials-macOS/Materials.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 567YC6JLS4;

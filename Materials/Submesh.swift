@@ -50,7 +50,7 @@ private extension Submesh {
     let vertexFunction = library?.makeFunction(name: "vertex_main")
     let fragmentFunction: MTLFunction?
     do {
-      fragmentFunction = try library?.makeFunction(name: "fragment_mainPBR",
+      fragmentFunction = try library?.makeFunction(name: "fragment_main",
                                                    constantValues: functionConstants)
     } catch {
       fatalError("No Metal function exists")
@@ -62,7 +62,7 @@ private extension Submesh {
     pipelineDescriptor.fragmentFunction = fragmentFunction
     
 //    let vertexDescriptor = Model.vertexDescriptor
-		pipelineDescriptor.vertexDescriptor = MTLVertexDescriptor.defaultVertexDescriptor(hasTangents: hasTangents)
+		pipelineDescriptor.vertexDescriptor = MTLVertexDescriptor.defaultVertexDescriptor(hasTangents: false)
 //    pipelineDescriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(vertexDescriptor)
 		pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
     pipelineDescriptor.depthAttachmentPixelFormat = .depth32Float

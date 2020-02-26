@@ -19,7 +19,7 @@ class ViewController: LocalViewController {
 		metalView.clearColor = MTLClearColor(red: 1.0, green: 1.0, blue: 0.8, alpha: 1.0)
 		titleScene = TitleScene(screenSize: metalView.bounds.size, sceneName:"Title")
 		gameScene = GameScene(screenSize: metalView.bounds.size, sceneName:"Game")
-		renderer?.scene = gameScene
+		renderer?.scene = titleScene
 
   }
 }

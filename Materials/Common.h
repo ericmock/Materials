@@ -36,13 +36,13 @@ typedef struct {
   uint tiling;
 } FragmentUniforms;
 
-typedef enum {
-  Position = 0,
-  Normal = 1,
-  UV = 2,
-  Tangent = 3,
-  Bitangent = 4
-} Attributes;
+//typedef enum {
+//  Position = 0,
+//  Normal = 1,
+//  UV = 2,
+//  Tangent = 3,
+//  Bitangent = 4
+//} Attributes;
 
 typedef enum {
   BaseColorTexture = 0,
@@ -53,11 +53,11 @@ typedef enum {
 } Textures;
 
 typedef enum {
-  BufferIndexVertices = 0,
-  BufferIndexUniforms = 11,
-  BufferIndexLights = 12,
-  BufferIndexFragmentUniforms = 13,
-  BufferIndexMaterials = 14
+  verticesBufferIndex = 0,
+  uniformsBufferIndex = 11,
+//  lightsBufferIndex = 12,
+  fragmentUniformsBufferIndex = 13,
+  materialsBufferIndex = 14
 } BufferIndices;
 
 typedef struct {
