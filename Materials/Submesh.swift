@@ -13,19 +13,21 @@ class Submesh {
   
   let textures: Textures
   let material: Material
+	let hasTangents: Bool
   let pipelineState: MTLRenderPipelineState
   
-  init(mdlSubmesh: MDLSubmesh, mtkSubmesh: MTKSubmesh) {
+	init(mdlSubmesh: MDLSubmesh, mtkSubmesh: MTKSubmesh, findTangents:  Bool) {
+		self.hasTangents = findTangents
     self.mtkSubmesh = mtkSubmesh
     textures = Textures(material: mdlSubmesh.material)
     material = Material(material: mdlSubmesh.material)
-    pipelineState = Submesh.makePipelineState(textures: textures)
+		pipelineState = Submesh.makePipelineState(textures: textures, hasTangents: hasTangents)
   }
 }
 
 // Pipeline state
 private extension Submesh {
-  static func makeFunctionConstants(textures: Textures)
+	static func makeFunctionConstants(textures: Textures)
     -> MTLFunctionConstantValues {
       let functionConstants = MTLFunctionConstantValues()
       var property = textures.baseColor != nil
@@ -41,7 +43,7 @@ private extension Submesh {
       return functionConstants
   }
 
-  static func makePipelineState(textures: Textures) -> MTLRenderPipelineState {
+	static func makePipelineState(textures: Textures, hasTangents: Bool) -> MTLRenderPipelineState {
     let functionConstants = makeFunctionConstants(textures: textures)
     
     let library = Renderer.library
@@ -59,9 +61,10 @@ private extension Submesh {
     pipelineDescriptor.vertexFunction = vertexFunction
     pipelineDescriptor.fragmentFunction = fragmentFunction
     
-    let vertexDescriptor = Model.vertexDescriptor
-    pipelineDescriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(vertexDescriptor)
-    pipelineDescriptor.colorAttachments[0].pixelFormat = Renderer.colorPixelFormat
+//    let vertexDescriptor = Model.vertexDescriptor
+		pipelineDescriptor.vertexDescriptor = MTLVertexDescriptor.defaultVertexDescriptor(hasTangents: hasTangents)
+//    pipelineDescriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(vertexDescriptor)
+		pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
     pipelineDescriptor.depthAttachmentPixelFormat = .depth32Float
     do {
       pipelineState = try Renderer.device.makeRenderPipelineState(descriptor: pipelineDescriptor)

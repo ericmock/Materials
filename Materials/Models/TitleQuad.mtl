@@ -1,0 +1,14 @@
+
+# Blender MTL File: 'train.blend'
+# Material Count: 1
+
+newmtl DefaultMaterial
+Ns 94.117647
+Ka 0.050000 0.050000 0.050000
+Kd 0.600000 0.024848 0.307897
+Ks 0.600000 0.600000 0.600000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd wood_original.jpg

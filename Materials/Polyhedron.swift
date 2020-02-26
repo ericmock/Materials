@@ -9,7 +9,7 @@
 import Foundation
 
 // {{0.5, -0.688191, 0}, {-0.5, -0.688191, 0}, {-0.809017, 0.262866,0}, {0, 0.850651, 0}, {0.809017, 0.262866, 0}}
-class Polyhedron: Model2 {
+class Polyhedron: Model {
     let polygons:[MyPolygon]
     let basePolygons:[BasePolygon]
     let numberTriangles:Int

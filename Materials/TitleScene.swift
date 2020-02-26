@@ -39,12 +39,12 @@ class TitleScene: Scene {
     var presentState = stateStructure()
     
     //    let title1 = Model(name: "Title1")
-    let titles:[Model2] = [Model2(name: "Title1"),
-                          Model2(name: "Title2"),
-                          Model2(name: "Title3"),
-                          Model2(name: "Title4"),
-                          Model2(name: "Title5"),
-                          Model2(name: "Title1")]
+    let titles:[Model] = [Model(name: "Title1"),
+                          Model(name: "Title2"),
+                          Model(name: "Title3"),
+                          Model(name: "Title4"),
+                          Model(name: "Title5"),
+                          Model(name: "Title1")]
     
     override init(screenSize: CGSize, sceneName: String) {
         super.init(screenSize: screenSize, sceneName: sceneName)

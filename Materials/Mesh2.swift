@@ -79,7 +79,7 @@ struct Submesh2 {
         pipelineStateDescriptor.colorAttachments[0].destinationAlphaBlendFactor = .oneMinusSourceAlpha
         pipelineStateDescriptor.vertexFunction = vertexFunction
         pipelineStateDescriptor.fragmentFunction = fragmentFunction
-        pipelineStateDescriptor.vertexDescriptor = MTLVertexDescriptor.defaultVertexDescriptor(hasTangent: hasTangents)
+//        pipelineStateDescriptor.vertexDescriptor = MTLVertexDescriptor.defaultVertexDescriptor(hasTangent: hasTangents)
         pipelineStateDescriptor.depthAttachmentPixelFormat = .depth32Float
         
         return try! Renderer.device.makeRenderPipelineState(descriptor: pipelineStateDescriptor)

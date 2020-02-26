@@ -1,4 +1,5 @@
 import Cocoa
+import MetalKit
 
 extension ViewController {
   func addGestureRecognizers(to view: NSView) {
@@ -11,11 +12,11 @@ extension ViewController {
     let delta = float2(Float(translation.x),
                        Float(translation.y))
     
-    renderer?.camera.rotate(delta: delta)
+    titleScene?.camera.rotate(delta: delta)
     gesture.setTranslation(.zero, in: gesture.view)
   }
   
   override func scrollWheel(with event: NSEvent) {
-    renderer?.camera.zoom(delta: Float(event.deltaY))
+    titleScene?.camera.zoom(delta: Float(event.deltaY))
   }
 }
