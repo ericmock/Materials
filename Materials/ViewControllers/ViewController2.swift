@@ -6,7 +6,9 @@
 //  Copyright © 2020 Eric Mockensturm. All rights reserved.
 //
 
+#if !os(iOS)
 import Cocoa
+#endif
 import MetalKit
 
 class ViewController2: NSViewController {

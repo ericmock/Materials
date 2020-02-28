@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0B5DC9A72405C52000827383 /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9A52405C51F00827383 /* TestPolyhedron.obj */; };
-		0B5DC9A82405C52000827383 /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9A52405C51F00827383 /* TestPolyhedron.obj */; };
-		0B5DC9A92405C52000827383 /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9A62405C51F00827383 /* TestPolyhedron.mtl */; };
-		0B5DC9AA2405C52000827383 /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9A62405C51F00827383 /* TestPolyhedron.mtl */; };
 		0B5DC9AC2405C52C00827383 /* wood_original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9AB2405C52C00827383 /* wood_original.jpg */; };
 		0B5DC9AD2405C52C00827383 /* wood_original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9AB2405C52C00827383 /* wood_original.jpg */; };
 		0B5DC9AF2405D25A00827383 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9AE2405D25A00827383 /* Scene.swift */; };
@@ -37,8 +33,6 @@
 		0B5DC9CE2405D3C800827383 /* BasePolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9CC2405D3C800827383 /* BasePolygon.swift */; };
 		0B5DC9DF2405D7A700827383 /* MetalTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9DE2405D7A700827383 /* MetalTexture.swift */; };
 		0B5DC9E02405D7A700827383 /* MetalTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9DE2405D7A700827383 /* MetalTexture.swift */; };
-		0B5DC9E52405F47F00827383 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9E42405F47F00827383 /* ViewController2.swift */; };
-		0B5DC9E62405F47F00827383 /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9E42405F47F00827383 /* ViewController2.swift */; };
 		0B5DC9E92406020F00827383 /* Title1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9E72406020F00827383 /* Title1.obj */; };
 		0B5DC9EA2406020F00827383 /* Title1.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9E72406020F00827383 /* Title1.obj */; };
 		0B5DC9EB2406020F00827383 /* Title1.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9E82406020F00827383 /* Title1.mtl */; };
@@ -57,6 +51,14 @@
 		0B5DC9FD2406C55800827383 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9D82405D62100827383 /* Extensions.swift */; };
 		0B5DCA012406F21800827383 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DCA002406F21800827383 /* BufferProvider.swift */; };
 		0B5DCA022406F21800827383 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DCA002406F21800827383 /* BufferProvider.swift */; };
+		0B946599240884AD0027864E /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9465972408848D0027864E /* GuideViewController.swift */; };
+		0B94659B24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
+		0B94659C24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
+		0B94659E24089C0E0027864E /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659D24089C0E0027864E /* TestPolyhedron.obj */; };
+		0B94659F24089C0E0027864E /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659D24089C0E0027864E /* TestPolyhedron.obj */; };
+		0B9465A62408BE450027864E /* GuideScrollerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9465A42408BE440027864E /* GuideScrollerController.swift */; };
+		0BB446642407636E0006E805 /* WordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB446622407636D0006E805 /* WordsViewController.swift */; };
+		0BB4466624077C9A0006E805 /* WordsViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB4466524077C9A0006E805 /* WordsViewController2.swift */; };
 		130EDE7422C9C21C00288A31 /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE6E22C9C21B00288A31 /* chest.obj */; };
 		130EDE7522C9C21C00288A31 /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE6E22C9C21B00288A31 /* chest.obj */; };
 		130EDE7A22C9C21C00288A31 /* chest.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE7122C9C21B00288A31 /* chest.mtl */; };
@@ -115,8 +117,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0B5DC9A52405C51F00827383 /* TestPolyhedron.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.obj; path = "../../../../../../../My Code/PolyWords/TestPolyhedron.obj"; sourceTree = "<group>"; };
-		0B5DC9A62405C51F00827383 /* TestPolyhedron.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.mtl; path = "../../../../../../../My Code/PolyWords/TestPolyhedron.mtl"; sourceTree = "<group>"; };
 		0B5DC9AB2405C52C00827383 /* wood_original.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood_original.jpg; sourceTree = "<group>"; };
 		0B5DC9AE2405D25A00827383 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		0B5DC9B12405D26F00827383 /* TrackBall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackBall.swift; sourceTree = "<group>"; };
@@ -140,6 +140,12 @@
 		0B5DC9F02406032900827383 /* Title4.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Title4.obj; sourceTree = "<group>"; };
 		0B5DC9F924060E2200827383 /* TitleQuad.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TitleQuad.mtl; sourceTree = "<group>"; };
 		0B5DCA002406F21800827383 /* BufferProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
+		0B9465972408848D0027864E /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
+		0B94659A24089C010027864E /* TestPolyhedron.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.mtl; path = ../../../TestPolyhedron.mtl; sourceTree = "<group>"; };
+		0B94659D24089C0E0027864E /* TestPolyhedron.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.obj; path = ../../../TestPolyhedron.obj; sourceTree = "<group>"; };
+		0B9465A42408BE440027864E /* GuideScrollerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideScrollerController.swift; sourceTree = "<group>"; };
+		0BB446622407636D0006E805 /* WordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsViewController.swift; sourceTree = "<group>"; };
+		0BB4466524077C9A0006E805 /* WordsViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsViewController2.swift; sourceTree = "<group>"; };
 		130EDE6A22C9BE9100288A31 /* PBR.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PBR.metal; sourceTree = "<group>"; };
 		130EDE6E22C9C21B00288A31 /* chest.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chest.obj; sourceTree = "<group>"; };
 		130EDE7122C9C21B00288A31 /* chest.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chest.mtl; sourceTree = "<group>"; };
@@ -199,6 +205,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B9465A024089C420027864E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1384A38022C1B3C2006036BA /* ViewController.swift */,
+				0B9465972408848D0027864E /* GuideViewController.swift */,
+				0B5DC9E42405F47F00827383 /* ViewController2.swift */,
+				0BB446622407636D0006E805 /* WordsViewController.swift */,
+				0BB4466524077C9A0006E805 /* WordsViewController2.swift */,
+				0B9465A42408BE440027864E /* GuideScrollerController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		130EDE6D22C9C21B00288A31 /* treasure-chest */ = {
 			isa = PBXGroup;
 			children = (
@@ -231,6 +250,7 @@
 		1384A37122C1B388006036BA /* Materials */ = {
 			isa = PBXGroup;
 			children = (
+				0B9465A024089C420027864E /* ViewControllers */,
 				1384A37422C1B389006036BA /* Assets.xcassets */,
 				0B5DC9CC2405D3C800827383 /* BasePolygon.swift */,
 				0B5DCA002406F21800827383 /* BufferProvider.swift */,
@@ -261,8 +281,6 @@
 				0B5DC9B12405D26F00827383 /* TrackBall.swift */,
 				13A7ABC722C2374C00609310 /* Utility */,
 				130F081A22C436F9001B7909 /* VertexDescriptor.swift */,
-				1384A38022C1B3C2006036BA /* ViewController.swift */,
-				0B5DC9E42405F47F00827383 /* ViewController2.swift */,
 				0B5DC9C02405D2A400827383 /* Words.swift */,
 			);
 			path = Materials;
@@ -271,6 +289,8 @@
 		1384A39622C1DFC2006036BA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				0B94659D24089C0E0027864E /* TestPolyhedron.obj */,
+				0B94659A24089C010027864E /* TestPolyhedron.mtl */,
 				0B5DC9F924060E2200827383 /* TitleQuad.mtl */,
 				0B5DC9E82406020F00827383 /* Title1.mtl */,
 				0B5DC9E72406020F00827383 /* Title1.obj */,
@@ -279,8 +299,6 @@
 				0B5DC9F02406032900827383 /* Title4.obj */,
 				0B5DC9EE2406032800827383 /* Title5.obj */,
 				0B5DC9AB2405C52C00827383 /* wood_original.jpg */,
-				0B5DC9A62405C51F00827383 /* TestPolyhedron.mtl */,
-				0B5DC9A52405C51F00827383 /* TestPolyhedron.obj */,
 				13E3141C22C977F000E0B48D /* cottage1.mtl */,
 				13E3141F22C977F000E0B48D /* cottage1.obj */,
 				13E3142122C977F000E0B48D /* cottage2.mtl */,
@@ -374,9 +392,11 @@
 				TargetAttributes = {
 					1384A36E22C1B388006036BA = {
 						CreatedOnToolsVersion = 11.0;
+						LastSwiftMigration = 1130;
 					};
 					1384A3D822C1F04B006036BA = {
 						CreatedOnToolsVersion = 11.0;
+						LastSwiftMigration = 1130;
 					};
 				};
 			};
@@ -406,18 +426,18 @@
 			files = (
 				130EDE7A22C9C21C00288A31 /* chest.mtl in Resources */,
 				0B5DC9F12406032900827383 /* Title2.obj in Resources */,
-				0B5DC9A72405C52000827383 /* TestPolyhedron.obj in Resources */,
+				0B94659B24089C010027864E /* TestPolyhedron.mtl in Resources */,
 				13E3142622C977F000E0B48D /* cube.mtl in Resources */,
 				0B5DC9F32406032900827383 /* Title5.obj in Resources */,
 				0B5DC9FA24060E2200827383 /* TitleQuad.mtl in Resources */,
 				1384A37522C1B389006036BA /* Assets.xcassets in Resources */,
 				13E3142422C977F000E0B48D /* cube.obj in Resources */,
 				130EDE7422C9C21C00288A31 /* chest.obj in Resources */,
+				0B94659E24089C0E0027864E /* TestPolyhedron.obj in Resources */,
 				0B5DC9E92406020F00827383 /* Title1.obj in Resources */,
 				1384A37822C1B389006036BA /* Main.storyboard in Resources */,
 				13E3142C22C977F000E0B48D /* cottage2.mtl in Resources */,
 				13E3142822C977F000E0B48D /* cottage1.obj in Resources */,
-				0B5DC9A92405C52000827383 /* TestPolyhedron.mtl in Resources */,
 				130EDE7C22C9C21C00288A31 /* license.txt in Resources */,
 				0B5DC9EB2406020F00827383 /* Title1.mtl in Resources */,
 				139D235622C86C1E00C6DB03 /* Textures.xcassets in Resources */,
@@ -434,6 +454,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				130EDE7522C9C21C00288A31 /* chest.obj in Resources */,
+				0B94659C24089C010027864E /* TestPolyhedron.mtl in Resources */,
 				13E3142522C977F000E0B48D /* cube.obj in Resources */,
 				13E3142B22C977F000E0B48D /* cottage2.obj in Resources */,
 				0B5DC9F22406032900827383 /* Title2.obj in Resources */,
@@ -447,15 +468,14 @@
 				139D235722C86C1E00C6DB03 /* Textures.xcassets in Resources */,
 				0B5DC9EC2406020F00827383 /* Title1.mtl in Resources */,
 				1384A3E322C1F04B006036BA /* Main.storyboard in Resources */,
-				0B5DC9A82405C52000827383 /* TestPolyhedron.obj in Resources */,
 				130EDE7B22C9C21C00288A31 /* chest.mtl in Resources */,
 				13E3142922C977F000E0B48D /* cottage1.obj in Resources */,
 				13E3142322C977F000E0B48D /* cottage1.mtl in Resources */,
 				0B5DC9AD2405C52C00827383 /* wood_original.jpg in Resources */,
+				0B94659F24089C0E0027864E /* TestPolyhedron.obj in Resources */,
 				13E3142722C977F000E0B48D /* cube.mtl in Resources */,
 				0B5DC9F62406032900827383 /* Title3.obj in Resources */,
 				0B5DC9EA2406020F00827383 /* Title1.obj in Resources */,
-				0B5DC9AA2405C52000827383 /* TestPolyhedron.mtl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,7 +486,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B5DC9E52405F47F00827383 /* ViewController2.swift in Sources */,
 				130F081822C435A0001B7909 /* Submesh.swift in Sources */,
 				0B5DC9B52405D27A00827383 /* GameScene.swift in Sources */,
 				130F081222C4352D001B7909 /* Model.swift in Sources */,
@@ -503,8 +522,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B5DC9E62405F47F00827383 /* ViewController2.swift in Sources */,
 				130F081922C435A0001B7909 /* Submesh.swift in Sources */,
+				0B946599240884AD0027864E /* GuideViewController.swift in Sources */,
 				0B5DC9B62405D27A00827383 /* GameScene.swift in Sources */,
 				130F081322C4352D001B7909 /* Model.swift in Sources */,
 				13EBBB4022C6FDA500230D2B /* Lighting.swift in Sources */,
@@ -516,13 +535,16 @@
 				0B5DC9BF2405D29F00827383 /* SQLiteDatabase.swift in Sources */,
 				1384A3F122C1F12C006036BA /* Shaders.metal in Sources */,
 				1384A3EE22C1F0A7006036BA /* LocalClasses.swift in Sources */,
+				0B9465A62408BE450027864E /* GuideScrollerController.swift in Sources */,
 				130F081622C43563001B7909 /* Mesh.swift in Sources */,
 				1384A3F222C1F12E006036BA /* Primitive.swift in Sources */,
 				0B5DC9B02405D25A00827383 /* Scene.swift in Sources */,
 				1384A3EF22C1F11D006036BA /* ViewController.swift in Sources */,
 				0B5DC9C52405D37300827383 /* Renderable.swift in Sources */,
+				0BB446642407636E0006E805 /* WordsViewController.swift in Sources */,
 				0B5DC9B32405D26F00827383 /* TrackBall.swift in Sources */,
 				0B5DC9E02405D7A700827383 /* MetalTexture.swift in Sources */,
+				0BB4466624077C9A0006E805 /* WordsViewController2.swift in Sources */,
 				1384A3F022C1F12A006036BA /* Renderer.swift in Sources */,
 				0B5DC9C82405D38600827383 /* MyPolygon.swift in Sources */,
 				130F082D22C43CC8001B7909 /* ViewControllerExtension.swift in Sources */,
@@ -685,6 +707,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Materials-macOS/Materials.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -697,6 +720,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Materials;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -705,6 +729,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "Materials-macOS/Materials.entitlements";
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
@@ -725,6 +750,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 567YC6JLS4;
 				INFOPLIST_FILE = "Materials-iOS/Info.plist";
@@ -736,6 +762,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.smallFeatsf.Materials-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -745,6 +772,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 567YC6JLS4;
 				INFOPLIST_FILE = "Materials-iOS/Info.plist";
