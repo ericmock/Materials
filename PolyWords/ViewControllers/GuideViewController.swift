@@ -22,11 +22,45 @@ class GuideViewController : UITableViewController {
 
 	let viewTitle = "Polywords Guide"
 	var myTableView = UITableView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+	let lightColor = UIColor(red: 0.905, green: 0.835, blue: 0.690, alpha: 1.0)
+	let appController = AppController()
+	
+	var mainView:UIView!
+//	var tableView:UITableView!
 		
-	required init(coder: NSCoder) {
-		super.init(coder: coder)!
-		tableView.rowHeight = ROW_HEIGHT
-		tableView.separatorStyle = .none
+	required init?(coder: NSCoder) {
+		super.init(coder: coder)
+//		tableView.rowHeight = ROW_HEIGHT
+//		tableView.separatorStyle = .none
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		mainView = UIView(frame: CGRect(x: CGFloat(0.0), y: CGFloat(0.0), width: appController.screenRect.width, height: appController.screenRect.height))
+		mainView.backgroundColor = appController.darkColor
+		self.view = mainView
+		
+		myTableView = UITableView(frame: CGRect(x: 0.0, y: 40.0, width: appController.screenRect.width, height: appController.screenRect.height), style: .plain)
+		myTableView.rowHeight = ROW_HEIGHT
+		myTableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+		myTableView.delegate = self
+		myTableView.dataSource = self
+		myTableView.sectionIndexMinimumDisplayRowCount = 10
+		myTableView.backgroundColor = appController.darkColor
+		myTableView.separatorColor = appController.darkColor
+		
+		let backgroundView = UILabel(frame: CGRect(x: 0.0, y: -80.0, width: appController.screenRect.width, height: 40.0))
+		backgroundView.text = "No peeking"
+		backgroundView.textColor = lightColor
+		backgroundView.font = UIFont(name: "Helvetica-Bold", size: 30)//[UIFont fontWithName:@"Helvetica-Bold" size:30];
+		backgroundView.textAlignment = .center
+		backgroundView.backgroundColor = appController.darkColor
+		
+		myTableView.addSubview(backgroundView)
+		
+		mainView.addSubview(myTableView)
+		
+		super.viewDidAppear(animated)
+
 	}
 	
 	override func numberOfSections(in tableView: UITableView) -> Int {
@@ -34,7 +68,7 @@ class GuideViewController : UITableViewController {
 	}
 	
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 10
+		return 9
 	}
 	
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,13 +80,14 @@ class GuideViewController : UITableViewController {
 	}
 	
 	func configureCell(cell: UITableViewCell, forIndex index:IndexPath) {
-		let guideArray = ["Rotating Polyhedra","Selecting Letters","Deselecting Letters","Making Words","Submitting Words", "Replacing Letters", "Scoring", "Game Modes", "Trend Graph", "Unlocking Levels", "Shuffles"]
-		let imagesArray = ["Tetrahedron.png","Cube.png","Octahedron.png","Dodecahedron.png","Icosahedron.png", "Cuboctahedron.png"]
+		let guideArray = ["Rotating Polyhedra","Selecting Letters","Deselecting Letters","Making Words","Submitting Words", "Replacing Letters", "Scoring", "Game Modes", "Unlocking Levels"]
+//		let imagesArray = ["Tetrahedron.png","Cube.png","Octahedron.png","Dodecahedron.png","Icosahedron.png", "Cuboctahedron.png"]
+		
 		let label:UILabel = cell.viewWithTag(GUIDE_TAG) as! UILabel
 		label.text = guideArray[index.row]
-		let imageView:UIImageView = cell.viewWithTag(IMAGE_TAG) as! UIImageView
-		let imageCount = imagesArray.count
-		imageView.image = UIImage(named: imagesArray[index.row % imageCount])
+//		let imageView:UIImageView = cell.viewWithTag(IMAGE_TAG) as! UIImageView
+//		let imageCount = imagesArray.count
+//		imageView.image = UIImage(named: imagesArray[index.row % imageCount])
 		
 	}
 	
@@ -60,26 +95,38 @@ class GuideViewController : UITableViewController {
 	func tableViewCellWithReuseIdentifier(_ identifer: String) -> UITableViewCell {
 		var rect = CGRect(x: 0, y: 0, width: 320, height: ROW_HEIGHT)
 		let cell:UITableViewCell = UITableViewCell(style: .default, reuseIdentifier: identifer)
+		cell.selectionStyle = .gray
 		
-		var label = UILabel()
-		rect = CGRect(x: LEFT_COLUMN_OFFSET, y: (ROW_HEIGHT - IMAGE_SIDE)/2.0, width: IMAGE_SIDE, height: IMAGE_SIDE)
-		let imageView = UIImageView(frame: rect)
-		imageView.tag = IMAGE_TAG
-		cell.contentView.addSubview(imageView)
+		rect = CGRect(x: 0.0, y: 0.0, width: appController.screenRect.width, height: ROW_HEIGHT)
+		let blockView = UIView(frame: rect)
+		cell.contentView.addSubview(blockView)
+		blockView.backgroundColor = lightColor
 		
-		rect = CGRect(x: MIDDLE_COLUMN_OFFSET, y: (ROW_HEIGHT - LABEL_HEIGHT)/2.0, width: MIDDLE_COLUMN_WIDTH, height: LABEL_HEIGHT)
-		label = UILabel(frame: rect)
+		rect = CGRect(x: MIDDLE_COLUMN_OFFSET, y: (ROW_HEIGHT - LABEL_HEIGHT) / 2.0, width: MIDDLE_COLUMN_WIDTH, height: LABEL_HEIGHT)
+		let label = UILabel(frame: rect)
 		label.tag = GUIDE_TAG
-		label.font = UIFont.systemFont(ofSize: MAIN_FONT_SIZE, weight: .bold)
+		label.font = UIFont(name: "Helvetica-Bold", size: 20)
 		label.adjustsFontSizeToFitWidth = true
 		cell.contentView.addSubview(label)
-		label.highlightedTextColor = UIColor(white: 1.0, alpha: 1.0)
+		label.backgroundColor = lightColor
+		label.textColor = appController.darkColor
+		
+		rect = CGRect(x: LEFT_COLUMN_OFFSET, y: (ROW_HEIGHT - IMAGE_SIDE) / 2.0, width: IMAGE_SIDE, height: IMAGE_SIDE)
+		let blockView2 = UIImageView(frame: rect)//[[UIImageView alloc] initWithFrame:rect];
+		blockView2.tag = IMAGE_TAG
+		blockView2.backgroundColor = appController.darkColor
+		cell.contentView.addSubview(blockView2)
 		
 		return cell
 	}
 	
 	override func tableView(_ tableView: UITableView, willSelectRowAt index:IndexPath) -> IndexPath? {
 		tableView.deselectRow(at: index, animated: true)
+		
+		
+		let guideScrollerController = GuideScrollerController(coder: coder)
+		
+		init2(withGuide: index.row)
 		return index
 	}
 

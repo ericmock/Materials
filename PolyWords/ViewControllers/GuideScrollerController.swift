@@ -14,7 +14,8 @@ class GuideScrollerController : UIViewController {
 		pageControl = UIPageControl(frame: CGRect(x: 0.0, y: 400.0, width: 320.0, height: 30.0) )
 	}
 
-	func init2(withGuide guide:Int) {
+	convenience init(withGuide guide:Int) {
+		self.init()
 		self.guide = guide
 		guidePages = [1,6,2,3,3,3,5,3,4,1,4]
 	}

@@ -50,10 +50,11 @@ struct acceleration {
 
 class TitleIntegrator {
     
-    var scene:Scene
+    var scene:TitleScene
     var state:stateStructure = stateStructure()
+	var F:[Float] = []
     
-    init(scene:Scene) {
+	init(withScene scene:TitleScene) {
         self.scene = scene
         resetState()
     }
@@ -198,7 +199,26 @@ class TitleIntegrator {
     //    return accelXY;
     //}
     //
+	
+	func setF(to force:[Float]) {
+		for ii in 0..<scene.titles.count {
+			if state.omega[ii] < 0.2 {
+				F[ii] = force[ii]
+			}
+		}
+	}
     
+//	- (void) setF:(double *)force {
+//	#ifdef verbose
+//	NSLog(@"into  setF:(double *)force  of %@",[self class]);
+//	#endif
+//
+//		for (int ii = 0; ii < menuView.menu_count; ii++) {
+//			if (state.omega[ii] < 0.2)
+//				F[ii] = force[ii];
+//		}
+//	}
+
     func resetState() {
         state = stateStructure()
     }

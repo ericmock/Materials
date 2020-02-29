@@ -49,7 +49,7 @@ class TitleScene: Scene {
 	
 	override init(screenSize: CGSize, sceneName: String) {
 		super.init(screenSize: screenSize, sceneName: sceneName)
-		integrator = TitleIntegrator(scene: self)
+		integrator = TitleIntegrator(withScene: self)
 		//       super.init(screenSize: s, sceneName: <#T##String#>)
 	}
 

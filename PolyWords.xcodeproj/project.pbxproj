@@ -51,6 +51,7 @@
 		0B5DC9FD2406C55800827383 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9D82405D62100827383 /* Extensions.swift */; };
 		0B5DCA012406F21800827383 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DCA002406F21800827383 /* BufferProvider.swift */; };
 		0B5DCA022406F21800827383 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DCA002406F21800827383 /* BufferProvider.swift */; };
+		0B7F55FB2409741100728B5B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
 		0B946599240884AD0027864E /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9465972408848D0027864E /* GuideViewController.swift */; };
 		0B94659B24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
 		0B94659C24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
@@ -140,6 +141,8 @@
 		0B5DC9F02406032900827383 /* Title4.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Title4.obj; sourceTree = "<group>"; };
 		0B5DC9F924060E2200827383 /* TitleQuad.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TitleQuad.mtl; sourceTree = "<group>"; };
 		0B5DCA002406F21800827383 /* BufferProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
+		0B7F55F62409682300728B5B /* LongScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongScoreView.swift; sourceTree = "<group>"; };
+		0B7F55F9240973B000728B5B /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		0B9465972408848D0027864E /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		0B94659A24089C010027864E /* TestPolyhedron.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.mtl; path = ../../../TestPolyhedron.mtl; sourceTree = "<group>"; };
 		0B94659D24089C0E0027864E /* TestPolyhedron.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.obj; path = ../../../TestPolyhedron.obj; sourceTree = "<group>"; };
@@ -159,7 +162,7 @@
 		130F082922C43C57001B7909 /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 		130F082C22C43CC8001B7909 /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 		1343BA5622C2DB1B007EA044 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
-		1384A36F22C1B388006036BA /* Materials-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Materials-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1384A36F22C1B388006036BA /* PolyWords-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PolyWords-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1384A37222C1B388006036BA /* LocalClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalClasses.swift; sourceTree = "<group>"; };
 		1384A37422C1B389006036BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1384A37722C1B389006036BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -169,7 +172,7 @@
 		1384A38822C1B53E006036BA /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		1384A38A22C1BA95006036BA /* Primitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Primitive.swift; sourceTree = "<group>"; };
 		1384A38C22C1BE70006036BA /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
-		1384A3D922C1F04B006036BA /* Materials-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Materials-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1384A3D922C1F04B006036BA /* PolyWords-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PolyWords-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1384A3E222C1F04B006036BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1384A3E422C1F04D006036BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1384A3E722C1F04D006036BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -214,6 +217,7 @@
 				0BB446622407636D0006E805 /* WordsViewController.swift */,
 				0BB4466524077C9A0006E805 /* WordsViewController2.swift */,
 				0B9465A42408BE440027864E /* GuideScrollerController.swift */,
+				0B7F55F62409682300728B5B /* LongScoreView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -231,9 +235,9 @@
 		1384A36622C1B388006036BA = {
 			isa = PBXGroup;
 			children = (
-				1384A37122C1B388006036BA /* Materials */,
-				1384A3DA22C1F04B006036BA /* Materials-iOS */,
-				1384A3F522C1F210006036BA /* Materials-macOS */,
+				1384A37122C1B388006036BA /* PolyWords */,
+				1384A3DA22C1F04B006036BA /* PolyWords-iOS */,
+				1384A3F522C1F210006036BA /* PolyWords-macOS */,
 				1384A37022C1B388006036BA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -241,13 +245,13 @@
 		1384A37022C1B388006036BA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1384A36F22C1B388006036BA /* Materials-macOS.app */,
-				1384A3D922C1F04B006036BA /* Materials-iOS.app */,
+				1384A36F22C1B388006036BA /* PolyWords-macOS.app */,
+				1384A3D922C1F04B006036BA /* PolyWords-iOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1384A37122C1B388006036BA /* Materials */ = {
+		1384A37122C1B388006036BA /* PolyWords */ = {
 			isa = PBXGroup;
 			children = (
 				0B9465A024089C420027864E /* ViewControllers */,
@@ -282,8 +286,9 @@
 				13A7ABC722C2374C00609310 /* Utility */,
 				130F081A22C436F9001B7909 /* VertexDescriptor.swift */,
 				0B5DC9C02405D2A400827383 /* Words.swift */,
+				0B7F55F9240973B000728B5B /* AppController.swift */,
 			);
-			path = Materials;
+			path = PolyWords;
 			sourceTree = "<group>";
 		};
 		1384A39622C1DFC2006036BA /* Models */ = {
@@ -310,7 +315,7 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		1384A3DA22C1F04B006036BA /* Materials-iOS */ = {
+		1384A3DA22C1F04B006036BA /* PolyWords-iOS */ = {
 			isa = PBXGroup;
 			children = (
 				130F082C22C43CC8001B7909 /* ViewControllerExtension.swift */,
@@ -320,10 +325,10 @@
 				1384A3E622C1F04D006036BA /* LaunchScreen.storyboard */,
 				1384A3E922C1F04D006036BA /* Info.plist */,
 			);
-			path = "Materials-iOS";
+			path = "PolyWords-iOS";
 			sourceTree = "<group>";
 		};
-		1384A3F522C1F210006036BA /* Materials-macOS */ = {
+		1384A3F522C1F210006036BA /* PolyWords-macOS */ = {
 			isa = PBXGroup;
 			children = (
 				130F082922C43C57001B7909 /* ViewControllerExtension.swift */,
@@ -332,7 +337,7 @@
 				1384A37922C1B389006036BA /* Info.plist */,
 				1384A37A22C1B389006036BA /* Materials.entitlements */,
 			);
-			path = "Materials-macOS";
+			path = "PolyWords-macOS";
 			sourceTree = "<group>";
 		};
 		13A7ABC722C2374C00609310 /* Utility */ = {
@@ -346,9 +351,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1384A36E22C1B388006036BA /* Materials-macOS */ = {
+		1384A36E22C1B388006036BA /* PolyWords-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1384A37D22C1B389006036BA /* Build configuration list for PBXNativeTarget "Materials-macOS" */;
+			buildConfigurationList = 1384A37D22C1B389006036BA /* Build configuration list for PBXNativeTarget "PolyWords-macOS" */;
 			buildPhases = (
 				1384A36B22C1B388006036BA /* Sources */,
 				1384A36C22C1B388006036BA /* Frameworks */,
@@ -358,14 +363,14 @@
 			);
 			dependencies = (
 			);
-			name = "Materials-macOS";
+			name = "PolyWords-macOS";
 			productName = Pipeline;
-			productReference = 1384A36F22C1B388006036BA /* Materials-macOS.app */;
+			productReference = 1384A36F22C1B388006036BA /* PolyWords-macOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1384A3D822C1F04B006036BA /* Materials-iOS */ = {
+		1384A3D822C1F04B006036BA /* PolyWords-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1384A3EA22C1F04D006036BA /* Build configuration list for PBXNativeTarget "Materials-iOS" */;
+			buildConfigurationList = 1384A3EA22C1F04D006036BA /* Build configuration list for PBXNativeTarget "PolyWords-iOS" */;
 			buildPhases = (
 				1384A3D522C1F04B006036BA /* Sources */,
 				1384A3D622C1F04B006036BA /* Frameworks */,
@@ -375,9 +380,9 @@
 			);
 			dependencies = (
 			);
-			name = "Materials-iOS";
+			name = "PolyWords-iOS";
 			productName = "Pipeline-iOS";
-			productReference = 1384A3D922C1F04B006036BA /* Materials-iOS.app */;
+			productReference = 1384A3D922C1F04B006036BA /* PolyWords-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -400,7 +405,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 1384A36A22C1B388006036BA /* Build configuration list for PBXProject "Materials" */;
+			buildConfigurationList = 1384A36A22C1B388006036BA /* Build configuration list for PBXProject "PolyWords" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -413,8 +418,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1384A36E22C1B388006036BA /* Materials-macOS */,
-				1384A3D822C1F04B006036BA /* Materials-iOS */,
+				1384A36E22C1B388006036BA /* PolyWords-macOS */,
+				1384A3D822C1F04B006036BA /* PolyWords-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -533,6 +538,7 @@
 				0B5DC9BC2405D28C00827383 /* TitleIntegrator.swift in Sources */,
 				0B5DCA022406F21800827383 /* BufferProvider.swift in Sources */,
 				0B5DC9BF2405D29F00827383 /* SQLiteDatabase.swift in Sources */,
+				0B7F55FB2409741100728B5B /* AppController.swift in Sources */,
 				1384A3F122C1F12C006036BA /* Shaders.metal in Sources */,
 				1384A3EE22C1F0A7006036BA /* LocalClasses.swift in Sources */,
 				0B9465A62408BE450027864E /* GuideScrollerController.swift in Sources */,
@@ -793,7 +799,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1384A36A22C1B388006036BA /* Build configuration list for PBXProject "Materials" */ = {
+		1384A36A22C1B388006036BA /* Build configuration list for PBXProject "PolyWords" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1384A37B22C1B389006036BA /* Debug */,
@@ -802,7 +808,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1384A37D22C1B389006036BA /* Build configuration list for PBXNativeTarget "Materials-macOS" */ = {
+		1384A37D22C1B389006036BA /* Build configuration list for PBXNativeTarget "PolyWords-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1384A37E22C1B389006036BA /* Debug */,
@@ -811,7 +817,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1384A3EA22C1F04D006036BA /* Build configuration list for PBXNativeTarget "Materials-iOS" */ = {
+		1384A3EA22C1F04D006036BA /* Build configuration list for PBXNativeTarget "PolyWords-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1384A3EB22C1F04D006036BA /* Debug */,
