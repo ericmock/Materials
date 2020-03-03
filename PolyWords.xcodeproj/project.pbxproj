@@ -51,6 +51,11 @@
 		0B5DC9FD2406C55800827383 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9D82405D62100827383 /* Extensions.swift */; };
 		0B5DCA012406F21800827383 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DCA002406F21800827383 /* BufferProvider.swift */; };
 		0B5DCA022406F21800827383 /* BufferProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DCA002406F21800827383 /* BufferProvider.swift */; };
+		0B62E95B240DC7CC006C7FE3 /* HighScores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95A240DC7CC006C7FE3 /* HighScores.swift */; };
+		0B62E95C240DC7CC006C7FE3 /* HighScores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95A240DC7CC006C7FE3 /* HighScores.swift */; };
+		0B62E95E240DC97D006C7FE3 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
+		0B62E960240DCA27006C7FE3 /* HighWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95F240DCA27006C7FE3 /* HighWords.swift */; };
+		0B62E961240DCA27006C7FE3 /* HighWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95F240DCA27006C7FE3 /* HighWords.swift */; };
 		0B7F55FB2409741100728B5B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
 		0B946599240884AD0027864E /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9465972408848D0027864E /* GuideViewController.swift */; };
 		0B94659B24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
@@ -141,6 +146,8 @@
 		0B5DC9F02406032900827383 /* Title4.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Title4.obj; sourceTree = "<group>"; };
 		0B5DC9F924060E2200827383 /* TitleQuad.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TitleQuad.mtl; sourceTree = "<group>"; };
 		0B5DCA002406F21800827383 /* BufferProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
+		0B62E95A240DC7CC006C7FE3 /* HighScores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScores.swift; sourceTree = "<group>"; };
+		0B62E95F240DCA27006C7FE3 /* HighWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighWords.swift; sourceTree = "<group>"; };
 		0B7F55F62409682300728B5B /* LongScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongScoreView.swift; sourceTree = "<group>"; };
 		0B7F55F9240973B000728B5B /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		0B9465972408848D0027864E /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
@@ -161,7 +168,6 @@
 		130F081A22C436F9001B7909 /* VertexDescriptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VertexDescriptor.swift; sourceTree = "<group>"; };
 		130F082922C43C57001B7909 /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 		130F082C22C43CC8001B7909 /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
-		1343BA5622C2DB1B007EA044 /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
 		1384A36F22C1B388006036BA /* PolyWords-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PolyWords-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1384A37222C1B388006036BA /* LocalClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalClasses.swift; sourceTree = "<group>"; };
 		1384A37422C1B389006036BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -259,7 +265,6 @@
 				0B5DC9CC2405D3C800827383 /* BasePolygon.swift */,
 				0B5DCA002406F21800827383 /* BufferProvider.swift */,
 				130F080E22C434CF001B7909 /* Camera.swift */,
-				1343BA5622C2DB1B007EA044 /* Common.h */,
 				0B5DC9D82405D62100827383 /* Extensions.swift */,
 				0B5DC9B42405D27900827383 /* GameScene.swift */,
 				13EBBB3E22C6FDA500230D2B /* Lighting.swift */,
@@ -287,6 +292,8 @@
 				130F081A22C436F9001B7909 /* VertexDescriptor.swift */,
 				0B5DC9C02405D2A400827383 /* Words.swift */,
 				0B7F55F9240973B000728B5B /* AppController.swift */,
+				0B62E95F240DCA27006C7FE3 /* HighWords.swift */,
+				0B62E95A240DC7CC006C7FE3 /* HighScores.swift */,
 			);
 			path = PolyWords;
 			sourceTree = "<group>";
@@ -495,6 +502,7 @@
 				0B5DC9B52405D27A00827383 /* GameScene.swift in Sources */,
 				130F081222C4352D001B7909 /* Model.swift in Sources */,
 				13EBBB3F22C6FDA500230D2B /* Lighting.swift in Sources */,
+				0B62E95E240DC97D006C7FE3 /* AppController.swift in Sources */,
 				130F081B22C436F9001B7909 /* VertexDescriptor.swift in Sources */,
 				139D235322C851DC00C6DB03 /* Texturable.swift in Sources */,
 				130F082A22C43C57001B7909 /* ViewControllerExtension.swift in Sources */,
@@ -513,7 +521,9 @@
 				1384A38B22C1BA95006036BA /* Primitive.swift in Sources */,
 				0B5DC9C72405D38600827383 /* MyPolygon.swift in Sources */,
 				1384A38D22C1BE70006036BA /* Shaders.metal in Sources */,
+				0B62E95B240DC7CC006C7FE3 /* HighScores.swift in Sources */,
 				0B5DC9CD2405D3C800827383 /* BasePolygon.swift in Sources */,
+				0B62E960240DCA27006C7FE3 /* HighWords.swift in Sources */,
 				13A7ABC522C2374400609310 /* MathLibrary.swift in Sources */,
 				0B5DC9CA2405D39800827383 /* Polyhedron.swift in Sources */,
 				0B5DC9FD2406C55800827383 /* Extensions.swift in Sources */,
@@ -529,12 +539,14 @@
 			files = (
 				130F081922C435A0001B7909 /* Submesh.swift in Sources */,
 				0B946599240884AD0027864E /* GuideViewController.swift in Sources */,
+				0B62E95C240DC7CC006C7FE3 /* HighScores.swift in Sources */,
 				0B5DC9B62405D27A00827383 /* GameScene.swift in Sources */,
 				130F081322C4352D001B7909 /* Model.swift in Sources */,
 				13EBBB4022C6FDA500230D2B /* Lighting.swift in Sources */,
 				130F081C22C436F9001B7909 /* VertexDescriptor.swift in Sources */,
 				139D235422C851DC00C6DB03 /* Texturable.swift in Sources */,
 				130F081022C434CF001B7909 /* Camera.swift in Sources */,
+				0B62E961240DCA27006C7FE3 /* HighWords.swift in Sources */,
 				0B5DC9BC2405D28C00827383 /* TitleIntegrator.swift in Sources */,
 				0B5DCA022406F21800827383 /* BufferProvider.swift in Sources */,
 				0B5DC9BF2405D29F00827383 /* SQLiteDatabase.swift in Sources */,
@@ -650,7 +662,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OBJC_BRIDGING_HEADER = Materials/Common.h;
+				SWIFT_OBJC_BRIDGING_HEADER = PolyWords/Common.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -704,7 +716,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_OBJC_BRIDGING_HEADER = Materials/Common.h;
+				SWIFT_OBJC_BRIDGING_HEADER = PolyWords/Common.h;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
@@ -719,12 +731,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 567YC6JLS4;
-				INFOPLIST_FILE = "Materials-macOS/Info.plist";
+				INFOPLIST_FILE = "Polywords-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Materials;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.Materials;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -741,12 +753,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 567YC6JLS4;
-				INFOPLIST_FILE = "Materials-macOS/Info.plist";
+				INFOPLIST_FILE = "Polywords-macOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Materials;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.Materials;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -759,7 +771,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 567YC6JLS4;
-				INFOPLIST_FILE = "Materials-iOS/Info.plist";
+				INFOPLIST_FILE = "PolyWords-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -781,7 +793,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 567YC6JLS4;
-				INFOPLIST_FILE = "Materials-iOS/Info.plist";
+				INFOPLIST_FILE = "PolyWords-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
