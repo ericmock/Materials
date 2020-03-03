@@ -23,8 +23,8 @@ class HighScores : NSObject {
 	var encodedScoreDataArray: NSMutableArray!
 	var wordArray: [String]!
 	
-	init(withFile path:String, delegate d:AppController) {
-		super.init()
+	
+	func reset(withFile path:String, delegate d:AppController) {
 		mode = 0
 		score = 0
 		time = 0
@@ -52,7 +52,109 @@ class HighScores : NSObject {
 //			return self;
 //		}
 //	}
+	
+	func getHighScoreForEachLevel() -> NSArray {
+		let array = NSMutableArray()
+		var counter = 1
+		for tempDict in (appController.polyhedronInfoArray as! [NSDictionary]) {
+			let num = getHighScore(forPolyhedron: tempDict.object(forKey: "polyID") as! Int)
+			array.add(Float(counter))
+			if num < Float.greatestFiniteMagnitude {
+				array.add(num)
+			} else {
+				array.add(0)
+			}
+			counter += 1
+		}
+		return array
+	}
+	
+	func letterUse() -> NSArray {
+		var wordsFoundFileHandle:FileHandle
+		if (mode == kDynamicTimedMode || mode == kDynamicScoredMode) {
+			wordsFoundFileHandle = FileHandle(forReadingAtPath: appController.getDynamicWordsFoundPath()+"_string")!
+		} else if (mode == kStaticTimedMode || mode == kStaticScoredMode) {
+			wordsFoundFileHandle = FileHandle(forReadingAtPath: appController.getStaticWordsFoundPath()+"_string")!
+		} else {
+			wordsFoundFileHandle = FileHandle.nullDevice
+		}
+		
+		let wordsFoundData = wordsFoundFileHandle.readDataToEndOfFile()
+		let string = NSString(data: wordsFoundData, encoding: String.Encoding.utf8.rawValue)
+		
+		let array = NSMutableArray()
+		let alphabet = "abcdefghijklmnopqrstuvwxyz"
 
+		for letter in alphabet {
+			let tok = string?.components(separatedBy: String(letter))
+			array.add(tok?.count ?? 0)
+		}
+		return array
+	}
+	
+	func getHighScore(forPolyhedron type:Int) -> Float {
+		var highScore:Float = 0
+		var count = 0
+		for array in (decodedScoreDataArray as! [NSArray]) {
+			if array.object(at: 1) as! Int == type,
+			array.object(at: 3) as! Float > highScore,
+				abs(array.object(at: 2) as! Float - Float(kTimeToCompleteDynamic)) < 1.1,
+				array.object(at: 0) as! Int == mode {
+				highScore = array.object(at: 3) as! Float
+				count += 1
+			}
+		}
+		return highScore
+	}
+
+	func getTimes(forPolyhedron type:Int) -> NSArray {
+		let timeArray = NSMutableArray()
+		for array in (decodedScoreDataArray as! [NSArray]) {
+			if array.object(at: 1) as! Int == type,
+				array.object(at: 0) as! Int == kScoreToObtainDynamic {
+				timeArray.add(array.object(at: 2))
+			}
+		}
+		return NSArray(array: timeArray)
+	}
+
+	func getScores(forPolyhedron type:Int) -> NSArray {
+		let timeArray = NSMutableArray()
+		for array in (decodedScoreDataArray as! [NSArray]) {
+			if array.object(at: 1) as! Int == type,
+				array.object(at: 0) as! Int == mode {
+				timeArray.add(array.object(at: 3))
+			}
+		}
+		return NSArray(array: timeArray)
+	}
+	
+	func getAverageScore(forPolyhedron type:Int) -> NSArray {
+		var totalScore:Int = 0
+		var plays:Int = 0
+		for array in (decodedScoreDataArray as! [NSArray]) {
+			if array.object(at: 1) as! Int == type,
+				array.object(at: 0) as! Int == mode {
+				totalScore += array.object(at: 3) as! Int
+				plays += 1
+			}
+		}
+		return NSArray(array: [totalScore, plays])
+	}
+	
+	func getAverageTime(forPolyhedron type:Int) -> NSArray {
+		var totalTime:Float = 0
+		var plays:Int = 0
+		for array in (decodedScoreDataArray as! [NSArray]) {
+			if array.object(at: 1) as! Int == type,
+				array.object(at: 0) as! Int == mode {
+				totalTime += array.object(at: 2) as! Float
+				plays += 1
+			}
+		}
+		return NSArray(array: [totalTime, plays])
+	}
+	
 let kScoreToObtainStatic = 0
 let kStaticTimedMode = 0
 let kStaticScoredMode = 1
