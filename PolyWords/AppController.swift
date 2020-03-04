@@ -1,6 +1,5 @@
 import Foundation
 import Cocoa
-//import UIKit
 
 let numPolygonTypes = 15
 struct AppConstants {
@@ -17,7 +16,7 @@ struct AppConstants {
 
 class AppController: AppDelegate {
 	
-	let screenRect = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
+	let screenRect:CGRect = CGRect(x: CGFloat(0.0), y: CGFloat(0.0), width: CGFloat(10.0), height: CGFloat(10.0))
 	let darkColor:NSColor = NSColor(red: 43.0/256.0, green: 34.0/256.0, blue: 20.0/256.0, alpha: 1.0)
 	var polyhedronInfoArray:NSMutableArray?
 	var polyhedraInfo:NSDictionary?
@@ -33,8 +32,6 @@ class AppController: AppDelegate {
 	var purchasingQ = false
 	var connection_failed = false
 	var resign_state = 0
-//	var polyhedraInfo = NSMutableArray()
-//	var wordThread = nil
 	let wordNumbers = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven"]
 	let alphabetArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 	let nowTime = Date()
@@ -51,17 +48,16 @@ class AppController: AppDelegate {
 	var sound = true
 	var adSize:CGSize!
 	var textures = UnsafeMutablePointer<UInt>.allocate(capacity: numPolygonTypes + 5)
-	//	textures = (GLuint *)calloc(sizeof(GLuint),(num_polygon_types + 5));
 	var textureExists = [Bool](repeating: false, count: numPolygonTypes + 5)
 	var gameViewInitializedQ = false
 	let polyWordsView:PolyWordsView!
 	var level:UInt = 0
 	var level_aborted = false
 	var level_completed = false
+	var game_id:UInt = 0
 	
-
-	override init() {
-		polyWordsView = PolyWordsView()
+	required init(aCoder:NSCoder) {
+		polyWordsView = PolyWordsView(coder: aCoder)
 		super.init()
 	}
 	
