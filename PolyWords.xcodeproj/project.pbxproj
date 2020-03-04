@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B11CA72240F3EDD001B76A2 /* EncodeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11CA71240F3EDD001B76A2 /* EncodeDecode.swift */; };
+		0B11CA73240F3EDE001B76A2 /* EncodeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11CA71240F3EDD001B76A2 /* EncodeDecode.swift */; };
+		0B11CA75240F4035001B76A2 /* PolyWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11CA74240F4035001B76A2 /* PolyWordsView.swift */; };
+		0B11CA76240F4035001B76A2 /* PolyWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11CA74240F4035001B76A2 /* PolyWordsView.swift */; };
 		0B5DC9AC2405C52C00827383 /* wood_original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9AB2405C52C00827383 /* wood_original.jpg */; };
 		0B5DC9AD2405C52C00827383 /* wood_original.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0B5DC9AB2405C52C00827383 /* wood_original.jpg */; };
 		0B5DC9AF2405D25A00827383 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9AE2405D25A00827383 /* Scene.swift */; };
@@ -123,6 +127,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B11CA70240F35F1001B76A2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		0B11CA71240F3EDD001B76A2 /* EncodeDecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncodeDecode.swift; sourceTree = "<group>"; };
+		0B11CA74240F4035001B76A2 /* PolyWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyWordsView.swift; sourceTree = "<group>"; };
 		0B5DC9AB2405C52C00827383 /* wood_original.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood_original.jpg; sourceTree = "<group>"; };
 		0B5DC9AE2405D25A00827383 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		0B5DC9B12405D26F00827383 /* TrackBall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackBall.swift; sourceTree = "<group>"; };
@@ -292,8 +299,11 @@
 				130F081A22C436F9001B7909 /* VertexDescriptor.swift */,
 				0B5DC9C02405D2A400827383 /* Words.swift */,
 				0B7F55F9240973B000728B5B /* AppController.swift */,
+				0B11CA71240F3EDD001B76A2 /* EncodeDecode.swift */,
+				0B11CA74240F4035001B76A2 /* PolyWordsView.swift */,
 				0B62E95F240DCA27006C7FE3 /* HighWords.swift */,
 				0B62E95A240DC7CC006C7FE3 /* HighScores.swift */,
+				0B11CA70240F35F1001B76A2 /* AppConstants.swift */,
 			);
 			path = PolyWords;
 			sourceTree = "<group>";
@@ -500,10 +510,12 @@
 			files = (
 				130F081822C435A0001B7909 /* Submesh.swift in Sources */,
 				0B5DC9B52405D27A00827383 /* GameScene.swift in Sources */,
+				0B11CA75240F4035001B76A2 /* PolyWordsView.swift in Sources */,
 				130F081222C4352D001B7909 /* Model.swift in Sources */,
 				13EBBB3F22C6FDA500230D2B /* Lighting.swift in Sources */,
 				0B62E95E240DC97D006C7FE3 /* AppController.swift in Sources */,
 				130F081B22C436F9001B7909 /* VertexDescriptor.swift in Sources */,
+				0B11CA72240F3EDD001B76A2 /* EncodeDecode.swift in Sources */,
 				139D235322C851DC00C6DB03 /* Texturable.swift in Sources */,
 				130F082A22C43C57001B7909 /* ViewControllerExtension.swift in Sources */,
 				0B5DC9BB2405D28C00827383 /* TitleIntegrator.swift in Sources */,
@@ -543,6 +555,7 @@
 				0B5DC9B62405D27A00827383 /* GameScene.swift in Sources */,
 				130F081322C4352D001B7909 /* Model.swift in Sources */,
 				13EBBB4022C6FDA500230D2B /* Lighting.swift in Sources */,
+				0B11CA76240F4035001B76A2 /* PolyWordsView.swift in Sources */,
 				130F081C22C436F9001B7909 /* VertexDescriptor.swift in Sources */,
 				139D235422C851DC00C6DB03 /* Texturable.swift in Sources */,
 				130F081022C434CF001B7909 /* Camera.swift in Sources */,
@@ -566,6 +579,7 @@
 				1384A3F022C1F12A006036BA /* Renderer.swift in Sources */,
 				0B5DC9C82405D38600827383 /* MyPolygon.swift in Sources */,
 				130F082D22C43CC8001B7909 /* ViewControllerExtension.swift in Sources */,
+				0B11CA73240F3EDE001B76A2 /* EncodeDecode.swift in Sources */,
 				0B5DC9CE2405D3C800827383 /* BasePolygon.swift in Sources */,
 				13A7ABC622C2374400609310 /* MathLibrary.swift in Sources */,
 				0B5DC9CB2405D39800827383 /* Polyhedron.swift in Sources */,

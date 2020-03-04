@@ -3,12 +3,23 @@ import Cocoa
 //import UIKit
 
 let numPolygonTypes = 15
+struct AppConstants {
+	static let kScoreToObtainStatic:UInt = 0
+	static let kStaticTimedMode:UInt = 0
+	static let kStaticScoredMode:UInt = 1
+	static let kDynamicTimedMode:UInt = 2
+	static let kDynamicScoredMode:UInt = 3
+	static let kTimeToCompleteStatic:UInt = 0
+	static let kTimeToCompleteDynamic:UInt = 0
+	static let kScoreToObtainDynamic:UInt = 0
+}
 
 class AppController {
 	
 	let screenRect = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
 	let darkColor:NSColor = NSColor(red: 43.0/256.0, green: 34.0/256.0, blue: 20.0/256.0, alpha: 1.0)
 	let polyhedronInfoArray:NSMutableArray?
+	var polyhedraInfo:NSDictionary?
 	let polyhedronArray = NSMutableArray()
 	let polyhedronNamesArray = NSMutableArray()
 	let polyhedronNumbersArray = NSMutableArray()
@@ -17,10 +28,11 @@ class AppController {
 	var highest_completed = repeatElement(UInt(), count: 4)
 	var accelQ = false
 	var recordTimeQ = true
+	var continuingQ = false
 	var purchasingQ = false
 	var connection_failed = false
 	var resign_state = 0
-	var polyhedraInfo = NSMutableArray()
+//	var polyhedraInfo = NSMutableArray()
 //	var wordThread = nil
 	let wordNumbers = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven"]
 	let alphabetArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -39,8 +51,11 @@ class AppController {
 	var textures = UnsafeMutablePointer<UInt>.allocate(capacity: numPolygonTypes + 5)
 	//	textures = (GLuint *)calloc(sizeof(GLuint),(num_polygon_types + 5));
 	var textureExists = [Bool](repeating: false, count: numPolygonTypes + 5)
+	var gameViewInitializedQ = false
+	let polyWordsView:PolyWordsView!
 
 	init() {
+		polyWordsView = PolyWordsView()
 		if unlocked {
 			polyhedronArray.addObjects(from: ["Truncated Icosahedron", 2, 1,
 								 "Parabigyrate Rhombicosidodecahedron", 14, 2,
@@ -125,13 +140,77 @@ class AppController {
 		}
 		
 		highScores.mode = mode
-
+	}
+	
+	func removeAllStoredData() {
+		
+	}
+	
+	func initializeGame() {
+		
+	}
+	
+	func loadData(forMode mode:UInt) {
+		var saveData = NSArray()
+		switch mode {
+		case AppConstants.kStaticTimedMode:
+			saveData = NSArray.init(contentsOfFile: self.getStaticTimedSavePath())!
+			break
+		case AppConstants.kStaticScoredMode:
+			saveData = NSArray.init(contentsOfFile: self.getStaticScoredSavePath())!
+			break
+		case AppConstants.kDynamicTimedMode:
+			saveData = NSArray.init(contentsOfFile: self.getDynamicTimedSavePath())!
+			break
+		case AppConstants.kDynamicScoredMode:
+			saveData = NSArray.init(contentsOfFile: self.getDynamicScoredSavePath())!
+			break
+		default:
+			break
+		}
+		self.removeAllStoredData()
+		if !gameViewInitializedQ {
+			self.initializeGame()
+		}
+		self.mode = mode
+		let decodedDataArray = EncodeDecode.decode(gameData: saveData, withTimeHistory:polyWordsView.timeHistory, withWordsFound:polyWordsView.wordsFound)
+		polyWordsView.score = decodedDataArray.object(at: 0) as! Int
+		polyWordsView.playTime = decodedDataArray.object(at: 1) as! Float
+		polyWordsView.lastSubmitTime = decodedDataArray.object(at: 1) as! Float
+		continuingQ = true
+		polyhedraInfo = saveData.object(at: 0) as? NSDictionary
+		polyWordsView.selectPolyhedron(withInfo: polyhedraInfo!)
+		
+		var ii = 0
+		for num in decodedDataArray.object(at: 2) as! [Int] {
+			polyWordsView.assignLetter(with: num, toPolyNumber: ii)
+			ii += 1
+		}
+	}
+	
+	func copyDatabasesIfNeeded() {
+		let fileManager = FileManager()
+//		var error:NSError
+		var dbPath:String
+		var success:Bool
+//		var defaultDBPath:String
+		
+		dbPath = self.getWordDBPath()
+		success = fileManager.fileExists(atPath: dbPath)
+		if !success {
+			let defaultDBPath = Bundle.main.resourcePath! + "wordlist.sqlite"
+			do {
+				try fileManager.copyItem(atPath: defaultDBPath, toPath: dbPath)
+			} catch {
+				print("Failed to create writable database file.")
+			}
+		}
 	}
 	
 	func createFilesIfNeeded() -> Bool {
 		let fileManager = FileManager()
 		var filePath = self.getHighWordsPath()
-		let success = fileManager.fileExists(atPath: filePath)
+		var success = fileManager.fileExists(atPath: filePath)
 		let numPolyhedra:Int = polyhedronInfoArray!.count
 		
 		if !success {
@@ -142,8 +221,48 @@ class AppController {
 			tempArray.write(toFile: filePath, atomically: true)
 		}
 		
+		filePath = self.getHighScoresPath()
+		success = fileManager.fileExists(atPath: filePath)
+		if !success {
+			let tempArray = NSMutableArray(capacity: numPolyhedra)
+			for ii in 0..<numPolyhedra {
+				tempArray.add([ii, 0.0, 0.0, 0.0, 0.0, 0.0])
+			}
+			tempArray.write(toFile: filePath, atomically: true)
+		}
 		
-		
+		filePath = self.getStaticWordsFoundPath()
+		success = fileManager.fileExists(atPath: filePath)
+		if !success {
+			let tempArray = NSArray()
+			tempArray.write(toFile: filePath, atomically: true)
+		}
+
+		filePath = self.getDynamicWordsFoundPath()
+		success = fileManager.fileExists(atPath: filePath)
+		if !success {
+			let tempArray = NSArray()
+			tempArray.write(toFile: filePath, atomically: true)
+		}
+
+		filePath = self.getDynamicWordsFoundPath() + "_string"
+		success = fileManager.fileExists(atPath: filePath)
+		if !success {
+			fileManager.createFile(atPath: filePath, contents: nil, attributes: nil)
+		}
+
+		filePath = self.getAdventureScorePath() + "_string"
+		success = fileManager.fileExists(atPath: filePath)
+		if !success {
+			fileManager.createFile(atPath: filePath, contents: nil, attributes: nil)
+		}
+
+		filePath = self.getStaticWordsFoundPath() + "_string"
+		success = fileManager.fileExists(atPath: filePath)
+		if !success {
+			fileManager.createFile(atPath: filePath, contents: nil, attributes: nil)
+		}
+
 		return true
 	}
 

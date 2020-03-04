@@ -71,9 +71,9 @@ class HighScores : NSObject {
 	
 	func letterUse() -> NSArray {
 		var wordsFoundFileHandle:FileHandle
-		if (mode == kDynamicTimedMode || mode == kDynamicScoredMode) {
+		if (mode == AppConstants.kDynamicTimedMode || mode == AppConstants.kDynamicScoredMode) {
 			wordsFoundFileHandle = FileHandle(forReadingAtPath: appController.getDynamicWordsFoundPath()+"_string")!
-		} else if (mode == kStaticTimedMode || mode == kStaticScoredMode) {
+		} else if (mode == AppConstants.kStaticTimedMode || mode == AppConstants.kStaticScoredMode) {
 			wordsFoundFileHandle = FileHandle(forReadingAtPath: appController.getStaticWordsFoundPath()+"_string")!
 		} else {
 			wordsFoundFileHandle = FileHandle.nullDevice
@@ -98,7 +98,7 @@ class HighScores : NSObject {
 		for array in (decodedScoreDataArray as! [NSArray]) {
 			if array.object(at: 1) as! Int == type,
 			array.object(at: 3) as! Float > highScore,
-				abs(array.object(at: 2) as! Float - Float(kTimeToCompleteDynamic)) < 1.1,
+				abs(array.object(at: 2) as! Float - Float(AppConstants.kTimeToCompleteDynamic)) < 1.1,
 				array.object(at: 0) as! Int == mode {
 				highScore = array.object(at: 3) as! Float
 				count += 1
@@ -111,7 +111,7 @@ class HighScores : NSObject {
 		let timeArray = NSMutableArray()
 		for array in (decodedScoreDataArray as! [NSArray]) {
 			if array.object(at: 1) as! Int == type,
-				array.object(at: 0) as! Int == kScoreToObtainDynamic {
+				array.object(at: 0) as! Int == AppConstants.kScoreToObtainDynamic {
 				timeArray.add(array.object(at: 2))
 			}
 		}
@@ -155,49 +155,40 @@ class HighScores : NSObject {
 		return NSArray(array: [totalTime, plays])
 	}
 	
-let kScoreToObtainStatic = 0
-let kStaticTimedMode = 0
-let kStaticScoredMode = 1
-let kDynamicTimedMode = 2
-let kDynamicScoredMode = 3
-let kTimeToCompleteStatic = 0
-let kTimeToCompleteDynamic = 0
-let kScoreToObtainDynamic = 0
-	
 	func checkLevelCompleted(num:NSNumber) -> Bool {
 		print("into checkLevelCompleted:  \(num) of \(self.className)")
 		var complete = false
-		if (mode == kStaticTimedMode) {
+		if (mode == AppConstants.kStaticTimedMode) {
 			for array in (decodedScoreDataArray as! [NSArray]) {
 				if num.isEqual(to: array.object(at: 1)),
-					array.object(at: 1) as! Int >= kScoreToObtainStatic,
+					array.object(at: 1) as! Int >= AppConstants.kScoreToObtainStatic,
 					array.object(at: 0) as! Int == mode {
 						complete = true
 					break
 				}
 			}
-		} else if mode == kStaticScoredMode {
+		} else if mode == AppConstants.kStaticScoredMode {
 			for array in (decodedScoreDataArray as! [NSArray]) {
 				if num.isEqual(to: array.object(at: 1)),
-					(array.object(at: 1) as! Int) <= kTimeToCompleteStatic,
+					(array.object(at: 1) as! Int) <= AppConstants.kTimeToCompleteStatic,
 					array.object(at: 0) as! Int == mode {
 						complete = true
 					break
 				}
 			}
-		} else if mode == kDynamicScoredMode {
+		} else if mode == AppConstants.kDynamicScoredMode {
 			for array in (decodedScoreDataArray as! [NSArray]) {
 				if num.isEqual(to: array.object(at: 1)),
-					(array.object(at: 1) as! Int) <= kTimeToCompleteDynamic,
+					(array.object(at: 1) as! Int) <= AppConstants.kTimeToCompleteDynamic,
 					array.object(at: 0) as! Int == mode {
 						complete = true
 					break
 				}
 			}
-		} else if mode == kDynamicTimedMode {
+		} else if mode == AppConstants.kDynamicTimedMode {
 			for array in (decodedScoreDataArray as! [NSArray]) {
 				if num.isEqual(to: array.object(at: 1)),
-					(array.object(at: 1) as! Int) >= kScoreToObtainDynamic,
+					(array.object(at: 1) as! Int) >= AppConstants.kScoreToObtainDynamic,
 					array.object(at: 0) as! Int == mode {
 						complete = true
 					break
