@@ -12,13 +12,14 @@ struct AppConstants {
 	static let kTimeToCompleteStatic:UInt = 0
 	static let kTimeToCompleteDynamic:UInt = 0
 	static let kScoreToObtainDynamic:UInt = 0
+	static let kGameStart:UInt = 0
 }
 
-class AppController {
+class AppController: AppDelegate {
 	
 	let screenRect = CGRect(x: 0.0, y: 0.0, width: 10.0, height: 10.0)
 	let darkColor:NSColor = NSColor(red: 43.0/256.0, green: 34.0/256.0, blue: 20.0/256.0, alpha: 1.0)
-	let polyhedronInfoArray:NSMutableArray?
+	var polyhedronInfoArray:NSMutableArray?
 	var polyhedraInfo:NSDictionary?
 	let polyhedronArray = NSMutableArray()
 	let polyhedronNamesArray = NSMutableArray()
@@ -42,6 +43,7 @@ class AppController {
 	var upgrading = true
 	var sendDataQ = true
 	var upgraded = true
+	var levelAborted = false
 	var checking = 0
 	var bgTexture = 3
 	var axesQ = false
@@ -53,93 +55,14 @@ class AppController {
 	var textureExists = [Bool](repeating: false, count: numPolygonTypes + 5)
 	var gameViewInitializedQ = false
 	let polyWordsView:PolyWordsView!
+	var level:UInt = 0
+	var level_aborted = false
+	var level_completed = false
+	
 
-	init() {
+	override init() {
 		polyWordsView = PolyWordsView()
-		if unlocked {
-			polyhedronArray.addObjects(from: ["Truncated Icosahedron", 2, 1,
-								 "Parabigyrate Rhombicosidodecahedron", 14, 2,
-								 "Parabidiminished Rhombicosidodecahedron", 16, 3,
-								 "Deca-faced Polyhedron", 20, 4,
-								 "Rhombic Triacontahedron", 23, 5,
-								 "Great Dodecacronic Hexecontahedron", 25, 6,
-								 "Truncated Dodecahedron", 24, 7,
-								 "Octagon-Drilled Truncated Cuboctahedron", 11, 8,
-								 "Rhombicosidodecahedron", 12, 9,
-								 "Truncated Truncated Icosahedron", 26, 10,
-								 "Drilled Truncated Cube", 9, 11,
-								 "Truncated Cuboctahedron", 18, 12,
-								 "Gyroelongated Square Bicupola", 19, 13,
-								 "Nameless Blob", 35, 14,
-								 "Stewart K4'", 10, 15,
-								 "Pentagonal Orthobirotunda", 15, 16,
-								 "Truncated Icosidodecahedron", 13, 17,
-								 "Gyroelongated Pentagonal Rotunda", 21, 18,
-								 "Drilled Truncated Dodecahedron", 37, 19,
-								 "Half-truncated Truncated Icosahedron", 17, 20,
-								 "Truncated Octahedron 8", 32, 21,
-								 "Truncated Octahedron", 6, 22,
-								 "Strombic Hexecontahedron", 3, 23,
-								 "Disdyakisdodecahedron", 31, 24,
-								 "Antiprism-Extended Dodecahedrahedron Ring", 34, 25,
-								 "Gyro-Expanded Cuboctahedron", 28, 26,
-								 "Tetrakishexahedron", 7, 27,
-								 "Icosahedra 8-ring", 29, 28,
-								 "Cupola-Drilled Truncated Icosidodecahedron", 5, 29,
-								 "Gyro-Double-Expanded Cuboctahedron", 36, 30,
-								 "Rotunda-Drilled Truncated Icosidodecahedron", 27, 31,
-								 "Prism-Expanded Truncated Cube", 33, 32,
-								 "Eight-Octahedron Ring", 8, 33,
-								 "Torus Slice", 4, 34,
-								 "Gyroelongated Pentagonal Cupola", 22, 35])
-		}	else {
-			polyhedronArray.addObjects(from: ["Truncated Icosahedron", 2, 1,
-								 "Parabigyrate Rhombicosidodecahedron", 14, 2,
-								 "Parabidiminished Rhombicosidodecahedron", 16, 3,
-								 "Deca-faced Polyhedron", 20, 4,
-								 "Rhombic Triacontahedron", 23, 5,
-								 "Great Dodecacronic Hexecontahedron", 25, 6,
-								 "Truncated Dodecahedron", 24, 7,
-								 "Octagon-Drilled Truncated Cuboctahedron", 11, 8,
-								 "Rhombicosidodecahedron", 12, 9,
-								 "Truncated Truncated Icosahedron", 26, 10])
-		}
-		
-		for ii in stride(from: 0, through: polyhedronArray.count, by: 3) {
-			polyhedronNamesArray.add(polyhedronArray.object(at: ii))
-		}
-		
-		for ii in stride(from: 1, through: polyhedronArray.count, by: 3) {
-			polyhedronNumbersArray.add(polyhedronArray.object(at: ii))
-		}
-		
-		for ii in stride(from: 2, through: polyhedronArray.count, by: 3) {
-			polyhedronLevelsArray.add(polyhedronArray.object(at: ii))
-		}
-		
-		polyhedronInfoArray = NSMutableArray()
-		highScores.reset(withFile: "**", delegate: self)
-
-		var loc:Int
-		var polyID:NSNumber
-		var completed = [Bool(), Bool(), Bool(), Bool()]
-		for ii in 1..<polyhedronLevelsArray.count + 1 {
-			loc = polyhedronLevelsArray.object(at: ii) as! Int
-			polyID = polyhedronNumbersArray.object(at: loc) as! NSNumber
-			for jj in 0..<4 {
-				highScores.mode = UInt(jj)
-				completed[jj] = highScores.checkLevelCompleted(num: polyID)
-				if completed[jj],
-					ii > highest_completed[jj] {
-				}
-			}
-			let values = [polyhedronNamesArray.object(at: loc), polyID, [completed[0],completed[1],completed[2],completed[4],true,true],ii]
-			let keys = ["name", "polyID", "completed", "level"]
-			let dict = Dictionary(uniqueKeysWithValues: zip(keys, values))
-			polyhedronInfoArray?.add(dict)
-		}
-		
-		highScores.mode = mode
+		super.init()
 	}
 	
 	func removeAllStoredData() {
@@ -516,4 +439,131 @@ class AppController {
 		UserDefaults.standard.synchronize()
 	}
 	
+	func initializePolyhedronInfo() {
+		if unlocked {
+			polyhedronArray.addObjects(from: ["Truncated Icosahedron", 2, 1,
+								 "Parabigyrate Rhombicosidodecahedron", 14, 2,
+								 "Parabidiminished Rhombicosidodecahedron", 16, 3,
+								 "Deca-faced Polyhedron", 20, 4,
+								 "Rhombic Triacontahedron", 23, 5,
+								 "Great Dodecacronic Hexecontahedron", 25, 6,
+								 "Truncated Dodecahedron", 24, 7,
+								 "Octagon-Drilled Truncated Cuboctahedron", 11, 8,
+								 "Rhombicosidodecahedron", 12, 9,
+								 "Truncated Truncated Icosahedron", 26, 10,
+								 "Drilled Truncated Cube", 9, 11,
+								 "Truncated Cuboctahedron", 18, 12,
+								 "Gyroelongated Square Bicupola", 19, 13,
+								 "Nameless Blob", 35, 14,
+								 "Stewart K4'", 10, 15,
+								 "Pentagonal Orthobirotunda", 15, 16,
+								 "Truncated Icosidodecahedron", 13, 17,
+								 "Gyroelongated Pentagonal Rotunda", 21, 18,
+								 "Drilled Truncated Dodecahedron", 37, 19,
+								 "Half-truncated Truncated Icosahedron", 17, 20,
+								 "Truncated Octahedron 8", 32, 21,
+								 "Truncated Octahedron", 6, 22,
+								 "Strombic Hexecontahedron", 3, 23,
+								 "Disdyakisdodecahedron", 31, 24,
+								 "Antiprism-Extended Dodecahedrahedron Ring", 34, 25,
+								 "Gyro-Expanded Cuboctahedron", 28, 26,
+								 "Tetrakishexahedron", 7, 27,
+								 "Icosahedra 8-ring", 29, 28,
+								 "Cupola-Drilled Truncated Icosidodecahedron", 5, 29,
+								 "Gyro-Double-Expanded Cuboctahedron", 36, 30,
+								 "Rotunda-Drilled Truncated Icosidodecahedron", 27, 31,
+								 "Prism-Expanded Truncated Cube", 33, 32,
+								 "Eight-Octahedron Ring", 8, 33,
+								 "Torus Slice", 4, 34,
+								 "Gyroelongated Pentagonal Cupola", 22, 35])
+		}	else {
+			polyhedronArray.addObjects(from: ["Truncated Icosahedron", 2, 1,
+								 "Parabigyrate Rhombicosidodecahedron", 14, 2,
+								 "Parabidiminished Rhombicosidodecahedron", 16, 3,
+								 "Deca-faced Polyhedron", 20, 4,
+								 "Rhombic Triacontahedron", 23, 5,
+								 "Great Dodecacronic Hexecontahedron", 25, 6,
+								 "Truncated Dodecahedron", 24, 7,
+								 "Octagon-Drilled Truncated Cuboctahedron", 11, 8,
+								 "Rhombicosidodecahedron", 12, 9,
+								 "Truncated Truncated Icosahedron", 26, 10])
+		}
+		
+		for ii in stride(from: 0, through: polyhedronArray.count, by: 3) {
+			polyhedronNamesArray.add(polyhedronArray.object(at: ii))
+		}
+		
+		for ii in stride(from: 1, through: polyhedronArray.count, by: 3) {
+			polyhedronNumbersArray.add(polyhedronArray.object(at: ii))
+		}
+		
+		for ii in stride(from: 2, through: polyhedronArray.count, by: 3) {
+			polyhedronLevelsArray.add(polyhedronArray.object(at: ii))
+		}
+		
+		polyhedronInfoArray = NSMutableArray()
+		highScores.reset(withFile: "**", delegate: self)
+
+		var loc:Int
+		var polyID:NSNumber
+		var completed = [Bool(), Bool(), Bool(), Bool()]
+		for ii in 1..<polyhedronLevelsArray.count + 1 {
+			loc = polyhedronLevelsArray.object(at: ii) as! Int
+			polyID = polyhedronNumbersArray.object(at: loc) as! NSNumber
+			for jj in 0..<4 {
+				highScores.mode = UInt(jj)
+				completed[jj] = highScores.checkLevelCompleted(num: polyID)
+				if completed[jj],
+					ii > highest_completed[jj] {
+				}
+			}
+			let values = [polyhedronNamesArray.object(at: loc), polyID, [completed[0],completed[1],completed[2],completed[4],true,true],ii]
+			let keys = ["name", "polyID", "completed", "level"]
+			let dict = Dictionary(uniqueKeysWithValues: zip(keys, values))
+			polyhedronInfoArray?.add(dict)
+		}
+		highScores.mode = mode
+	}
+	
+	func startGame() {
+		if !continuingQ {
+			polyWordsView.playTime = 0.0
+			polyWordsView.lastSubmitTime = 0.0
+			levelAborted = false
+		}
+		
+		if polyhedraInfo != nil {
+			self.level = polyhedraInfo?.object(forKey: "level") as! UInt
+			recordTimeQ = true
+//			if (aNavigationController.visibleViewController != alphaHedraViewController)
+//				[aNavigationController pushViewController:alphaHedraViewController animated:NO];
+//			else
+//				[alphaHedraViewController startGame];
+		}
+	}
+	
+	func resetGame() {
+		polyWordsView.wordString = ""
+		polyWordsView.score = 0
+		polyWordsView.opponent_score = 0
+		polyWordsView.word_score = 0
+		polyWordsView.points_avail = 0
+		polyWordsView.points_avail_display = 0
+		polyWordsView.show_get_ready = true
+		polyWordsView.opponent_ready = false
+		self.level_aborted = false
+		self.level_completed = false
+		polyWordsView.wordsFound = NSMutableArray()
+		polyWordsView.wordScores = NSMutableArray()
+		polyWordsView.wordsFoundOpponent = NSMutableArray()
+		polyWordsView.wordScoresOpponent = NSMutableArray()
+		polyWordsView.timeHistory = NSMutableArray()
+		polyWordsView.oldWordsFound = NSMutableArray()
+		polyWordsView.playTime = 0.0
+		polyWordsView.lastSubmitTime = 0.0
+		polyWordsView.setWorldRotation(angle:0.0, X:0.0, Y:0.0, Z:1.0)
+		polyWordsView.setRotation(angle:0.0, X:0.0, Y:0.0, Z:1.0)
+		polyWordsView.endSpin()
+//TODO		polyWordsViewController.gameState = kGameStart
+	}
 }
