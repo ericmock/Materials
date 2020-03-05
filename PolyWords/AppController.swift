@@ -64,6 +64,8 @@ class AppController: AppDelegate {
 	var wordString:String = ""
 	var currentAlertView:NSResponder!
 	var upgradeDelegate:UpgradeDelegate!
+	var highScore:HighScores!
+	var send_data_q = false
 
 	required init(aCoder:NSCoder) {
 		polyWordsView = PolyWordsView(coder: aCoder)
@@ -375,7 +377,7 @@ class AppController: AppDelegate {
 		for oldEncodedData in oldEncodedDataArray where oldEncodedData is NSArray {
 			if (oldEncodedData as AnyObject).count <= 7 {
 				let newDecodedData = self.decodeConvert(oldScores: oldEncodedData as! NSArray)
-				let newEncodedData = highScores.encodeDataForPolyhedron(ofType: newDecodedData.object(at: 1) as! Int, forMode: newDecodedData.object(at: 0) as! Int, forTime: newDecodedData.object(at: 3) as! Float, withScore: newDecodedData.object(at: 2) as! Int)
+				let newEncodedData = highScores.encodeDataForPolyhedron(ofType: newDecodedData.object(at: 1) as! Int, forMode: UInt(newDecodedData.object(at: 0) as! Int), forTime: newDecodedData.object(at: 3) as! Float, withScore: newDecodedData.object(at: 2) as! Int)
 				newEncodedDataArray.add(newEncodedData)
 			}
 		}

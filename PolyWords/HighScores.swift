@@ -215,7 +215,7 @@ class HighScores : NSObject {
 		return array
 	}
 		
-	func addScoreForPolyhedron(ofType type:Int, forMode newMode:Int, forTime newTime:Float, withScore newScore:Int) {
+	func addScoreForPolyhedron(ofType type:Int, forMode newMode:UInt, forTime newTime:Float, withScore newScore:Int) {
 		print("into  addScoreForPolyhedronType:\(type) forMode:\(newMode) forTime:\(newTime) withScore:\(newScore) of \(self.className)")
 		let data = encodeDataForPolyhedron(ofType: type, forMode: newMode, forTime: newTime, withScore: newScore)
 		encodedScoreDataArray.add(data)
@@ -224,7 +224,7 @@ class HighScores : NSObject {
 		decodedScoreDataArray.write(toFile: filePath+"_decoded", atomically: true)
 	}
 	
-	func encodeDataForPolyhedron(ofType type:Int, forMode newMode:Int, forTime newTime:Float, withScore newScore:Int) -> NSArray {
+	func encodeDataForPolyhedron(ofType type:Int, forMode newMode:UInt, forTime newTime:Float, withScore newScore:Int) -> NSArray {
 		var score = newScore
 		let thousands:Int = Int(score/1000)
 		score -= 1000*thousands

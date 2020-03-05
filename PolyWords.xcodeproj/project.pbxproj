@@ -61,6 +61,7 @@
 		0B62E960240DCA27006C7FE3 /* HighWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95F240DCA27006C7FE3 /* HighWords.swift */; };
 		0B62E961240DCA27006C7FE3 /* HighWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95F240DCA27006C7FE3 /* HighWords.swift */; };
 		0B7F55FB2409741100728B5B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
+		0B9286DB2411BD24008CAC19 /* PostScoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DA2411BD24008CAC19 /* PostScoreController.swift */; };
 		0B946599240884AD0027864E /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9465972408848D0027864E /* GuideViewController.swift */; };
 		0B94659B24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
 		0B94659C24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
@@ -165,6 +166,7 @@
 		0B62E95F240DCA27006C7FE3 /* HighWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighWords.swift; sourceTree = "<group>"; };
 		0B7F55F62409682300728B5B /* LongScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongScoreView.swift; sourceTree = "<group>"; };
 		0B7F55F9240973B000728B5B /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
+		0B9286DA2411BD24008CAC19 /* PostScoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScoreController.swift; sourceTree = "<group>"; };
 		0B9465972408848D0027864E /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		0B94659A24089C010027864E /* TestPolyhedron.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.mtl; path = ../../../TestPolyhedron.mtl; sourceTree = "<group>"; };
 		0B94659D24089C0E0027864E /* TestPolyhedron.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.obj; path = ../../../TestPolyhedron.obj; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 				0B5DC9D82405D62100827383 /* Extensions.swift */,
 				0B5DC9B42405D27900827383 /* GameScene.swift */,
 				0B62E95A240DC7CC006C7FE3 /* HighScores.swift */,
+				0B9286DA2411BD24008CAC19 /* PostScoreController.swift */,
 				0B62E95F240DCA27006C7FE3 /* HighWords.swift */,
 				13EBBB3E22C6FDA500230D2B /* Lighting.swift */,
 				130F081422C43563001B7909 /* Mesh.swift */,
@@ -556,6 +559,7 @@
 				0B9956942410016400F4D06F /* PullDataController.swift in Sources */,
 				0B5DC9AF2405D25A00827383 /* Scene.swift in Sources */,
 				0B9956A22410B66B00F4D06F /* WordsDB.swift in Sources */,
+				0B9286DB2411BD24008CAC19 /* PostScoreController.swift in Sources */,
 				1384A37322C1B388006036BA /* LocalClasses.swift in Sources */,
 				0B5DC9C42405D37300827383 /* Renderable.swift in Sources */,
 				0B5DC9B22405D26F00827383 /* TrackBall.swift in Sources */,

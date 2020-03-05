@@ -27,8 +27,8 @@ class PolyWordsView : NSView {
 	var match_red:Float = 1.0
 	var match_green:Float = 1.0
 	var match_blue:Float = 1.0
-	let pullDataController = PullDataController()
-	let pushDataController = PushDataController()
+	var pullDataController:PullDataController!
+	var pushDataController:PushDataController!
 	var paused = true
 	var clock = Timer()
 	var score_animating = false
@@ -537,7 +537,7 @@ class PolyWordsView : NSView {
 		self.stopGameAnimation()
 	}
 	
-	func showDynamicScoreModeEndAlert() {
+	func showDynamicScoredModeEndAlert() {
 		var message:String = ""
 		let buttons = NSArray(array:["Play Again", "Play Another Level", "Main Menu"])
 		let type:Int = 6
@@ -785,6 +785,96 @@ class PolyWordsView : NSView {
 		self.startGameAnimation()
 	}
 	
+	func checkLevelCompleted() {
+		appController.level_completed = false
+		var level_unlock = false
+		var recorded_score = AppConstants.kScoreToObtainDynamic
+		var recorded_time = AppConstants.kTimeToCompleteDynamic
+		if appController.mode == AppConstants.kDynamicTimedMode {
+			if (playTime.rounded(.towardZero) >= AppConstants.kTimeToCompleteDynamic || appController.level_aborted) {
+				if (score >= AppConstants.kScoreToObtainDynamic) {
+					level_unlock = true
+				}
+				if (!appController.level_aborted) {
+					appController.level_completed = true
+				}
+				appController.removeAllStoredData()
+				self.showDynamicTimedModeEndAlert()
+				recorded_time = AppConstants.kTimeToCompleteDynamic
+				recorded_score = UInt(score)
+			}
+		}	else if (appController.mode == AppConstants.kStaticTimedMode) {
+			if (playTime.rounded(.towardZero) >= AppConstants.kTimeToCompleteStatic || appController.level_aborted) {
+				if (score >= AppConstants.kScoreToObtainStatic) {
+					level_unlock = true
+				}
+				if (!appController.level_aborted) {
+					appController.level_completed = true
+				}
+				appController.removeAllStoredData()
+				self.showStaticTimedModeEndAlert()
+				recorded_time = AppConstants.kTimeToCompleteStatic
+				recorded_score = UInt(score)
+			}
+		}	else if (appController.mode == AppConstants.kDynamicScoredMode) {
+			if (playTime >= AppConstants.kTimeToCompleteStatic || appController.level_aborted) {
+				if (score >= AppConstants.kScoreToObtainStatic) {
+					level_unlock = true
+				}
+				if (!appController.level_aborted) {
+					appController.level_completed = true
+				}
+				appController.removeAllStoredData()
+				self.showDynamicScoredModeEndAlert()
+				recorded_time = playTime
+				recorded_score = AppConstants.kScoreToObtainDynamic
+			}
+		} else if (appController.mode == AppConstants.kStaticScoredMode) {
+			if (score >= AppConstants.kScoreToObtainStatic || appController.level_aborted) {
+				if (playTime <= AppConstants.kTimeToCompleteStatic) {
+					level_unlock = true
+				}
+				if (!appController.level_aborted) {
+					appController.level_completed = true
+				}
+				appController.removeAllStoredData()
+				self.showStaticScoredModeEndAlert()
+				recorded_time = playTime
+				recorded_score = AppConstants.kScoreToObtainStatic
+			}
+		}
+		else if (appController.mode == AppConstants.kTwoPlayerClientMode || appController.mode == AppConstants.kTwoPlayerServerMode) {
+			if (playTime.rounded(.towardZero) >= AppConstants.kTimeToCompleteStatic || appController.level_aborted) {
+				appController.removeAllStoredData()
+				pullDataController.connection.finishTasksAndInvalidate()
+				pushDataController.connection.finishTasksAndInvalidate()
+				self.showTwoPlayerModeEndAlert()
+				opponent_ready = false
+			}
+		}
+
+		if (recordScore && appController.level_completed) {
+			appController.highScores.addScoreForPolyhedron(ofType: polyhedron.polyInfo.object(forKey: "polyID") as! Int, forMode: appController!.mode, forTime: recorded_time, withScore: Int(recorded_score))
+			recordScore = false
+			opponent_ready = false
+			if (appController.send_data_q) {
+				let postController = PostScoreController()
+				postController.startSend(NSArray(array: [score, playTime, appController.level, UInt(appController.mode), wordsFound as NSArray, wordScores as NSArray, wordScores as NSArray]))
+			}
+		}
+
+		if (appController.level_completed) {
+			self.stopClock()
+			if (level_unlock) {
+				let dict:NSMutableDictionary = (appController.polyhedronInfoArray!.object(at:(Int(appController.level - 1))) as! NSDictionary).mutableCopy() as! NSMutableDictionary
+				let array2:NSMutableArray = (dict.object(forKey:"completed") as! NSArray).mutableCopy() as! NSMutableArray
+				array2.replaceObject(at: Int(appController!.mode), with: Bool(true))
+				dict.setValue(array2, forKey: "completed")
+				appController.polyhedronInfoArray?.replaceObject(at: Int(appController.level - 1), with: dict)
+			}
+		}
+	}
+
 	func showPolyWordsViewAlertWithInfo(alertInfo:NSArray = NSArray()) {
 		//		if (alertInfo != nil) {
 		//			let myActionSheet:MyActionSheet = MyActionSheet.initialize(withController:appController, withInformation:alertInfo, withCallingObject:self)
