@@ -61,7 +61,9 @@ class AppController: AppDelegate {
 	var game_id:UInt = 0
 	let swipeSound:NSSound = NSSound(contentsOfFile: Bundle.main.path(forResource: "Select", ofType: "caf")!, byReference: false)!
 	var wordString:String = ""
-	
+	var currentAlertView:NSResponder!
+	var upgradeDelegate:UpgradeDelegate!
+
 	required init(aCoder:NSCoder) {
 		polyWordsView = PolyWordsView(coder: aCoder)
 		super.init()

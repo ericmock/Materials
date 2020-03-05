@@ -50,6 +50,8 @@ class PolyWordsView : NSView {
 	var availableWords:NSMutableArray!
 	var wordsDB:WordsDB!
 	var previousTouchedPoly:Polygons!
+	var recordScore = false
+	var highScore = 0
 
 
 	func setWorldRotation(angle:Float, X:Float, Y:Float, Z:Float) {
@@ -490,6 +492,57 @@ class PolyWordsView : NSView {
 		self.setMatchColor()
 	}
 	
+	func showDynamicTimedModeEndAlert() {
+		var message:String = ""
+		var next_level_unlocked = false
+		let this_level_completed = ((appController.polyhedronInfoArray?.object(at: Int(appController.level - 1) ) as! NSDictionary).object(forKey: "completed") as! NSArray).object(at: Int(appController!.mode)) as! Bool
+		if (score >= AppConstants.kScoreToObtainDynamic && !this_level_completed &&
+			((appController.unlocked && appController.level < 35) ||
+			(appController.upgraded && appController.level < 10) ||
+				(appController.level < 5))) {
+				next_level_unlocked = true
+		}
+
+		let buttons = NSArray(array:["Play Again", "Play Another Level", "Main Menu"])
+			let type:Int = 6
+		if (recordScore && !appController.level_aborted) {
+			if (highScore == 0) {
+				highScore = score
+				message.append(contentsOf: "You established your high score for this level")
+				if (next_level_unlocked) {
+					message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+				} else {
+					message.append(contentsOf:".\n\n\n\n\n")
+				}
+			} else if (score > highScore) {
+				highScore = score
+				message.append(contentsOf: "Congratulations.  You beat your high score")
+				if (next_level_unlocked) {
+					message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+				} else {
+					message.append(contentsOf:".\n\n\n\n\n")
+				}
+			} else {
+				message.append(contentsOf: "You failed to beat your high score.\n\n\n\n\n")
+			}
+		} else {
+			message.append(contentsOf:"\n\n\n\n\n")
+		}
+		self.showPolyWordsViewAlertWithInfo(alertInfo: NSArray(array:[type, message, buttons]))
+//		[self showAlphaHedraViewAlertWithInfo:[NSArray arrayWithObjects:type, message, buttons, nil]];
+
+		self.stopClock()
+		self.stopGameAnimation()
+	}
+
+	func showPolyWordsViewAlertWithInfo(alertInfo:NSArray = NSArray()) {
+//		if (alertInfo != nil) {
+//			let myActionSheet:MyActionSheet = MyActionSheet.initialize(withController:appController, withInformation:alertInfo, withCallingObject:self)
+//			myActionSheet.showInView(self)
+//			[myActionSheet release];
+//		}
+	}
+
 	func setAnimation() {
 		
 	}

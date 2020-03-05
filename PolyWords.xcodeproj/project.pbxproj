@@ -73,6 +73,8 @@
 		0B99569A2410589600F4D06F /* PolyWordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956992410589600F4D06F /* PolyWordsViewController.swift */; };
 		0B99569C24105CA800F4D06F /* Polygons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569B24105CA800F4D06F /* Polygons.swift */; };
 		0B9956A22410B66B00F4D06F /* WordsDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A12410B66B00F4D06F /* WordsDB.swift */; };
+		0B9956A42410CB6500F4D06F /* MyActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A32410CB6500F4D06F /* MyActionSheet.swift */; };
+		0B9956A72410D49F00F4D06F /* UpgradeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */; };
 		0BB446642407636E0006E805 /* WordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB446622407636D0006E805 /* WordsViewController.swift */; };
 		0BB4466624077C9A0006E805 /* WordsViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB4466524077C9A0006E805 /* WordsViewController2.swift */; };
 		130EDE7422C9C21C00288A31 /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE6E22C9C21B00288A31 /* chest.obj */; };
@@ -173,6 +175,8 @@
 		0B9956992410589600F4D06F /* PolyWordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyWordsViewController.swift; sourceTree = "<group>"; };
 		0B99569B24105CA800F4D06F /* Polygons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygons.swift; sourceTree = "<group>"; };
 		0B9956A12410B66B00F4D06F /* WordsDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsDB.swift; sourceTree = "<group>"; };
+		0B9956A32410CB6500F4D06F /* MyActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActionSheet.swift; sourceTree = "<group>"; };
+		0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeDelegate.swift; sourceTree = "<group>"; };
 		0BB446622407636D0006E805 /* WordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsViewController.swift; sourceTree = "<group>"; };
 		0BB4466524077C9A0006E805 /* WordsViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsViewController2.swift; sourceTree = "<group>"; };
 		130EDE6A22C9BE9100288A31 /* PBR.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PBR.metal; sourceTree = "<group>"; };
@@ -311,17 +315,19 @@
 				0B5DC9AE2405D25A00827383 /* Scene.swift */,
 				1384A38C22C1BE70006036BA /* Shaders.metal */,
 				0B5DC9BD2405D29E00827383 /* SQLiteDatabase.swift */,
-				0B9956A12410B66B00F4D06F /* WordsDB.swift */,
 				130F081722C435A0001B7909 /* Submesh.swift */,
 				139D235222C851DC00C6DB03 /* Texturable.swift */,
 				139D235522C86C1E00C6DB03 /* Textures.xcassets */,
 				0B5DC9BA2405D28C00827383 /* TitleIntegrator.swift */,
 				0B5DC9B72405D28300827383 /* TitleScene.swift */,
 				0B5DC9B12405D26F00827383 /* TrackBall.swift */,
+				0B9956A32410CB6500F4D06F /* MyActionSheet.swift */,
 				13A7ABC722C2374C00609310 /* Utility */,
 				130F081A22C436F9001B7909 /* VertexDescriptor.swift */,
 				0B9465A024089C420027864E /* ViewControllers */,
 				0B5DC9C02405D2A400827383 /* Words.swift */,
+				0B9956A12410B66B00F4D06F /* WordsDB.swift */,
+				0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */,
 			);
 			path = PolyWords;
 			sourceTree = "<group>";
@@ -539,7 +545,9 @@
 				139D235322C851DC00C6DB03 /* Texturable.swift in Sources */,
 				130F082A22C43C57001B7909 /* ViewControllerExtension.swift in Sources */,
 				0B5DC9BB2405D28C00827383 /* TitleIntegrator.swift in Sources */,
+				0B9956A72410D49F00F4D06F /* UpgradeDelegate.swift in Sources */,
 				0B5DCA012406F21800827383 /* BufferProvider.swift in Sources */,
+				0B9956A42410CB6500F4D06F /* MyActionSheet.swift in Sources */,
 				0B5DC9BE2405D29F00827383 /* SQLiteDatabase.swift in Sources */,
 				130F080F22C434CF001B7909 /* Camera.swift in Sources */,
 				1384A38122C1B3C2006036BA /* ViewController.swift in Sources */,
