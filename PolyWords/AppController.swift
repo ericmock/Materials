@@ -14,6 +14,7 @@ struct AppConstants {
 	static let kTimeToCompleteDynamic:Float = 0
 	static let kScoreToObtainDynamic:UInt = 0
 	static let kGameStart:UInt = 0
+	static let kGameRestart:UInt = 1
 	static let kGameContinue:UInt = 1
 }
 

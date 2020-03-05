@@ -300,6 +300,7 @@
 				0B5DC9DE2405D7A700827383 /* MetalTexture.swift */,
 				130F081122C4352D001B7909 /* Model.swift */,
 				1384A39622C1DFC2006036BA /* Models */,
+				0B9956A32410CB6500F4D06F /* MyActionSheet.swift */,
 				0B5DC9C62405D38500827383 /* MyPolygon.swift */,
 				130F080B22C4343D001B7909 /* Node.swift */,
 				0B9956952410038A00F4D06F /* PauseDelegate.swift */,
@@ -321,13 +322,12 @@
 				0B5DC9BA2405D28C00827383 /* TitleIntegrator.swift */,
 				0B5DC9B72405D28300827383 /* TitleScene.swift */,
 				0B5DC9B12405D26F00827383 /* TrackBall.swift */,
-				0B9956A32410CB6500F4D06F /* MyActionSheet.swift */,
+				0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */,
 				13A7ABC722C2374C00609310 /* Utility */,
 				130F081A22C436F9001B7909 /* VertexDescriptor.swift */,
 				0B9465A024089C420027864E /* ViewControllers */,
 				0B5DC9C02405D2A400827383 /* Words.swift */,
 				0B9956A12410B66B00F4D06F /* WordsDB.swift */,
-				0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */,
 			);
 			path = PolyWords;
 			sourceTree = "<group>";

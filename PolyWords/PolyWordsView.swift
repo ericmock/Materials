@@ -53,6 +53,7 @@ class PolyWordsView : NSView {
 	var recordScore = false
 	var highScore = 0
 	var fastest_time = Float.infinity
+	var animationInterval:TimeInterval = 0
 	
 	
 	func setWorldRotation(angle:Float, X:Float, Y:Float, Z:Float) {
@@ -772,6 +773,18 @@ class PolyWordsView : NSView {
 		self.stopClock()
 		self.stopGameAnimation()
 	}
+	
+	func abortLevel() {
+		score = 0
+		timeHistory.removeAllObjects()
+		word_score = 0
+		points_avail = 0
+		points_avail_display = 0
+		NSArray(array:[]).write(toFile: appController.getDynamicScoredSavePath(), atomically:true)
+		appController.level_aborted = true
+		self.startGameAnimation()
+	}
+	
 	func showPolyWordsViewAlertWithInfo(alertInfo:NSArray = NSArray()) {
 		//		if (alertInfo != nil) {
 		//			let myActionSheet:MyActionSheet = MyActionSheet.initialize(withController:appController, withInformation:alertInfo, withCallingObject:self)
@@ -788,6 +801,10 @@ class PolyWordsView : NSView {
 		
 	}
 	
+	@objc func drawView() {
+		
+	}
+	
 	@objc func stopGameAnimation() {
 		if (score_animating && gameAnimationTimer != nil) {
 			self.perform(#selector(stopGameAnimation), with: nil, afterDelay: 1.0)
@@ -796,6 +813,106 @@ class PolyWordsView : NSView {
 			gameAnimationTimer.invalidate()
 			gameAnimationTimer = nil
 		}
+	}
+	
+	func startGameAnimation() {
+		var message = ""
+		if (gameAnimationTimer.isValid) {
+			gameAnimationTimer.invalidate()
+			gameAnimationTimer = Timer()
+		}
+
+		let game_state = appController.polyWordsViewController.game_state
+		if (points_avail < 3000 && appController.mode == AppConstants.kStaticScoredMode && !appController.level_aborted && game_state != AppConstants.kGameContinue) {
+			let alert = NSPanel.init()
+//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reshuffle Letters" message:[NSString stringWithFormat:@"Only %i points are available with these letters.",points_avail]
+//															 delegate:self cancelButtonTitle:@"Shuffle" otherButtonTitles:nil];
+//			alert.tag = 1
+			alert.makeKeyAndOrderFront(nil)
+		} else if ((game_state == AppConstants.kGameStart || game_state == AppConstants.kGameRestart) && show_get_ready && appController.mode != AppConstants.kTwoPlayerClientMode && appController.mode != AppConstants.kTwoPlayerServerMode) {
+			gameAnimationTimer = Timer(timeInterval:animationInterval, target: self, selector: #selector(drawView), userInfo: nil, repeats: true)
+			if appController.mode == AppConstants.kDynamicTimedMode {
+				message = "Score as many points as you can in \(AppConstants.kTimeToCompleteDynamic) seconds.  Don't forget you can throw back letters.\n\n\n\n\n\n"
+			} else if (appController.mode == AppConstants.kStaticTimedMode) {
+				message = "Score as many points as you can in \(AppConstants.kTimeToCompleteStatic) seconds.  Don't forget you can throw back letters.\n\n\n\n\n\n"
+			} else if (appController.mode == AppConstants.kDynamicScoredMode) {
+				message = "Score \(AppConstants.kScoreToObtainDynamic) points as fast as you can.  Don't forget you can throw back letters.\n\n\n\n\n\n"
+			} else if (appController.mode == AppConstants.kStaticScoredMode) {
+				message = "Score \(AppConstants.kScoreToObtainStatic) points as fast as you can.\n\n\n\n\n\n"
+			}
+//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Get Ready" message:message
+//															 delegate:self cancelButtonTitle:@"Continue" otherButtonTitles:nil];
+//			alert.tag = 3;
+			var rect:CGRect
+			if (appController.mode == AppConstants.kDynamicTimedMode || appController.mode == AppConstants.kDynamicScoredMode) {
+				rect = CGRect(x: 16,y: 100,width: 252,height: 115);
+			} else {
+				rect = CGRect(x: 16,y: 80,width: 252,height: 115);
+			}
+//			UILabel *label1 = [[UILabel alloc] initWithFrame:rect];
+//			label1.text = @"Remember letters must share an edge to form words.";
+//			label1.numberOfLines = 3;
+//			label1.adjustsFontSizeToFitWidth = YES;
+//			label1.backgroundColor = [UIColor clearColor];
+//			label1.font = [UIFont boldSystemFontOfSize:20.0];
+//			label1.textColor = [UIColor whiteColor];
+//			label1.textAlignment = UITextAlignmentCenter;
+//			label1.shadowColor = [UIColor blackColor];
+//			label1.shadowOffset = CGSizeMake(2.0,2.0);
+//			[alert addSubview:label1];
+//
+//			[alert show];
+			show_get_ready = true
+		} else if (show_get_ready && opponent_ready) {
+			gameAnimationTimer = Timer(timeInterval:animationInterval, target: self, selector: #selector(drawView), userInfo: nil, repeats: true)
+//			[waitingAlert dismissWithClickedButtonIndex:2 animated:NO];
+			message = ""
+//
+//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Get Ready\n\n\n\n\n\n" message:message
+//															 delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+//			UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(16,50,252,25)];
+//			label1.text = @"Game will start in";
+//			label1.adjustsFontSizeToFitWidth = YES;
+//			label1.backgroundColor = [UIColor clearColor];
+//			label1.font = [UIFont systemFontOfSize:18.0];
+//			label1.textColor = [UIColor whiteColor];
+//			label1.textAlignment = UITextAlignmentCenter;
+//			label1.shadowColor = [UIColor blackColor];
+//			label1.shadowOffset = CGSizeMake(2.0,2.0);
+//			[alert addSubview:label1];
+//			UILabel *label2 = [[UILabel alloc] initWithFrame:CGRectMake(16,175,252,25)];
+//			label2.text = @"seconds.";
+//			label2.adjustsFontSizeToFitWidth = YES;
+//			label2.backgroundColor = [UIColor clearColor];
+//			label2.font = [UIFont systemFontOfSize:18.0];
+//			label2.textColor = [UIColor whiteColor];
+//			label2.textAlignment = UITextAlignmentCenter;
+//			label2.shadowColor = [UIColor blackColor];
+//			label2.shadowOffset = CGSizeMake(2.0,2.0);
+//			[alert addSubview:label2];
+//			UILabel *label3 = [[UILabel alloc] initWithFrame:CGRectMake(16,90,252,75)];
+//			label3.text = @"3";
+//			label3.adjustsFontSizeToFitWidth = YES;
+//			label3.backgroundColor = [UIColor clearColor];
+//			label3.font = [UIFont systemFontOfSize:72.0];
+//			label3.textColor = [UIColor whiteColor];
+//			label3.textAlignment = UITextAlignmentCenter;
+//			label3.shadowColor = [UIColor blackColor];
+//			label3.shadowOffset = CGSizeMake(2.0,2.0);
+//			label3.tag = 101;
+//			[alert addSubview:label3];
+//			[alert show];
+			show_get_ready = true
+//			[self performSelector:@selector(dismissAlertView:) withObject:alert afterDelay:1.0];
+//			alert.tag = 6;
+		}
+		else {
+			gameAnimationTimer = Timer(timeInterval:animationInterval, target: self, selector: #selector(drawView), userInfo: nil, repeats: true)
+			if (!appController.level_completed) {
+				self.startClock()
+			}
+		}
+	//	[self checkLevelCompleted];
 	}
 	
 	func pushData() {
