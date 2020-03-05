@@ -42,15 +42,15 @@ class GameScene: Scene {
 			touchedNumber = findTouchedPolygon(atPoint: initialTouchPosition);
 			let polyCount: Int = thePolyhedron.polygons.count;
 			if (previouslyTouchedNumber >= 0 && previouslyTouchedNumber < polyCount) {
-				let poly:MyPolygon = thePolyhedron.polygons[previouslyTouchedNumber]
+//				let poly:Polygons = thePolyhedron.polygons[previouslyTouchedNumber]
 				//                Polygons *poly = [polyhedron.polygons objectAtIndex:prev_touched_num];
-				poly.touched = false;
+//				poly.touched = false;
 			}
 			if (touchedNumber >= 0 && previouslyTouchedNumber < polyCount) {
-				let poly:MyPolygon = thePolyhedron.polygons[previouslyTouchedNumber]
+//				let poly:Polygons = thePolyhedron.polygons[previouslyTouchedNumber]
 				//                Polygons *poly = [polyhedron.polygons objectAtIndex:touched_num];
-				poly.touched = true;
-				touchedLetters = oldText + alphabetArray[(poly.textureNumber)%26].lowercased()
+//				poly.touched = true;
+//				touchedLetters = oldText + alphabetArray[(poly.textureNumber)%26].lowercased()
 				previouslyTouchedNumber = touchedNumber
 			}
 		}
@@ -114,7 +114,7 @@ class GameScene: Scene {
 				}
 				
 				if (touchPosition.x < maxX && touchPosition.x > minX && touchPosition.y < maxY && touchPosition.y > minY) {
-					closePolygons.append(thePolyhedron.polygons[counter])
+//					closePolygons.append(thePolyhedron.polygons[counter])
 					faceNumbers.append(ii)
 				}
 				counter += 1

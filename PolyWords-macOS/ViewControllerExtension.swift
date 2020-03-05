@@ -91,7 +91,7 @@ extension Scene {
 			if (previousTouchNumber >= 0 && previousTouchNumber < thePolyhedron.polygons.count) {
 				// need to make sure from level to level that index is within bounds
 				//((Polygons *)[polyhedron.polygons objectAtIndex:prev_touched_num]).touched = FALSE;
-				thePolyhedron.polygons[previousTouchNumber].touched = false
+//				thePolyhedron.polygons[previousTouchNumber].touched = false
 			}
 			
 			let touchedNumber = findTouchedPolygon(atPoint: touchPosition)//[self findTouchedPolygonAtPoint:touchPos];

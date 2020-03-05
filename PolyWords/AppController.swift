@@ -8,10 +8,13 @@ struct AppConstants {
 	static let kStaticScoredMode:UInt = 1
 	static let kDynamicTimedMode:UInt = 2
 	static let kDynamicScoredMode:UInt = 3
+	static let kTwoPlayerClientMode:UInt = 4
+	static let kTwoPlayerServerMode:UInt = 5
 	static let kTimeToCompleteStatic:UInt = 0
 	static let kTimeToCompleteDynamic:UInt = 0
 	static let kScoreToObtainDynamic:UInt = 0
 	static let kGameStart:UInt = 0
+	static let kGameContinue:UInt = 1
 }
 
 class AppController: AppDelegate {
@@ -51,10 +54,13 @@ class AppController: AppDelegate {
 	var textureExists = [Bool](repeating: false, count: numPolygonTypes + 5)
 	var gameViewInitializedQ = false
 	let polyWordsView:PolyWordsView!
+	var polyWordsViewController:PolyWordsViewController!
 	var level:UInt = 0
 	var level_aborted = false
 	var level_completed = false
 	var game_id:UInt = 0
+	let swipeSound:NSSound = NSSound(contentsOfFile: Bundle.main.path(forResource: "Select", ofType: "caf")!, byReference: false)!
+	var wordString:String = ""
 	
 	required init(aCoder:NSCoder) {
 		polyWordsView = PolyWordsView(coder: aCoder)
