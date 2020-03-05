@@ -52,8 +52,9 @@ class PolyWordsView : NSView {
 	var previousTouchedPoly:Polygons!
 	var recordScore = false
 	var highScore = 0
-
-
+	var fastest_time = Float.infinity
+	
+	
 	func setWorldRotation(angle:Float, X:Float, Y:Float, Z:Float) {
 		
 	}
@@ -204,20 +205,20 @@ class PolyWordsView : NSView {
 	func startClock() {
 		if (clock.isValid) {
 			clock.invalidate()
-//			clock = nil;
+			//			clock = nil;
 		}
 		prev_time = Date();
 		clock = Timer.init(fireAt:Date(), interval:1, target:self, selector:#selector(oneSecondPulse), userInfo:nil, repeats:true)
 		self.paused = false
 		appController.polyWordsViewController.game_state = AppConstants.kGameContinue
-
-//		[[NSRunLoop currentRunLoop] addTimer:clock forMode:NSDefaultRunLoopMode];
-
+		
+		//		[[NSRunLoop currentRunLoop] addTimer:clock forMode:NSDefaultRunLoopMode];
+		
 		if (appController?.mode == AppConstants.kTwoPlayerClientMode) || (appController?.mode == AppConstants.kTwoPlayerServerMode) {
 			pullDataController.startSend(arrayWithObjects:[appController.game_id, Int(appController.mode)]);
 		}
 	}
-
+	
 	func checkMatch() {
 		if (appController.mode == AppConstants.kStaticTimedMode || appController.mode == AppConstants.kStaticScoredMode || appController.mode == AppConstants.kTwoPlayerClientMode || appController.mode == AppConstants.kTwoPlayerServerMode) {
 			if (wordString.count > 2 && wordArray.contains(wordString) && !wordsFound.contains(wordString) && !wordsFoundOpponent.contains(wordString)) {
@@ -235,38 +236,38 @@ class PolyWordsView : NSView {
 	}
 	
 	func getWordScore() {
-//		var letter_score:Float = 0.0
+		//		var letter_score:Float = 0.0
 		var base_word_score:Float = 0.0
 		submittingPolygonsValuesArray.removeAllObjects()
-			for poly in touchedPolygonsArray as! [Polygons] {
-				let letter_num = appController.alphabetArray.firstIndex(of: poly.letter)!
-				let polygon_type = poly.type
-				var num_sides = polygon_type! + 3;
-				if (polygon_type == 10 || polygon_type == 11 || polygon_type == 12) {
-					num_sides = 4
-				} else if (polygon_type == 13 || polygon_type == 14 || polygon_type == 15) {
-					num_sides = 3
-				}
-				let factor1:Float = -1.0*pow(-1,match ? 1.0 : 0.0)
-				let factor2:Float = (12.0 - Float(num_sides))
-				let factor3:Float = Float(valueArray[letter_num]) * (match ? Float(wordString.count) : 1.0)
-				let letter_score = factor1 * factor2 * factor3
-				base_word_score += letter_score
-				submittingPolygonsValuesArray.add(Int(letter_score))
+		for poly in touchedPolygonsArray as! [Polygons] {
+			let letter_num = appController.alphabetArray.firstIndex(of: poly.letter)!
+			let polygon_type = poly.type
+			var num_sides = polygon_type! + 3;
+			if (polygon_type == 10 || polygon_type == 11 || polygon_type == 12) {
+				num_sides = 4
+			} else if (polygon_type == 13 || polygon_type == 14 || polygon_type == 15) {
+				num_sides = 3
 			}
-
-//		let word_length = wordString.count
-			var word_score = base_word_score;//-1.0*pow(-1,(float)match)*letter_score * (match?[wordString length]:1.0);
-
-		if ((appController.mode != AppConstants.kDynamicTimedMode && appController.mode != AppConstants.kDynamicScoredMode) && word_score < 0) {
-				word_score = 0
+			let factor1:Float = -1.0*pow(-1,match ? 1.0 : 0.0)
+			let factor2:Float = (12.0 - Float(num_sides))
+			let factor3:Float = Float(valueArray[letter_num]) * (match ? Float(wordString.count) : 1.0)
+			let letter_score = factor1 * factor2 * factor3
+			base_word_score += letter_score
+			submittingPolygonsValuesArray.add(Int(letter_score))
 		}
-
+		
+		//		let word_length = wordString.count
+		var word_score = base_word_score;//-1.0*pow(-1,(float)match)*letter_score * (match?[wordString length]:1.0);
+		
+		if ((appController.mode != AppConstants.kDynamicTimedMode && appController.mode != AppConstants.kDynamicScoredMode) && word_score < 0) {
+			word_score = 0
+		}
+		
 	}
 	
 	func submitWord() {
 		last_submit_time = playTime
-
+		
 		self.getWordScore()
 		// if we in dynamic letter mode, replace the submitted letters
 		if (appController.mode == AppConstants.kDynamicTimedMode || appController.mode == AppConstants.kDynamicScoredMode) {
@@ -279,17 +280,17 @@ class PolyWordsView : NSView {
 			self.getNewLetters(forPolygons:polygonsToReplace)
 			self.setAnimation()
 		}
-		// if not just deselect them
+			// if not just deselect them
 		else {
 			submittingPolygonsValuesArray.removeAllObjects()
 			for poly in touchedPolygonsArray as! [Polygons] {
 				submittingPolygonsValuesArray.add(poly)
 			}
 		}
-
+		
 		score += word_score;
-	//	score_display = (score < 0)?0:score;
-
+		//	score_display = (score < 0)?0:score;
+		
 		if (match) {
 			appController.swipeSound.play()
 			let wordStringCopy = wordString.copy()
@@ -318,7 +319,7 @@ class PolyWordsView : NSView {
 		wordString = ""
 		word_score = 0
 	}
-
+	
 	func getNewLetters(forPolygons polygons:NSArray) {
 		for poly in polygons as! [Polygons] {
 			self.assignRandomLetterToPoly(number:poly.number)
@@ -327,7 +328,7 @@ class PolyWordsView : NSView {
 	
 	func assignRandomLetterToPoly(number ii:Int) {
 		var rd:Int
-//		srandomdev();
+		//		srandomdev();
 		let poly = polyhedron.polygons.object(at:ii) as! Polygons
 		var g = SystemRandomNumberGenerator()
 		if (poly.active) {
@@ -371,23 +372,23 @@ class PolyWordsView : NSView {
 	}
 	
 	func set(touchedPolygon touchedPoly:Polygons = Polygons()) {
-
+		
 		// reset the match identifier
 		match = false
-
+		
 		if !(touchedPoly.active) {
 			for poly in touchedPolygonsArray as! [Polygons] {
 				poly.selected = false
 			}
 			touchedPolygonsArray.removeAllObjects()
-
+			
 			wordString = ""
 			self.getWordScore()
 			return
 		}
-
+		
 		touchedPoly.selected = true
-
+		
 		// check to see if it is already selected
 		if (touchedPolygonsArray.contains(touchedPoly)) {
 			// if it's already selected grab the index number and length of the range to remove from the selected array
@@ -406,17 +407,17 @@ class PolyWordsView : NSView {
 				poly.selected = true
 				wordString.append(contentsOf: poly.letter.lowercased())
 			}
-
+			
 		} else {
-//			 if the polygon wasn't already selected, add it to the array of selected polygons
-//			 determine how many vertices the touched polygon has in common with the previously touched polygon
-//
-//						00  04  08  12
-//						01  05  09  13
-//						02  06  10  14
-//						03  07  11  15
-//
-//			 generate a rotation matrix that takes the polygon basis to the global basis
+			//			 if the polygon wasn't already selected, add it to the array of selected polygons
+			//			 determine how many vertices the touched polygon has in common with the previously touched polygon
+			//
+			//						00  04  08  12
+			//						01  05  09  13
+			//						02  06  10  14
+			//						03  07  11  15
+			//
+			//			 generate a rotation matrix that takes the polygon basis to the global basis
 			var rot_m:float3x3 = matrix_identity_float3x3
 			rot_m[0][0] = touchedPoly.tangent_v[0]
 			rot_m[0][1] = touchedPoly.tangent_v[1]
@@ -427,18 +428,18 @@ class PolyWordsView : NSView {
 			rot_m[2][0] = touchedPoly.normal_v[0]
 			rot_m[2][1] = touchedPoly.normal_v[1]
 			rot_m[2][2] = touchedPoly.normal_v[2]
-
+			
 			// calculate the rotation angle per http://en.wikipedia.org/wiki/Rotation_representation
 			touchedPoly.rot_angle = acos( (rot_m[0][0] + rot_m[1][1] + rot_m[2][2] - 1.0)/2.0 )
-
+			
 			// calculate the rotation vector per http://en.wikipedia.org/wiki/Rotation_representation
 			let denom = 2.0*sin(touchedPoly.rot_angle)
 			touchedPoly.rot_v[0] = (rot_m[2][1] - rot_m[1][2])/denom
 			touchedPoly.rot_v[1] = (rot_m[0][2] - rot_m[2][0])/denom
 			touchedPoly.rot_v[2] = (rot_m[1][0] - rot_m[0][1])/denom
-
+			
 			touchedPoly.select_animation_start_time = Date()
-
+			
 			var count:UInt = 0
 			for num in touchedPoly.indices as! [Int] {
 				if (touchedPolygonsArray.lastObject as! Polygons).indices.contains(num) {
@@ -465,7 +466,7 @@ class PolyWordsView : NSView {
 				wordString.append(contentsOf: poly.letter.lowercased())
 			}
 		}
-
+		
 		// if there are three letters selected, use the other thread to grab all the words that start with those three letters
 		if wordString.count >= 3 {
 			self.lookingUpWordsQ = true
@@ -486,9 +487,9 @@ class PolyWordsView : NSView {
 		} else {
 			word_score = 0
 		}
-
+		
 		previousTouchedPoly = touchedPoly
-
+		
 		self.setMatchColor()
 	}
 	
@@ -498,13 +499,13 @@ class PolyWordsView : NSView {
 		let this_level_completed = ((appController.polyhedronInfoArray?.object(at: Int(appController.level - 1) ) as! NSDictionary).object(forKey: "completed") as! NSArray).object(at: Int(appController!.mode)) as! Bool
 		if (score >= AppConstants.kScoreToObtainDynamic && !this_level_completed &&
 			((appController.unlocked && appController.level < 35) ||
-			(appController.upgraded && appController.level < 10) ||
+				(appController.upgraded && appController.level < 10) ||
 				(appController.level < 5))) {
-				next_level_unlocked = true
+			next_level_unlocked = true
 		}
-
+		
 		let buttons = NSArray(array:["Play Again", "Play Another Level", "Main Menu"])
-			let type:Int = 6
+		let type:Int = 6
 		if (recordScore && !appController.level_aborted) {
 			if (highScore == 0) {
 				highScore = score
@@ -529,24 +530,260 @@ class PolyWordsView : NSView {
 			message.append(contentsOf:"\n\n\n\n\n")
 		}
 		self.showPolyWordsViewAlertWithInfo(alertInfo: NSArray(array:[type, message, buttons]))
-//		[self showAlphaHedraViewAlertWithInfo:[NSArray arrayWithObjects:type, message, buttons, nil]];
-
+		//		[self showAlphaHedraViewAlertWithInfo:[NSArray arrayWithObjects:type, message, buttons, nil]];
+		
+		self.stopClock()
+		self.stopGameAnimation()
+	}
+	
+	func showDynamicScoreModeEndAlert() {
+		var message:String = ""
+		let buttons = NSArray(array:["Play Again", "Play Another Level", "Main Menu"])
+		let type:Int = 6
+		var next_level_unlocked = false
+		let this_level_completed = ((appController.polyhedronInfoArray?.object(at: Int(appController.level - 1) ) as! NSDictionary).object(forKey: "completed") as! NSArray).object(at: Int(appController!.mode)) as! Bool
+		if (playTime <= AppConstants.kTimeToCompleteDynamic && !this_level_completed &&
+			((appController.unlocked && appController.level < 35) ||
+				(appController.upgraded && appController.level < 10) ||
+				(appController.level < 5))) {
+			next_level_unlocked = true
+		}
+		
+		if (recordScore && !appController.level_aborted) {
+			if (fastest_time == Float.infinity) {
+				fastest_time = playTime
+				message.append(contentsOf: "You established your fastest time for this level")
+				if (next_level_unlocked) {
+					message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+				} else {
+					message.append(contentsOf:".\n\n\n\n\n")
+				}
+			} else if (playTime < fastest_time) {
+				fastest_time = playTime
+				message.append(contentsOf: "Congratulations.  You beat your fastest time")
+				if (next_level_unlocked) {
+					message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+				} else {
+					message.append(contentsOf:".\n\n\n\n\n")
+				}
+			} else {
+				message.append(contentsOf: "You failed to beat your fastest time.\n\n\n\n\n")
+			}
+		} else {
+			message.append(contentsOf:"\n\n\n\n\n")
+		}
+		self.showPolyWordsViewAlertWithInfo(alertInfo: NSArray(array:[type, message, buttons]))
+		
+		self.stopClock()
+		self.stopGameAnimation()
+	}
+	
+	func showStaticTimedModeEndAlert() {
+		var message = ""
+		let buttons = NSMutableArray(array:["View Word List", "Play Again", "Play Another Level", "Main Menu"])
+		var type:Int
+		var next_level_unlocked = false
+		let this_level_completed = ((appController.polyhedronInfoArray?.object(at: Int(appController.level - 1) ) as! NSDictionary).object(forKey: "completed") as! NSArray).object(at: Int(appController!.mode)) as! Bool
+		if (score >= AppConstants.kScoreToObtainStatic && !this_level_completed &&
+			((appController.unlocked && appController.level < 35) ||
+				(appController.upgraded && appController.level < 10) ||
+				(appController.level < 5))) {
+			next_level_unlocked = true
+		}
+		if (recordScore && !appController.level_aborted) {
+			if (highScore == 0) {
+				highScore = score
+				message.append(contentsOf: "You established your high score for this level")
+				if availableWords.count > 0 {
+					type = 8
+					if (next_level_unlocked) {
+						message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+					} else {
+						message.append(contentsOf:".\n\n\n\n\n")
+					}
+				} else {
+					type = 3
+					if (next_level_unlocked) {
+						message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+						buttons.replaceObject(at: 0, with:"Find Missed Words")
+					} else {
+						message.append(contentsOf:".\n\n\n\n\n")
+						buttons.replaceObject(at: 0, with:"Find Missed Words")
+					}
+				}
+			} else if (score > highScore) {
+				highScore = score
+				message.append(contentsOf: "Congratulations.  You beat your high score")
+				if availableWords.count > 0 {
+					type = 8
+					if (next_level_unlocked) {
+						message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+					} else {
+						message.append(contentsOf:".\n\n\n\n\n")
+					}
+				} else {
+					type = 3
+					if (next_level_unlocked) {
+						message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+						buttons.replaceObject(at: 0, with:"Find Missed Words")
+					} else {
+						message.append(contentsOf:".\n\n\n\n\n")
+						buttons.replaceObject(at: 0, with:"Find Missed Words")
+					}
+				}
+			} else {
+				message.append(contentsOf: "You failed to beat your high score.\n\n\n\n\n")
+				if availableWords.count > 0 {
+					type = 8
+				} else {
+					type = 3
+					buttons.replaceObject(at: 0, with:"Find Missed Words")
+				}
+			}
+		} else {
+			message.append(contentsOf:"\n\n\n\n\n")
+			if availableWords.count > 0 {
+				type = 8
+			} else {
+				type = 3
+				buttons.replaceObject(at: 0, with:"Find Missed Words")
+			}
+		}
+		self.showPolyWordsViewAlertWithInfo(alertInfo: NSArray(array:[type, message, buttons]))
+		self.stopClock()
+		self.stopGameAnimation()
+	}
+	
+	func showStaticScoredModeEndAlert() {
+		var message = ""
+		let buttons = NSMutableArray(array:["View Word List", "Play Again", "Play Another Level", "Main Menu"])
+		var type:Int
+		var next_level_unlocked = false
+		let this_level_completed = ((appController.polyhedronInfoArray?.object(at: Int(appController.level - 1) ) as! NSDictionary).object(forKey: "completed") as! NSArray).object(at: Int(appController!.mode)) as! Bool
+		if (playTime <= AppConstants.kTimeToCompleteStatic && !this_level_completed &&
+			((appController.unlocked && appController.level < 35) ||
+				(appController.upgraded && appController.level < 10) ||
+				(appController.level < 5))) {
+			next_level_unlocked = true
+		}
+		if (recordScore && !appController.level_aborted) {
+			if (fastest_time == Float.infinity) {
+				fastest_time = playTime
+				message.append(contentsOf: "You established your fastest time for this level")
+				if availableWords.count > 0 {
+					type = 8
+					if (next_level_unlocked) {
+						message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+					} else {
+						message.append(contentsOf:".\n\n\n\n\n")
+					}
+				} else {
+					type = 3
+					if (next_level_unlocked) {
+						message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+						buttons.replaceObject(at: 0, with:"Find Missed Words")
+					} else {
+						message.append(contentsOf:".\n\n\n\n\n")
+						buttons.replaceObject(at: 0, with:"Find Missed Words")
+					}
+				}
+			} else if (fastest_time > playTime) {
+				fastest_time = playTime
+				message.append(contentsOf: "Congratulations.  You beat your fastest time")
+				if availableWords.count > 0 {
+					type = 8
+					if (next_level_unlocked) {
+						message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+					} else {
+						message.append(contentsOf:".\n\n\n\n\n")
+					}
+				} else {
+					type = 3
+					if (next_level_unlocked) {
+						message.append(contentsOf: " and unlocked the next level.\n\n\n\n\n")
+						buttons.replaceObject(at: 0, with:"Find Missed Words")
+					} else {
+						message.append(contentsOf:".\n\n\n\n\n")
+						buttons.replaceObject(at: 0, with:"Find Missed Words")
+					}
+				}
+			} else {
+				message.append(contentsOf: "You failed to beat your fastest time.\n\n\n\n\n")
+				if availableWords.count > 0 {
+					type = 8
+				} else {
+					type = 3
+					buttons.replaceObject(at: 0, with:"Find Missed Words")
+				}
+			}
+		} else {
+			message.append(contentsOf:"\n\n\n\n\n")
+			if availableWords.count > 0 {
+				type = 8
+			} else {
+				type = 3
+				buttons.replaceObject(at: 0, with:"Find Missed Words")
+			}
+		}
+		self.showPolyWordsViewAlertWithInfo(alertInfo: NSArray(array:[type, message, buttons]))
 		self.stopClock()
 		self.stopGameAnimation()
 	}
 
-	func showPolyWordsViewAlertWithInfo(alertInfo:NSArray = NSArray()) {
-//		if (alertInfo != nil) {
-//			let myActionSheet:MyActionSheet = MyActionSheet.initialize(withController:appController, withInformation:alertInfo, withCallingObject:self)
-//			myActionSheet.showInView(self)
-//			[myActionSheet release];
-//		}
+	func showTwoPlayerModeEndAlert() {
+		var message = ""
+		let buttons = NSMutableArray(array:["View Word List", "Play Again", "Play Another Level", "Main Menu"])
+		var type:Int
+		if (recordScore) {
+			if (score > opponent_score) {
+				message.append(contentsOf: "Congratulations.  You beat your opponent.\n\n\n\n\n")
+				if availableWords.count > 0 {
+					type = 10
+				} else {
+					type = 11
+					buttons.replaceObject(at: 0, with:"Find Missed Words")
+				}
+			} else if (score < opponent_score) {
+				message.append(contentsOf: "Your opponent won that game.\n\n\n\n\n")
+				if availableWords.count > 0 {
+					type = 10
+				} else {
+					type = 11
+				}
+			} else {
+				message.append(contentsOf: "You tied!\n\n\n\n\n")
+				if availableWords.count > 0 {
+					type = 10
+				} else {
+					type = 11
+					buttons.replaceObject(at: 0, with:"Find Missed Words")
+				}
+			}
+		} else {
+			message.append(contentsOf:"\n\n\n\n\n")
+			if availableWords.count > 0 {
+				type = 10
+			} else {
+				type = 11
+				buttons.replaceObject(at: 0, with:"Find Missed Words")
+			}
+		}
+		self.showPolyWordsViewAlertWithInfo(alertInfo: NSArray(array:[type, message, buttons]))
+		self.stopClock()
+		self.stopGameAnimation()
 	}
-
+	func showPolyWordsViewAlertWithInfo(alertInfo:NSArray = NSArray()) {
+		//		if (alertInfo != nil) {
+		//			let myActionSheet:MyActionSheet = MyActionSheet.initialize(withController:appController, withInformation:alertInfo, withCallingObject:self)
+		//			myActionSheet.showInView(self)
+		//			[myActionSheet release];
+		//		}
+	}
+	
 	func setAnimation() {
 		
 	}
-
+	
 	@objc func oneSecondPulse() {
 		
 	}
@@ -570,11 +807,11 @@ class PolyWordsView : NSView {
 			newWordsFound.add(wordsFound.object(at:ii))
 			newWordScores.add(wordScores.object(at:ii))
 		}
-
+		
 		oldWordsFound = NSMutableArray()
 		oldWordsFound.addObjects(from:wordsFound as! [Any])
 		let updatedData = NSArray(array: [newWordsFound, newWordScores, UInt(appController.game_id), Int(appController.mode)])
 		pushDataController.startSend(with: updatedData)
 	}
-
+	
 }

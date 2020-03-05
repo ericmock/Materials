@@ -170,7 +170,7 @@ class HighScores : NSObject {
 		} else if mode == AppConstants.kStaticScoredMode {
 			for array in (decodedScoreDataArray as! [NSArray]) {
 				if num.isEqual(to: array.object(at: 1)),
-					(array.object(at: 1) as! Int) <= AppConstants.kTimeToCompleteStatic,
+					(array.object(at: 1) as! Float) <= AppConstants.kTimeToCompleteStatic,
 					array.object(at: 0) as! Int == mode {
 						complete = true
 					break
@@ -179,7 +179,7 @@ class HighScores : NSObject {
 		} else if mode == AppConstants.kDynamicScoredMode {
 			for array in (decodedScoreDataArray as! [NSArray]) {
 				if num.isEqual(to: array.object(at: 1)),
-					(array.object(at: 1) as! Int) <= AppConstants.kTimeToCompleteDynamic,
+					(array.object(at: 1) as! Float) <= AppConstants.kTimeToCompleteDynamic,
 					array.object(at: 0) as! Int == mode {
 						complete = true
 					break

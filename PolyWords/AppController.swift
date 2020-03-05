@@ -10,8 +10,8 @@ struct AppConstants {
 	static let kDynamicScoredMode:UInt = 3
 	static let kTwoPlayerClientMode:UInt = 4
 	static let kTwoPlayerServerMode:UInt = 5
-	static let kTimeToCompleteStatic:UInt = 0
-	static let kTimeToCompleteDynamic:UInt = 0
+	static let kTimeToCompleteStatic:Float = 0
+	static let kTimeToCompleteDynamic:Float = 0
 	static let kScoreToObtainDynamic:UInt = 0
 	static let kGameStart:UInt = 0
 	static let kGameContinue:UInt = 1
