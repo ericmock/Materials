@@ -1,6 +1,6 @@
 import Foundation
 
-class Polygons {
+class Apolygon {
 	var letter = ""
 	var type:Int!
 	var active = false
@@ -14,6 +14,8 @@ class Polygons {
 	var rot_v:float3
 	var select_animation_start_time:Date!
 	var indices:NSArray!
+	var connections:NSMutableArray!
+	var centroid:float3
 	
 	init() {
 		type = 0
@@ -22,7 +24,22 @@ class Polygons {
 		normal_v = [0,0,0]
 		rot_angle = 0
 		rot_v = [0,0,0]
+		centroid = [0,0,0]
 		select_animation_start_time = Date()
 		indices = NSArray()
 	}
+	
+//	init(vertices: [SIMD3<Float>], indices: [SIMD3<Int>], textureNumber: Int) {
+//			self.vertices = vertices;
+//			self.indices = indices;
+//			self.textureNumber = textureNumber
+//
+//			self.polyType = indices.count
+//
+//			for vertex in vertices {
+//					centroid += vertex
+//			}
+//			centroid = centroid/Float(polyType)
+//	}
+
 }

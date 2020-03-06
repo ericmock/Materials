@@ -29,8 +29,6 @@
 		0B5DC9C22405D2A400827383 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C02405D2A400827383 /* Words.swift */; };
 		0B5DC9C42405D37300827383 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C32405D37200827383 /* Renderable.swift */; };
 		0B5DC9C52405D37300827383 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C32405D37200827383 /* Renderable.swift */; };
-		0B5DC9C72405D38600827383 /* MyPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C62405D38500827383 /* MyPolygon.swift */; };
-		0B5DC9C82405D38600827383 /* MyPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C62405D38500827383 /* MyPolygon.swift */; };
 		0B5DC9CA2405D39800827383 /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
 		0B5DC9CB2405D39800827383 /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
 		0B5DC9CD2405D3C800827383 /* BasePolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9CC2405D3C800827383 /* BasePolygon.swift */; };
@@ -62,6 +60,7 @@
 		0B62E961240DCA27006C7FE3 /* HighWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95F240DCA27006C7FE3 /* HighWords.swift */; };
 		0B7F55FB2409741100728B5B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
 		0B9286DB2411BD24008CAC19 /* PostScoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DA2411BD24008CAC19 /* PostScoreController.swift */; };
+		0B9286E02412970E008CAC19 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DF2412970D008CAC19 /* ServerResponse.swift */; };
 		0B946599240884AD0027864E /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9465972408848D0027864E /* GuideViewController.swift */; };
 		0B94659B24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
 		0B94659C24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
@@ -72,7 +71,7 @@
 		0B9956962410038A00F4D06F /* PauseDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956952410038A00F4D06F /* PauseDelegate.swift */; };
 		0B99569824100B4E00F4D06F /* PushDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569724100B4E00F4D06F /* PushDataController.swift */; };
 		0B99569A2410589600F4D06F /* PolyWordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956992410589600F4D06F /* PolyWordsViewController.swift */; };
-		0B99569C24105CA800F4D06F /* Polygons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569B24105CA800F4D06F /* Polygons.swift */; };
+		0B99569C24105CA800F4D06F /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569B24105CA800F4D06F /* APolygon.swift */; };
 		0B9956A22410B66B00F4D06F /* WordsDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A12410B66B00F4D06F /* WordsDB.swift */; };
 		0B9956A42410CB6500F4D06F /* MyActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A32410CB6500F4D06F /* MyActionSheet.swift */; };
 		0B9956A72410D49F00F4D06F /* UpgradeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */; };
@@ -148,7 +147,6 @@
 		0B5DC9BD2405D29E00827383 /* SQLiteDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
 		0B5DC9C02405D2A400827383 /* Words.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Words.swift; sourceTree = "<group>"; };
 		0B5DC9C32405D37200827383 /* Renderable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderable.swift; sourceTree = "<group>"; };
-		0B5DC9C62405D38500827383 /* MyPolygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyPolygon.swift; sourceTree = "<group>"; };
 		0B5DC9C92405D39800827383 /* Polyhedron.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Polyhedron.swift; sourceTree = "<group>"; };
 		0B5DC9CC2405D3C800827383 /* BasePolygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasePolygon.swift; sourceTree = "<group>"; };
 		0B5DC9D82405D62100827383 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -167,6 +165,24 @@
 		0B7F55F62409682300728B5B /* LongScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongScoreView.swift; sourceTree = "<group>"; };
 		0B7F55F9240973B000728B5B /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		0B9286DA2411BD24008CAC19 /* PostScoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScoreController.swift; sourceTree = "<group>"; };
+		0B9286DF2412970D008CAC19 /* ServerResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerResponse.swift; sourceTree = "<group>"; };
+		0B9286E224129FE7008CAC19 /* getopengames.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = getopengames.php; sourceTree = "<group>"; };
+		0B9286E324129FE7008CAC19 /* cleanup.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = cleanup.php; sourceTree = "<group>"; };
+		0B9286E424129FE7008CAC19 /* sendgamedata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = sendgamedata.php; sourceTree = "<group>"; };
+		0B9286E524129FE7008CAC19 /* high_scores.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = high_scores.php; sourceTree = "<group>"; };
+		0B9286E624129FE7008CAC19 /* getopengamedata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = getopengamedata.php; sourceTree = "<group>"; };
+		0B9286E724129FE8008CAC19 /* scores.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = scores.php; sourceTree = "<group>"; };
+		0B9286E824129FE8008CAC19 /* gamecheck.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = gamecheck.php; sourceTree = "<group>"; };
+		0B9286E924129FE8008CAC19 /* getcurrentgames.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = getcurrentgames.php; sourceTree = "<group>"; };
+		0B9286EA24129FE8008CAC19 /* pullgamedata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = pullgamedata.php; sourceTree = "<group>"; };
+		0B9286EB24129FE8008CAC19 /* pushgamedata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = pushgamedata.php; sourceTree = "<group>"; };
+		0B9286EC24129FE8008CAC19 /* getgamedata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = getgamedata.php; sourceTree = "<group>"; };
+		0B9286ED24129FE8008CAC19 /* sendstartdata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = sendstartdata.php; sourceTree = "<group>"; };
+		0B9286EE24129FE8008CAC19 /* randomgame.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = randomgame.php; sourceTree = "<group>"; };
+		0B9286EF24129FE9008CAC19 /* opengamecheck.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = opengamecheck.php; sourceTree = "<group>"; };
+		0B9286F024129FE9008CAC19 /* polyhedradata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = polyhedradata.php; sourceTree = "<group>"; };
+		0B9286F124129FE9008CAC19 /* exchangegamedata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = exchangegamedata.php; sourceTree = "<group>"; };
+		0B9286F224129FE9008CAC19 /* sendworddata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = sendworddata.php; sourceTree = "<group>"; };
 		0B9465972408848D0027864E /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		0B94659A24089C010027864E /* TestPolyhedron.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.mtl; path = ../../../TestPolyhedron.mtl; sourceTree = "<group>"; };
 		0B94659D24089C0E0027864E /* TestPolyhedron.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.obj; path = ../../../TestPolyhedron.obj; sourceTree = "<group>"; };
@@ -175,7 +191,7 @@
 		0B9956952410038A00F4D06F /* PauseDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseDelegate.swift; sourceTree = "<group>"; };
 		0B99569724100B4E00F4D06F /* PushDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDataController.swift; sourceTree = "<group>"; };
 		0B9956992410589600F4D06F /* PolyWordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyWordsViewController.swift; sourceTree = "<group>"; };
-		0B99569B24105CA800F4D06F /* Polygons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Polygons.swift; sourceTree = "<group>"; };
+		0B99569B24105CA800F4D06F /* APolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APolygon.swift; sourceTree = "<group>"; };
 		0B9956A12410B66B00F4D06F /* WordsDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsDB.swift; sourceTree = "<group>"; };
 		0B9956A32410CB6500F4D06F /* MyActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActionSheet.swift; sourceTree = "<group>"; };
 		0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeDelegate.swift; sourceTree = "<group>"; };
@@ -239,6 +255,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B9286DE24129609008CAC19 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0B9286E124129FD3008CAC19 /* Backend Code */,
+				0B9286DA2411BD24008CAC19 /* PostScoreController.swift */,
+				0B9956932410016400F4D06F /* PullDataController.swift */,
+				0B99569724100B4E00F4D06F /* PushDataController.swift */,
+				0B9286DF2412970D008CAC19 /* ServerResponse.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		0B9286E124129FD3008CAC19 /* Backend Code */ = {
+			isa = PBXGroup;
+			children = (
+				0B9286E324129FE7008CAC19 /* cleanup.php */,
+				0B9286F124129FE9008CAC19 /* exchangegamedata.php */,
+				0B9286E824129FE8008CAC19 /* gamecheck.php */,
+				0B9286E924129FE8008CAC19 /* getcurrentgames.php */,
+				0B9286EC24129FE8008CAC19 /* getgamedata.php */,
+				0B9286E624129FE7008CAC19 /* getopengamedata.php */,
+				0B9286E224129FE7008CAC19 /* getopengames.php */,
+				0B9286E524129FE7008CAC19 /* high_scores.php */,
+				0B9286EF24129FE9008CAC19 /* opengamecheck.php */,
+				0B9286F024129FE9008CAC19 /* polyhedradata.php */,
+				0B9286EA24129FE8008CAC19 /* pullgamedata.php */,
+				0B9286EB24129FE8008CAC19 /* pushgamedata.php */,
+				0B9286EE24129FE8008CAC19 /* randomgame.php */,
+				0B9286E724129FE8008CAC19 /* scores.php */,
+				0B9286E424129FE7008CAC19 /* sendgamedata.php */,
+				0B9286ED24129FE8008CAC19 /* sendstartdata.php */,
+				0B9286F224129FE9008CAC19 /* sendworddata.php */,
+			);
+			path = "Backend Code";
+			sourceTree = "<group>";
+		};
 		0B9465A024089C420027864E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -286,6 +338,8 @@
 		1384A37122C1B388006036BA /* PolyWords */ = {
 			isa = PBXGroup;
 			children = (
+				0B9286DE24129609008CAC19 /* Networking */,
+				0B99569B24105CA800F4D06F /* APolygon.swift */,
 				0B11CA70240F35F1001B76A2 /* AppConstants.swift */,
 				0B7F55F9240973B000728B5B /* AppController.swift */,
 				1384A37422C1B389006036BA /* Assets.xcassets */,
@@ -296,7 +350,6 @@
 				0B5DC9D82405D62100827383 /* Extensions.swift */,
 				0B5DC9B42405D27900827383 /* GameScene.swift */,
 				0B62E95A240DC7CC006C7FE3 /* HighScores.swift */,
-				0B9286DA2411BD24008CAC19 /* PostScoreController.swift */,
 				0B62E95F240DCA27006C7FE3 /* HighWords.swift */,
 				13EBBB3E22C6FDA500230D2B /* Lighting.swift */,
 				130F081422C43563001B7909 /* Mesh.swift */,
@@ -304,16 +357,12 @@
 				130F081122C4352D001B7909 /* Model.swift */,
 				1384A39622C1DFC2006036BA /* Models */,
 				0B9956A32410CB6500F4D06F /* MyActionSheet.swift */,
-				0B5DC9C62405D38500827383 /* MyPolygon.swift */,
 				130F080B22C4343D001B7909 /* Node.swift */,
 				0B9956952410038A00F4D06F /* PauseDelegate.swift */,
 				130EDE6A22C9BE9100288A31 /* PBR.metal */,
-				0B99569B24105CA800F4D06F /* Polygons.swift */,
 				0B5DC9C92405D39800827383 /* Polyhedron.swift */,
 				0B11CA74240F4035001B76A2 /* PolyWordsView.swift */,
 				1384A38A22C1BA95006036BA /* Primitive.swift */,
-				0B9956932410016400F4D06F /* PullDataController.swift */,
-				0B99569724100B4E00F4D06F /* PushDataController.swift */,
 				0B5DC9C32405D37200827383 /* Renderable.swift */,
 				1384A38822C1B53E006036BA /* Renderer.swift */,
 				0B5DC9AE2405D25A00827383 /* Scene.swift */,
@@ -535,6 +584,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B9286E02412970E008CAC19 /* ServerResponse.swift in Sources */,
 				130F081822C435A0001B7909 /* Submesh.swift in Sources */,
 				0B5DC9B52405D27A00827383 /* GameScene.swift in Sources */,
 				0B99569824100B4E00F4D06F /* PushDataController.swift in Sources */,
@@ -565,8 +615,7 @@
 				0B5DC9B22405D26F00827383 /* TrackBall.swift in Sources */,
 				0B5DC9DF2405D7A700827383 /* MetalTexture.swift in Sources */,
 				1384A38B22C1BA95006036BA /* Primitive.swift in Sources */,
-				0B99569C24105CA800F4D06F /* Polygons.swift in Sources */,
-				0B5DC9C72405D38600827383 /* MyPolygon.swift in Sources */,
+				0B99569C24105CA800F4D06F /* APolygon.swift in Sources */,
 				1384A38D22C1BE70006036BA /* Shaders.metal in Sources */,
 				0B62E95B240DC7CC006C7FE3 /* HighScores.swift in Sources */,
 				0B9956962410038A00F4D06F /* PauseDelegate.swift in Sources */,
@@ -613,7 +662,6 @@
 				0B5DC9E02405D7A700827383 /* MetalTexture.swift in Sources */,
 				0BB4466624077C9A0006E805 /* WordsViewController2.swift in Sources */,
 				1384A3F022C1F12A006036BA /* Renderer.swift in Sources */,
-				0B5DC9C82405D38600827383 /* MyPolygon.swift in Sources */,
 				130F082D22C43CC8001B7909 /* ViewControllerExtension.swift in Sources */,
 				0B11CA73240F3EDE001B76A2 /* EncodeDecode.swift in Sources */,
 				0B5DC9CE2405D3C800827383 /* BasePolygon.swift in Sources */,

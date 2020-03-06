@@ -75,7 +75,7 @@ class GameScene: Scene {
 		
 		touchPosition.y = 480.0 - touchPosition.y
 		
-		var closePolygons:[MyPolygon] = []
+		var closePolygons:[Apolygon] = []
 		var centroidZs:[Float] = [0]
 		var faceNumbers:[Int] = [0]
 		
@@ -127,7 +127,7 @@ class GameScene: Scene {
 		counter = 0;
 		let copyOfClosePolygons = closePolygons;
 		for poly in copyOfClosePolygons {
-			let polyType: Int = poly.polyType
+			let polyType: Int = poly.type
 			var deformedVertexX = [Float](repeating: 0, count: polyType + 3)
 			var deformedVertexY = [Float](repeating: 0, count: polyType + 3)
 			for nn in 0..<(polyType + 3) {
