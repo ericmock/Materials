@@ -61,6 +61,20 @@
 		0B7F55FB2409741100728B5B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
 		0B9286DB2411BD24008CAC19 /* PostScoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DA2411BD24008CAC19 /* PostScoreController.swift */; };
 		0B9286E02412970E008CAC19 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DF2412970D008CAC19 /* ServerResponse.swift */; };
+		0B9286F62412D5CA008CAC19 /* GuideView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B9286F52412D5CA008CAC19 /* GuideView.storyboard */; };
+		0B9286F82412DD37008CAC19 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286F72412DD37008CAC19 /* GuideViewController.swift */; };
+		0B92873324142193008CAC19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B92872C24142192008CAC19 /* ViewController.swift */; };
+		0B92873424142193008CAC19 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B92872D24142192008CAC19 /* WindowController.swift */; };
+		0B92873524142193008CAC19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B92872E24142192008CAC19 /* Assets.xcassets */; };
+		0B92873624142193008CAC19 /* WordList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B92872F24142192008CAC19 /* WordList.storyboard */; };
+		0B92873724142193008CAC19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B92873124142192008CAC19 /* AppDelegate.swift */; };
+		0B92873A241422D9008CAC19 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B928739241422D8008CAC19 /* Info.plist */; };
+		0B92876B241428A6008CAC19 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B928763241428A5008CAC19 /* WindowController.swift */; };
+		0B92876C241428A6008CAC19 /* GuideAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B928764241428A5008CAC19 /* GuideAppDelegate.swift */; };
+		0B92876D241428A6008CAC19 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B928765241428A6008CAC19 /* Info.plist */; };
+		0B92876E241428A6008CAC19 /* GuideView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B928767241428A6008CAC19 /* GuideView.storyboard */; };
+		0B92876F241428A6008CAC19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B928769241428A6008CAC19 /* Assets.xcassets */; };
+		0B928770241428A6008CAC19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B92876A241428A6008CAC19 /* ViewController.swift */; };
 		0B946599240884AD0027864E /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9465972408848D0027864E /* GuideViewController.swift */; };
 		0B94659B24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
 		0B94659C24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
@@ -183,6 +197,22 @@
 		0B9286F024129FE9008CAC19 /* polyhedradata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = polyhedradata.php; sourceTree = "<group>"; };
 		0B9286F124129FE9008CAC19 /* exchangegamedata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = exchangegamedata.php; sourceTree = "<group>"; };
 		0B9286F224129FE9008CAC19 /* sendworddata.php */ = {isa = PBXFileReference; lastKnownFileType = text.script.php; path = sendworddata.php; sourceTree = "<group>"; };
+		0B9286F52412D5CA008CAC19 /* GuideView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GuideView.storyboard; sourceTree = SOURCE_ROOT; };
+		0B9286F72412DD37008CAC19 /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
+		0B92870D24141EEC008CAC19 /* WordListView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordListView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B92872C24142192008CAC19 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0B92872D24142192008CAC19 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		0B92872E24142192008CAC19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0B92873024142192008CAC19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/WordList.storyboard; sourceTree = "<group>"; };
+		0B92873124142192008CAC19 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0B928739241422D8008CAC19 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B92873F241423C9008CAC19 /* GuideView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuideView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B928763241428A5008CAC19 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
+		0B928764241428A5008CAC19 /* GuideAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideAppDelegate.swift; sourceTree = "<group>"; };
+		0B928765241428A6008CAC19 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B928768241428A6008CAC19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GuideView.storyboard; sourceTree = "<group>"; };
+		0B928769241428A6008CAC19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0B92876A241428A6008CAC19 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0B9465972408848D0027864E /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		0B94659A24089C010027864E /* TestPolyhedron.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.mtl; path = ../../../TestPolyhedron.mtl; sourceTree = "<group>"; };
 		0B94659D24089C0E0027864E /* TestPolyhedron.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.obj; path = ../../../TestPolyhedron.obj; sourceTree = "<group>"; };
@@ -238,6 +268,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0B92870A24141EEC008CAC19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0B92873C241423C8008CAC19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1384A36C22C1B388006036BA /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -291,12 +335,39 @@
 			path = "Backend Code";
 			sourceTree = "<group>";
 		};
+		0B92872B24142192008CAC19 /* WordListView */ = {
+			isa = PBXGroup;
+			children = (
+				0B92872C24142192008CAC19 /* ViewController.swift */,
+				0B928739241422D8008CAC19 /* Info.plist */,
+				0B92872D24142192008CAC19 /* WindowController.swift */,
+				0B92872E24142192008CAC19 /* Assets.xcassets */,
+				0B92872F24142192008CAC19 /* WordList.storyboard */,
+				0B92873124142192008CAC19 /* AppDelegate.swift */,
+			);
+			name = WordListView;
+			path = ../WordListView/WordListView;
+			sourceTree = "<group>";
+		};
+		0B92874F241423E5008CAC19 /* GuideView */ = {
+			isa = PBXGroup;
+			children = (
+				0B928767241428A6008CAC19 /* GuideView.storyboard */,
+				0B928769241428A6008CAC19 /* Assets.xcassets */,
+				0B928764241428A5008CAC19 /* GuideAppDelegate.swift */,
+				0B928765241428A6008CAC19 /* Info.plist */,
+				0B92876A241428A6008CAC19 /* ViewController.swift */,
+				0B928763241428A5008CAC19 /* WindowController.swift */,
+			);
+			name = GuideView;
+			path = ../GuideView/GuideView;
+			sourceTree = "<group>";
+		};
 		0B9465A024089C420027864E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				0B9956992410589600F4D06F /* PolyWordsViewController.swift */,
 				1384A38022C1B3C2006036BA /* ViewController.swift */,
-				0B9465972408848D0027864E /* GuideViewController.swift */,
 				0B5DC9E42405F47F00827383 /* ViewController2.swift */,
 				0BB446622407636D0006E805 /* WordsViewController.swift */,
 				0BB4466524077C9A0006E805 /* WordsViewController2.swift */,
@@ -319,6 +390,8 @@
 		1384A36622C1B388006036BA = {
 			isa = PBXGroup;
 			children = (
+				0B92874F241423E5008CAC19 /* GuideView */,
+				0B92872B24142192008CAC19 /* WordListView */,
 				1384A37122C1B388006036BA /* PolyWords */,
 				1384A3DA22C1F04B006036BA /* PolyWords-iOS */,
 				1384A3F522C1F210006036BA /* PolyWords-macOS */,
@@ -331,6 +404,8 @@
 			children = (
 				1384A36F22C1B388006036BA /* PolyWords-macOS.app */,
 				1384A3D922C1F04B006036BA /* PolyWords-iOS.app */,
+				0B92870D24141EEC008CAC19 /* WordListView.app */,
+				0B92873F241423C9008CAC19 /* GuideView.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -411,6 +486,7 @@
 		1384A3DA22C1F04B006036BA /* PolyWords-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				0B9465972408848D0027864E /* GuideViewController.swift */,
 				130F082C22C43CC8001B7909 /* ViewControllerExtension.swift */,
 				1384A3ED22C1F0A7006036BA /* LocalClasses.swift */,
 				1384A3E122C1F04B006036BA /* Main.storyboard */,
@@ -424,11 +500,13 @@
 		1384A3F522C1F210006036BA /* PolyWords-macOS */ = {
 			isa = PBXGroup;
 			children = (
+				0B9286F52412D5CA008CAC19 /* GuideView.storyboard */,
 				130F082922C43C57001B7909 /* ViewControllerExtension.swift */,
 				1384A37222C1B388006036BA /* LocalClasses.swift */,
 				1384A37622C1B389006036BA /* Main.storyboard */,
 				1384A37922C1B389006036BA /* Info.plist */,
 				1384A37A22C1B389006036BA /* Materials.entitlements */,
+				0B9286F72412DD37008CAC19 /* GuideViewController.swift */,
 			);
 			path = "PolyWords-macOS";
 			sourceTree = "<group>";
@@ -444,6 +522,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0B92870C24141EEC008CAC19 /* WordListView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0B92871A24141EF0008CAC19 /* Build configuration list for PBXNativeTarget "WordListView" */;
+			buildPhases = (
+				0B92870924141EEC008CAC19 /* Sources */,
+				0B92870A24141EEC008CAC19 /* Frameworks */,
+				0B92870B24141EEC008CAC19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WordListView;
+			productName = WordListView;
+			productReference = 0B92870D24141EEC008CAC19 /* WordListView.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0B92873E241423C8008CAC19 /* GuideView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0B92874C241423D4008CAC19 /* Build configuration list for PBXNativeTarget "GuideView" */;
+			buildPhases = (
+				0B92873B241423C8008CAC19 /* Sources */,
+				0B92873C241423C8008CAC19 /* Frameworks */,
+				0B92873D241423C8008CAC19 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GuideView;
+			productName = GuideView;
+			productReference = 0B92873F241423C9008CAC19 /* GuideView.app */;
+			productType = "com.apple.product-type.application";
+		};
 		1384A36E22C1B388006036BA /* PolyWords-macOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1384A37D22C1B389006036BA /* Build configuration list for PBXNativeTarget "PolyWords-macOS" */;
@@ -484,10 +596,17 @@
 		1384A36722C1B388006036BA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = Razeware;
 				TargetAttributes = {
+					0B92870C24141EEC008CAC19 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					0B92873E241423C8008CAC19 = {
+						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
+					};
 					1384A36E22C1B388006036BA = {
 						CreatedOnToolsVersion = 11.0;
 						LastSwiftMigration = 1130;
@@ -513,11 +632,33 @@
 			targets = (
 				1384A36E22C1B388006036BA /* PolyWords-macOS */,
 				1384A3D822C1F04B006036BA /* PolyWords-iOS */,
+				0B92870C24141EEC008CAC19 /* WordListView */,
+				0B92873E241423C8008CAC19 /* GuideView */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0B92870B24141EEC008CAC19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B92873524142193008CAC19 /* Assets.xcassets in Resources */,
+				0B92873624142193008CAC19 /* WordList.storyboard in Resources */,
+				0B92873A241422D9008CAC19 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0B92873D241423C8008CAC19 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B92876E241428A6008CAC19 /* GuideView.storyboard in Resources */,
+				0B92876F241428A6008CAC19 /* Assets.xcassets in Resources */,
+				0B92876D241428A6008CAC19 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1384A36D22C1B388006036BA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -541,6 +682,7 @@
 				139D235622C86C1E00C6DB03 /* Textures.xcassets in Resources */,
 				0B5DC9F52406032900827383 /* Title3.obj in Resources */,
 				0B5DC9F72406032900827383 /* Title4.obj in Resources */,
+				0B9286F62412D5CA008CAC19 /* GuideView.storyboard in Resources */,
 				13E3142A22C977F000E0B48D /* cottage2.obj in Resources */,
 				0B5DC9AC2405C52C00827383 /* wood_original.jpg in Resources */,
 				13E3142222C977F000E0B48D /* cottage1.mtl in Resources */,
@@ -580,6 +722,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0B92870924141EEC008CAC19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B92873724142193008CAC19 /* AppDelegate.swift in Sources */,
+				0B92873324142193008CAC19 /* ViewController.swift in Sources */,
+				0B92873424142193008CAC19 /* WindowController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0B92873B241423C8008CAC19 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B928770241428A6008CAC19 /* ViewController.swift in Sources */,
+				0B92876B241428A6008CAC19 /* WindowController.swift in Sources */,
+				0B92876C241428A6008CAC19 /* GuideAppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1384A36B22C1B388006036BA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -601,6 +763,7 @@
 				0B9956A72410D49F00F4D06F /* UpgradeDelegate.swift in Sources */,
 				0B5DCA012406F21800827383 /* BufferProvider.swift in Sources */,
 				0B9956A42410CB6500F4D06F /* MyActionSheet.swift in Sources */,
+				0B9286F82412DD37008CAC19 /* GuideViewController.swift in Sources */,
 				0B5DC9BE2405D29F00827383 /* SQLiteDatabase.swift in Sources */,
 				130F080F22C434CF001B7909 /* Camera.swift in Sources */,
 				1384A38122C1B3C2006036BA /* ViewController.swift in Sources */,
@@ -677,6 +840,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		0B92872F24142192008CAC19 /* WordList.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0B92873024142192008CAC19 /* Base */,
+			);
+			name = WordList.storyboard;
+			sourceTree = "<group>";
+		};
+		0B928767241428A6008CAC19 /* GuideView.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0B928768241428A6008CAC19 /* Base */,
+			);
+			name = GuideView.storyboard;
+			sourceTree = "<group>";
+		};
 		1384A37622C1B389006036BA /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -704,6 +883,93 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0B92871B24141EF0008CAC19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 567YC6JLS4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = PolyWords/WordListView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.WordListView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0B92871C24141EF0008CAC19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 567YC6JLS4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = PolyWords/WordListView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.WordListView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		0B92874D241423D4008CAC19 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 567YC6JLS4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = GuideView/GuideView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.GuideView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0B92874E241423D4008CAC19 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 567YC6JLS4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = GuideView/GuideView/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.GuideView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		1384A37B22C1B389006036BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -909,6 +1175,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0B92871A24141EF0008CAC19 /* Build configuration list for PBXNativeTarget "WordListView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B92871B24141EF0008CAC19 /* Debug */,
+				0B92871C24141EF0008CAC19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0B92874C241423D4008CAC19 /* Build configuration list for PBXNativeTarget "GuideView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B92874D241423D4008CAC19 /* Debug */,
+				0B92874E241423D4008CAC19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1384A36A22C1B388006036BA /* Build configuration list for PBXProject "PolyWords" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
