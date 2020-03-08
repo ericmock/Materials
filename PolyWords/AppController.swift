@@ -16,6 +16,41 @@ struct AppConstants {
 	static let kGameStart:UInt = 0
 	static let kGameRestart:UInt = 1
 	static let kGameContinue:UInt = 1
+	static let kPolyhedronNames:[String] = ["Truncated Icosahedron",
+						 "Parabigyrate Rhombicosidodecahedron",
+						 "Parabidiminished Rhombicosidodecahedron",
+						 "Deca-faced Polyhedron",
+						 "Rhombic Triacontahedron",
+						 "Great Dodecacronic Hexecontahedron",
+						 "Truncated Dodecahedron",
+						 "Octagon-Drilled Truncated Cuboctahedron",
+						 "Rhombicosidodecahedron",
+						 "Truncated Truncated Icosahedron",
+						 "Drilled Truncated Cube",
+						 "Truncated Cuboctahedron",
+						 "Gyroelongated Square Bicupola",
+						 "Nameless Blob",
+						 "Stewart K4'",
+						 "Pentagonal Orthobirotunda",
+						 "Truncated Icosidodecahedron",
+						 "Gyroelongated Pentagonal Rotunda",
+						 "Drilled Truncated Dodecahedron",
+						 "Half-truncated Truncated Icosahedron",
+						 "Truncated Octahedron 8",
+						 "Truncated Octahedron",
+						 "Strombic Hexecontahedron",
+						 "Disdyakisdodecahedron",
+						 "Antiprism-Extended Dodecahedrahedron Ring",
+						 "Gyro-Expanded Cuboctahedron",
+						 "Tetrakishexahedron",
+						 "Icosahedra 8-ring",
+						 "Cupola-Drilled Truncated Icosidodecahedron",
+						 "Gyro-Double-Expanded Cuboctahedron",
+						 "Rotunda-Drilled Truncated Icosidodecahedron",
+						 "Prism-Expanded Truncated Cube",
+						 "Eight-Octahedron Ring",
+						 "Torus Slice",
+						 "Gyroelongated Pentagonal Cupola"]
 }
 
 class AppController: AppDelegate {

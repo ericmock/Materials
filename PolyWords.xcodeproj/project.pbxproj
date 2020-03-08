@@ -72,7 +72,6 @@
 		0B92876B241428A6008CAC19 /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B928763241428A5008CAC19 /* WindowController.swift */; };
 		0B92876C241428A6008CAC19 /* GuideAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B928764241428A5008CAC19 /* GuideAppDelegate.swift */; };
 		0B92876D241428A6008CAC19 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0B928765241428A6008CAC19 /* Info.plist */; };
-		0B92876E241428A6008CAC19 /* GuideView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B928767241428A6008CAC19 /* GuideView.storyboard */; };
 		0B92876F241428A6008CAC19 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B928769241428A6008CAC19 /* Assets.xcassets */; };
 		0B928770241428A6008CAC19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B92876A241428A6008CAC19 /* ViewController.swift */; };
 		0B946599240884AD0027864E /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9465972408848D0027864E /* GuideViewController.swift */; };
@@ -91,6 +90,15 @@
 		0B9956A72410D49F00F4D06F /* UpgradeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */; };
 		0BB446642407636E0006E805 /* WordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB446622407636D0006E805 /* WordsViewController.swift */; };
 		0BB4466624077C9A0006E805 /* WordsViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB4466524077C9A0006E805 /* WordsViewController2.swift */; };
+		0BBBF5152414B20D0058332C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBBF5142414B20D0058332C /* AppDelegate.swift */; };
+		0BBBF5192414B23D0058332C /* WordList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BBBF5182414B2330058332C /* WordList.storyboard */; };
+		0BBBF51B2414B25D0058332C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBBF51A2414B25D0058332C /* ViewController.swift */; };
+		0BBBF51F2414B28F0058332C /* WindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BBBF51E2414B28F0058332C /* WindowController.swift */; };
+		0BBBF5212414B3A80058332C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BBBF5202414B3A80058332C /* Info.plist */; };
+		0BBBF52324154EED0058332C /* PolyhedronStatisticsScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 0BBBF52224154EED0058332C /* PolyhedronStatisticsScene.scn */; };
+		0BBBF525241551170058332C /* Assets.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BBBF524241551170058332C /* Assets.scnassets */; };
+		0BF60EC524146E1600D286A1 /* GuideView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B928768241428A6008CAC19 /* GuideView.storyboard */; };
+		0BF60EDC2414702C00D286A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BF60EDB2414702C00D286A1 /* Assets.xcassets */; };
 		130EDE7422C9C21C00288A31 /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE6E22C9C21B00288A31 /* chest.obj */; };
 		130EDE7522C9C21C00288A31 /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE6E22C9C21B00288A31 /* chest.obj */; };
 		130EDE7A22C9C21C00288A31 /* chest.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE7122C9C21B00288A31 /* chest.mtl */; };
@@ -210,7 +218,7 @@
 		0B928763241428A5008CAC19 /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindowController.swift; sourceTree = "<group>"; };
 		0B928764241428A5008CAC19 /* GuideAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideAppDelegate.swift; sourceTree = "<group>"; };
 		0B928765241428A6008CAC19 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0B928768241428A6008CAC19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GuideView.storyboard; sourceTree = "<group>"; };
+		0B928768241428A6008CAC19 /* GuideView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GuideView.storyboard; sourceTree = "<group>"; };
 		0B928769241428A6008CAC19 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B92876A241428A6008CAC19 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0B9465972408848D0027864E /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
@@ -227,6 +235,15 @@
 		0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeDelegate.swift; sourceTree = "<group>"; };
 		0BB446622407636D0006E805 /* WordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsViewController.swift; sourceTree = "<group>"; };
 		0BB4466524077C9A0006E805 /* WordsViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsViewController2.swift; sourceTree = "<group>"; };
+		0BBBF5142414B20D0058332C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../../PolyhedronStatistics/AppDelegate.swift; sourceTree = "<group>"; };
+		0BBBF5182414B2330058332C /* WordList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WordList.storyboard; sourceTree = "<group>"; };
+		0BBBF51A2414B25D0058332C /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../../PolyhedronStatistics/ViewController.swift; sourceTree = "<group>"; };
+		0BBBF51E2414B28F0058332C /* WindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WindowController.swift; path = ../../PolyhedronStatistics/WindowController.swift; sourceTree = "<group>"; };
+		0BBBF5202414B3A80058332C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BBBF52224154EED0058332C /* PolyhedronStatisticsScene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = PolyhedronStatisticsScene.scn; sourceTree = "<group>"; };
+		0BBBF524241551170058332C /* Assets.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Assets.scnassets; sourceTree = "<group>"; };
+		0BF60ED52414702900D286A1 /* PolyhedronStatistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolyhedronStatistics.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BF60EDB2414702C00D286A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		130EDE6A22C9BE9100288A31 /* PBR.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PBR.metal; sourceTree = "<group>"; };
 		130EDE6E22C9C21B00288A31 /* chest.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chest.obj; sourceTree = "<group>"; };
 		130EDE7122C9C21B00288A31 /* chest.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = chest.mtl; sourceTree = "<group>"; };
@@ -276,6 +293,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		0B92873C241423C8008CAC19 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BF60ED22414702900D286A1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -352,7 +376,7 @@
 		0B92874F241423E5008CAC19 /* GuideView */ = {
 			isa = PBXGroup;
 			children = (
-				0B928767241428A6008CAC19 /* GuideView.storyboard */,
+				0B928768241428A6008CAC19 /* GuideView.storyboard */,
 				0B928769241428A6008CAC19 /* Assets.xcassets */,
 				0B928764241428A5008CAC19 /* GuideAppDelegate.swift */,
 				0B928765241428A6008CAC19 /* Info.plist */,
@@ -377,6 +401,21 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		0BF60ED62414702900D286A1 /* PolyhedronStatistics */ = {
+			isa = PBXGroup;
+			children = (
+				0BBBF5202414B3A80058332C /* Info.plist */,
+				0BBBF51E2414B28F0058332C /* WindowController.swift */,
+				0BBBF51A2414B25D0058332C /* ViewController.swift */,
+				0BBBF5182414B2330058332C /* WordList.storyboard */,
+				0BBBF5142414B20D0058332C /* AppDelegate.swift */,
+				0BF60EDB2414702C00D286A1 /* Assets.xcassets */,
+				0BBBF524241551170058332C /* Assets.scnassets */,
+				0BBBF52224154EED0058332C /* PolyhedronStatisticsScene.scn */,
+			);
+			path = PolyhedronStatistics;
+			sourceTree = "<group>";
+		};
 		130EDE6D22C9C21B00288A31 /* treasure-chest */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,6 +434,7 @@
 				1384A37122C1B388006036BA /* PolyWords */,
 				1384A3DA22C1F04B006036BA /* PolyWords-iOS */,
 				1384A3F522C1F210006036BA /* PolyWords-macOS */,
+				0BF60ED62414702900D286A1 /* PolyhedronStatistics */,
 				1384A37022C1B388006036BA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -406,6 +446,7 @@
 				1384A3D922C1F04B006036BA /* PolyWords-iOS.app */,
 				0B92870D24141EEC008CAC19 /* WordListView.app */,
 				0B92873F241423C9008CAC19 /* GuideView.app */,
+				0BF60ED52414702900D286A1 /* PolyhedronStatistics.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -556,6 +597,23 @@
 			productReference = 0B92873F241423C9008CAC19 /* GuideView.app */;
 			productType = "com.apple.product-type.application";
 		};
+		0BF60ED42414702900D286A1 /* PolyhedronStatistics */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0BF60EE22414702C00D286A1 /* Build configuration list for PBXNativeTarget "PolyhedronStatistics" */;
+			buildPhases = (
+				0BF60ED12414702900D286A1 /* Sources */,
+				0BF60ED22414702900D286A1 /* Frameworks */,
+				0BF60ED32414702900D286A1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PolyhedronStatistics;
+			productName = PolyhedronStatistics;
+			productReference = 0BF60ED52414702900D286A1 /* PolyhedronStatistics.app */;
+			productType = "com.apple.product-type.application";
+		};
 		1384A36E22C1B388006036BA /* PolyWords-macOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1384A37D22C1B389006036BA /* Build configuration list for PBXNativeTarget "PolyWords-macOS" */;
@@ -607,6 +665,9 @@
 						CreatedOnToolsVersion = 11.3.1;
 						LastSwiftMigration = 1130;
 					};
+					0BF60ED42414702900D286A1 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 					1384A36E22C1B388006036BA = {
 						CreatedOnToolsVersion = 11.0;
 						LastSwiftMigration = 1130;
@@ -634,6 +695,7 @@
 				1384A3D822C1F04B006036BA /* PolyWords-iOS */,
 				0B92870C24141EEC008CAC19 /* WordListView */,
 				0B92873E241423C8008CAC19 /* GuideView */,
+				0BF60ED42414702900D286A1 /* PolyhedronStatistics */,
 			);
 		};
 /* End PBXProject section */
@@ -653,9 +715,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B92876E241428A6008CAC19 /* GuideView.storyboard in Resources */,
+				0BF60EC524146E1600D286A1 /* GuideView.storyboard in Resources */,
 				0B92876F241428A6008CAC19 /* Assets.xcassets in Resources */,
 				0B92876D241428A6008CAC19 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BF60ED32414702900D286A1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0BBBF52324154EED0058332C /* PolyhedronStatisticsScene.scn in Resources */,
+				0BBBF5192414B23D0058332C /* WordList.storyboard in Resources */,
+				0BF60EDC2414702C00D286A1 /* Assets.xcassets in Resources */,
+				0BBBF525241551170058332C /* Assets.scnassets in Resources */,
+				0BBBF5212414B3A80058332C /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,6 +813,16 @@
 				0B928770241428A6008CAC19 /* ViewController.swift in Sources */,
 				0B92876B241428A6008CAC19 /* WindowController.swift in Sources */,
 				0B92876C241428A6008CAC19 /* GuideAppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BF60ED12414702900D286A1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0BBBF51B2414B25D0058332C /* ViewController.swift in Sources */,
+				0BBBF51F2414B28F0058332C /* WindowController.swift in Sources */,
+				0BBBF5152414B20D0058332C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,14 +930,6 @@
 				0B92873024142192008CAC19 /* Base */,
 			);
 			name = WordList.storyboard;
-			sourceTree = "<group>";
-		};
-		0B928767241428A6008CAC19 /* GuideView.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0B928768241428A6008CAC19 /* Base */,
-			);
-			name = GuideView.storyboard;
 			sourceTree = "<group>";
 		};
 		1384A37622C1B389006036BA /* Main.storyboard */ = {
@@ -965,6 +1041,46 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.GuideView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		0BF60EE32414702C00D286A1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 567YC6JLS4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = PolyhedronStatistics/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.PolyhedronStatistics;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0BF60EE42414702C00D286A1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 567YC6JLS4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = PolyhedronStatistics/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.PolyhedronStatistics;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1189,6 +1305,15 @@
 			buildConfigurations = (
 				0B92874D241423D4008CAC19 /* Debug */,
 				0B92874E241423D4008CAC19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0BF60EE22414702C00D286A1 /* Build configuration list for PBXNativeTarget "PolyhedronStatistics" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0BF60EE32414702C00D286A1 /* Debug */,
+				0BF60EE42414702C00D286A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
