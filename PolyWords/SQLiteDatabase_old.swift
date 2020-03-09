@@ -9,14 +9,14 @@
 import Foundation
 import SQLite3
 
-enum SQLiteError: Error {
+enum SQLiteError_old: Error {
   case OpenDatabase(message: String)
   case Prepare(message: String)
   case Step(message: String)
   case Bind(message: String)
 }
 
-class SQLiteDatabase {
+class SQLiteDatabase_old {
       
     private let dbPointer: OpaquePointer?
     init(dbPointer: OpaquePointer?) {
@@ -26,12 +26,12 @@ class SQLiteDatabase {
       sqlite3_close(dbPointer)
     }
     
-    static func open(path: String) throws -> SQLiteDatabase {
+    static func open(path: String) throws -> SQLiteDatabase_old {
     var db: OpaquePointer?
     // 1
     if sqlite3_open(path, &db) == SQLITE_OK {
       // 2
-      return SQLiteDatabase(dbPointer: db)
+      return SQLiteDatabase_old(dbPointer: db)
     } else {
       // 3
       defer {
@@ -57,7 +57,7 @@ class SQLiteDatabase {
     }
 }
 
-extension SQLiteDatabase {
+extension SQLiteDatabase_old {
  func prepareStatement(sql: String) throws -> OpaquePointer? {
   var statement: OpaquePointer?
   guard sqlite3_prepare_v2(dbPointer, sql, -1, &statement, nil)
@@ -72,11 +72,11 @@ struct Word {
   let word: NSString
 }
 
-protocol SQLTable {
+protocol SQLTable_old {
   static var createStatement: String { get }
 }
 
-extension Word: SQLTable {
+extension Word: SQLTable_old {
   static var createStatement: String {
     return """
     CREATE TABLE Contact(
@@ -87,8 +87,8 @@ extension Word: SQLTable {
   }
 }
 
-extension SQLiteDatabase {
-  func createTable(table: SQLTable.Type) throws {
+extension SQLiteDatabase_old {
+  func createTable(table: SQLTable_old.Type) throws {
     // 1
     let createTableStatement = try prepareStatement(sql: table.createStatement)
     // 2
@@ -103,7 +103,7 @@ extension SQLiteDatabase {
   }
 }
 
-extension SQLiteDatabase {
+extension SQLiteDatabase_old {
   func insertContact(contact: Word) throws {
     let insertSql = "INSERT INTO Contact (Id, Name) VALUES (?, ?);"
     let insertStatement = try prepareStatement(sql: insertSql)
@@ -124,7 +124,7 @@ extension SQLiteDatabase {
   }
 }
 
-extension SQLiteDatabase {
+extension SQLiteDatabase_old {
   func select(withStatement querySql:String) -> [NSString]? {
     var words:[NSString] = []
     guard let queryStatement = try? prepareStatement(sql: querySql) else {

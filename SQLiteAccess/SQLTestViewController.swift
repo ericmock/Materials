@@ -1,40 +1,8 @@
-//
-/**
- * Copyright (c) 2019 Razeware LLC
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
- * distribute, sublicense, create a derivative work, and/or sell copies of the
- * Software in any work that is designed, intended, or marketed for pedagogical or
- * instructional purposes related to programming, coding, application development,
- * or information technology.  Permission for such use, copying, modification,
- * merger, publication, distribution, sublicensing, creation of derivative works,
- * or sale is expressly withheld.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- */
-
-
 import Cocoa
 import SQLite3
 
 
-class ViewController: NSViewController {
+class SQLTestViewController: NSViewController {
 
 //	enum Database: String {
 //		case Part1
@@ -48,8 +16,6 @@ class ViewController: NSViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		let directoryUrl = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-
 		let dbPath = Bundle.main.resourceURL?.appendingPathComponent("data.sqlite").absoluteString//directoryUrl?.appendingPathComponent("data.sqlite").relativePath
 		
 //		func destroyDatabase(db: Database) {
@@ -97,15 +63,15 @@ class ViewController: NSViewController {
 //			print("Error")
 //		}
 
-		var first:Contact?
+		var vertices:[Vertex]?
 		do {
-			first = try db.getVertices(polyhedron_id: 20)
+			vertices = try db.getVertices(forPolyhedronID: 20)
 		} catch {
 			print("Error")
 			return
 		}
-
-		print("\(first!.id) \(first!.name)")
+//
+//		print("\(first!.id) \(first!.name)")
 //		func openDatabase() -> OpaquePointer? {
 //			var db: OpaquePointer?
 //			if sqlite3_open(part1DbPath, &db) == SQLITE_OK {

@@ -51,6 +51,7 @@ struct AppConstants {
 						 "Eight-Octahedron Ring",
 						 "Torus Slice",
 						 "Gyroelongated Pentagonal Cupola"]
+	static let kNumPolygonTypes = 15
 }
 
 class AppController: AppDelegate {

@@ -10,7 +10,7 @@ import Foundation
 import SQLite3
 
 class Words : NSObject {
-	let db:SQLiteDatabase!
+	let db:SQLiteDatabase_old!
 	let delegate:PolyWordsView!
 	var gameScene:Scene
 	let deleteStatement = ""
@@ -23,7 +23,7 @@ class Words : NSObject {
 		self.gameScene = scene
 		self.delegate = delegate
 		do {
-			db = try SQLiteDatabase.open(path: dbPath)
+			db = try SQLiteDatabase_old.open(path: dbPath)
 		} catch SQLiteError.OpenDatabase(_) {
 			print("Unable to open database.")
 			db = nil
