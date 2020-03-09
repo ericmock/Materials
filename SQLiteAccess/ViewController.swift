@@ -33,51 +33,50 @@
 import Cocoa
 import SQLite3
 
-let tutorialDirectoryUrl = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
 
 class ViewController: NSViewController {
 
-	enum Database: String {
-		case Part1
-		case Part2
-		
-		var path: String? {
-			return tutorialDirectoryUrl?.appendingPathComponent("\(self.rawValue).sqlite").relativePath
-		}
-	}
+//	enum Database: String {
+//		case Part1
+//		case Part2
+//
+//		var path: String? {
+//			return
+//		}
+//	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		let part1DbPath = Database.Part1.path
-		let part2DbPath = Database.Part2.path
+		let directoryUrl = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+
+		let dbPath = Bundle.main.resourceURL?.appendingPathComponent("data.sqlite").absoluteString//directoryUrl?.appendingPathComponent("data.sqlite").relativePath
 		
+//		func destroyDatabase(db: Database) {
+//			guard let path = db.path else { return }
+//			do {
+//				if FileManager.default.fileExists(atPath: path) {
+//					try FileManager.default.removeItem(atPath: path)
+//				}
+//			} catch {
+//				print("Could not destroy \(db) Database file.")
+//			}
+//		}
+//
+//		func destroyPart1Database() {
+//			destroyDatabase(db: .Part1)
+//		}
+//
+//		func destroyPart2Database() {
+//			destroyDatabase(db: .Part2)
+//		}
 
-		func destroyDatabase(db: Database) {
-			guard let path = db.path else { return }
-			do {
-				if FileManager.default.fileExists(atPath: path) {
-					try FileManager.default.removeItem(atPath: path)
-				}
-			} catch {
-				print("Could not destroy \(db) Database file.")
-			}
-		}
-
-		func destroyPart1Database() {
-			destroyDatabase(db: .Part1)
-		}
-
-		func destroyPart2Database() {
-			destroyDatabase(db: .Part2)
-		}
-
-		destroyPart2Database()
+//		destroyPart2Database()
 
 		let db: SQLiteDatabase
 
 		do {
-				db = try SQLiteDatabase.open(path: part2DbPath!)
+				db = try SQLiteDatabase.open(path: dbPath!)
 				print("Successfully opened connection to database.")
 		} catch SQLiteError.OpenDatabase(_) {
 				print("Unable to open database.")
@@ -86,21 +85,27 @@ class ViewController: NSViewController {
 			return
 		}
 		
+//		do {
+//			try db.createTable(table: Contact.self)
+//		} catch {
+//			print("Error")
+//		}
+//
+//		do {
+//			try db.insertContact(contact: Contact(id: 1, name: "Ray"))
+//		} catch {
+//			print("Error")
+//		}
+
+		var first:Contact?
 		do {
-			try db.createTable(table: Contact.self)
+			first = try db.getVertices(polyhedron_id: 20)
 		} catch {
 			print("Error")
+			return
 		}
 
-		do {
-			try db.insertContact(contact: Contact(id: 1, name: "Ray"))
-		} catch {
-			print("Error")
-		}
-
-		let first = db.contact(id: 1)
 		print("\(first!.id) \(first!.name)")
-
 //		func openDatabase() -> OpaquePointer? {
 //			var db: OpaquePointer?
 //			if sqlite3_open(part1DbPath, &db) == SQLITE_OK {

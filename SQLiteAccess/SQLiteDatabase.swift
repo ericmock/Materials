@@ -20,12 +20,9 @@ class SQLiteDatabase {
   }
     static func open(path: String) throws -> SQLiteDatabase {
       var db: OpaquePointer?
-      // 1
       if sqlite3_open(path, &db) == SQLITE_OK {
-        // 2
         return SQLiteDatabase(dbPointer: db)
       } else {
-        // 3
         defer {
           if db != nil {
             sqlite3_close(db)
@@ -57,6 +54,7 @@ extension SQLiteDatabase {
   var statement: OpaquePointer?
   guard sqlite3_prepare_v2(dbPointer, sql, -1, &statement, nil)
       == SQLITE_OK else {
+				print(SQLiteError.Prepare(message: errorMessage))
     throw SQLiteError.Prepare(message: errorMessage)
   }
   return statement
@@ -131,23 +129,39 @@ extension SQLiteDatabase {
 
 //: ## Read
 extension SQLiteDatabase {
-  func contact(id: Int32) -> Contact? {
-    let querySql = "SELECT * FROM Contact WHERE Id = ?;"
+	func getVertices(polyhedron_id: Int32) throws -> Contact? {
+    let querySql = "SELECT * FROM vertices WHERE polyhedron_id = ?;"
     guard let queryStatement = try? prepareStatement(sql: querySql) else {
-      return nil
+			throw SQLiteError.Step(message: "Error")
+			return nil
     }
     defer {
       sqlite3_finalize(queryStatement)
     }
-    guard sqlite3_bind_int(queryStatement, 1, id) == SQLITE_OK else {
+    guard sqlite3_bind_int(queryStatement, 1, polyhedron_id) == SQLITE_OK else {
       return nil
     }
-    guard sqlite3_step(queryStatement) == SQLITE_ROW else {
-      return nil
-    }
-    let id = sqlite3_column_int(queryStatement, 0)
-    let queryResultCol1 = sqlite3_column_text(queryStatement, 1)
-    let name = String(cString: queryResultCol1!) as NSString
-    return Contact(id: id, name: name)
+		print("Query Result:")
+			while (sqlite3_step(queryStatement) == SQLITE_ROW) {
+				
+				let dataX = sqlite3_column_double(queryStatement, 1)
+				let dataY = sqlite3_column_double(queryStatement, 2)
+				let dataZ = sqlite3_column_double(queryStatement, 3)
+//				let x = dataX.withMemoryRebound(to: Int8.self, capacity: 8) {
+//					return strlen($0)
+//				}
+//				let y = dataY?.withMemoryRebound(to: Int8.self, capacity: 8) {
+//					return strlen($0)
+//				}
+//				let z = dataZ?.withMemoryRebound(to: Int8.self, capacity: 8) {
+//					return strlen($0)
+//				}
+				print("\(dataX), \(dataY), \(dataZ)")
+			}
+//		sqlite3_finalize(queryStatement)
+//    guard sqlite3_step(queryStatement) == SQLITE_ROW else {
+//      return nil
+//    }
+    return Contact(id: polyhedron_id, name: "")
   }
 }
