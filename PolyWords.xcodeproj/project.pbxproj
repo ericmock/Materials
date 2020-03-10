@@ -11,6 +11,9 @@
 		0B11CA73240F3EDE001B76A2 /* EncodeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11CA71240F3EDD001B76A2 /* EncodeDecode.swift */; };
 		0B11CA75240F4035001B76A2 /* PolyWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11CA74240F4035001B76A2 /* PolyWordsView.swift */; };
 		0B11CA76240F4035001B76A2 /* PolyWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11CA74240F4035001B76A2 /* PolyWordsView.swift */; };
+		0B1626EB2417306900A73B5F /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
+		0B1626EC2417306A00A73B5F /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
+		0B1626ED2417306A00A73B5F /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
 		0B5D20572416B29C0052ECF1 /* SQLTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D20562416B29C0052ECF1 /* SQLTestViewController.swift */; };
 		0B5D20592416B29F0052ECF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B5D20582416B29F0052ECF1 /* Assets.xcassets */; };
 		0B5D205C2416B29F0052ECF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B5D205A2416B29F0052ECF1 /* Main.storyboard */; };
@@ -28,7 +31,6 @@
 		0B5D207C2416FE790052ECF1 /* PolyWordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956992410589600F4D06F /* PolyWordsViewController.swift */; };
 		0B5D207D2416FE830052ECF1 /* PushDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569724100B4E00F4D06F /* PushDataController.swift */; };
 		0B5D207E2416FE880052ECF1 /* PullDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956932410016400F4D06F /* PullDataController.swift */; };
-		0B5D207F2416FE990052ECF1 /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
 		0B5D20802416FEA40052ECF1 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C02405D2A400827383 /* Words.swift */; };
 		0B5D20812416FEBC0052ECF1 /* PauseDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956952410038A00F4D06F /* PauseDelegate.swift */; };
 		0B5D20822416FEC50052ECF1 /* PostScoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DA2411BD24008CAC19 /* PostScoreController.swift */; };
@@ -72,8 +74,6 @@
 		0B5DC9C22405D2A400827383 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C02405D2A400827383 /* Words.swift */; };
 		0B5DC9C42405D37300827383 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C32405D37200827383 /* Renderable.swift */; };
 		0B5DC9C52405D37300827383 /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C32405D37200827383 /* Renderable.swift */; };
-		0B5DC9CA2405D39800827383 /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
-		0B5DC9CB2405D39800827383 /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
 		0B5DC9CD2405D3C800827383 /* BasePolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9CC2405D3C800827383 /* BasePolygon.swift */; };
 		0B5DC9CE2405D3C800827383 /* BasePolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9CC2405D3C800827383 /* BasePolygon.swift */; };
 		0B5DC9DF2405D7A700827383 /* MetalTexture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9DE2405D7A700827383 /* MetalTexture.swift */; };
@@ -939,7 +939,6 @@
 			files = (
 				0B5D2094241702D30052ECF1 /* VertexDescriptor.swift in Sources */,
 				0B5D207A2416FE2D0052ECF1 /* PolyWordsView.swift in Sources */,
-				0B5D207F2416FE990052ECF1 /* Polyhedron.swift in Sources */,
 				0B5D207B2416FE3C0052ECF1 /* EncodeDecode.swift in Sources */,
 				0B5D20872416FF250052ECF1 /* Node.swift in Sources */,
 				0B5D20842416FEEB0052ECF1 /* Scene.swift in Sources */,
@@ -949,6 +948,7 @@
 				0B5D207D2416FE830052ECF1 /* PushDataController.swift in Sources */,
 				0B5D20812416FEBC0052ECF1 /* PauseDelegate.swift in Sources */,
 				0B5D2090241700320052ECF1 /* ViewControllerExtension.swift in Sources */,
+				0B1626EB2417306900A73B5F /* Polyhedron.swift in Sources */,
 				0B5D20772416FE120052ECF1 /* HighScores.swift in Sources */,
 				0B5D20822416FEC50052ECF1 /* PostScoreController.swift in Sources */,
 				0B5D20882416FF250052ECF1 /* Submesh.swift in Sources */,
@@ -1043,6 +1043,7 @@
 				0B5DC9C42405D37300827383 /* Renderable.swift in Sources */,
 				0B5DC9B22405D26F00827383 /* TrackBall.swift in Sources */,
 				0B5DC9DF2405D7A700827383 /* MetalTexture.swift in Sources */,
+				0B1626EC2417306A00A73B5F /* Polyhedron.swift in Sources */,
 				1384A38B22C1BA95006036BA /* Primitive.swift in Sources */,
 				0B99569C24105CA800F4D06F /* Apolygon.swift in Sources */,
 				1384A38D22C1BE70006036BA /* Shaders.metal in Sources */,
@@ -1051,7 +1052,6 @@
 				0B5DC9CD2405D3C800827383 /* BasePolygon.swift in Sources */,
 				0B62E960240DCA27006C7FE3 /* HighWords.swift in Sources */,
 				13A7ABC522C2374400609310 /* MathLibrary.swift in Sources */,
-				0B5DC9CA2405D39800827383 /* Polyhedron.swift in Sources */,
 				0B5DC9FD2406C55800827383 /* Extensions.swift in Sources */,
 				0B5DC9C12405D2A400827383 /* Words.swift in Sources */,
 				130F080C22C4343D001B7909 /* Node.swift in Sources */,
@@ -1067,6 +1067,7 @@
 				0B946599240884AD0027864E /* GuideViewController.swift in Sources */,
 				0B62E95C240DC7CC006C7FE3 /* HighScores.swift in Sources */,
 				0B5DC9B62405D27A00827383 /* GameScene.swift in Sources */,
+				0B1626ED2417306A00A73B5F /* Polyhedron.swift in Sources */,
 				130F081322C4352D001B7909 /* Model.swift in Sources */,
 				13EBBB4022C6FDA500230D2B /* Lighting.swift in Sources */,
 				0B11CA76240F4035001B76A2 /* PolyWordsView.swift in Sources */,
@@ -1095,7 +1096,6 @@
 				0B11CA73240F3EDE001B76A2 /* EncodeDecode.swift in Sources */,
 				0B5DC9CE2405D3C800827383 /* BasePolygon.swift in Sources */,
 				13A7ABC622C2374400609310 /* MathLibrary.swift in Sources */,
-				0B5DC9CB2405D39800827383 /* Polyhedron.swift in Sources */,
 				0B5DC9FC2406C55800827383 /* Extensions.swift in Sources */,
 				0B5DC9C22405D2A400827383 /* Words.swift in Sources */,
 				130F080D22C4343D001B7909 /* Node.swift in Sources */,

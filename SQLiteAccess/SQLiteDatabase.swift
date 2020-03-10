@@ -10,10 +10,8 @@ enum SQLiteError: Error {
 }
 
 //: ## The Database Connection
-class SQLiteDatabase {
+class PolyhedraDatabase {
 	private let dbPointer: OpaquePointer?
-	let polygonTypesArray = ["triangle", "square", "pentagon", "hexagon", "heptagon", "octagon", "nonagon", "decagon", "elevengon", "twelvegon", "square_2", "square_3", "square_4", "triangle_2", "triangle_3", "triangle_4"]
-	var numPolygonTypes = 0
 
 	private init(dbPointer: OpaquePointer?) {
 		self.dbPointer = dbPointer
@@ -21,10 +19,10 @@ class SQLiteDatabase {
 	deinit {
 		sqlite3_close(dbPointer)
 	}
-	static func open(path: String) throws -> SQLiteDatabase {
+	static func open(path: String) throws -> PolyhedraDatabase {
 		var db: OpaquePointer?
 		if sqlite3_open(path, &db) == SQLITE_OK {
-			return SQLiteDatabase(dbPointer: db)
+			return PolyhedraDatabase(dbPointer: db)
 		} else {
 			defer {
 				if db != nil {
@@ -52,7 +50,7 @@ class SQLiteDatabase {
 }
 
 //: ## Preparing Statements
-extension SQLiteDatabase {
+extension PolyhedraDatabase {
 	func prepareStatement(sql: String) throws -> OpaquePointer? {
 		var statement: OpaquePointer?
 		guard sqlite3_prepare_v2(dbPointer, sql, -1, &statement, nil)
@@ -72,71 +70,6 @@ struct Vertex {
 
 protocol SQLTable {
 	static var createStatement: String { get }
-}
-//: ## Read
-extension SQLiteDatabase {
-	func getVertices(forPolyhedronID polyhedron_id: Int32) throws -> [Vertex]? {
-		let querySql = "SELECT x, y, z FROM vertices WHERE polyhedron_id = ?;"
-		guard let queryStatement = try? prepareStatement(sql: querySql) else {
-			throw SQLiteError.Step(message: "Error")
-		}
-		defer {
-			sqlite3_finalize(queryStatement)
-		}
-		guard sqlite3_bind_int(queryStatement, 1, polyhedron_id) == SQLITE_OK else {
-			return nil
-		}
-		print("Query Result:")
-		var vertices:[Vertex] = []
-		while (sqlite3_step(queryStatement) == SQLITE_ROW) {
-			
-			let dataX = sqlite3_column_double(queryStatement, 0)
-			let dataY = sqlite3_column_double(queryStatement, 1)
-			let dataZ = sqlite3_column_double(queryStatement, 2)
-			let vertex = Vertex(x: dataX, y: dataY, z:dataZ)
-			vertices.append(vertex)
-			print("\(dataX), \(dataY), \(dataZ)")
-		}
-		//		sqlite3_finalize(queryStatement)
-		//    guard sqlite3_step(queryStatement) == SQLITE_ROW else {
-		//      return nil
-		//    }
-		return vertices
-	}
-	
-	func getNumberOfFaces(forPolyhedronID polyID: Int) throws {
-		
-		for ii in 0..<AppConstants.kNumPolygonTypes + 1 {
-			let type = ii
-			let querySql = "select count(polyhedron_id) from indices_? where polyhedron_id = '?' group by polyhedron_id"
-			guard let queryStatement = try? prepareStatement(sql: querySql) else {
-				throw SQLiteError.Step(message: "Error")
-			}
-			defer {
-				sqlite3_finalize(queryStatement)
-			}
-			let typeName = polygonTypesArray[type] as NSString
-			
-			guard sqlite3_bind_text(queryStatement, 1, typeName.utf8String, -1, nil) == SQLITE_OK else {
-				return
-			}
-			let id = Int32(polyID)
-			guard sqlite3_bind_int(queryStatement, 2, id) == SQLITE_OK else {
-				return
-			}
-			print("Query Result:")
-			var faceNum:[Int] = Array(repeating: 0, count: AppConstants.kNumPolygonTypes + 1)
-			while (sqlite3_step(queryStatement) == SQLITE_ROW) {
-				faceNum[type] = Int(sqlite3_column_int(queryStatement, 0))
-				numPolygonTypes += 1
-				
-			}
-		}
-		//		sqlite3_finalize(queryStatement)
-		//    guard sqlite3_step(queryStatement) == SQLITE_ROW else {
-		//      return nil
-		//    }
-	}
 }
 
 
