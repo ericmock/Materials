@@ -13,12 +13,16 @@ class Apolygon {
 	var rot_angle:Float
 	var rot_v:float3
 	var select_animation_start_time:Date!
-	var indices:NSArray!
-	var connections:NSMutableArray!
+//	var indices:NSArray!
+	var connections:[Apolygon]
 	var centroid:float3
+	var indices:[Int]
+	var vertices:[SIMD3<Float>]
+	var radius:Float
+	var centroids:[float3]
 	
-	init() {
-		type = 0
+	init(withType type:Int) {
+		self.type = type
 		tangent_v = [0,0,0]
 		bitan_v = [0,0,0]
 		normal_v = [0,0,0]
@@ -26,7 +30,11 @@ class Apolygon {
 		rot_v = [0,0,0]
 		centroid = [0,0,0]
 		select_animation_start_time = Date()
-		indices = NSArray()
+		connections = []
+		indices = []
+		vertices = []
+		radius = 0.0
+		centroids = []
 	}
 	
 //	init(vertices: [SIMD3<Float>], indices: [SIMD3<Int>], textureNumber: Int) {

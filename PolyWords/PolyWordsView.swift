@@ -377,7 +377,7 @@ class PolyWordsView : NSView {
 		}
 	}
 	
-	func set(touchedPolygon touchedPoly:Apolygon = Apolygon()) {
+	func set(touchedPolygon touchedPoly:Apolygon) {
 		
 		// reset the match identifier
 		match = false
@@ -1057,7 +1057,7 @@ class PolyWordsView : NSView {
 		
 		if points == Int.max {
 			for poly in polyhedron.polygons as! [Apolygon] {
-				poly.connections = nil
+				poly.connections = []
 			}
 		}
 		
