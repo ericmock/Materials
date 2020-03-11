@@ -85,7 +85,7 @@ class Words : NSObject {
 				}
 			}
 			let lastPoly = chain.lastObject as! Apolygon
-			for nextPoly in lastPoly.connections as! [Apolygon] {
+			for nextPoly in lastPoly.connections {
 				if !chain.contains(nextPoly) {
 					var tempString = String(string)
 					tempString.append(nextPoly.letter.lowercased())

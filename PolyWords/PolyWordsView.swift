@@ -447,7 +447,7 @@ class PolyWordsView : NSView {
 			touchedPoly.select_animation_start_time = Date()
 			
 			var count:UInt = 0
-			for num in touchedPoly.indices as! [Int] {
+			for num in touchedPoly.indices {
 				if (touchedPolygonsArray.lastObject as! Apolygon).indices.contains(num) {
 					count += 1
 				}

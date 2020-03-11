@@ -2,20 +2,20 @@ import Cocoa
 import SQLite3
 import simd
 
-
 class SQLTestViewController: NSViewController {
 	
 	var db: PolyhedraDatabase!
-	let polygonTypesArray = ["triangle", "square", "pentagon", "hexagon", "heptagon", "octagon", "nonagon", "decagon", "elevengon", "twelvegon", "square_2", "square_3", "square_4", "triangle_2", "triangle_3", "triangle_4"]
+	let polygonTypesArray = ["triangle", "square", "pentagon", "hexagon", "heptagon", "octagon", "decagon", "twelvegon", "square_2", "square_3", "square_4", "triangle_2", "triangle_3", "triangle_4"]
+	let polygonTypesVertexCount = [3, 4, 5, 6, 7, 8, 10, 12, 4, 4, 4, 3, 3, 3]
 	var numPolygonTypes = 0
-	var indices:[Float] = Array()
+	var indices:[Int] = Array()
 	var activeArray:[Bool] = Array()
 	var idArray:[Int] = Array()
-	var faceNum:[Int] = Array(repeating: 0, count: AppConstants.kNumPolygonTypes + 1)
-	var faceNum2:[Int] = Array(repeating: 0, count: AppConstants.kNumPolygonTypes + 1)
+	var numberOfFacesOfPolygonType:[Int] = Array(repeating: 0, count: AppConstants.kNumPolygonTypes + 1)
+	var numberOfFacesOfPolygonType2:[Int] = Array(repeating: 0, count: AppConstants.kNumPolygonTypes + 1)
 	var polyVertices:[SIMD3<Float>] = Array()
-	var baseTextureCoords:[SIMD2<Float>] = Array()
-	var scaledBaseTextureCoords:[SIMD2<Float>] = Array()
+	var baseTextureCoords:[[SIMD2<Float>]] = Array()
+	var scaledBaseTextureCoords:[[SIMD2<Float>]] = Array()
 	var textureCoords:[[SIMD2<Float>]] = Array()
 	var vertices:[SIMD3<Float>] = Array()
 	var centroids:[SIMD3<Float>] = Array()
@@ -47,6 +47,14 @@ class SQLTestViewController: NSViewController {
 		
 		polyInfo = ["polyID": 20]
 		
+		do {
+			try getNumberOfFacesForAllPolygons()
+		} catch {
+			print("Error")
+			return
+		}
+		
+		initialize(withPolyhedronInfo: polyInfo)
 		var vertices:[SIMD3<Float>]?
 		do {
 			vertices = try getVertices()
@@ -64,12 +72,21 @@ class SQLTestViewController: NSViewController {
 		openDatabase()
 		
 		let numSides = getNumberOfSides(polyhedronType)
-		textureCoords = Array(repeating: Array(repeating: SIMD2<Float>(0,0), count:numSides), count: faceNum[polyhedronType])
+//		textureCoords = Array(repeating: Array(repeating: SIMD2<Float>(0,0), count:numSides), count: AppConstants.kNumPolygonTypes)
+//		for jj in polygonTypesVertexCount {
+//			textureCoords.append(Array(repeating: SIMD2<Float>(0,0), count:jj))
+//			baseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count:jj))
+//			scaledBaseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count:jj))
+//		}
+//		scaledBaseTextureCoords = Array(repeating: Array(repeating: SIMD2<Float>(0,0), count:numSides), count: AppConstants.kNumPolygonTypes)
 		polyVertices = Array(repeating: SIMD3<Float>(repeating: 0), count:polyhedronType)
 		
 		let scale:Float = 1/6.0
 		
 		// Deal with triangles
+		var polygonIndex = 0
+		baseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count: 3))
+		scaledBaseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count: 3))
 		if polyhedronType == 7 {
 			let scale2:Float = 1.1
 			let shift:Float = (scale2 - 1.0)/2.0
@@ -77,8 +94,8 @@ class SQLTestViewController: NSViewController {
 									SIMD2<Float>(scale2 * -0.0123553 - shift, scale2*0.366613 - shift - 0.04),
 									SIMD2<Float>(scale2*1.0 - shift, scale2*0.366613 - shift - 0.04)]
 			for t in temp {
-				scaledBaseTextureCoords[15] = scale * t
-				baseTextureCoords[15] = t
+				scaledBaseTextureCoords[polygonIndex][15] = scale * t
+				baseTextureCoords[polygonIndex][15] = t
 			}
 		}
 		else if polyhedronType == 31 {
@@ -88,8 +105,8 @@ class SQLTestViewController: NSViewController {
 									SIMD2<Float>(scale2 * 0.300672 - shift, scale2*(0.25 + 0.05) - shift),
 									SIMD2<Float>(scale2 * 0.862001 - shift, scale2*(0.25 + 0.05) - shift)]
 			for t in temp {
-				scaledBaseTextureCoords[13] = scale * t
-				baseTextureCoords[13] = t
+				scaledBaseTextureCoords[polygonIndex][13] = scale * t
+				baseTextureCoords[polygonIndex][13] = t
 			}
 			let temp2 = [
 				SIMD2<Float>(scale2 * (1.0 - 0.337327) - shift, scale2*(1.0 + 0.05) - shift),
@@ -97,18 +114,22 @@ class SQLTestViewController: NSViewController {
 				SIMD2<Float>(scale2 * (1.0 - 0.862001) - shift, scale2*(0.25 + 0.05) - shift)
 			]
 			for t in temp2 {
-				scaledBaseTextureCoords[13] = scale * t
-				baseTextureCoords[13] = t
+				scaledBaseTextureCoords[polygonIndex][13] = scale * t
+				baseTextureCoords[polygonIndex][13] = t
 			}
 		}
 		else {
-			for ii in stride(from: 0, through: 3*2, by: 2) {
-				baseTextureCoords[0] = SIMD2<Float>(1.0/2.0 * (cos(.pi + .pi/6.0 + Float(ii) * .pi/Float(numSides)) + 1), 1.0/2.0 * (sin(.pi + .pi/6.0 + Float(ii) * .pi/Float(numSides)) + 1))
-				scaledBaseTextureCoords[0] = scale * baseTextureCoords[0]
+			for ii in 0..<3 {
+				baseTextureCoords[polygonIndex][ii] = SIMD2<Float>(1.0/2.0 * (cos(.pi + .pi/6.0 + Float(ii) * .pi/Float(numSides)) + 1), 1.0/2.0 * (sin(.pi + .pi/6.0 + Float(ii) * .pi/Float(numSides)) + 1))
+				scaledBaseTextureCoords[polygonIndex][ii] = scale * baseTextureCoords[polygonIndex][ii]
 			}
 		}
-		
+
 		// Deal with squares
+		polygonIndex += 1
+		baseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count: 4))
+		scaledBaseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count: 4))
+
 		if polyhedronType == 3 {
 			let temp2 = [
 				float2(0.5, 1.0),
@@ -117,8 +138,8 @@ class SQLTestViewController: NSViewController {
 				float2(0.894978, 0.412023)
 			]
 			for t in temp2 {
-				scaledBaseTextureCoords[12] = scale * t
-				baseTextureCoords[12] = t
+				scaledBaseTextureCoords[polygonIndex][12] = scale * t
+				baseTextureCoords[polygonIndex][12] = t
 			}
 		}
 		else if polyhedronType == 23 {
@@ -131,8 +152,8 @@ class SQLTestViewController: NSViewController {
 				SIMD2<Float>(scale2*0.5 - shift, scale2*0.809017 - shift)
 			]
 			for t in temp2 {
-				scaledBaseTextureCoords[10] = scale * t
-				baseTextureCoords[10] = t
+				scaledBaseTextureCoords[polygonIndex][10] = scale * t
+				baseTextureCoords[polygonIndex][10] = t
 			}
 
 		}
@@ -149,29 +170,28 @@ class SQLTestViewController: NSViewController {
 				temp2[ii] -= shift
 			}
 			for t in temp2 {
-				scaledBaseTextureCoords[11] = scale * t
-				baseTextureCoords[11] = t
+				scaledBaseTextureCoords[polygonIndex][11] = scale * t
+				baseTextureCoords[polygonIndex][11] = t
 			}
 
 		}
 		else {
-			for ii in stride(from: 0, through: 4*2, by: 2) {
-				baseTextureCoords[1] = float2(1.0/2.0 * (cos((Float(ii) + 1.0) * .pi/4.0) + 1), 1.0/2.0 * (sin((Float(ii) + 1.0) * .pi/4.0) + 1))
-				scaledBaseTextureCoords[1] = scale * baseTextureCoords[0]
+			for ii in 0..<4 {
+				baseTextureCoords[polygonIndex][ii] = float2(1.0/2.0 * (cos((Float(ii) + 1.0) * .pi/4.0) + 1), 1.0/2.0 * (sin((Float(ii) + 1.0) * .pi/4.0) + 1))
+				scaledBaseTextureCoords[polygonIndex][ii] = scale * baseTextureCoords[polygonIndex][ii]
 			}
 		}
 		
 		// Deal with remaining polygons
-		var counter = 2
-		for num_sides in 5..<12 {
-			for ii in stride(from: 0, through: num_sides*2, by: 2) {
-				baseTextureCoords[counter] = float2(1.0/2.0 * (cos((Float(ii) + 1.0) * .pi/Float(num_sides)) + 1), 1.0/2.0 * (sin((Float(ii) + 1.0) * .pi/Float(num_sides)) + 1))
-				scaledBaseTextureCoords[counter] = scale * baseTextureCoords[0]
+		for num_sides in polygonTypesVertexCount[2...7] {
+			polygonIndex += 1
+			baseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count: num_sides))
+			scaledBaseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count: num_sides))
+			for ii in 0..<num_sides {
+				baseTextureCoords[polygonIndex][ii] = float2(1.0/2.0 * (cos((Float(ii) + 1.0) * .pi/Float(num_sides)) + 1), 1.0/2.0 * (sin((Float(ii) + 1.0) * .pi/Float(num_sides)) + 1))
+				scaledBaseTextureCoords[polygonIndex][ii] = scale * baseTextureCoords[polygonIndex][ii]
 			}
-			counter += 1
 		}
-		
-		getNumberOfFacesForAllPolygon()
 		do {
 			vertices = try getVertices()!
 		} catch {
@@ -179,11 +199,11 @@ class SQLTestViewController: NSViewController {
 			return
 		}
 
-		for polygon_type in 0..<AppConstants.kNumPolygonTypes + 1 {
-			if faceNum[polygon_type] > 0 {
+		for polygon_type in 0..<polygonTypesVertexCount.count {
+//			if numberOfFacesOfPolygonType[polygon_type] > 0 {
 				getPolygons(ofType: polygon_type)
 				setTextureCoords(forType: polygon_type)
-			}
+//			}
 		}
 		
 		generateConnectivityForPolyhedron()
@@ -220,7 +240,7 @@ class SQLTestViewController: NSViewController {
 			
 			// get the vertex coordinates
 			for index in poly.indices {
-				poly.vertices[index] = vertices[index]
+				poly.vertices.append(vertices[index])
 				ave += vertices[index]
 			}
 			
@@ -236,9 +256,6 @@ class SQLTestViewController: NSViewController {
 		}
 	}
 	
-	func getNumberOfFacesForAllPolygon() {
-	}
-
 	func getPolygons(ofType type:Int) {
 		do {
 			try getIndices(forPolygonType: type)
@@ -250,25 +267,30 @@ class SQLTestViewController: NSViewController {
 		generateCentroids(forPolygonType: type)
 		
 		initializePolygons(ofType: type)
-		numPolygons += faceNum[type]
+		numPolygons += numberOfFacesOfPolygonType[type]
 	}
 	
 	func initializePolygons(ofType type:Int) {
 		var counter = 0
-		let num = faceNum[type]
 		let numSides = getNumberOfSides(type)
-		for ii in 0..<num {
+		for ii in 0..<numberOfFacesOfPolygonType[type] {
 			let poly:Apolygon = Apolygon.init(withType: type)
 			if indices.count > 0 {
-				for jj in 0..<numSides {
-					poly.indices.append(counter)
+				for _ in 0..<numSides {
+					poly.indices.append(indices[counter])
 					counter += 1
 				}
 			}
 			if centroids.count > 0 {
-				poly.centroids[ii] = centroids[ii]
-				poly.centroid = centroids[ii]
+				poly.centroid = centroids[type]
 			}
+			poly.number = polygonNumber
+			poly.animatingQ = false
+			polygonNumber += 1
+			poly.texture = -1
+			poly.active = activeArray[ii]
+			poly.dbID = idArray[ii]
+			polygons.append(poly)
 		}
 	}
 	
@@ -301,29 +323,30 @@ class SQLTestViewController: NSViewController {
 		return vertices
 	}
 
-	func getNumberOfFaces(forPolyhedronID polyID: Int) throws {
+	func getNumberOfFacesForAllPolygons() throws {
 		
-		for ii in 0..<AppConstants.kNumPolygonTypes + 1 {
+		for ii in 0..<polygonTypesArray.count {
 			let type = ii
-			let querySql = "select count(polyhedron_id) from indices_? where polyhedron_id = '?' group by polyhedron_id"
+			let typeName = ("indices_" + polygonTypesArray[type])
+
+			let querySql = "SELECT COUNT(polyhedron_id) FROM " + typeName + " where polyhedron_id = ? group by polyhedron_id;"
 			guard let queryStatement = try? db.prepareStatement(sql: querySql) else {
 				throw SQLiteError.Step(message: "Error")
 			}
 			defer {
 				sqlite3_finalize(queryStatement)
 			}
-			let typeName = polygonTypesArray[type] as NSString
 			
-			guard sqlite3_bind_text(queryStatement, 1, typeName.utf8String, -1, nil) == SQLITE_OK else {
-				return
-			}
-			let id = Int32(polyID)
-			guard sqlite3_bind_int(queryStatement, 2, id) == SQLITE_OK else {
+//			guard sqlite3_bind_text(queryStatement, 1, typeName.utf8String, -1, nil) == SQLITE_OK else {
+//				return
+//			}
+			let id = polyInfo.object(forKey: "polyID") as! Int32
+			guard sqlite3_bind_int(queryStatement, 1, id) == SQLITE_OK else {
 				return
 			}
 			print("Query Result:")
 			while (sqlite3_step(queryStatement) == SQLITE_ROW) {
-				faceNum[type] = Int(sqlite3_column_int(queryStatement, 0))
+				numberOfFacesOfPolygonType[type] = Int(sqlite3_column_int(queryStatement, 0))
 				numPolygonTypes += 1
 				
 			}
@@ -342,18 +365,18 @@ class SQLTestViewController: NSViewController {
 	
 	func generateCentroids(forPolygonType type: Int) {
 		let count = indices.count
-		let numSides = getNumberOfSides(type)
-		let num = Int(count/numSides)
+		let numSides = polygonTypesVertexCount[type]
+		let numberVertices = Int(count/numSides)
 		centroids.removeAll()
 		
-		for ii in 0..<num {
+		for ii in 0..<numberVertices {
 			var centroid = SIMD3<Float>(repeating: 0)
 //			var centroid_x:Float = 0.0
 //			var centroid_y:Float = 0.0
 //			var centroid_z:Float = 0.0
 			for jj in (numSides * ii)..<(ii+1)*numSides {
 				let num2 = Int(indices[jj])
-				centroid = vertices[3*num2]
+				centroid += vertices[num2]
 //				centroid_x += vertices[3*num2].x
 //				centroid_y += vertices[3*num2].y
 //				centroid_z += vertices[3*num2].z
@@ -372,7 +395,7 @@ class SQLTestViewController: NSViewController {
 		activeArray.removeAll()
 		idArray.removeAll()
 		
-		querySql = "select *, rowid from indices_? where polyhedron_id = '?'"
+		querySql = "select *, rowid from indices_" + polygonTypesArray[type] + " where polyhedron_id = ?;"
 		let numSides = getNumberOfSides(type)
 
 		guard let queryStatement = try? db.prepareStatement(sql: querySql) else {
@@ -381,23 +404,18 @@ class SQLTestViewController: NSViewController {
 		defer {
 			sqlite3_finalize(queryStatement)
 		}
-		
-		let typeName = polygonTypesArray[type] as NSString
-		
-		guard sqlite3_bind_text(queryStatement, 1, typeName.utf8String, -1, nil) == SQLITE_OK else {
-			return
-		}
-		
-		let id = Int32(polyInfo.object(forKey: "polyEd") as! Int)
-		guard sqlite3_bind_int(queryStatement, 2, id) == SQLITE_OK else {
+				
+		let id = Int32(polyInfo.object(forKey: "polyID") as! Int)
+		guard sqlite3_bind_int(queryStatement, 1, id) == SQLITE_OK else {
 			return
 		}
 		
 		print("Query Result:")
 		while (sqlite3_step(queryStatement) == SQLITE_ROW) {
 			for jj in 1..<numSides + 1 {
-				indices.append(Float(sqlite3_column_double(queryStatement, Int32(jj))))
+				indices.append(Int(sqlite3_column_double(queryStatement, Int32(jj))))
 			}
+			print("indices: \(indices.last)")
 			let result = sqlite3_column_int(queryStatement, Int32(numSides + 1))
 			if result == 0 {
 				activeArray.append(false)
@@ -412,25 +430,27 @@ class SQLTestViewController: NSViewController {
 		let count = indices.count
 		let numSides = getNumberOfSides(polygonType)
 
-		faceNum2[polygonType] = Int(count/numSides)
+		numberOfFacesOfPolygonType2[polygonType] = Int(count/numSides)
 
-		polyVertices = Array(repeating: SIMD3<Float>(repeating: 0), count:polygonType)//Array(repeating: Array(repeating: 0.0, count:polygonType), count: 3*count)
+//		polyVertices = Array(repeating: SIMD3<Float>(repeating: 0), count:count)
 		
 		for ii in 0..<count {
 			let num = Int(indices[ii])
-			polyVertices[polygonType][3*ii + 0] = Float(vertices[3*num].x)//[[vertices objectAtIndex:(3*num + 0)] floatValue];
-			polyVertices[polygonType][3*ii + 1] = Float(vertices[3*num + 1].y)//[[vertices objectAtIndex:(3*num + 1)] floatValue];
-			polyVertices[polygonType][3*ii + 2] = Float(vertices[3*num + 2].z)//[[vertices objectAtIndex:(3*num + 2)] floatValue];
+			polyVertices.append(vertices[num])
+//			polyVertices[polygonType][3*ii + 0] = Float(vertices[3*num].x)//[[vertices objectAtIndex:(3*num + 0)] floatValue];
+//			polyVertices[polygonType][3*ii + 1] = Float(vertices[3*num + 1].y)//[[vertices objectAtIndex:(3*num + 1)] floatValue];
+//			polyVertices[polygonType][3*ii + 2] = Float(vertices[3*num + 2].z)//[[vertices objectAtIndex:(3*num + 2)] floatValue];
 		}
 	}
 
 	func setTextureCoords(forType type:Int) {
 		let numSides = getNumberOfSides(type)
-		textureCoords = Array(repeating: Array(repeating: SIMD2<Float>(0,0), count:numSides), count: faceNum[type])//Array(repeating: Array(repeating: 0.0, count:type), count: 2*numSides)
+		textureCoords.append(Array())
 
-		for ii in 0..<faceNum[type] {
-//			for jj in 0..<2*numSides {
-				textureCoords[type][ii] = baseTextureCoords[type]
+		for _ in 0..<numberOfFacesOfPolygonType[type] {
+			for jj in 0..<numSides {
+				textureCoords[type].append(baseTextureCoords[type][jj])
+			}
 //			}
 		}
 	}

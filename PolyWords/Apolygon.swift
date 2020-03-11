@@ -19,7 +19,8 @@ class Apolygon {
 	var indices:[Int]
 	var vertices:[SIMD3<Float>]
 	var radius:Float
-	var centroids:[float3]
+	var animatingQ:Bool
+	var dbID:Int
 	
 	init(withType type:Int) {
 		self.type = type
@@ -34,7 +35,8 @@ class Apolygon {
 		indices = []
 		vertices = []
 		radius = 0.0
-		centroids = []
+		animatingQ = false
+		dbID = 0
 	}
 	
 //	init(vertices: [SIMD3<Float>], indices: [SIMD3<Int>], textureNumber: Int) {
