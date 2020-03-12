@@ -68,17 +68,10 @@ class SQLTestViewController: NSViewController {
 	func initialize(withPolyhedronInfo polyInfo:NSDictionary) {
 		self.polyInfo = polyInfo
 		let polyhedronType = polyInfo.object(forKey: "polyID") as! Int
-		let dbPath = Bundle.main.resourceURL?.appendingPathComponent("data.sqlite").absoluteString//directoryUrl?.appendingPathComponent("data.sqlite").relativePath
+
 		openDatabase()
 		
 		let numSides = getNumberOfSides(polyhedronType)
-//		textureCoords = Array(repeating: Array(repeating: SIMD2<Float>(0,0), count:numSides), count: AppConstants.kNumPolygonTypes)
-//		for jj in polygonTypesVertexCount {
-//			textureCoords.append(Array(repeating: SIMD2<Float>(0,0), count:jj))
-//			baseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count:jj))
-//			scaledBaseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count:jj))
-//		}
-//		scaledBaseTextureCoords = Array(repeating: Array(repeating: SIMD2<Float>(0,0), count:numSides), count: AppConstants.kNumPolygonTypes)
 		polyVertices = Array(repeating: SIMD3<Float>(repeating: 0), count:polyhedronType)
 		
 		let scale:Float = 1/6.0
@@ -200,10 +193,8 @@ class SQLTestViewController: NSViewController {
 		}
 
 		for polygon_type in 0..<polygonTypesVertexCount.count {
-//			if numberOfFacesOfPolygonType[polygon_type] > 0 {
-				getPolygons(ofType: polygon_type)
-				setTextureCoords(forType: polygon_type)
-//			}
+			getPolygons(ofType: polygon_type)
+			setTextureCoords(forType: polygon_type)
 		}
 		
 		generateConnectivityForPolyhedron()
@@ -415,7 +406,7 @@ class SQLTestViewController: NSViewController {
 			for jj in 1..<numSides + 1 {
 				indices.append(Int(sqlite3_column_double(queryStatement, Int32(jj))))
 			}
-			print("indices: \(indices.last)")
+			print("indices: \(String(describing: indices.last))")
 			let result = sqlite3_column_int(queryStatement, Int32(numSides + 1))
 			if result == 0 {
 				activeArray.append(false)

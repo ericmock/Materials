@@ -2,7 +2,7 @@ import Foundation
 import Cocoa
 import simd
 
-class PolyWordsView : NSView {
+class PolyWordsView {
 	var timeHistory:NSMutableArray!
 	var wordsFound:NSMutableArray!
 	var wordScores:NSMutableArray!
@@ -81,15 +81,18 @@ class PolyWordsView : NSView {
 		
 	}
 	
-	required init?(coder:NSCoder) {
-		super.init(coder:coder)
+//	required init?(coder:NSCoder) {
+//		super.init(coder:coder)
+//	}
+	init() {
+//		super.init()
 	}
-	
 	convenience init?(withFrame frame:CGRect, withAppController d:AppController, aCoder:NSCoder) {
-		self.init(coder: aCoder)
+//		self.init(coder: aCoder)
+		self.init()
 		appController = d
 		//		self.initializeIvars(withFrame: frame)
-		self.addSubview(touchedLetterView)
+//Move to new NSView class		self.addSubview(touchedLetterView)
 		var yPos:CGFloat
 		if !appController.unlocked {
 			yPos = -48.0
@@ -109,7 +112,7 @@ class PolyWordsView : NSView {
 		//		polygonsCheckedView.shadowColor = .black
 		//		polygonsCheckedView.shadowOffset = CGSizeMake(2.0,2.0)
 		polygonsCheckedView.tag = 100
-		self.addSubview(polygonsCheckedView)
+//Move to new NSView class		self.addSubview(polygonsCheckedView)
 		
 		yPos += thickness
 		thickness = 65.0
@@ -118,7 +121,7 @@ class PolyWordsView : NSView {
 		
 		indicatorView.isHidden = (appController.checking != 2)
 		indicatorView.tag = 101
-		self.addSubview(indicatorView)
+//Move to new NSView class		self.addSubview(indicatorView)
 		
 		yPos += thickness
 		thickness = 95.0
@@ -134,7 +137,7 @@ class PolyWordsView : NSView {
 		//				availableWordsView.shadowColor = [UIColor blackColor]
 		//				availableWordsView.shadowOffset = CGSizeMake(2.0,2.0)
 		availableWordsView.tag = 102
-		self.addSubview(availableWordsView)
+//Move to new NSView class		self.addSubview(availableWordsView)
 		
 		yPos += thickness
 		thickness = 65.0
@@ -142,7 +145,7 @@ class PolyWordsView : NSView {
 		indicatorView2.backgroundColor = NSColor(red:1.0, green:0.0, blue:0.0, alpha:0.1)
 		indicatorView2.isHidden = (appController.checking != 2)
 		indicatorView2.tag = 103
-		self.addSubview(indicatorView2)
+//Move to new NSView class		self.addSubview(indicatorView2)
 		
 		yPos += thickness
 		thickness = 95.0
@@ -159,7 +162,7 @@ class PolyWordsView : NSView {
 		//				availablePointsView.shadowColor = [UIColor blackColor]
 		//				availablePointsView.shadowOffset = CGSizeMake(2.0,2.0)
 		availablePointsView.tag = 104
-		self.addSubview(availablePointsView)
+//Move to new NSView class		self.addSubview(availablePointsView)
 		
 		yPos += thickness
 		thickness = 65.0
@@ -167,7 +170,7 @@ class PolyWordsView : NSView {
 		indicatorView3.backgroundColor = NSColor(red:1.0, green:0.0, blue:0.0, alpha:0.1)
 		indicatorView3.isHidden = (appController.checking != 2)
 		indicatorView3.tag = 105
-		self.addSubview(indicatorView3)
+//Move to new NSView class		self.addSubview(indicatorView3)
 		
 		timeHistory = NSMutableArray()
 	}
@@ -197,8 +200,8 @@ class PolyWordsView : NSView {
 	
 	func pause() {
 		//		// FIXME:  crashing on the following line after a few pauses
-		let pauseAlert = PauseAlert.init(withView:self)
-		self.addSubview(pauseAlert)// pauseAlert.superview(self) //showInView:self];
+//Move to new NSView class		let pauseAlert = PauseAlert.init(withView:self)
+//Move to new NSView class		self.addSubview(pauseAlert)// pauseAlert.superview(self) //showInView:self];
 		self.stopClock()
 		self.stopGameAnimation()
 	}
@@ -298,7 +301,7 @@ class PolyWordsView : NSView {
 		//	score_display = (score < 0)?0:score;
 		
 		if (match) {
-			appController.swipeSound.play()
+//			appController.swipeSound.play()
 			let wordStringCopy = wordString.copy()
 			wordsFound.add(wordStringCopy)
 			wordScores.add(Int(word_score))
@@ -902,7 +905,7 @@ class PolyWordsView : NSView {
 	
 	@objc func stopGameAnimation() {
 		if (score_animating && gameAnimationTimer != nil) {
-			self.perform(#selector(stopGameAnimation), with: nil, afterDelay: 1.0)
+//Move to new NSView class			self.perform(#selector(stopGameAnimation), with: nil, afterDelay: 1.0)
 			//		[self performSelector:@selector(stopGameAnimation) withObject:nil afterDelay:1.0];
 		} else {
 			gameAnimationTimer.invalidate()
@@ -1070,11 +1073,11 @@ class PolyWordsView : NSView {
 		}
 		
 		finding_words = false
-		self.performSelector(onMainThread: #selector(stopTransitionAnimation), with: nil, waitUntilDone: false)
+//Move to new NSView class		self.performSelector(onMainThread: #selector(stopTransitionAnimation), with: nil, waitUntilDone: false)
 		if !appController.level_completed && !appController.level_aborted {
-			self.performSelector(onMainThread: #selector(startGameAnimation), with: nil, waitUntilDone: false)
+//Move to new NSView class			self.performSelector(onMainThread: #selector(startGameAnimation), with: nil, waitUntilDone: false)
 		} else {
-			self.performSelector(onMainThread: #selector(checkLevelComplete), with: nil, waitUntilDone: false)
+//Move to new NSView class			self.performSelector(onMainThread: #selector(checkLevelComplete), with: nil, waitUntilDone: false)
 		}
 	}
 	

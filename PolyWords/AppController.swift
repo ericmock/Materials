@@ -16,7 +16,7 @@ struct AppConstants {
 	static let kGameStart:UInt = 0
 	static let kGameRestart:UInt = 1
 	static let kGameContinue:UInt = 1
-	static let kPolyhedronNames:[String] = ["Truncated Icosahedron",
+	/*static let kPolyhedronNames:[String] = ["Truncated Icosahedron",
 						 "Parabigyrate Rhombicosidodecahedron",
 						 "Parabidiminished Rhombicosidodecahedron",
 						 "Deca-faced Polyhedron",
@@ -50,7 +50,7 @@ struct AppConstants {
 						 "Prism-Expanded Truncated Cube",
 						 "Eight-Octahedron Ring",
 						 "Torus Slice",
-						 "Gyroelongated Pentagonal Cupola"]
+						 "Gyroelongated Pentagonal Cupola"]*/
 	static let kNumPolygonTypes = 15
 }
 
@@ -103,8 +103,9 @@ class AppController: AppDelegate {
 	var highScore:HighScores!
 	var send_data_q = false
 
-	required init(aCoder:NSCoder) {
-		polyWordsView = PolyWordsView(coder: aCoder)
+//	required init(coder aCoder: NSCoder) {
+	override init() {
+		polyWordsView = PolyWordsView()
 		super.init()
 	}
 	
@@ -532,25 +533,30 @@ class AppController: AppDelegate {
 								 "Truncated Truncated Icosahedron", 26, 10])
 		}
 		
-		for ii in stride(from: 0, through: polyhedronArray.count, by: 3) {
+		for ii in stride(from: 0, through: polyhedronArray.count - 1, by: 3) {
+			print(ii)
 			polyhedronNamesArray.add(polyhedronArray.object(at: ii))
 		}
 		
-		for ii in stride(from: 1, through: polyhedronArray.count, by: 3) {
+		for ii in stride(from: 1, through: polyhedronArray.count - 1, by: 3) {
+			print(ii)
 			polyhedronNumbersArray.add(polyhedronArray.object(at: ii))
 		}
 		
-		for ii in stride(from: 2, through: polyhedronArray.count, by: 3) {
+		for ii in stride(from: 2, through: polyhedronArray.count - 1, by: 3) {
 			polyhedronLevelsArray.add(polyhedronArray.object(at: ii))
 		}
 		
 		polyhedronInfoArray = NSMutableArray()
-		highScores.reset(withFile: "**", delegate: self)
+		highScores.reset(withFile: getHighScoresPath(), delegate: self)
 
 		var loc:Int
 		var polyID:NSNumber
-		var completed = [Bool(), Bool(), Bool(), Bool()]
-		for ii in 1..<polyhedronLevelsArray.count + 1 {
+		var completed = [false, false, false, false]
+		print("polyhedronLevelsArray.count: ", polyhedronLevelsArray.count)
+		print("polyhedronNamesArray.count: ", polyhedronNamesArray.count)
+		print("polyhedronNumbersArray.count: ", polyhedronNumbersArray.count)
+		for ii in 0..<polyhedronLevelsArray.count - 1 {
 			loc = polyhedronLevelsArray.object(at: ii) as! Int
 			polyID = polyhedronNumbersArray.object(at: loc) as! NSNumber
 			for jj in 0..<4 {
@@ -560,7 +566,7 @@ class AppController: AppDelegate {
 					ii > highest_completed[jj] {
 				}
 			}
-			let values = [polyhedronNamesArray.object(at: loc), polyID, [completed[0],completed[1],completed[2],completed[4],true,true],ii]
+			let values = [polyhedronNamesArray.object(at: loc), polyID, [completed[0],completed[1],completed[2],completed[3],true,true],ii]
 			let keys = ["name", "polyID", "completed", "level"]
 			let dict = Dictionary(uniqueKeysWithValues: zip(keys, values))
 			polyhedronInfoArray?.add(dict)

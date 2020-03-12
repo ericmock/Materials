@@ -101,6 +101,56 @@
 		0B62E95E240DC97D006C7FE3 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
 		0B62E960240DCA27006C7FE3 /* HighWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95F240DCA27006C7FE3 /* HighWords.swift */; };
 		0B62E961240DCA27006C7FE3 /* HighWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95F240DCA27006C7FE3 /* HighWords.swift */; };
+		0B6B940C2419A0270020A06B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
+		0B6B940D2419A0EF0020A06B /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F080E22C434CF001B7909 /* Camera.swift */; };
+		0B6B940E2419A0EF0020A06B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9B42405D27900827383 /* GameScene.swift */; };
+		0B6B940F2419A0EF0020A06B /* HighScores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95A240DC7CC006C7FE3 /* HighScores.swift */; };
+		0B6B94102419A0EF0020A06B /* HighWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95F240DCA27006C7FE3 /* HighWords.swift */; };
+		0B6B94112419A0EF0020A06B /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F081422C43563001B7909 /* Mesh.swift */; };
+		0B6B94122419A0EF0020A06B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F081122C4352D001B7909 /* Model.swift */; };
+		0B6B94132419A0EF0020A06B /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F080B22C4343D001B7909 /* Node.swift */; };
+		0B6B94142419A0EF0020A06B /* Renderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C32405D37200827383 /* Renderable.swift */; };
+		0B6B94152419A0EF0020A06B /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1384A38822C1B53E006036BA /* Renderer.swift */; };
+		0B6B94162419A0EF0020A06B /* Submesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F081722C435A0001B7909 /* Submesh.swift */; };
+		0B6B94172419A0EF0020A06B /* Texturable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D235222C851DC00C6DB03 /* Texturable.swift */; };
+		0B6B94182419A0EF0020A06B /* TitleIntegrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9BA2405D28C00827383 /* TitleIntegrator.swift */; };
+		0B6B94192419A0EF0020A06B /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9B72405D28300827383 /* TitleScene.swift */; };
+		0B6B941A2419A0EF0020A06B /* UpgradeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */; };
+		0B6B941B2419A0EF0020A06B /* MathLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A7ABC422C2374400609310 /* MathLibrary.swift */; };
+		0B6B941C2419A1590020A06B /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
+		0B6B941D2419A19D0020A06B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9D82405D62100827383 /* Extensions.swift */; };
+		0B6B941E2419A1A10020A06B /* EncodeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11CA71240F3EDD001B76A2 /* EncodeDecode.swift */; };
+		0B6B941F2419A1B90020A06B /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9AE2405D25A00827383 /* Scene.swift */; };
+		0B6B94202419A1FA0020A06B /* Lighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EBBB3E22C6FDA500230D2B /* Lighting.swift */; };
+		0B6B94212419A2230020A06B /* Apolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569B24105CA800F4D06F /* Apolygon.swift */; };
+		0B6B94222419A2280020A06B /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DF2412970D008CAC19 /* ServerResponse.swift */; };
+		0B6B94232419A22E0020A06B /* PushDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569724100B4E00F4D06F /* PushDataController.swift */; };
+		0B6B94242419A2320020A06B /* PullDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956932410016400F4D06F /* PullDataController.swift */; };
+		0B6B94252419A2350020A06B /* PostScoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DA2411BD24008CAC19 /* PostScoreController.swift */; };
+		0B6B94262419A2490020A06B /* PauseDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956952410038A00F4D06F /* PauseDelegate.swift */; };
+		0B6B94272419A2540020A06B /* PolyWordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11CA74240F4035001B76A2 /* PolyWordsView.swift */; };
+		0B6B94282419A34D0020A06B /* VertexDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F081A22C436F9001B7909 /* VertexDescriptor.swift */; };
+		0B6B94292419A37F0020A06B /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C02405D2A400827383 /* Words.swift */; };
+		0B6B942A2419A3830020A06B /* TrackBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9B12405D26F00827383 /* TrackBall.swift */; };
+		0B6B942B2419A3890020A06B /* PolyWordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956992410589600F4D06F /* PolyWordsViewController.swift */; };
+		0B6B942C2419A3C50020A06B /* SQLiteDatabase_old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9BD2405D29E00827383 /* SQLiteDatabase_old.swift */; };
+		0B6B942D2419A40A0020A06B /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D20712416B78D0052ECF1 /* SQLiteDatabase.swift */; };
+		0B6B94322419B5590020A06B /* Select.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B942E2419B5560020A06B /* Select.caf */; };
+		0B6B94332419B5590020A06B /* Select.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B942E2419B5560020A06B /* Select.caf */; };
+		0B6B94342419B5590020A06B /* Select.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B942E2419B5560020A06B /* Select.caf */; };
+		0B6B94352419B5590020A06B /* Select.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B942E2419B5560020A06B /* Select.caf */; };
+		0B6B94362419B5590020A06B /* swipe.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B942F2419B5570020A06B /* swipe.caf */; };
+		0B6B94372419B5590020A06B /* swipe.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B942F2419B5570020A06B /* swipe.caf */; };
+		0B6B94382419B5590020A06B /* swipe.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B942F2419B5570020A06B /* swipe.caf */; };
+		0B6B94392419B5590020A06B /* swipe.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B942F2419B5570020A06B /* swipe.caf */; };
+		0B6B943A2419B5590020A06B /* word.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B94302419B5580020A06B /* word.caf */; };
+		0B6B943B2419B5590020A06B /* word.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B94302419B5580020A06B /* word.caf */; };
+		0B6B943C2419B5590020A06B /* word.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B94302419B5580020A06B /* word.caf */; };
+		0B6B943D2419B5590020A06B /* word.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B94302419B5580020A06B /* word.caf */; };
+		0B6B943E2419B5590020A06B /* button_press.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B94312419B5580020A06B /* button_press.caf */; };
+		0B6B943F2419B5590020A06B /* button_press.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B94312419B5580020A06B /* button_press.caf */; };
+		0B6B94402419B5590020A06B /* button_press.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B94312419B5580020A06B /* button_press.caf */; };
+		0B6B94412419B5590020A06B /* button_press.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B94312419B5580020A06B /* button_press.caf */; };
 		0B7F55FB2409741100728B5B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
 		0B9286DB2411BD24008CAC19 /* PostScoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DA2411BD24008CAC19 /* PostScoreController.swift */; };
 		0B9286E02412970E008CAC19 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DF2412970D008CAC19 /* ServerResponse.swift */; };
@@ -242,6 +292,10 @@
 		0B5DCA002406F21800827383 /* BufferProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
 		0B62E95A240DC7CC006C7FE3 /* HighScores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScores.swift; sourceTree = "<group>"; };
 		0B62E95F240DCA27006C7FE3 /* HighWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighWords.swift; sourceTree = "<group>"; };
+		0B6B942E2419B5560020A06B /* Select.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Select.caf; sourceTree = "<group>"; };
+		0B6B942F2419B5570020A06B /* swipe.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swipe.caf; sourceTree = "<group>"; };
+		0B6B94302419B5580020A06B /* word.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = word.caf; sourceTree = "<group>"; };
+		0B6B94312419B5580020A06B /* button_press.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = button_press.caf; sourceTree = "<group>"; };
 		0B7F55F62409682300728B5B /* LongScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongScoreView.swift; sourceTree = "<group>"; };
 		0B7F55F9240973B000728B5B /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		0B9286DA2411BD24008CAC19 /* PostScoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScoreController.swift; sourceTree = "<group>"; };
@@ -510,6 +564,10 @@
 				0BBBF5202414B3A80058332C /* Info.plist */,
 				0BBBF51E2414B28F0058332C /* WindowController.swift */,
 				0BBBF51A2414B25D0058332C /* ViewController.swift */,
+				0B6B94312419B5580020A06B /* button_press.caf */,
+				0B6B942E2419B5560020A06B /* Select.caf */,
+				0B6B942F2419B5570020A06B /* swipe.caf */,
+				0B6B94302419B5580020A06B /* word.caf */,
 				0BBBF5182414B2330058332C /* WordList.storyboard */,
 				0BBBF5142414B20D0058332C /* AppDelegate.swift */,
 				0BF60EDB2414702C00D286A1 /* Assets.xcassets */,
@@ -831,8 +889,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B6B94412419B5590020A06B /* button_press.caf in Resources */,
 				0B5D20592416B29F0052ECF1 /* Assets.xcassets in Resources */,
+				0B6B943D2419B5590020A06B /* word.caf in Resources */,
+				0B6B94392419B5590020A06B /* swipe.caf in Resources */,
 				0B5D20742416BCBA0052ECF1 /* data.sqlite in Resources */,
+				0B6B94352419B5590020A06B /* Select.caf in Resources */,
 				0B5D205C2416B29F0052ECF1 /* Main.storyboard in Resources */,
 				0B5D20672416B3570052ECF1 /* SQLite.xcconfig in Resources */,
 			);
@@ -862,10 +924,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B6B94402419B5590020A06B /* button_press.caf in Resources */,
 				0BBBF52324154EED0058332C /* PolyhedronStatisticsScene.scn in Resources */,
 				0BBBF5192414B23D0058332C /* WordList.storyboard in Resources */,
 				0BF60EDC2414702C00D286A1 /* Assets.xcassets in Resources */,
 				0BBBF525241551170058332C /* Assets.scnassets in Resources */,
+				0B6B943C2419B5590020A06B /* word.caf in Resources */,
+				0B6B94342419B5590020A06B /* Select.caf in Resources */,
+				0B6B94382419B5590020A06B /* swipe.caf in Resources */,
 				0BBBF5212414B3A80058332C /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -874,6 +940,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B6B94362419B5590020A06B /* swipe.caf in Resources */,
 				130EDE7A22C9C21C00288A31 /* chest.mtl in Resources */,
 				0B5DC9F12406032900827383 /* Title2.obj in Resources */,
 				0B94659B24089C010027864E /* TestPolyhedron.mtl in Resources */,
@@ -884,11 +951,14 @@
 				13E3142422C977F000E0B48D /* cube.obj in Resources */,
 				130EDE7422C9C21C00288A31 /* chest.obj in Resources */,
 				0B94659E24089C0E0027864E /* TestPolyhedron.obj in Resources */,
+				0B6B94322419B5590020A06B /* Select.caf in Resources */,
 				0B5DC9E92406020F00827383 /* Title1.obj in Resources */,
 				1384A37822C1B389006036BA /* Main.storyboard in Resources */,
+				0B6B943A2419B5590020A06B /* word.caf in Resources */,
 				13E3142C22C977F000E0B48D /* cottage2.mtl in Resources */,
 				13E3142822C977F000E0B48D /* cottage1.obj in Resources */,
 				130EDE7C22C9C21C00288A31 /* license.txt in Resources */,
+				0B6B943E2419B5590020A06B /* button_press.caf in Resources */,
 				0B5DC9EB2406020F00827383 /* Title1.mtl in Resources */,
 				139D235622C86C1E00C6DB03 /* Textures.xcassets in Resources */,
 				0B5DC9F52406032900827383 /* Title3.obj in Resources */,
@@ -904,6 +974,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B6B94372419B5590020A06B /* swipe.caf in Resources */,
 				130EDE7522C9C21C00288A31 /* chest.obj in Resources */,
 				0B94659C24089C010027864E /* TestPolyhedron.mtl in Resources */,
 				13E3142522C977F000E0B48D /* cube.obj in Resources */,
@@ -914,11 +985,14 @@
 				0B5DC9FB24060E2200827383 /* TitleQuad.mtl in Resources */,
 				0B5DC9F42406032900827383 /* Title5.obj in Resources */,
 				13E3142D22C977F000E0B48D /* cottage2.mtl in Resources */,
+				0B6B94332419B5590020A06B /* Select.caf in Resources */,
 				130EDE7D22C9C21C00288A31 /* license.txt in Resources */,
 				0B5DC9F82406032900827383 /* Title4.obj in Resources */,
+				0B6B943B2419B5590020A06B /* word.caf in Resources */,
 				139D235722C86C1E00C6DB03 /* Textures.xcassets in Resources */,
 				0B5DC9EC2406020F00827383 /* Title1.mtl in Resources */,
 				1384A3E322C1F04B006036BA /* Main.storyboard in Resources */,
+				0B6B943F2419B5590020A06B /* button_press.caf in Resources */,
 				130EDE7B22C9C21C00288A31 /* chest.mtl in Resources */,
 				13E3142922C977F000E0B48D /* cottage1.obj in Resources */,
 				13E3142322C977F000E0B48D /* cottage1.mtl in Resources */,
@@ -1002,9 +1076,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B6B940E2419A0EF0020A06B /* GameScene.swift in Sources */,
+				0B6B941A2419A0EF0020A06B /* UpgradeDelegate.swift in Sources */,
+				0B6B94182419A0EF0020A06B /* TitleIntegrator.swift in Sources */,
+				0B6B94222419A2280020A06B /* ServerResponse.swift in Sources */,
+				0B6B942D2419A40A0020A06B /* SQLiteDatabase.swift in Sources */,
+				0B6B94102419A0EF0020A06B /* HighWords.swift in Sources */,
 				0BBBF51B2414B25D0058332C /* ViewController.swift in Sources */,
+				0B6B94142419A0EF0020A06B /* Renderable.swift in Sources */,
+				0B6B94172419A0EF0020A06B /* Texturable.swift in Sources */,
+				0B6B941C2419A1590020A06B /* Polyhedron.swift in Sources */,
+				0B6B94132419A0EF0020A06B /* Node.swift in Sources */,
+				0B6B94252419A2350020A06B /* PostScoreController.swift in Sources */,
+				0B6B94272419A2540020A06B /* PolyWordsView.swift in Sources */,
+				0B6B94242419A2320020A06B /* PullDataController.swift in Sources */,
+				0B6B94152419A0EF0020A06B /* Renderer.swift in Sources */,
+				0B6B94282419A34D0020A06B /* VertexDescriptor.swift in Sources */,
+				0B6B940F2419A0EF0020A06B /* HighScores.swift in Sources */,
+				0B6B940D2419A0EF0020A06B /* Camera.swift in Sources */,
+				0B6B94262419A2490020A06B /* PauseDelegate.swift in Sources */,
+				0B6B94292419A37F0020A06B /* Words.swift in Sources */,
+				0B6B941B2419A0EF0020A06B /* MathLibrary.swift in Sources */,
+				0B6B941D2419A19D0020A06B /* Extensions.swift in Sources */,
+				0B6B94122419A0EF0020A06B /* Model.swift in Sources */,
 				0BBBF51F2414B28F0058332C /* WindowController.swift in Sources */,
+				0B6B94212419A2230020A06B /* Apolygon.swift in Sources */,
+				0B6B94112419A0EF0020A06B /* Mesh.swift in Sources */,
+				0B6B942B2419A3890020A06B /* PolyWordsViewController.swift in Sources */,
+				0B6B941E2419A1A10020A06B /* EncodeDecode.swift in Sources */,
+				0B6B94232419A22E0020A06B /* PushDataController.swift in Sources */,
+				0B6B94162419A0EF0020A06B /* Submesh.swift in Sources */,
+				0B6B94192419A0EF0020A06B /* TitleScene.swift in Sources */,
+				0B6B941F2419A1B90020A06B /* Scene.swift in Sources */,
 				0BBBF5152414B20D0058332C /* AppDelegate.swift in Sources */,
+				0B6B942C2419A3C50020A06B /* SQLiteDatabase_old.swift in Sources */,
+				0B6B940C2419A0270020A06B /* AppController.swift in Sources */,
+				0B6B942A2419A3830020A06B /* TrackBall.swift in Sources */,
+				0B6B94202419A1FA0020A06B /* Lighting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
