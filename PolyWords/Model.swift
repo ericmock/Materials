@@ -2,12 +2,27 @@ import MetalKit
 
 class Model: Node {
 	
-	let meshes: [Mesh]
-	var tiling: UInt32 = 1
-	var hasTangents: Bool = false
+	let meshes:[Mesh]
+	var tiling:UInt32 = 1
+	var hasTangents:Bool = false
 	
 	//  let samplerState: MTLSamplerState?
-	var vertexDescriptor: MDLVertexDescriptor
+	var vertexDescriptor:MDLVertexDescriptor
+	
+//	init(withVertices vertices:[SIMD3<Float>], indices:[Int], normals:[SIMD3<Float>], tangents:[SIMD3<Float>], bitangents:[SIMD3<Float>], textureVertices:[SIMD2<Float>]) {
+//		// need to bundle this all up in a single buffer and then tell GPU the layout
+//		let numVertices = vertices.count
+//		var bufferSize = 0
+//		bufferSize += MemoryLayout<Vertex>.stride * numVertices // vertex positions
+//		bufferSize += MemoryLayout<Vertex>.stride * numVertices // vertex normals
+//		bufferSize += MemoryLayout<Vertex>.stride * numVertices // vertex tangents
+//		bufferSize += MemoryLayout<Vertex>.stride * numVertices // vertex bitangents
+//		bufferSize += MemoryLayout<SIMD2<Float>>.stride * numVertices // texture coordinates
+//
+//		vertexDescriptor = MDLVertexDescriptor.defaultVertexDescriptor(hasTangents: true)
+//
+//		
+//	}
 	
 	init(name: String, findTangents: Bool = false) {
 		guard

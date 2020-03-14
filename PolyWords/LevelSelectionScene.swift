@@ -10,7 +10,7 @@ import Foundation
 import CoreGraphics
 
 
-class TitleScene: Scene {
+class LevelSelectionScene: Scene {
 //	MARK:  Instance variables
 	let quadVertices:[SIMD4<Float>] = [
 		SIMD4<Float>(1.0, 1.0, 0, 1),
@@ -35,12 +35,12 @@ class TitleScene: Scene {
 	var timeSinceStart: TimeInterval = 0.0
 	var previousTime = Date()
 	var dT:TimeInterval = 0.0
-	var integrator:TitleIntegrator?
-	var initialState = stateStructure()
-	var presentState = stateStructure()
+//	var integrator:TitleIntegrator?
+//	var initialState = stateStructure()
+//	var presentState = stateStructure()
 	
 	//    let title1 = Model(name: "Title1")
-	let titles:[Model] = [Model(name: "TestPolyhedron"),
+	let titles:[Model] = [Model(name: "Title1"),
 												Model(name: "Title2"),
 												Model(name: "Title3"),
 												Model(name: "Title4"),
@@ -49,7 +49,7 @@ class TitleScene: Scene {
 	
 	override init(screenSize: CGSize, sceneName: String) {
 		super.init(screenSize: screenSize, sceneName: sceneName)
-		integrator = TitleIntegrator(withScene: self)
+//		integrator = TitleIntegrator(withScene: self)
 		//       super.init(screenSize: s, sceneName: <#T##String#>)
 	}
 
@@ -85,10 +85,10 @@ class TitleScene: Scene {
 		
 		creationTime = Date()
 		
-		integrator?.resetState()
+//		integrator?.resetState()
 	}
 	
-	func updateTime() {
+/*	func updateTime() {
 		dT = Date().timeIntervalSince(previousTime)
 		if dT > 1.0/5.0 {
 			dT = 0.0
@@ -96,7 +96,7 @@ class TitleScene: Scene {
 		//print("dT = ",dT)
 		timeSinceStart = Date().timeIntervalSince(creationTime)
 		previousTime = Date()
-	}
+	}*/
 	
 	override func updateScene(deltaTime: Float) {
 		//        time += deltaTime
@@ -106,7 +106,7 @@ class TitleScene: Scene {
 		}
 	}
 	
-	func updateNodePositions(deltaTime: Float) {
+/*	func updateNodePositions(deltaTime: Float) {
 		//        print("initialState= ",initialState)
 		integrator?.integrate(with: TimeInterval(deltaTime))
 		presentState = integrator!.state
@@ -120,11 +120,11 @@ class TitleScene: Scene {
 			title.position = (transformMatrix * initialPosition).xyz
 			//            tit4ule.position.y += title.initialPosition.y
 		}
-	}
+	}*/
 	
 	override func update(deltaTime: Float) {
-		updateTime()
-		updateNodePositions(deltaTime: deltaTime)
+//		updateTime()
+//		updateNodePositions(deltaTime: deltaTime)
 		updateScene(deltaTime: deltaTime)
 		uniforms.viewMatrix = camera.viewMatrix
 		uniforms.projectionMatrix = camera.projectionMatrix

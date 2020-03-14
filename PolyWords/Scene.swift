@@ -103,11 +103,11 @@ class Scene {
 	}
 	
 	final func add(node: Node, parent: Node? = nil, renderQ: Bool = true) {
-		if node.name == "TestPolyhedron" {
-			thePolyhedron = (node as! Polyhedron);
-		} else if node.name == "TitleQuad" {
-			
-		}
+//		if node.name == "TestPolyhedron" {
+//			thePolyhedron = (node as! Polyhedron);
+//		} else if node.name == "TitleQuad" {
+//			
+//		}
 		if let parent = parent {
 			parent.add(childNode: node)
 		} else {

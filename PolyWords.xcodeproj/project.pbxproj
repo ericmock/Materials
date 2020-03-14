@@ -101,6 +101,16 @@
 		0B62E95E240DC97D006C7FE3 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
 		0B62E960240DCA27006C7FE3 /* HighWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95F240DCA27006C7FE3 /* HighWords.swift */; };
 		0B62E961240DCA27006C7FE3 /* HighWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95F240DCA27006C7FE3 /* HighWords.swift */; };
+		0B6542D3241ABDEF009CE36E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6542D2241ABDEF009CE36E /* AppDelegate.swift */; };
+		0B6542D5241ABDEF009CE36E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6542D4241ABDEF009CE36E /* ViewController.swift */; };
+		0B6542D7241ABDF4009CE36E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B6542D6241ABDF4009CE36E /* Assets.xcassets */; };
+		0B6542DA241ABDF4009CE36E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B6542D8241ABDF4009CE36E /* Main.storyboard */; };
+		0B6542E1241ABE33009CE36E /* LevelInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B6542E0241ABE33009CE36E /* LevelInformation.storyboard */; };
+		0B6542E3241AC8AA009CE36E /* LevelSelectionScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6542E2241AC8AA009CE36E /* LevelSelectionScene.swift */; };
+		0B6542E4241AC8AA009CE36E /* LevelSelectionScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6542E2241AC8AA009CE36E /* LevelSelectionScene.swift */; };
+		0B6542E5241AC8AA009CE36E /* LevelSelectionScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6542E2241AC8AA009CE36E /* LevelSelectionScene.swift */; };
+		0B6542E6241BB1B5009CE36E /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D20712416B78D0052ECF1 /* SQLiteDatabase.swift */; };
+		0B6542E7241BB1B9009CE36E /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D20712416B78D0052ECF1 /* SQLiteDatabase.swift */; };
 		0B6B940C2419A0270020A06B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
 		0B6B940D2419A0EF0020A06B /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130F080E22C434CF001B7909 /* Camera.swift */; };
 		0B6B940E2419A0EF0020A06B /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9B42405D27900827383 /* GameScene.swift */; };
@@ -151,6 +161,13 @@
 		0B6B943F2419B5590020A06B /* button_press.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B94312419B5580020A06B /* button_press.caf */; };
 		0B6B94402419B5590020A06B /* button_press.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B94312419B5580020A06B /* button_press.caf */; };
 		0B6B94412419B5590020A06B /* button_press.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B94312419B5580020A06B /* button_press.caf */; };
+		0B6B9443241A85D70020A06B /* highs.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B9442241A85D50020A06B /* highs.sqlite */; };
+		0B6B9444241A85D70020A06B /* highs.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B9442241A85D50020A06B /* highs.sqlite */; };
+		0B6B9445241A85D70020A06B /* highs.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0B6B9442241A85D50020A06B /* highs.sqlite */; };
+		0B6B9447241A874A0020A06B /* HighScoresDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6B9446241A874A0020A06B /* HighScoresDatabase.swift */; };
+		0B6B9448241A874A0020A06B /* HighScoresDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6B9446241A874A0020A06B /* HighScoresDatabase.swift */; };
+		0B6B9449241A874A0020A06B /* HighScoresDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6B9446241A874A0020A06B /* HighScoresDatabase.swift */; };
+		0B6B944A241A874A0020A06B /* HighScoresDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6B9446241A874A0020A06B /* HighScoresDatabase.swift */; };
 		0B7F55FB2409741100728B5B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
 		0B9286DB2411BD24008CAC19 /* PostScoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DA2411BD24008CAC19 /* PostScoreController.swift */; };
 		0B9286E02412970E008CAC19 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DF2412970D008CAC19 /* ServerResponse.swift */; };
@@ -190,6 +207,7 @@
 		0BBBF5212414B3A80058332C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0BBBF5202414B3A80058332C /* Info.plist */; };
 		0BBBF52324154EED0058332C /* PolyhedronStatisticsScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 0BBBF52224154EED0058332C /* PolyhedronStatisticsScene.scn */; };
 		0BBBF525241551170058332C /* Assets.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BBBF524241551170058332C /* Assets.scnassets */; };
+		0BEA12BC241BF61700BCEFA8 /* TextureGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BB241BF61700BCEFA8 /* TextureGenerator.swift */; };
 		0BF60EC524146E1600D286A1 /* GuideView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B928768241428A6008CAC19 /* GuideView.storyboard */; };
 		0BF60EDC2414702C00D286A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BF60EDB2414702C00D286A1 /* Assets.xcassets */; };
 		130EDE7422C9C21C00288A31 /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE6E22C9C21B00288A31 /* chest.obj */; };
@@ -292,10 +310,21 @@
 		0B5DCA002406F21800827383 /* BufferProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BufferProvider.swift; sourceTree = "<group>"; };
 		0B62E95A240DC7CC006C7FE3 /* HighScores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScores.swift; sourceTree = "<group>"; };
 		0B62E95F240DCA27006C7FE3 /* HighWords.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighWords.swift; sourceTree = "<group>"; };
+		0B6542D0241ABDEF009CE36E /* LevelInformation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LevelInformation.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0B6542D2241ABDEF009CE36E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0B6542D4241ABDEF009CE36E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0B6542D6241ABDF4009CE36E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0B6542D9241ABDF4009CE36E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0B6542DB241ABDF4009CE36E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0B6542DC241ABDF4009CE36E /* LevelInformation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LevelInformation.entitlements; sourceTree = "<group>"; };
+		0B6542E0241ABE33009CE36E /* LevelInformation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LevelInformation.storyboard; path = PolyhedronStatistics/LevelInformation.storyboard; sourceTree = SOURCE_ROOT; };
+		0B6542E2241AC8AA009CE36E /* LevelSelectionScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectionScene.swift; sourceTree = "<group>"; };
 		0B6B942E2419B5560020A06B /* Select.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Select.caf; sourceTree = "<group>"; };
 		0B6B942F2419B5570020A06B /* swipe.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swipe.caf; sourceTree = "<group>"; };
 		0B6B94302419B5580020A06B /* word.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = word.caf; sourceTree = "<group>"; };
 		0B6B94312419B5580020A06B /* button_press.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = button_press.caf; sourceTree = "<group>"; };
+		0B6B9442241A85D50020A06B /* highs.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = highs.sqlite; sourceTree = "<group>"; };
+		0B6B9446241A874A0020A06B /* HighScoresDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighScoresDatabase.swift; sourceTree = "<group>"; };
 		0B7F55F62409682300728B5B /* LongScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongScoreView.swift; sourceTree = "<group>"; };
 		0B7F55F9240973B000728B5B /* AppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppController.swift; sourceTree = "<group>"; };
 		0B9286DA2411BD24008CAC19 /* PostScoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostScoreController.swift; sourceTree = "<group>"; };
@@ -354,6 +383,8 @@
 		0BBBF5202414B3A80058332C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BBBF52224154EED0058332C /* PolyhedronStatisticsScene.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = PolyhedronStatisticsScene.scn; sourceTree = "<group>"; };
 		0BBBF524241551170058332C /* Assets.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Assets.scnassets; sourceTree = "<group>"; };
+		0BEA12B8241BF5C400BCEFA8 /* Textures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Textures.m; sourceTree = "<group>"; };
+		0BEA12BB241BF61700BCEFA8 /* TextureGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureGenerator.swift; sourceTree = "<group>"; };
 		0BF60ED52414702900D286A1 /* PolyhedronStatistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolyhedronStatistics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF60EDB2414702C00D286A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		130EDE6A22C9BE9100288A31 /* PBR.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PBR.metal; sourceTree = "<group>"; };
@@ -402,6 +433,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B5D20702416B3790052ECF1 /* libsqlite3.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0B6542CD241ABDEF009CE36E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +494,7 @@
 				0B5D205D2416B29F0052ECF1 /* Info.plist */,
 				0B5D205E2416B2A00052ECF1 /* SQLiteAccess.entitlements */,
 				0B5D20712416B78D0052ECF1 /* SQLiteDatabase.swift */,
+				0B6B9446241A874A0020A06B /* HighScoresDatabase.swift */,
 			);
 			path = SQLiteAccess;
 			sourceTree = "<group>";
@@ -478,6 +517,20 @@
 				0B5D206B2416B3630052ECF1 /* SQLiteWrapper.swift */,
 			);
 			path = SQLiteWrapper;
+			sourceTree = "<group>";
+		};
+		0B6542D1241ABDEF009CE36E /* LevelInformation */ = {
+			isa = PBXGroup;
+			children = (
+				0B6542E0241ABE33009CE36E /* LevelInformation.storyboard */,
+				0B6542D2241ABDEF009CE36E /* AppDelegate.swift */,
+				0B6542D4241ABDEF009CE36E /* ViewController.swift */,
+				0B6542D6241ABDF4009CE36E /* Assets.xcassets */,
+				0B6542D8241ABDF4009CE36E /* Main.storyboard */,
+				0B6542DB241ABDF4009CE36E /* Info.plist */,
+				0B6542DC241ABDF4009CE36E /* LevelInformation.entitlements */,
+			);
+			path = LevelInformation;
 			sourceTree = "<group>";
 		};
 		0B9286DE24129609008CAC19 /* Networking */ = {
@@ -558,10 +611,19 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		0BEA12BA241BF5D000BCEFA8 /* Objective C Code */ = {
+			isa = PBXGroup;
+			children = (
+				0BEA12B8241BF5C400BCEFA8 /* Textures.m */,
+			);
+			path = "Objective C Code";
+			sourceTree = "<group>";
+		};
 		0BF60ED62414702900D286A1 /* PolyhedronStatistics */ = {
 			isa = PBXGroup;
 			children = (
 				0BBBF5202414B3A80058332C /* Info.plist */,
+				0B6B9442241A85D50020A06B /* highs.sqlite */,
 				0BBBF51E2414B28F0058332C /* WindowController.swift */,
 				0BBBF51A2414B25D0058332C /* ViewController.swift */,
 				0B6B94312419B5580020A06B /* button_press.caf */,
@@ -597,6 +659,7 @@
 				1384A3F522C1F210006036BA /* PolyWords-macOS */,
 				0BF60ED62414702900D286A1 /* PolyhedronStatistics */,
 				0B5D20532416B29C0052ECF1 /* SQLiteAccess */,
+				0B6542D1241ABDEF009CE36E /* LevelInformation */,
 				1384A37022C1B388006036BA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -610,6 +673,7 @@
 				0B92873F241423C9008CAC19 /* GuideView.app */,
 				0BF60ED52414702900D286A1 /* PolyhedronStatistics.app */,
 				0B5D20522416B29C0052ECF1 /* SQLiteAccess.app */,
+				0B6542D0241ABDEF009CE36E /* LevelInformation.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -639,10 +703,12 @@
 				130F080B22C4343D001B7909 /* Node.swift */,
 				0B9956952410038A00F4D06F /* PauseDelegate.swift */,
 				130EDE6A22C9BE9100288A31 /* PBR.metal */,
+				0BEA12BB241BF61700BCEFA8 /* TextureGenerator.swift */,
 				0B5DC9C92405D39800827383 /* Polyhedron.swift */,
 				0B11CA74240F4035001B76A2 /* PolyWordsView.swift */,
 				1384A38A22C1BA95006036BA /* Primitive.swift */,
 				0B5DC9C32405D37200827383 /* Renderable.swift */,
+				0BEA12BA241BF5D000BCEFA8 /* Objective C Code */,
 				1384A38822C1B53E006036BA /* Renderer.swift */,
 				0B5DC9AE2405D25A00827383 /* Scene.swift */,
 				1384A38C22C1BE70006036BA /* Shaders.metal */,
@@ -652,6 +718,7 @@
 				139D235522C86C1E00C6DB03 /* Textures.xcassets */,
 				0B5DC9BA2405D28C00827383 /* TitleIntegrator.swift */,
 				0B5DC9B72405D28300827383 /* TitleScene.swift */,
+				0B6542E2241AC8AA009CE36E /* LevelSelectionScene.swift */,
 				0B5DC9B12405D26F00827383 /* TrackBall.swift */,
 				0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */,
 				13A7ABC722C2374C00609310 /* Utility */,
@@ -741,6 +808,23 @@
 			name = SQLiteAccess;
 			productName = SQLiteAccess;
 			productReference = 0B5D20522416B29C0052ECF1 /* SQLiteAccess.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0B6542CF241ABDEF009CE36E /* LevelInformation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0B6542DF241ABDF4009CE36E /* Build configuration list for PBXNativeTarget "LevelInformation" */;
+			buildPhases = (
+				0B6542CC241ABDEF009CE36E /* Sources */,
+				0B6542CD241ABDEF009CE36E /* Frameworks */,
+				0B6542CE241ABDEF009CE36E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LevelInformation;
+			productName = LevelInformation;
+			productReference = 0B6542D0241ABDEF009CE36E /* LevelInformation.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0B92870C24141EEC008CAC19 /* WordListView */ = {
@@ -841,6 +925,9 @@
 					0B5D20512416B29C0052ECF1 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
+					0B6542CF241ABDEF009CE36E = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 					0B92870C24141EEC008CAC19 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -880,6 +967,7 @@
 				0B92873E241423C8008CAC19 /* GuideView */,
 				0BF60ED42414702900D286A1 /* PolyhedronStatistics */,
 				0B5D20512416B29C0052ECF1 /* SQLiteAccess */,
+				0B6542CF241ABDEF009CE36E /* LevelInformation */,
 			);
 		};
 /* End PBXProject section */
@@ -897,6 +985,16 @@
 				0B6B94352419B5590020A06B /* Select.caf in Resources */,
 				0B5D205C2416B29F0052ECF1 /* Main.storyboard in Resources */,
 				0B5D20672416B3570052ECF1 /* SQLite.xcconfig in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0B6542CE241ABDEF009CE36E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B6542D7241ABDF4009CE36E /* Assets.xcassets in Resources */,
+				0B6542DA241ABDF4009CE36E /* Main.storyboard in Resources */,
+				0B6542E1241ABE33009CE36E /* LevelInformation.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -933,6 +1031,7 @@
 				0B6B94342419B5590020A06B /* Select.caf in Resources */,
 				0B6B94382419B5590020A06B /* swipe.caf in Resources */,
 				0BBBF5212414B3A80058332C /* Info.plist in Resources */,
+				0B6B9445241A85D70020A06B /* highs.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -943,6 +1042,7 @@
 				0B6B94362419B5590020A06B /* swipe.caf in Resources */,
 				130EDE7A22C9C21C00288A31 /* chest.mtl in Resources */,
 				0B5DC9F12406032900827383 /* Title2.obj in Resources */,
+				0B6B9443241A85D70020A06B /* highs.sqlite in Resources */,
 				0B94659B24089C010027864E /* TestPolyhedron.mtl in Resources */,
 				13E3142622C977F000E0B48D /* cube.mtl in Resources */,
 				0B5DC9F32406032900827383 /* Title5.obj in Resources */,
@@ -977,6 +1077,7 @@
 				0B6B94372419B5590020A06B /* swipe.caf in Resources */,
 				130EDE7522C9C21C00288A31 /* chest.obj in Resources */,
 				0B94659C24089C010027864E /* TestPolyhedron.mtl in Resources */,
+				0B6B9444241A85D70020A06B /* highs.sqlite in Resources */,
 				13E3142522C977F000E0B48D /* cube.obj in Resources */,
 				13E3142B22C977F000E0B48D /* cottage2.obj in Resources */,
 				0B5DC9F22406032900827383 /* Title2.obj in Resources */,
@@ -1035,6 +1136,7 @@
 				0B5D2098241703B60052ECF1 /* GameScene.swift in Sources */,
 				0B5D20892416FF520052ECF1 /* Renderable.swift in Sources */,
 				0B5D20722416B78D0052ECF1 /* SQLiteDatabase.swift in Sources */,
+				0B6B944A241A874A0020A06B /* HighScoresDatabase.swift in Sources */,
 				0B5D208C2416FF9D0052ECF1 /* Camera.swift in Sources */,
 				0B5D20972417037E0052ECF1 /* LocalClasses.swift in Sources */,
 				0B5D20832416FEE40052ECF1 /* ServerResponse.swift in Sources */,
@@ -1049,6 +1151,16 @@
 				0B5D208A2416FF520052ECF1 /* Texturable.swift in Sources */,
 				0B5D2092241701E10052ECF1 /* TitleScene.swift in Sources */,
 				0B5D2093241701EF0052ECF1 /* TitleIntegrator.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0B6542CC241ABDEF009CE36E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0B6542E5241AC8AA009CE36E /* LevelSelectionScene.swift in Sources */,
+				0B6542D5241ABDEF009CE36E /* ViewController.swift in Sources */,
+				0B6542D3241ABDEF009CE36E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1077,6 +1189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0B6B940E2419A0EF0020A06B /* GameScene.swift in Sources */,
+				0B6B9449241A874A0020A06B /* HighScoresDatabase.swift in Sources */,
 				0B6B941A2419A0EF0020A06B /* UpgradeDelegate.swift in Sources */,
 				0B6B94182419A0EF0020A06B /* TitleIntegrator.swift in Sources */,
 				0B6B94222419A2280020A06B /* ServerResponse.swift in Sources */,
@@ -1125,9 +1238,11 @@
 				0B5DC9B52405D27A00827383 /* GameScene.swift in Sources */,
 				0B99569824100B4E00F4D06F /* PushDataController.swift in Sources */,
 				0B11CA75240F4035001B76A2 /* PolyWordsView.swift in Sources */,
+				0BEA12BC241BF61700BCEFA8 /* TextureGenerator.swift in Sources */,
 				130F081222C4352D001B7909 /* Model.swift in Sources */,
 				13EBBB3F22C6FDA500230D2B /* Lighting.swift in Sources */,
 				0B99569A2410589600F4D06F /* PolyWordsViewController.swift in Sources */,
+				0B6542E3241AC8AA009CE36E /* LevelSelectionScene.swift in Sources */,
 				0B62E95E240DC97D006C7FE3 /* AppController.swift in Sources */,
 				130F081B22C436F9001B7909 /* VertexDescriptor.swift in Sources */,
 				0B11CA72240F3EDD001B76A2 /* EncodeDecode.swift in Sources */,
@@ -1135,12 +1250,14 @@
 				130F082A22C43C57001B7909 /* ViewControllerExtension.swift in Sources */,
 				0B5DC9BB2405D28C00827383 /* TitleIntegrator.swift in Sources */,
 				0B9956A72410D49F00F4D06F /* UpgradeDelegate.swift in Sources */,
+				0B6B9447241A874A0020A06B /* HighScoresDatabase.swift in Sources */,
 				0B5DCA012406F21800827383 /* BufferProvider.swift in Sources */,
 				0B9956A42410CB6500F4D06F /* MyActionSheet.swift in Sources */,
 				0B9286F82412DD37008CAC19 /* GuideViewController.swift in Sources */,
 				0B5DC9BE2405D29F00827383 /* SQLiteDatabase_old.swift in Sources */,
 				130F080F22C434CF001B7909 /* Camera.swift in Sources */,
 				1384A38122C1B3C2006036BA /* ViewController.swift in Sources */,
+				0B6542E6241BB1B5009CE36E /* SQLiteDatabase.swift in Sources */,
 				1384A38922C1B53E006036BA /* Renderer.swift in Sources */,
 				130F081522C43563001B7909 /* Mesh.swift in Sources */,
 				0B9956942410016400F4D06F /* PullDataController.swift in Sources */,
@@ -1172,6 +1289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				130F081922C435A0001B7909 /* Submesh.swift in Sources */,
+				0B6B9448241A874A0020A06B /* HighScoresDatabase.swift in Sources */,
 				0B946599240884AD0027864E /* GuideViewController.swift in Sources */,
 				0B62E95C240DC7CC006C7FE3 /* HighScores.swift in Sources */,
 				0B5DC9B62405D27A00827383 /* GameScene.swift in Sources */,
@@ -1184,6 +1302,7 @@
 				130F081022C434CF001B7909 /* Camera.swift in Sources */,
 				0B62E961240DCA27006C7FE3 /* HighWords.swift in Sources */,
 				0B5DC9BC2405D28C00827383 /* TitleIntegrator.swift in Sources */,
+				0B6542E7241BB1B9009CE36E /* SQLiteDatabase.swift in Sources */,
 				0B5DCA022406F21800827383 /* BufferProvider.swift in Sources */,
 				0B5DC9BF2405D29F00827383 /* SQLiteDatabase_old.swift in Sources */,
 				0B7F55FB2409741100728B5B /* AppController.swift in Sources */,
@@ -1200,6 +1319,7 @@
 				0B5DC9E02405D7A700827383 /* MetalTexture.swift in Sources */,
 				0BB4466624077C9A0006E805 /* WordsViewController2.swift in Sources */,
 				1384A3F022C1F12A006036BA /* Renderer.swift in Sources */,
+				0B6542E4241AC8AA009CE36E /* LevelSelectionScene.swift in Sources */,
 				130F082D22C43CC8001B7909 /* ViewControllerExtension.swift in Sources */,
 				0B11CA73240F3EDE001B76A2 /* EncodeDecode.swift in Sources */,
 				0B5DC9CE2405D3C800827383 /* BasePolygon.swift in Sources */,
@@ -1218,6 +1338,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				0B5D205B2416B29F0052ECF1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		0B6542D8241ABDF4009CE36E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0B6542D9241ABDF4009CE36E /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -1292,6 +1420,46 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.SQLiteAccess;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		0B6542DD241ABDF4009CE36E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LevelInformation/LevelInformation.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 567YC6JLS4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = LevelInformation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.LevelInformation;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0B6542DE241ABDF4009CE36E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LevelInformation/LevelInformation.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 567YC6JLS4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = LevelInformation/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.LevelInformation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1634,6 +1802,15 @@
 			buildConfigurations = (
 				0B5D205F2416B2A00052ECF1 /* Debug */,
 				0B5D20602416B2A00052ECF1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0B6542DF241ABDF4009CE36E /* Build configuration list for PBXNativeTarget "LevelInformation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0B6542DD241ABDF4009CE36E /* Debug */,
+				0B6542DE241ABDF4009CE36E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

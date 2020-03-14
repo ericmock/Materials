@@ -10,20 +10,57 @@ import Foundation
 import SQLite3
 
 class HighScores : NSObject {
-	var high_score: Int!
-	var score: Int!
-	var longest_word: Int!
-	var max_occurences: Int!
-	var best_word: Int!
-	var mode: UInt!
-	var time: Float!
-	var filePath: String!
-	var appController: AppController!
-	var decodedScoreDataArray:[[String]]!
-	var encodedScoreDataArray:[[String]]!
-	var wordArray: [String]!
+	var high_score: Int = 0
+	var score: Int = 0
+	var longest_word: Int = 0
+	var max_occurences: Int = 0
+	var best_word: Int = 0
+	var mode: UInt = 0
+	var time: Float = 0
+	var filePath: String = ""
+	var appController: AppController
+	var decodedScoreDataArray:[[Any]] = [[]]
+	var encodedScoreDataArray:[[Any]] = [[]]
+	var wordArray: [String] = []
+	var db:HighScoresDatabase!
 	
+	init (withAppController d:AppController) throws {
+		appController = d
+		super.init()
+		openDatabase()
+		
+		let querySql = "select * from highScores;"
+		guard let queryStatement = try? db.prepareStatement(sql: querySql) else {
+			throw SQLiteError.Step(message: "Error")
+		}
+		defer {
+			sqlite3_finalize(queryStatement)
+		}
+		print("Query Result:")
+		
+		while (sqlite3_step(queryStatement) == SQLITE_ROW) {
+			let polyhedronType = Int(sqlite3_column_int(queryStatement, 0))
+			let mode = Int(sqlite3_column_int(queryStatement, 1))
+			let score = Float(sqlite3_column_double(queryStatement, 2))
+			print("type: \(polyhedronType), mode: \(mode), score: \(score)")
+			encodedScoreDataArray.append([polyhedronType, mode, score])
+		}
+	}
 	
+	func openDatabase() {
+		let dbPath = Bundle.main.resourceURL?.appendingPathComponent("highs.sqlite").absoluteString//directoryUrl?.appendingPathComponent("data.sqlite").relativePath
+		
+		do {
+			db = try HighScoresDatabase.open(path: dbPath!)
+			print("Successfully opened connection to database.")
+		} catch SQLiteError.OpenDatabase(_) {
+			print("Unable to open database.")
+			return
+		} catch {
+			return
+		}
+	}
+
 	func reset(withFile path:String, delegate d:AppController) {
 		mode = 0
 		score = 0
@@ -59,16 +96,16 @@ class HighScores : NSObject {
 //		}
 //	}
 	
-	func getHighScoreForEachLevel() -> NSArray {
-		let array = NSMutableArray()
+	func getHighScoreForEachLevel() -> [Float] {
+		var array:[Float] = []
 		var counter = 1
 		for tempDict in (appController.polyhedronInfoArray as! [NSDictionary]) {
 			let num = getHighScore(forPolyhedron: tempDict.object(forKey: "polyID") as! Int)
-			array.add(Float(counter))
+			array.append(Float(counter))
 			if num < Float.greatestFiniteMagnitude {
-				array.add(num)
+				array.append(num)
 			} else {
-				array.add(0)
+				array.append(0)
 			}
 			counter += 1
 		}
@@ -102,10 +139,10 @@ class HighScores : NSObject {
 		var highScore:Float = 0
 		var count = 0
 		for array in decodedScoreDataArray {
-			if Int(array[1]) == type,
+			if array[1] as! Int == type,
 			array[3] as! Float > highScore,
 				abs(array[2] as! Float - Float(AppConstants.kTimeToCompleteDynamic)) < 1.1,
-				UInt(array[0]) == mode {
+				array[0] as! UInt == mode {
 				highScore = array[3] as! Float
 				count += 1
 			}
@@ -116,8 +153,8 @@ class HighScores : NSObject {
 	func getTimes(forPolyhedron type:Int) -> NSArray {
 		let timeArray = NSMutableArray()
 		for array in decodedScoreDataArray {
-			if Int(array[1]) == type,
-				UInt(array[0]) == AppConstants.kScoreToObtainDynamic {
+			if array[1] as! Int == type,
+				array[0] as! UInt == AppConstants.kScoreToObtainDynamic {
 				timeArray.add(array[2])
 			}
 		}
@@ -127,8 +164,8 @@ class HighScores : NSObject {
 	func getScores(forPolyhedron type:Int) -> NSArray {
 		let timeArray = NSMutableArray()
 		for array in decodedScoreDataArray {
-			if Int(array[1]) == type,
-				UInt(array[0]) == mode {
+			if array[1] as! Int == type,
+				array[0] as! UInt == mode {
 				timeArray.add(array[3])
 			}
 		}
@@ -139,9 +176,9 @@ class HighScores : NSObject {
 		var totalScore:Int = 0
 		var plays:Int = 0
 		for array in decodedScoreDataArray {
-			if Int(array[1]) == type,
-				UInt(array[0]) == mode {
-				totalScore += Int(array[3])!
+			if array[1] as! Int == type,
+				array[0] as! UInt == mode {
+				totalScore += array[3] as! Int
 				plays += 1
 			}
 		}
@@ -152,9 +189,9 @@ class HighScores : NSObject {
 		var totalTime:Float = 0
 		var plays:Int = 0
 		for array in decodedScoreDataArray {
-			if Int(array[1]) == type,
-				UInt(array[0]) == mode {
-				totalTime += Float(array[2])!
+			if array[1] as! Int == type,
+				array[0] as! UInt == mode {
+				totalTime += array[2] as! Float
 				plays += 1
 			}
 		}
@@ -162,13 +199,13 @@ class HighScores : NSObject {
 	}
 	
 	func checkLevelCompleted(num:NSNumber) -> Bool {
-		print("into checkLevelCompleted:  \(num) of \(self.className)")
+//		print("into checkLevelCompleted:  \(num) of \(self.className)")
 		var complete = false
 /*		if (mode == AppConstants.kStaticTimedMode) {
 			for array in decodedScoreDataArray {
 				if num.isEqual(to: array[1]),
-					UInt(array[1])! >= AppConstants.kScoreToObtainStatic,
-					UInt(array[0]) == mode {
+					Uarray[1] as! Int! >= AppConstants.kScoreToObtainStatic,
+					Uarray[0] as! Int == mode {
 						complete = true
 					break
 				}
@@ -178,8 +215,8 @@ class HighScores : NSObject {
 			for array in decodedScoreDataArray {
 				let test = Float("3.14")
 				if num.isEqual(to: array[1]),
-					Float(array[1])! <= AppConstants.kTimeToCompleteStatic,
-					UInt(array[0]) == mode {
+					array[1] as! Float! <= AppConstants.kTimeToCompleteStatic,
+					Uarray[0] as! Int == mode {
 						complete = true
 					break
 				}
@@ -188,8 +225,8 @@ class HighScores : NSObject {
 		else if mode == AppConstants.kDynamicScoredMode {
 			for array in decodedScoreDataArray {
 				if num.isEqual(to: array[1]),
-					(Float(array[1]))! <= AppConstants.kTimeToCompleteDynamic,
-					UInt(array[0]) == mode {
+					(array[1] as! Float)! <= AppConstants.kTimeToCompleteDynamic,
+					Uarray[0] as! Int == mode {
 						complete = true
 					break
 				}
@@ -198,8 +235,8 @@ class HighScores : NSObject {
 		else if mode == AppConstants.kDynamicTimedMode {
 			for array in decodedScoreDataArray {
 				if num.isEqual(to: array[1]),
-					(UInt(array[1]))! >= AppConstants.kScoreToObtainDynamic,
-					UInt(array[0]) == mode {
+					(Uarray[1] as! Int)! >= AppConstants.kScoreToObtainDynamic,
+					Uarray[0] as! Int == mode {
 						complete = true
 					break
 				}
@@ -260,10 +297,10 @@ class HighScores : NSObject {
 	
 	func getTopScores(forPolyhedronType type:Int) {
 		print("int getTopScore for polyhedron type \(type) of \(self.className)")
-		var tempArray:[[String]] = [[]]
+		var tempArray:[[Any]] = [[]]
 		
 		for array in encodedScoreDataArray {
-			if (Int(array[0])) == type {
+			if (array[0] as! Int) == type {
 				tempArray.append(array)
 			}
 		}

@@ -213,7 +213,7 @@
                         </connections>
                     </window>
                     <connections>
-                        <segue destination="XfG-lQ-9wD" kind="relationship" relationship="window.shadowedContentViewController" id="cq2-FE-JQM"/>
+                        <segue destination="uid-qU-UCi" kind="relationship" relationship="window.shadowedContentViewController" id="hee-9t-ahM"/>
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -293,6 +293,19 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="655"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="xri-Es-tf1">
+            <objects>
+                <viewController id="uid-qU-UCi" customClass="ViewController" customModule="PolyWords_macOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="diP-zi-HQ9" customClass="MTKView">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="bf2-1r-fwl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="630" y="658"/>
         </scene>
     </scenes>
 </document>

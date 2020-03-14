@@ -64,7 +64,7 @@ class AppController: AppDelegate {
 	let polyhedronNamesArray = NSMutableArray()
 	let polyhedronNumbersArray = NSMutableArray()
 	let polyhedronLevelsArray = NSMutableArray()
-	lazy var highScores:HighScores = HighScores()
+	var highScores:HighScores!
 	var highest_completed = repeatElement(UInt(), count: 4)
 	var accelQ = false
 	var recordTimeQ = true
@@ -75,7 +75,7 @@ class AppController: AppDelegate {
 	let wordNumbers = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven"]
 	let alphabetArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 	let nowTime = Date()
-	var mode:UInt!
+	var mode:UInt = 0
 	var unlocked = true
 	var upgrading = true
 	var sendDataQ = true
@@ -100,13 +100,19 @@ class AppController: AppDelegate {
 	var wordString:String = ""
 	var currentAlertView:NSResponder!
 	var upgradeDelegate:UpgradeDelegate!
-	var highScore:HighScores!
 	var send_data_q = false
 
 //	required init(coder aCoder: NSCoder) {
 	override init() {
 		polyWordsView = PolyWordsView()
 		super.init()
+		do {
+			highScores = try HighScores(withAppController: self)
+		} catch {
+			print("Error initializing high scores database.")
+			return
+		}
+
 	}
 	
 	func removeAllStoredData() {
@@ -419,11 +425,16 @@ class AppController: AppDelegate {
 			}
 		}
 		newEncodedDataArray.write(toFile: self.getHighScoresPath(), atomically: true)
-		highScores = HighScores()
+		do {
+			highScores = try HighScores(withAppController: self)
+		} catch {
+			print("Error initializing high scores database.")
+			return
+		}
 	}
 	
 	func initializeSetting() {
-		let firstTimeQ = !self.createFilesIfNeeded()
+		let firstTimeQ = true//!self.createFilesIfNeeded()
 		var selectModeQ = false
 		var throwBackQ = false
 		var keyData:Data!
@@ -534,12 +545,12 @@ class AppController: AppDelegate {
 		}
 		
 		for ii in stride(from: 0, through: polyhedronArray.count - 1, by: 3) {
-			print(ii)
+//			print(ii)
 			polyhedronNamesArray.add(polyhedronArray.object(at: ii))
 		}
 		
 		for ii in stride(from: 1, through: polyhedronArray.count - 1, by: 3) {
-			print(ii)
+//			print(ii)
 			polyhedronNumbersArray.add(polyhedronArray.object(at: ii))
 		}
 		
