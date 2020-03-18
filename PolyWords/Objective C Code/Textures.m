@@ -909,7 +909,6 @@ void draw_labels(CGContextRef textureContext,int size,UIFont *numberFont) {
 				CGContextRestoreGState(textureContext);
 			}
 		}
-
 		CGContextSetGrayFillColor(textureContext, 0.0, 0.5);
 		if (texture_num == 0) {
 			CGContextSetGrayStrokeColor(textureContext, 0.1, 1.0);
@@ -925,6 +924,7 @@ void draw_labels(CGContextRef textureContext,int size,UIFont *numberFont) {
 			else
 				CGContextSetGrayFillColor(textureContext, 1.0, 0.5);
 		}
+		// Ported to here
 		CGContextSetLineWidth(textureContext, 2.0);
 		if (outlined) CGContextSetTextDrawingMode(textureContext, kCGTextFillStroke);
 		else CGContextSetTextDrawingMode(textureContext, kCGTextFill);

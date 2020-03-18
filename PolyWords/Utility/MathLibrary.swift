@@ -15,6 +15,11 @@ extension Float {
   }
 }
 
+func half(_ size: float3) -> float3 {
+	[size.x * 0.5, size.y * 0.5, size.z * 0.5]
+}
+
+
 func radians(fromDegrees degrees: Float) -> Float {
     return (degrees / 180) * π
 }
@@ -280,5 +285,12 @@ extension float4 {
     self.init()
     self = [Float(d.x), Float(d.y), Float(d.z), Float(d.w)]
   }
+}
+
+// Mark:-float3
+extension float3 {
+	var description:String {
+		return "{\(x),\(y),\(z)}"
+	}
 }
 

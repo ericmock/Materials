@@ -87,14 +87,14 @@ class GameScene: Scene {
 		
 		var counter = 0
 		for ll in 0..<10 {
-			for ii in 0..<thePolyhedron.numberOfFacesOfType[ll] {
+			for ii in 0..<thePolyhedron.numberOfFacesOfPolygonType[ll] {
 				var minX: Float = Float(MAXFLOAT)
 				var maxX: Float = -Float(MAXFLOAT)
 				var minY: Float = Float(MAXFLOAT)
 				var maxY: Float = -Float(MAXFLOAT)
 				for kk in 0..<(3+ll) {
 					for jj in 0..<3 {
-						vec[jj] = thePolyhedron.polyVertices[ll][(3 + ll) * 3 * ii + 3 * kk + jj];
+//						vec[jj] = thePolyhedron.polyVertices[ll][(3 + ll) * 3 * ii + 3 * kk + jj];
 					}
 					
 					vec3 = transform_matrix * SIMD4<Float>(vec)
@@ -136,7 +136,7 @@ class GameScene: Scene {
 				let base_vertex_index: Int = tmp * faceNumber + 3 * Int(nn)
 				for kk in 0..<3 {
 					
-					vec[kk] = thePolyhedron.polyVertices[polyType][base_vertex_index + kk]
+//					vec[kk] = thePolyhedron.polyVertices[polyType][base_vertex_index + kk]
 					//                    poly_vertices_ptr[polyType!][base_vertex_index + kk];
 					//            float temp2[4];
 					//            matrixMultiply(modelViewMatrix, vec, vec1);

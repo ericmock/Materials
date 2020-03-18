@@ -16,6 +16,9 @@ struct AppConstants {
 	static let kGameStart:UInt = 0
 	static let kGameRestart:UInt = 1
 	static let kGameContinue:UInt = 1
+	static let kPolygonTypeNames = ["triangle", "square", "pentagon", "hexagon", "heptagon", "octagon", "decagon", "twelvegon", "square_2", "square_3", "square_4", "triangle_2", "triangle_3", "triangle_4"]
+	static let kPolygonTypesVertexCount = [3, 4, 5, 6, 7, 8, 10, 12, 4, 4, 4, 3, 3, 3]
+
 	/*static let kPolyhedronNames:[String] = ["Truncated Icosahedron",
 						 "Parabigyrate Rhombicosidodecahedron",
 						 "Parabidiminished Rhombicosidodecahedron",
@@ -91,7 +94,7 @@ class AppController: AppDelegate {
 	var textureExists = [Bool](repeating: false, count: numPolygonTypes + 5)
 	var gameViewInitializedQ = false
 	let polyWordsView:PolyWordsView!
-	var polyWordsViewController:PolyWordsViewController!
+//	var polyWordsViewController:PolyWordsViewController!
 	var level:UInt = 0
 	var level_aborted = false
 	var level_completed = false

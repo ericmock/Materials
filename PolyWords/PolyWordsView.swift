@@ -219,7 +219,7 @@ class PolyWordsView {
 		prev_time = Date();
 		clock = Timer.init(fireAt:Date(), interval:1, target:self, selector:#selector(oneSecondPulse), userInfo:nil, repeats:true)
 		self.paused = false
-		appController.polyWordsViewController.game_state = AppConstants.kGameContinue
+//		appController.polyWordsViewController.game_state = AppConstants.kGameContinue
 		
 		//		[[NSRunLoop currentRunLoop] addTimer:clock forMode:NSDefaultRunLoopMode];
 		
@@ -338,7 +338,7 @@ class PolyWordsView {
 	func assignRandomLetterToPoly(number ii:Int) {
 		var rd:Int
 		//		srandomdev();
-		let poly = polyhedron.polygons.object(at:ii) as! Apolygon
+		let poly = polyhedron.polygons[ii]
 		var g = SystemRandomNumberGenerator()
 		if (poly.active) {
 			rd = Int.random(in: 0...(appController.alphabetArray.count - 1), using: &g);
@@ -920,24 +920,25 @@ class PolyWordsView {
 			gameAnimationTimer = Timer()
 		}
 
-		let game_state = appController.polyWordsViewController.game_state
+/*		let game_state = appController.polyWordsViewController.game_state
 		if (points_avail < 3000 && appController.mode == AppConstants.kStaticScoredMode && !appController.level_aborted && game_state != AppConstants.kGameContinue) {
 			let alert = NSPanel.init()
 //			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reshuffle Letters" message:[NSString stringWithFormat:@"Only %i points are available with these letters.",points_avail]
 //															 delegate:self cancelButtonTitle:@"Shuffle" otherButtonTitles:nil];
 //			alert.tag = 1
-			alert.makeKeyAndOrderFront(nil)
-		} else if ((game_state == AppConstants.kGameStart || game_state == AppConstants.kGameRestart) && show_get_ready && appController.mode != AppConstants.kTwoPlayerClientMode && appController.mode != AppConstants.kTwoPlayerServerMode) {
-			gameAnimationTimer = Timer(timeInterval:animationInterval, target: self, selector: #selector(drawView), userInfo: nil, repeats: true)
-			if appController.mode == AppConstants.kDynamicTimedMode {
-				message = "Score as many points as you can in \(AppConstants.kTimeToCompleteDynamic) seconds.  Don't forget you can throw back letters.\n\n\n\n\n\n"
-			} else if (appController.mode == AppConstants.kStaticTimedMode) {
-				message = "Score as many points as you can in \(AppConstants.kTimeToCompleteStatic) seconds.  Don't forget you can throw back letters.\n\n\n\n\n\n"
-			} else if (appController.mode == AppConstants.kDynamicScoredMode) {
-				message = "Score \(AppConstants.kScoreToObtainDynamic) points as fast as you can.  Don't forget you can throw back letters.\n\n\n\n\n\n"
-			} else if (appController.mode == AppConstants.kStaticScoredMode) {
-				message = "Score \(AppConstants.kScoreToObtainStatic) points as fast as you can.\n\n\n\n\n\n"
-			}
+//			alert.makeKeyAndOrderFront(nil)
+		}
+		else if ((game_state == AppConstants.kGameStart || game_state == AppConstants.kGameRestart) && show_get_ready && appController.mode != AppConstants.kTwoPlayerClientMode && appController.mode != AppConstants.kTwoPlayerServerMode) {
+//			gameAnimationTimer = Timer(timeInterval:animationInterval, target: self, selector: #selector(drawView), userInfo: nil, repeats: true)
+//			if appController.mode == AppConstants.kDynamicTimedMode {
+//				message = "Score as many points as you can in \(AppConstants.kTimeToCompleteDynamic) seconds.  Don't forget you can throw back letters.\n\n\n\n\n\n"
+//			} else if (appController.mode == AppConstants.kStaticTimedMode) {
+//				message = "Score as many points as you can in \(AppConstants.kTimeToCompleteStatic) seconds.  Don't forget you can throw back letters.\n\n\n\n\n\n"
+//			} else if (appController.mode == AppConstants.kDynamicScoredMode) {
+//				message = "Score \(AppConstants.kScoreToObtainDynamic) points as fast as you can.  Don't forget you can throw back letters.\n\n\n\n\n\n"
+//			} else if (appController.mode == AppConstants.kStaticScoredMode) {
+//				message = "Score \(AppConstants.kScoreToObtainStatic) points as fast as you can.\n\n\n\n\n\n"
+//			}
 //			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Get Ready" message:message
 //															 delegate:self cancelButtonTitle:@"Continue" otherButtonTitles:nil];
 //			alert.tag = 3;
@@ -961,7 +962,8 @@ class PolyWordsView {
 //
 //			[alert show];
 			show_get_ready = true
-		} else if (show_get_ready && opponent_ready) {
+		}
+		else if (show_get_ready && opponent_ready) {
 			gameAnimationTimer = Timer(timeInterval:animationInterval, target: self, selector: #selector(drawView), userInfo: nil, repeats: true)
 //			[waitingAlert dismissWithClickedButtonIndex:2 animated:NO];
 			message = ""
@@ -1010,6 +1012,7 @@ class PolyWordsView {
 				self.startClock()
 			}
 		}
+*/
 	//	[self checkLevelCompleted];
 	}
 	
@@ -1051,7 +1054,7 @@ class PolyWordsView {
 		num_words_avail = 0
 		let to_points = points
 		
-		for poly in polyhedron.polygons as! [Apolygon] {
+		for poly in polyhedron.polygons {
 			if poly.active && points_avail < to_points {
 				self.findWordsStarting(withPolygon: poly)
 				poly_counter += 1
@@ -1059,7 +1062,7 @@ class PolyWordsView {
 		}
 		
 		if points == Int.max {
-			for poly in polyhedron.polygons as! [Apolygon] {
+			for poly in polyhedron.polygons {
 				poly.connections = []
 			}
 		}
@@ -1080,8 +1083,6 @@ class PolyWordsView {
 //Move to new NSView class			self.performSelector(onMainThread: #selector(checkLevelComplete), with: nil, waitUntilDone: false)
 		}
 	}
-	
-	
 	
 	func findWordsStarting(withPolygon poly:Apolygon) {
 		//TODO:  don't need to return an array with the actual words

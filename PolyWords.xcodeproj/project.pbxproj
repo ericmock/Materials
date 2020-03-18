@@ -14,15 +14,13 @@
 		0B1626EB2417306900A73B5F /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
 		0B1626EC2417306A00A73B5F /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
 		0B1626ED2417306A00A73B5F /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
-		0B5D20572416B29C0052ECF1 /* SQLTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D20562416B29C0052ECF1 /* SQLTestViewController.swift */; };
+		0B5D20572416B29C0052ECF1 /* PolyhedronViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D20562416B29C0052ECF1 /* PolyhedronViewController.swift */; };
 		0B5D20592416B29F0052ECF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B5D20582416B29F0052ECF1 /* Assets.xcassets */; };
 		0B5D205C2416B29F0052ECF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B5D205A2416B29F0052ECF1 /* Main.storyboard */; };
 		0B5D20672416B3570052ECF1 /* SQLite.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0B5D20642416B3570052ECF1 /* SQLite.xcconfig */; };
 		0B5D206D2416B3630052ECF1 /* SQLiteWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D206B2416B3630052ECF1 /* SQLiteWrapper.swift */; };
 		0B5D20702416B3790052ECF1 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B5D206F2416B3780052ECF1 /* libsqlite3.tbd */; };
 		0B5D20722416B78D0052ECF1 /* SQLiteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D20712416B78D0052ECF1 /* SQLiteDatabase.swift */; };
-		0B5D20742416BCBA0052ECF1 /* data.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0B5D20732416BCB90052ECF1 /* data.sqlite */; };
-		0B5D20752416F4260052ECF1 /* Apolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569B24105CA800F4D06F /* Apolygon.swift */; };
 		0B5D20762416F9520052ECF1 /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
 		0B5D20772416FE120052ECF1 /* HighScores.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B62E95A240DC7CC006C7FE3 /* HighScores.swift */; };
 		0B5D20792416FE1E0052ECF1 /* UpgradeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */; };
@@ -132,7 +130,6 @@
 		0B6B941E2419A1A10020A06B /* EncodeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B11CA71240F3EDD001B76A2 /* EncodeDecode.swift */; };
 		0B6B941F2419A1B90020A06B /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9AE2405D25A00827383 /* Scene.swift */; };
 		0B6B94202419A1FA0020A06B /* Lighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13EBBB3E22C6FDA500230D2B /* Lighting.swift */; };
-		0B6B94212419A2230020A06B /* Apolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569B24105CA800F4D06F /* Apolygon.swift */; };
 		0B6B94222419A2280020A06B /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DF2412970D008CAC19 /* ServerResponse.swift */; };
 		0B6B94232419A22E0020A06B /* PushDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569724100B4E00F4D06F /* PushDataController.swift */; };
 		0B6B94242419A2320020A06B /* PullDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956932410016400F4D06F /* PullDataController.swift */; };
@@ -187,14 +184,10 @@
 		0B946599240884AD0027864E /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9465972408848D0027864E /* GuideViewController.swift */; };
 		0B94659B24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
 		0B94659C24089C010027864E /* TestPolyhedron.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659A24089C010027864E /* TestPolyhedron.mtl */; };
-		0B94659E24089C0E0027864E /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659D24089C0E0027864E /* TestPolyhedron.obj */; };
-		0B94659F24089C0E0027864E /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0B94659D24089C0E0027864E /* TestPolyhedron.obj */; };
 		0B9465A62408BE450027864E /* GuideScrollerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9465A42408BE440027864E /* GuideScrollerController.swift */; };
 		0B9956942410016400F4D06F /* PullDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956932410016400F4D06F /* PullDataController.swift */; };
 		0B9956962410038A00F4D06F /* PauseDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956952410038A00F4D06F /* PauseDelegate.swift */; };
 		0B99569824100B4E00F4D06F /* PushDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569724100B4E00F4D06F /* PushDataController.swift */; };
-		0B99569A2410589600F4D06F /* PolyWordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956992410589600F4D06F /* PolyWordsViewController.swift */; };
-		0B99569C24105CA800F4D06F /* Apolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B99569B24105CA800F4D06F /* Apolygon.swift */; };
 		0B9956A22410B66B00F4D06F /* WordsDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A12410B66B00F4D06F /* WordsDB.swift */; };
 		0B9956A42410CB6500F4D06F /* MyActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A32410CB6500F4D06F /* MyActionSheet.swift */; };
 		0B9956A72410D49F00F4D06F /* UpgradeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */; };
@@ -208,6 +201,37 @@
 		0BBBF52324154EED0058332C /* PolyhedronStatisticsScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 0BBBF52224154EED0058332C /* PolyhedronStatisticsScene.scn */; };
 		0BBBF525241551170058332C /* Assets.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BBBF524241551170058332C /* Assets.scnassets */; };
 		0BEA12BC241BF61700BCEFA8 /* TextureGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BB241BF61700BCEFA8 /* TextureGenerator.swift */; };
+		0BEA12BE241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12BF241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12C0241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12C1241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12C2241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12C3241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12C4241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12CC241D730C00BCEFA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12CB241D730C00BCEFA8 /* AppDelegate.swift */; };
+		0BEA12CE241D730C00BCEFA8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12CD241D730C00BCEFA8 /* ViewController.swift */; };
+		0BEA12D0241D731300BCEFA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12CF241D731300BCEFA8 /* Assets.xcassets */; };
+		0BEA12D3241D731300BCEFA8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12D1241D731300BCEFA8 /* Main.storyboard */; };
+		0BEA12D9241D733B00BCEFA8 /* TextureGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BB241BF61700BCEFA8 /* TextureGenerator.swift */; };
+		0BEA12DB241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12DA241E959C00BCEFA8 /* TestPolyhedron.obj */; };
+		0BEA12DC241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12DA241E959C00BCEFA8 /* TestPolyhedron.obj */; };
+		0BEA12DD241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12DA241E959C00BCEFA8 /* TestPolyhedron.obj */; };
+		0BEA12DE241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12DA241E959C00BCEFA8 /* TestPolyhedron.obj */; };
+		0BEA12DF241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12DA241E959C00BCEFA8 /* TestPolyhedron.obj */; };
+		0BEA12E0241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12DA241E959C00BCEFA8 /* TestPolyhedron.obj */; };
+		0BEA12E1241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12DA241E959C00BCEFA8 /* TestPolyhedron.obj */; };
+		0BEA12E2241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12DA241E959C00BCEFA8 /* TestPolyhedron.obj */; };
+		0BEA12E4241F1D9C00BCEFA8 /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12E3241F1D9C00BCEFA8 /* Primitive.swift */; };
+		0BEA12E5241F1D9C00BCEFA8 /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12E3241F1D9C00BCEFA8 /* Primitive.swift */; };
+		0BEA12E6241F1D9C00BCEFA8 /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12E3241F1D9C00BCEFA8 /* Primitive.swift */; };
+		0BEA12E7241F1D9C00BCEFA8 /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12E3241F1D9C00BCEFA8 /* Primitive.swift */; };
+		0BEA12E8241F1D9C00BCEFA8 /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12E3241F1D9C00BCEFA8 /* Primitive.swift */; };
+		0BEA12E9241F1D9C00BCEFA8 /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12E3241F1D9C00BCEFA8 /* Primitive.swift */; };
+		0BEA12EA241F1D9C00BCEFA8 /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12E3241F1D9C00BCEFA8 /* Primitive.swift */; };
+		0BEA12EB241F1D9C00BCEFA8 /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12E3241F1D9C00BCEFA8 /* Primitive.swift */; };
+		0BEA12ED24204CFC00BCEFA8 /* data.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12EC24204CFB00BCEFA8 /* data.sqlite */; };
+		0BEA12EE24204CFC00BCEFA8 /* data.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12EC24204CFB00BCEFA8 /* data.sqlite */; };
+		0BEA12EF24204CFC00BCEFA8 /* data.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12EC24204CFB00BCEFA8 /* data.sqlite */; };
 		0BF60EC524146E1600D286A1 /* GuideView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B928768241428A6008CAC19 /* GuideView.storyboard */; };
 		0BF60EDC2414702C00D286A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BF60EDB2414702C00D286A1 /* Assets.xcassets */; };
 		130EDE7422C9C21C00288A31 /* chest.obj in Resources */ = {isa = PBXBuildFile; fileRef = 130EDE6E22C9C21B00288A31 /* chest.obj */; };
@@ -235,7 +259,6 @@
 		1384A37822C1B389006036BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1384A37622C1B389006036BA /* Main.storyboard */; };
 		1384A38122C1B3C2006036BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1384A38022C1B3C2006036BA /* ViewController.swift */; };
 		1384A38922C1B53E006036BA /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1384A38822C1B53E006036BA /* Renderer.swift */; };
-		1384A38B22C1BA95006036BA /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1384A38A22C1BA95006036BA /* Primitive.swift */; };
 		1384A38D22C1BE70006036BA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1384A38C22C1BE70006036BA /* Shaders.metal */; };
 		1384A3E322C1F04B006036BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1384A3E122C1F04B006036BA /* Main.storyboard */; };
 		1384A3E522C1F04D006036BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1384A3E422C1F04D006036BA /* Assets.xcassets */; };
@@ -244,7 +267,6 @@
 		1384A3EF22C1F11D006036BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1384A38022C1B3C2006036BA /* ViewController.swift */; };
 		1384A3F022C1F12A006036BA /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1384A38822C1B53E006036BA /* Renderer.swift */; };
 		1384A3F122C1F12C006036BA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1384A38C22C1BE70006036BA /* Shaders.metal */; };
-		1384A3F222C1F12E006036BA /* Primitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1384A38A22C1BA95006036BA /* Primitive.swift */; };
 		139D235322C851DC00C6DB03 /* Texturable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D235222C851DC00C6DB03 /* Texturable.swift */; };
 		139D235422C851DC00C6DB03 /* Texturable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139D235222C851DC00C6DB03 /* Texturable.swift */; };
 		139D235622C86C1E00C6DB03 /* Textures.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 139D235522C86C1E00C6DB03 /* Textures.xcassets */; };
@@ -273,7 +295,7 @@
 		0B11CA74240F4035001B76A2 /* PolyWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyWordsView.swift; sourceTree = "<group>"; };
 		0B5D20522416B29C0052ECF1 /* SQLiteAccess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SQLiteAccess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B5D20542416B29C0052ECF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0B5D20562416B29C0052ECF1 /* SQLTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLTestViewController.swift; sourceTree = "<group>"; };
+		0B5D20562416B29C0052ECF1 /* PolyhedronViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyhedronViewController.swift; sourceTree = "<group>"; };
 		0B5D20582416B29F0052ECF1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0B5D205B2416B29F0052ECF1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0B5D205D2416B29F0052ECF1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -285,7 +307,6 @@
 		0B5D206B2416B3630052ECF1 /* SQLiteWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteWrapper.swift; sourceTree = "<group>"; };
 		0B5D206F2416B3780052ECF1 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS13.2.sdk/usr/lib/libsqlite3.tbd; sourceTree = DEVELOPER_DIR; };
 		0B5D20712416B78D0052ECF1 /* SQLiteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteDatabase.swift; sourceTree = "<group>"; };
-		0B5D20732416BCB90052ECF1 /* data.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = data.sqlite; sourceTree = "<group>"; };
 		0B5DC9AB2405C52C00827383 /* wood_original.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wood_original.jpg; sourceTree = "<group>"; };
 		0B5DC9AE2405D25A00827383 /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		0B5DC9B12405D26F00827383 /* TrackBall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackBall.swift; sourceTree = "<group>"; };
@@ -364,13 +385,11 @@
 		0B92876A241428A6008CAC19 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0B9465972408848D0027864E /* GuideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
 		0B94659A24089C010027864E /* TestPolyhedron.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.mtl; path = ../../../TestPolyhedron.mtl; sourceTree = "<group>"; };
-		0B94659D24089C0E0027864E /* TestPolyhedron.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.obj; path = ../../../TestPolyhedron.obj; sourceTree = "<group>"; };
 		0B9465A42408BE440027864E /* GuideScrollerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideScrollerController.swift; sourceTree = "<group>"; };
 		0B9956932410016400F4D06F /* PullDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullDataController.swift; sourceTree = "<group>"; };
 		0B9956952410038A00F4D06F /* PauseDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PauseDelegate.swift; sourceTree = "<group>"; };
 		0B99569724100B4E00F4D06F /* PushDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDataController.swift; sourceTree = "<group>"; };
 		0B9956992410589600F4D06F /* PolyWordsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyWordsViewController.swift; sourceTree = "<group>"; };
-		0B99569B24105CA800F4D06F /* Apolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apolygon.swift; sourceTree = "<group>"; };
 		0B9956A12410B66B00F4D06F /* WordsDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordsDB.swift; sourceTree = "<group>"; };
 		0B9956A32410CB6500F4D06F /* MyActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyActionSheet.swift; sourceTree = "<group>"; };
 		0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeDelegate.swift; sourceTree = "<group>"; };
@@ -385,6 +404,17 @@
 		0BBBF524241551170058332C /* Assets.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Assets.scnassets; sourceTree = "<group>"; };
 		0BEA12B8241BF5C400BCEFA8 /* Textures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Textures.m; sourceTree = "<group>"; };
 		0BEA12BB241BF61700BCEFA8 /* TextureGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureGenerator.swift; sourceTree = "<group>"; };
+		0BEA12BD241C821300BCEFA8 /* APolygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APolygon.swift; sourceTree = "<group>"; };
+		0BEA12C9241D730C00BCEFA8 /* TextureViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextureViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0BEA12CB241D730C00BCEFA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		0BEA12CD241D730C00BCEFA8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0BEA12CF241D731300BCEFA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0BEA12D2241D731300BCEFA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0BEA12D4241D731300BCEFA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0BEA12D5241D731300BCEFA8 /* TextureViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TextureViewer.entitlements; sourceTree = "<group>"; };
+		0BEA12DA241E959C00BCEFA8 /* TestPolyhedron.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = TestPolyhedron.obj; path = "../../../modelio-materials-master/Shared/Resources/TestPolyhedron.obj"; sourceTree = "<group>"; };
+		0BEA12E3241F1D9C00BCEFA8 /* Primitive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Primitive.swift; path = ../../../../../../../../../Downloads/MeshGeneration/MeshGeneration/Primitive.swift; sourceTree = "<group>"; };
+		0BEA12EC24204CFB00BCEFA8 /* data.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = data.sqlite; sourceTree = "<group>"; };
 		0BF60ED52414702900D286A1 /* PolyhedronStatistics.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PolyhedronStatistics.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BF60EDB2414702C00D286A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		130EDE6A22C9BE9100288A31 /* PBR.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = PBR.metal; sourceTree = "<group>"; };
@@ -457,6 +487,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0BEA12C6241D730C00BCEFA8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0BF60ED22414702900D286A1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -484,11 +521,10 @@
 		0B5D20532416B29C0052ECF1 /* SQLiteAccess */ = {
 			isa = PBXGroup;
 			children = (
-				0B5D20732416BCB90052ECF1 /* data.sqlite */,
 				0B5D20692416B3630052ECF1 /* SQLiteWrapper */,
 				0B5D20622416B3570052ECF1 /* SQLite */,
 				0B5D20542416B29C0052ECF1 /* AppDelegate.swift */,
-				0B5D20562416B29C0052ECF1 /* SQLTestViewController.swift */,
+				0B5D20562416B29C0052ECF1 /* PolyhedronViewController.swift */,
 				0B5D20582416B29F0052ECF1 /* Assets.xcassets */,
 				0B5D205A2416B29F0052ECF1 /* Main.storyboard */,
 				0B5D205D2416B29F0052ECF1 /* Info.plist */,
@@ -619,6 +655,19 @@
 			path = "Objective C Code";
 			sourceTree = "<group>";
 		};
+		0BEA12CA241D730C00BCEFA8 /* TextureViewer */ = {
+			isa = PBXGroup;
+			children = (
+				0BEA12CB241D730C00BCEFA8 /* AppDelegate.swift */,
+				0BEA12CD241D730C00BCEFA8 /* ViewController.swift */,
+				0BEA12CF241D731300BCEFA8 /* Assets.xcassets */,
+				0BEA12D1241D731300BCEFA8 /* Main.storyboard */,
+				0BEA12D4241D731300BCEFA8 /* Info.plist */,
+				0BEA12D5241D731300BCEFA8 /* TextureViewer.entitlements */,
+			);
+			path = TextureViewer;
+			sourceTree = "<group>";
+		};
 		0BF60ED62414702900D286A1 /* PolyhedronStatistics */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,6 +709,7 @@
 				0BF60ED62414702900D286A1 /* PolyhedronStatistics */,
 				0B5D20532416B29C0052ECF1 /* SQLiteAccess */,
 				0B6542D1241ABDEF009CE36E /* LevelInformation */,
+				0BEA12CA241D730C00BCEFA8 /* TextureViewer */,
 				1384A37022C1B388006036BA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -674,6 +724,7 @@
 				0BF60ED52414702900D286A1 /* PolyhedronStatistics.app */,
 				0B5D20522416B29C0052ECF1 /* SQLiteAccess.app */,
 				0B6542D0241ABDEF009CE36E /* LevelInformation.app */,
+				0BEA12C9241D730C00BCEFA8 /* TextureViewer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -682,7 +733,7 @@
 			isa = PBXGroup;
 			children = (
 				0B9286DE24129609008CAC19 /* Networking */,
-				0B99569B24105CA800F4D06F /* Apolygon.swift */,
+				0BEA12BD241C821300BCEFA8 /* APolygon.swift */,
 				0B11CA70240F35F1001B76A2 /* AppConstants.swift */,
 				0B7F55F9240973B000728B5B /* AppController.swift */,
 				1384A37422C1B389006036BA /* Assets.xcassets */,
@@ -720,11 +771,13 @@
 				0B5DC9B72405D28300827383 /* TitleScene.swift */,
 				0B6542E2241AC8AA009CE36E /* LevelSelectionScene.swift */,
 				0B5DC9B12405D26F00827383 /* TrackBall.swift */,
+				0BEA12E3241F1D9C00BCEFA8 /* Primitive.swift */,
 				0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */,
 				13A7ABC722C2374C00609310 /* Utility */,
 				130F081A22C436F9001B7909 /* VertexDescriptor.swift */,
 				0B9465A024089C420027864E /* ViewControllers */,
 				0B5DC9C02405D2A400827383 /* Words.swift */,
+				0BEA12EC24204CFB00BCEFA8 /* data.sqlite */,
 				0B9956A12410B66B00F4D06F /* WordsDB.swift */,
 			);
 			path = PolyWords;
@@ -733,7 +786,7 @@
 		1384A39622C1DFC2006036BA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0B94659D24089C0E0027864E /* TestPolyhedron.obj */,
+				0BEA12DA241E959C00BCEFA8 /* TestPolyhedron.obj */,
 				0B94659A24089C010027864E /* TestPolyhedron.mtl */,
 				0B5DC9F924060E2200827383 /* TitleQuad.mtl */,
 				0B5DC9E82406020F00827383 /* Title1.mtl */,
@@ -861,6 +914,23 @@
 			productReference = 0B92873F241423C9008CAC19 /* GuideView.app */;
 			productType = "com.apple.product-type.application";
 		};
+		0BEA12C8241D730C00BCEFA8 /* TextureViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0BEA12D6241D731300BCEFA8 /* Build configuration list for PBXNativeTarget "TextureViewer" */;
+			buildPhases = (
+				0BEA12C5241D730C00BCEFA8 /* Sources */,
+				0BEA12C6241D730C00BCEFA8 /* Frameworks */,
+				0BEA12C7241D730C00BCEFA8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TextureViewer;
+			productName = TextureViewer;
+			productReference = 0BEA12C9241D730C00BCEFA8 /* TextureViewer.app */;
+			productType = "com.apple.product-type.application";
+		};
 		0BF60ED42414702900D286A1 /* PolyhedronStatistics */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0BF60EE22414702C00D286A1 /* Build configuration list for PBXNativeTarget "PolyhedronStatistics" */;
@@ -935,6 +1005,9 @@
 						CreatedOnToolsVersion = 11.3.1;
 						LastSwiftMigration = 1130;
 					};
+					0BEA12C8241D730C00BCEFA8 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
 					0BF60ED42414702900D286A1 = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -968,6 +1041,7 @@
 				0BF60ED42414702900D286A1 /* PolyhedronStatistics */,
 				0B5D20512416B29C0052ECF1 /* SQLiteAccess */,
 				0B6542CF241ABDEF009CE36E /* LevelInformation */,
+				0BEA12C8241D730C00BCEFA8 /* TextureViewer */,
 			);
 		};
 /* End PBXProject section */
@@ -979,9 +1053,10 @@
 			files = (
 				0B6B94412419B5590020A06B /* button_press.caf in Resources */,
 				0B5D20592416B29F0052ECF1 /* Assets.xcassets in Resources */,
+				0BEA12E0241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */,
 				0B6B943D2419B5590020A06B /* word.caf in Resources */,
+				0BEA12EF24204CFC00BCEFA8 /* data.sqlite in Resources */,
 				0B6B94392419B5590020A06B /* swipe.caf in Resources */,
-				0B5D20742416BCBA0052ECF1 /* data.sqlite in Resources */,
 				0B6B94352419B5590020A06B /* Select.caf in Resources */,
 				0B5D205C2416B29F0052ECF1 /* Main.storyboard in Resources */,
 				0B5D20672416B3570052ECF1 /* SQLite.xcconfig in Resources */,
@@ -995,6 +1070,7 @@
 				0B6542D7241ABDF4009CE36E /* Assets.xcassets in Resources */,
 				0B6542DA241ABDF4009CE36E /* Main.storyboard in Resources */,
 				0B6542E1241ABE33009CE36E /* LevelInformation.storyboard in Resources */,
+				0BEA12E1241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1005,6 +1081,7 @@
 				0B92873524142193008CAC19 /* Assets.xcassets in Resources */,
 				0B92873624142193008CAC19 /* WordList.storyboard in Resources */,
 				0B92873A241422D9008CAC19 /* Info.plist in Resources */,
+				0BEA12DD241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1015,6 +1092,17 @@
 				0BF60EC524146E1600D286A1 /* GuideView.storyboard in Resources */,
 				0B92876F241428A6008CAC19 /* Assets.xcassets in Resources */,
 				0B92876D241428A6008CAC19 /* Info.plist in Resources */,
+				0BEA12DE241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BEA12C7241D730C00BCEFA8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0BEA12D0241D731300BCEFA8 /* Assets.xcassets in Resources */,
+				0BEA12D3241D731300BCEFA8 /* Main.storyboard in Resources */,
+				0BEA12E2241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1031,6 +1119,7 @@
 				0B6B94342419B5590020A06B /* Select.caf in Resources */,
 				0B6B94382419B5590020A06B /* swipe.caf in Resources */,
 				0BBBF5212414B3A80058332C /* Info.plist in Resources */,
+				0BEA12DF241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */,
 				0B6B9445241A85D70020A06B /* highs.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1050,7 +1139,6 @@
 				1384A37522C1B389006036BA /* Assets.xcassets in Resources */,
 				13E3142422C977F000E0B48D /* cube.obj in Resources */,
 				130EDE7422C9C21C00288A31 /* chest.obj in Resources */,
-				0B94659E24089C0E0027864E /* TestPolyhedron.obj in Resources */,
 				0B6B94322419B5590020A06B /* Select.caf in Resources */,
 				0B5DC9E92406020F00827383 /* Title1.obj in Resources */,
 				1384A37822C1B389006036BA /* Main.storyboard in Resources */,
@@ -1060,9 +1148,11 @@
 				130EDE7C22C9C21C00288A31 /* license.txt in Resources */,
 				0B6B943E2419B5590020A06B /* button_press.caf in Resources */,
 				0B5DC9EB2406020F00827383 /* Title1.mtl in Resources */,
+				0BEA12ED24204CFC00BCEFA8 /* data.sqlite in Resources */,
 				139D235622C86C1E00C6DB03 /* Textures.xcassets in Resources */,
 				0B5DC9F52406032900827383 /* Title3.obj in Resources */,
 				0B5DC9F72406032900827383 /* Title4.obj in Resources */,
+				0BEA12DB241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */,
 				0B9286F62412D5CA008CAC19 /* GuideView.storyboard in Resources */,
 				13E3142A22C977F000E0B48D /* cottage2.obj in Resources */,
 				0B5DC9AC2405C52C00827383 /* wood_original.jpg in Resources */,
@@ -1094,11 +1184,12 @@
 				0B5DC9EC2406020F00827383 /* Title1.mtl in Resources */,
 				1384A3E322C1F04B006036BA /* Main.storyboard in Resources */,
 				0B6B943F2419B5590020A06B /* button_press.caf in Resources */,
+				0BEA12EE24204CFC00BCEFA8 /* data.sqlite in Resources */,
 				130EDE7B22C9C21C00288A31 /* chest.mtl in Resources */,
 				13E3142922C977F000E0B48D /* cottage1.obj in Resources */,
 				13E3142322C977F000E0B48D /* cottage1.mtl in Resources */,
+				0BEA12DC241E959D00BCEFA8 /* TestPolyhedron.obj in Resources */,
 				0B5DC9AD2405C52C00827383 /* wood_original.jpg in Resources */,
-				0B94659F24089C0E0027864E /* TestPolyhedron.obj in Resources */,
 				13E3142722C977F000E0B48D /* cube.mtl in Resources */,
 				0B5DC9F62406032900827383 /* Title3.obj in Resources */,
 				0B5DC9EA2406020F00827383 /* Title1.obj in Resources */,
@@ -1118,7 +1209,7 @@
 				0B5D20872416FF250052ECF1 /* Node.swift in Sources */,
 				0B5D20842416FEEB0052ECF1 /* Scene.swift in Sources */,
 				0B5D207C2416FE790052ECF1 /* PolyWordsViewController.swift in Sources */,
-				0B5D20572416B29C0052ECF1 /* SQLTestViewController.swift in Sources */,
+				0B5D20572416B29C0052ECF1 /* PolyhedronViewController.swift in Sources */,
 				0B5D206D2416B3630052ECF1 /* SQLiteWrapper.swift in Sources */,
 				0B5D207D2416FE830052ECF1 /* PushDataController.swift in Sources */,
 				0B5D20812416FEBC0052ECF1 /* PauseDelegate.swift in Sources */,
@@ -1131,6 +1222,7 @@
 				0B5D208F241700180052ECF1 /* SQLiteDatabase_old.swift in Sources */,
 				0B5D20802416FEA40052ECF1 /* Words.swift in Sources */,
 				0B5D20962417034C0052ECF1 /* ViewController.swift in Sources */,
+				0BEA12E9241F1D9C00BCEFA8 /* Primitive.swift in Sources */,
 				0B5D208D2416FFAF0052ECF1 /* MathLibrary.swift in Sources */,
 				0B5D2095241703040052ECF1 /* Extensions.swift in Sources */,
 				0B5D2098241703B60052ECF1 /* GameScene.swift in Sources */,
@@ -1144,8 +1236,8 @@
 				0B5D20862416FF250052ECF1 /* Mesh.swift in Sources */,
 				0B5D20852416FF070052ECF1 /* Model.swift in Sources */,
 				0B5D20912417003C0052ECF1 /* TrackBall.swift in Sources */,
-				0B5D20752416F4260052ECF1 /* Apolygon.swift in Sources */,
 				0B5D208E2416FFE80052ECF1 /* Lighting.swift in Sources */,
+				0BEA12C3241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B5D207E2416FE880052ECF1 /* PullDataController.swift in Sources */,
 				0B5D20762416F9520052ECF1 /* AppController.swift in Sources */,
 				0B5D208A2416FF520052ECF1 /* Texturable.swift in Sources */,
@@ -1160,7 +1252,9 @@
 			files = (
 				0B6542E5241AC8AA009CE36E /* LevelSelectionScene.swift in Sources */,
 				0B6542D5241ABDEF009CE36E /* ViewController.swift in Sources */,
+				0BEA12C4241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B6542D3241ABDEF009CE36E /* AppDelegate.swift in Sources */,
+				0BEA12EA241F1D9C00BCEFA8 /* Primitive.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1170,7 +1264,9 @@
 			files = (
 				0B92873724142193008CAC19 /* AppDelegate.swift in Sources */,
 				0B92873324142193008CAC19 /* ViewController.swift in Sources */,
+				0BEA12C0241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B92873424142193008CAC19 /* WindowController.swift in Sources */,
+				0BEA12E6241F1D9C00BCEFA8 /* Primitive.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1180,7 +1276,20 @@
 			files = (
 				0B928770241428A6008CAC19 /* ViewController.swift in Sources */,
 				0B92876B241428A6008CAC19 /* WindowController.swift in Sources */,
+				0BEA12C1241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B92876C241428A6008CAC19 /* GuideAppDelegate.swift in Sources */,
+				0BEA12E7241F1D9C00BCEFA8 /* Primitive.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0BEA12C5241D730C00BCEFA8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0BEA12D9241D733B00BCEFA8 /* TextureGenerator.swift in Sources */,
+				0BEA12CE241D730C00BCEFA8 /* ViewController.swift in Sources */,
+				0BEA12CC241D730C00BCEFA8 /* AppDelegate.swift in Sources */,
+				0BEA12EB241F1D9C00BCEFA8 /* Primitive.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1210,12 +1319,13 @@
 				0B6B94262419A2490020A06B /* PauseDelegate.swift in Sources */,
 				0B6B94292419A37F0020A06B /* Words.swift in Sources */,
 				0B6B941B2419A0EF0020A06B /* MathLibrary.swift in Sources */,
+				0BEA12E8241F1D9C00BCEFA8 /* Primitive.swift in Sources */,
 				0B6B941D2419A19D0020A06B /* Extensions.swift in Sources */,
 				0B6B94122419A0EF0020A06B /* Model.swift in Sources */,
 				0BBBF51F2414B28F0058332C /* WindowController.swift in Sources */,
-				0B6B94212419A2230020A06B /* Apolygon.swift in Sources */,
 				0B6B94112419A0EF0020A06B /* Mesh.swift in Sources */,
 				0B6B942B2419A3890020A06B /* PolyWordsViewController.swift in Sources */,
+				0BEA12C2241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B6B941E2419A1A10020A06B /* EncodeDecode.swift in Sources */,
 				0B6B94232419A22E0020A06B /* PushDataController.swift in Sources */,
 				0B6B94162419A0EF0020A06B /* Submesh.swift in Sources */,
@@ -1241,7 +1351,6 @@
 				0BEA12BC241BF61700BCEFA8 /* TextureGenerator.swift in Sources */,
 				130F081222C4352D001B7909 /* Model.swift in Sources */,
 				13EBBB3F22C6FDA500230D2B /* Lighting.swift in Sources */,
-				0B99569A2410589600F4D06F /* PolyWordsViewController.swift in Sources */,
 				0B6542E3241AC8AA009CE36E /* LevelSelectionScene.swift in Sources */,
 				0B62E95E240DC97D006C7FE3 /* AppController.swift in Sources */,
 				130F081B22C436F9001B7909 /* VertexDescriptor.swift in Sources */,
@@ -1261,6 +1370,7 @@
 				1384A38922C1B53E006036BA /* Renderer.swift in Sources */,
 				130F081522C43563001B7909 /* Mesh.swift in Sources */,
 				0B9956942410016400F4D06F /* PullDataController.swift in Sources */,
+				0BEA12BE241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B5DC9AF2405D25A00827383 /* Scene.swift in Sources */,
 				0B9956A22410B66B00F4D06F /* WordsDB.swift in Sources */,
 				0B9286DB2411BD24008CAC19 /* PostScoreController.swift in Sources */,
@@ -1269,8 +1379,6 @@
 				0B5DC9B22405D26F00827383 /* TrackBall.swift in Sources */,
 				0B5DC9DF2405D7A700827383 /* MetalTexture.swift in Sources */,
 				0B1626EC2417306A00A73B5F /* Polyhedron.swift in Sources */,
-				1384A38B22C1BA95006036BA /* Primitive.swift in Sources */,
-				0B99569C24105CA800F4D06F /* Apolygon.swift in Sources */,
 				1384A38D22C1BE70006036BA /* Shaders.metal in Sources */,
 				0B62E95B240DC7CC006C7FE3 /* HighScores.swift in Sources */,
 				0B9956962410038A00F4D06F /* PauseDelegate.swift in Sources */,
@@ -1278,6 +1386,7 @@
 				0B62E960240DCA27006C7FE3 /* HighWords.swift in Sources */,
 				13A7ABC522C2374400609310 /* MathLibrary.swift in Sources */,
 				0B5DC9FD2406C55800827383 /* Extensions.swift in Sources */,
+				0BEA12E4241F1D9C00BCEFA8 /* Primitive.swift in Sources */,
 				0B5DC9C12405D2A400827383 /* Words.swift in Sources */,
 				130F080C22C4343D001B7909 /* Node.swift in Sources */,
 				0B5DC9B82405D28300827383 /* TitleScene.swift in Sources */,
@@ -1310,14 +1419,15 @@
 				1384A3EE22C1F0A7006036BA /* LocalClasses.swift in Sources */,
 				0B9465A62408BE450027864E /* GuideScrollerController.swift in Sources */,
 				130F081622C43563001B7909 /* Mesh.swift in Sources */,
-				1384A3F222C1F12E006036BA /* Primitive.swift in Sources */,
 				0B5DC9B02405D25A00827383 /* Scene.swift in Sources */,
 				1384A3EF22C1F11D006036BA /* ViewController.swift in Sources */,
+				0BEA12BF241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B5DC9C52405D37300827383 /* Renderable.swift in Sources */,
 				0BB446642407636E0006E805 /* WordsViewController.swift in Sources */,
 				0B5DC9B32405D26F00827383 /* TrackBall.swift in Sources */,
 				0B5DC9E02405D7A700827383 /* MetalTexture.swift in Sources */,
 				0BB4466624077C9A0006E805 /* WordsViewController2.swift in Sources */,
+				0BEA12E5241F1D9C00BCEFA8 /* Primitive.swift in Sources */,
 				1384A3F022C1F12A006036BA /* Renderer.swift in Sources */,
 				0B6542E4241AC8AA009CE36E /* LevelSelectionScene.swift in Sources */,
 				130F082D22C43CC8001B7909 /* ViewControllerExtension.swift in Sources */,
@@ -1356,6 +1466,14 @@
 				0B92873024142192008CAC19 /* Base */,
 			);
 			name = WordList.storyboard;
+			sourceTree = "<group>";
+		};
+		0BEA12D1241D731300BCEFA8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0BEA12D2241D731300BCEFA8 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		1384A37622C1B389006036BA /* Main.storyboard */ = {
@@ -1547,6 +1665,46 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.GuideView;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		0BEA12D7241D731300BCEFA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TextureViewer/TextureViewer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 567YC6JLS4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = TextureViewer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.TextureViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0BEA12D8241D731300BCEFA8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TextureViewer/TextureViewer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 567YC6JLS4;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = TextureViewer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smallFeats.TextureViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -1829,6 +1987,15 @@
 			buildConfigurations = (
 				0B92874D241423D4008CAC19 /* Debug */,
 				0B92874E241423D4008CAC19 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0BEA12D6241D731300BCEFA8 /* Build configuration list for PBXNativeTarget "TextureViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0BEA12D7241D731300BCEFA8 /* Debug */,
+				0BEA12D8241D731300BCEFA8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

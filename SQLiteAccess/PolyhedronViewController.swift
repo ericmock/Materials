@@ -2,10 +2,10 @@ import Cocoa
 import SQLite3
 import simd
 
-class SQLTestViewController: NSViewController {
+class PolyhedronViewController: NSViewController {
 	
 	var db: PolyhedraDatabase!
-	let polygonTypesArray = ["triangle", "square", "pentagon", "hexagon", "heptagon", "octagon", "decagon", "twelvegon", "square_2", "square_3", "square_4", "triangle_2", "triangle_3", "triangle_4"]
+	let polygonTypes = ["triangle", "square", "pentagon", "hexagon", "heptagon", "octagon", "decagon", "twelvegon", "square_2", "square_3", "square_4", "triangle_2", "triangle_3", "triangle_4"]
 	let polygonTypesVertexCount = [3, 4, 5, 6, 7, 8, 10, 12, 4, 4, 4, 3, 3, 3]
 	var numPolygonTypes = 0
 	var indices:[Int] = Array()
@@ -45,7 +45,7 @@ class SQLTestViewController: NSViewController {
 				
 		openDatabase()
 		
-		polyInfo = ["polyID": 20]
+		polyInfo = ["polyID": 4]
 		
 		do {
 			try getNumberOfFacesForAllPolygons()
@@ -55,13 +55,13 @@ class SQLTestViewController: NSViewController {
 		}
 		
 		initialize(withPolyhedronInfo: polyInfo)
-		var vertices:[SIMD3<Float>]?
-		do {
-			vertices = try getVertices()
-		} catch {
-			print("Error")
-			return
-		}
+//		var vertices:[SIMD3<Float>]?
+//		do {
+//			vertices = try getVertices()
+//		} catch {
+//			print("Error")
+//			return
+//		}
 		
 	}
 	
@@ -74,6 +74,8 @@ class SQLTestViewController: NSViewController {
 		let numSides = getNumberOfSides(polyhedronType)
 		polyVertices = Array(repeating: SIMD3<Float>(repeating: 0), count:polyhedronType)
 		
+		centroids = Array(repeating: SIMD3<Float>(repeating: 0), count:polygonTypes.count)
+
 		let scale:Float = 1/6.0
 		
 		// Deal with triangles
@@ -200,6 +202,9 @@ class SQLTestViewController: NSViewController {
 		generateConnectivityForPolyhedron()
 		generateLocalPolygonBases()
 		
+		// Need to pack vertex, normal, tangent, bitan, and texture coords together.
+		// Need to calculate normal, tangent, and bitan for each vertex.
+		
 		vertices.removeAll()
 	}
 	
@@ -227,6 +232,7 @@ class SQLTestViewController: NSViewController {
 	
 	func generateLocalPolygonBases() {
 		for poly in polygons {
+//			print("Basis for \(poly.name)")
 			var ave = SIMD3<Float>(0,0,0)
 			
 			// get the vertex coordinates
@@ -241,9 +247,11 @@ class SQLTestViewController: NSViewController {
 			
 			let v1 = poly.vertices[0] - poly.vertices[1]
 			let v2 = poly.vertices[0] - poly.vertices[2]
+//			print("\(v1), \(v2)")
 			poly.normal_v = normalize(cross(v1, v2))
 			poly.tangent_v = normalize(v1)
 			poly.bitan_v = cross(poly.normal_v, poly.tangent_v)
+			print("{\(String(describing: poly.normal_v))}, {\(String(describing: poly.tangent_v))}, {\(String(describing: poly.bitan_v))}")
 		}
 	}
 	
@@ -297,7 +305,7 @@ class SQLTestViewController: NSViewController {
 		guard sqlite3_bind_int(queryStatement, 1, polyhedron_id) == SQLITE_OK else {
 			return nil
 		}
-		print("Query Result:")
+		print("Vertices:")
 		while (sqlite3_step(queryStatement) == SQLITE_ROW) {
 			
 			let dataX = Float(sqlite3_column_double(queryStatement, 0))
@@ -305,7 +313,7 @@ class SQLTestViewController: NSViewController {
 			let dataZ = Float(sqlite3_column_double(queryStatement, 2))
 			let vertex = SIMD3<Float>(x: dataX, y: dataY, z:dataZ)
 			vertices.append(vertex)
-			print("\(dataX), \(dataY), \(dataZ)")
+			print("{\(dataX), \(dataY), \(dataZ)}")
 		}
 		//		sqlite3_finalize(queryStatement)
 		//    guard sqlite3_step(queryStatement) == SQLITE_ROW else {
@@ -316,9 +324,9 @@ class SQLTestViewController: NSViewController {
 
 	func getNumberOfFacesForAllPolygons() throws {
 		
-		for ii in 0..<polygonTypesArray.count {
+		for ii in 0..<polygonTypes.count {
 			let type = ii
-			let typeName = ("indices_" + polygonTypesArray[type])
+			let typeName = ("indices_" + polygonTypes[type])
 
 			let querySql = "SELECT COUNT(polyhedron_id) FROM " + typeName + " where polyhedron_id = ? group by polyhedron_id;"
 			guard let queryStatement = try? db.prepareStatement(sql: querySql) else {
@@ -358,7 +366,7 @@ class SQLTestViewController: NSViewController {
 		let count = indices.count
 		let numSides = polygonTypesVertexCount[type]
 		let numberVertices = Int(count/numSides)
-		centroids.removeAll()
+//		centroids.removeAll()
 		
 		for ii in 0..<numberVertices {
 			var centroid = SIMD3<Float>(repeating: 0)
@@ -376,7 +384,7 @@ class SQLTestViewController: NSViewController {
 //			centroid_x /= Float(numSides)
 //			centroid_y /= Float(numSides)
 //			centroid_z /= Float(numSides)
-			centroids.append(centroid)
+			centroids[type] = centroid
 		}
 	}
 	
@@ -386,7 +394,7 @@ class SQLTestViewController: NSViewController {
 		activeArray.removeAll()
 		idArray.removeAll()
 		
-		querySql = "select *, rowid from indices_" + polygonTypesArray[type] + " where polyhedron_id = ?;"
+		querySql = "select *, rowid from indices_" + polygonTypes[type] + " where polyhedron_id = ?;"
 		let numSides = getNumberOfSides(type)
 
 		guard let queryStatement = try? db.prepareStatement(sql: querySql) else {
@@ -401,12 +409,14 @@ class SQLTestViewController: NSViewController {
 			return
 		}
 		
-		print("Query Result:")
+		print("\(polygonTypes[type]) indices:")
 		while (sqlite3_step(queryStatement) == SQLITE_ROW) {
 			for jj in 1..<numSides + 1 {
-				indices.append(Int(sqlite3_column_double(queryStatement, Int32(jj))))
+				let index = Int(sqlite3_column_double(queryStatement, Int32(jj)))
+				indices.append(index)
+				print("\(index)", terminator: ",")
 			}
-			print("indices: \(String(describing: indices.last))")
+			print("")
 			let result = sqlite3_column_int(queryStatement, Int32(numSides + 1))
 			if result == 0 {
 				activeArray.append(false)
