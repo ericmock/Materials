@@ -338,7 +338,7 @@ class PolyWordsView {
 	func assignRandomLetterToPoly(number ii:Int) {
 		var rd:Int
 		//		srandomdev();
-		let poly = polyhedron.polygons[ii]
+		let poly = Array(polyhedron.polygons.joined())[ii]
 		var g = SystemRandomNumberGenerator()
 		if (poly.active) {
 			rd = Int.random(in: 0...(appController.alphabetArray.count - 1), using: &g);
@@ -1054,7 +1054,7 @@ class PolyWordsView {
 		num_words_avail = 0
 		let to_points = points
 		
-		for poly in polyhedron.polygons {
+		for poly in polyhedron.polygons.joined() {
 			if poly.active && points_avail < to_points {
 				self.findWordsStarting(withPolygon: poly)
 				poly_counter += 1
@@ -1062,7 +1062,7 @@ class PolyWordsView {
 		}
 		
 		if points == Int.max {
-			for poly in polyhedron.polygons {
+			for poly in polyhedron.polygons.joined() {
 				poly.connections = []
 			}
 		}

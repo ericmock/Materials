@@ -19,6 +19,23 @@ func half(_ size: float3) -> float3 {
 	[size.x * 0.5, size.y * 0.5, size.z * 0.5]
 }
 
+struct Vertex {
+	var x: Float
+	var y: Float
+	var z: Float
+  var position: float3 {
+    get {
+      float3(x, y, z)
+    }
+    set {
+      x = newValue.x
+      y = newValue.y
+      z = newValue.z
+    }
+  }
+//
+//	var position: float3
+}
 
 func radians(fromDegrees degrees: Float) -> Float {
     return (degrees / 180) * π

@@ -11,32 +11,26 @@ import SQLite3
 import simd
 
 class Polyhedron: Model {
-	//	var polyInfo:NSDictionary!  //  Get this from AppController
-	//	let numberTriangles:Int
-	//	let numberSquares:Int
-	//	let numberPentagons:Int
-	// let numberOfFacesOfType:[Int] = Array(repeating: 0, count: AppConstants.kPolygonTypeNames.count)
 	var numberOfFaces:Int = 0
-	//	var polyVertices:  [SIMD4<Float>]!
-	//    var transform: Transform
 	var allActive:[Int] = []
 	var db: PolyhedraDatabase!
 	var numberOfDifferentPolygonTypes = 0
-	// allIndices[type][number][index]
+	//  allIndices[type][polygon][index]
 	var allIndices:[[[UInt16]]] = Array(repeating: [[]], count: AppConstants.kPolygonTypeNames.count)
+	//  allCentroidIndices[polygon][index]
+	var allCentroidIndices:[[UInt16]] = Array()
 	var activeArray:[Bool] = Array(repeating: false, count: AppConstants.kPolygonTypeNames.count)
 	var idArray:[Int] = Array(repeating: 0, count: AppConstants.kPolygonTypeNames.count)
 	var numberOfFacesOfPolygonType:[Int] = Array(repeating: 0, count: AppConstants.kNumPolygonTypes + 1)
 	var numberOfFacesOfPolygonType2:[Int] = Array(repeating: 0, count: AppConstants.kNumPolygonTypes + 1)
-//	var polyhedronVertices:[Vertex] = Array()
 	var allVertices:[Vertex] = Array()
-//	var centroids:[SIMD3<Float>] = Array()
+	var allCentroidVertices:[Vertex] = Array()
 	var polyInfo: NSDictionary!
 	var polygonNumber = 0
-	var numPolygons = 0
+	var numberOfPolygons = 0
 	var animatingQ = false
 	var animationType = 1
-	var polygons:[Apolygon] = []
+	var polygons:[[Apolygon]] = Array(repeating: [], count: AppConstants.kPolygonTypeNames.count)
 	
 	
 	override init(name: String, findTangents: Bool) {
@@ -71,9 +65,6 @@ class Polyhedron: Model {
 		self.polyInfo = polyInfo
 		let polyhedronType = polyInfo.object(forKey: "polyID") as! Int
 		
-//		openDatabase()
-		
-		
 		do {
 			try getAllVertices()
 		} catch {
@@ -81,13 +72,6 @@ class Polyhedron: Model {
 			return
 		}
 		
-//		do {
-//			try getAllVertices()
-//		} catch {
-//			print("Error")
-//			return
-//		}
-//
 		for polygon_type in 0..<AppConstants.kPolygonTypeNames.count {
 			do {
 				try getAllIndices(forPolygonType: polygon_type)
@@ -95,43 +79,32 @@ class Polyhedron: Model {
 				print("Error")
 				return
 			}
-						
-			initializePolygons(ofType: polygon_type)
 			
-			numPolygons += numberOfFacesOfPolygonType[polygon_type]
-//			setTextureCoords(forType: polygon_type)
+			allCentroidVertices = allVertices
+			initializePolygons(ofType: polygon_type)
+			numberOfPolygons += numberOfFacesOfPolygonType[polygon_type]
 		}
-		
 		generateConnectivityForPolyhedron()
-
-		
-		
-//		let centroidVertices = getCentroidVertices(polyhedronVertices, indices)
-		// Need to pack vertex, normal, tangent, bitan, and texture coords together.
-		// Need to calculate normal, tangent, and bitan for each vertex.
-		
-//		polyhedronVertices.removeAll()
 	}
 	
 	func generateConnectivityForPolyhedron() {
-		var connections:[Apolygon] = []
 		var count = 0
-		for poly1 in polygons {
-			for poly2 in polygons {
+		let polygonsFlat = Array(polygons.joined())
+		for poly1 in polygonsFlat {
+			for poly2 in polygonsFlat {
 				if poly1 !== poly2 {
 					for num in poly1.indices {
 						if poly2.indices.contains(num) {
 							count += 1
 							if (count > 1) {
-								connections.append(poly2)
+//								connections.append(poly2)
+								poly1.connections.append(poly2)
 							}
 						}
 					}
 				}
 				count = 0
 			}
-			poly1.connections = connections
-			connections.removeAll()
 		}
 	}
 	
@@ -140,18 +113,20 @@ class Polyhedron: Model {
 		var counter = 0
 		let numSides = AppConstants.kPolygonTypesVertexCount[type]
 		for ii in 0..<numberOfFacesOfPolygonType[type] {
-			let poly:Apolygon = Apolygon.init(withType: type)
+			let poly:Apolygon = Apolygon.init(withType: type, withPolyhedron: self)
 			poly.number = polygonNumber
 			poly.animatingQ = false
 			polygonNumber += 1
 			poly.texture = -1
-			poly.active = activeArray[ii]
-			poly.dbID = idArray[ii]
+			poly.active = activeArray[ii] // Needs to be activeArray[type][ii]
+			poly.dbID = idArray[ii] // Needs to be idArray[type][ii]
 			setPolygonIndices(forPolygon: poly, withIndices: allIndices[type][ii])
 			setPolygonVertices(forPolygon: poly)
 			poly.generateCentroids()
-			// calculate centroid
-			polygons.append(poly)
+			poly.generateLocalPolygonBases()
+			poly.getCentroidVertices()  //  Adds vertex to allCentroidVertices
+			poly.getCentroidIndices(withVertexCount: allCentroidVertices.count)
+			polygons[type].append(poly)
 		}
 	}
 	
@@ -285,45 +260,6 @@ class Polyhedron: Model {
 	}
 	
 	
-	func getCentroidVertices(_ vertices:[Vertex], _ indices:[[UInt16]]) -> [Vertex] {
-		var newVertices = vertices
-		// append centroild of each
-		
-		for polygonIndices in indices {
-			var centroid = Vertex(x: 0.0, y: 0.0, z: 0.0)
-			var counter:Float = 0.0
-			for index in polygonIndices {
-				centroid.position += vertices[Int(index)].position
-				counter += 1.0
-				print("vertex: \(vertices[Int(index)].position)")
-			}
-			centroid.position /= counter
-			print("centroid: \(centroid.position)")
-			newVertices.append(centroid)
-		}
-		
-		return newVertices
-	}
-
-	func getCentroidIndices(indices:[[UInt16]], vertexCount:Int) -> [[UInt16]] {
-			var indicesNew:[[UInt16]] = Array()
-			print("vertexCount: \(vertexCount)")
-			var value2:UInt16
-			for (num, group) in indices.enumerated() {
-				var groupNew:[UInt16] = Array()
-				let centroidIndex = UInt16(vertexCount + num)
-				for (num, value) in group.enumerated() {
-	//				if num > 0 && num < index.count - 1 {
-					value2 = group[(num+1)%group.count]
-					groupNew.append(contentsOf: [centroidIndex, value, value2])
-	//				}
-				}
-				print("old group: \(group)")
-				print("new group: \(groupNew)")
-				indicesNew.append(groupNew)
-			}
-			return indicesNew
-		}
 
 	func convert(indices: [[UInt16]]) -> [[UInt16]] {
 		var indicesNew:[[UInt16]] = Array()

@@ -62,24 +62,6 @@ extension PolyhedraDatabase {
 	}
 }
 //: ## Create Table
-struct Vertex {
-	var x: Float
-	var y: Float
-	var z: Float
-  var position: float3 {
-    get {
-      float3(x, y, z)
-    }
-    set {
-      x = newValue.x
-      y = newValue.y
-      z = newValue.z
-    }
-  }
-//
-//	var position: float3
-}
-
 protocol SQLTable {
 	static var createStatement: String { get }
 }
