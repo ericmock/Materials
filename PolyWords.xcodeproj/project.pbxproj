@@ -201,13 +201,13 @@
 		0BBBF52324154EED0058332C /* PolyhedronStatisticsScene.scn in Resources */ = {isa = PBXBuildFile; fileRef = 0BBBF52224154EED0058332C /* PolyhedronStatisticsScene.scn */; };
 		0BBBF525241551170058332C /* Assets.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BBBF524241551170058332C /* Assets.scnassets */; };
 		0BEA12BC241BF61700BCEFA8 /* TextureGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BB241BF61700BCEFA8 /* TextureGenerator.swift */; };
-		0BEA12BE241C821300BCEFA8 /* APolygon2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon2.swift */; };
-		0BEA12BF241C821300BCEFA8 /* APolygon2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon2.swift */; };
-		0BEA12C0241C821300BCEFA8 /* APolygon2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon2.swift */; };
-		0BEA12C1241C821300BCEFA8 /* APolygon2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon2.swift */; };
-		0BEA12C2241C821300BCEFA8 /* APolygon2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon2.swift */; };
-		0BEA12C3241C821300BCEFA8 /* APolygon2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon2.swift */; };
-		0BEA12C4241C821300BCEFA8 /* APolygon2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon2.swift */; };
+		0BEA12BE241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12BF241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12C0241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12C1241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12C2241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12C3241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
+		0BEA12C4241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
 		0BEA12CC241D730C00BCEFA8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12CB241D730C00BCEFA8 /* AppDelegate.swift */; };
 		0BEA12CE241D730C00BCEFA8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12CD241D730C00BCEFA8 /* ViewController.swift */; };
 		0BEA12D0241D731300BCEFA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BEA12CF241D731300BCEFA8 /* Assets.xcassets */; };
@@ -404,7 +404,7 @@
 		0BBBF524241551170058332C /* Assets.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Assets.scnassets; sourceTree = "<group>"; };
 		0BEA12B8241BF5C400BCEFA8 /* Textures.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Textures.m; sourceTree = "<group>"; };
 		0BEA12BB241BF61700BCEFA8 /* TextureGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextureGenerator.swift; sourceTree = "<group>"; };
-		0BEA12BD241C821300BCEFA8 /* APolygon2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APolygon2.swift; sourceTree = "<group>"; };
+		0BEA12BD241C821300BCEFA8 /* APolygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APolygon.swift; sourceTree = "<group>"; };
 		0BEA12C9241D730C00BCEFA8 /* TextureViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextureViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BEA12CB241D730C00BCEFA8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0BEA12CD241D730C00BCEFA8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -733,7 +733,7 @@
 			isa = PBXGroup;
 			children = (
 				0B9286DE24129609008CAC19 /* Networking */,
-				0BEA12BD241C821300BCEFA8 /* APolygon2.swift */,
+				0BEA12BD241C821300BCEFA8 /* APolygon.swift */,
 				0B11CA70240F35F1001B76A2 /* AppConstants.swift */,
 				0B7F55F9240973B000728B5B /* AppController.swift */,
 				1384A37422C1B389006036BA /* Assets.xcassets */,
@@ -1237,7 +1237,7 @@
 				0B5D20852416FF070052ECF1 /* Model.swift in Sources */,
 				0B5D20912417003C0052ECF1 /* TrackBall.swift in Sources */,
 				0B5D208E2416FFE80052ECF1 /* Lighting.swift in Sources */,
-				0BEA12C3241C821300BCEFA8 /* APolygon2.swift in Sources */,
+				0BEA12C3241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B5D207E2416FE880052ECF1 /* PullDataController.swift in Sources */,
 				0B5D20762416F9520052ECF1 /* AppController.swift in Sources */,
 				0B5D208A2416FF520052ECF1 /* Texturable.swift in Sources */,
@@ -1252,7 +1252,7 @@
 			files = (
 				0B6542E5241AC8AA009CE36E /* LevelSelectionScene.swift in Sources */,
 				0B6542D5241ABDEF009CE36E /* ViewController.swift in Sources */,
-				0BEA12C4241C821300BCEFA8 /* APolygon2.swift in Sources */,
+				0BEA12C4241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B6542D3241ABDEF009CE36E /* AppDelegate.swift in Sources */,
 				0BEA12EA241F1D9C00BCEFA8 /* Primitive.swift in Sources */,
 			);
@@ -1264,7 +1264,7 @@
 			files = (
 				0B92873724142193008CAC19 /* AppDelegate.swift in Sources */,
 				0B92873324142193008CAC19 /* ViewController.swift in Sources */,
-				0BEA12C0241C821300BCEFA8 /* APolygon2.swift in Sources */,
+				0BEA12C0241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B92873424142193008CAC19 /* WindowController.swift in Sources */,
 				0BEA12E6241F1D9C00BCEFA8 /* Primitive.swift in Sources */,
 			);
@@ -1276,7 +1276,7 @@
 			files = (
 				0B928770241428A6008CAC19 /* ViewController.swift in Sources */,
 				0B92876B241428A6008CAC19 /* WindowController.swift in Sources */,
-				0BEA12C1241C821300BCEFA8 /* APolygon2.swift in Sources */,
+				0BEA12C1241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B92876C241428A6008CAC19 /* GuideAppDelegate.swift in Sources */,
 				0BEA12E7241F1D9C00BCEFA8 /* Primitive.swift in Sources */,
 			);
@@ -1325,7 +1325,7 @@
 				0BBBF51F2414B28F0058332C /* WindowController.swift in Sources */,
 				0B6B94112419A0EF0020A06B /* Mesh.swift in Sources */,
 				0B6B942B2419A3890020A06B /* PolyWordsViewController.swift in Sources */,
-				0BEA12C2241C821300BCEFA8 /* APolygon2.swift in Sources */,
+				0BEA12C2241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B6B941E2419A1A10020A06B /* EncodeDecode.swift in Sources */,
 				0B6B94232419A22E0020A06B /* PushDataController.swift in Sources */,
 				0B6B94162419A0EF0020A06B /* Submesh.swift in Sources */,
@@ -1370,7 +1370,7 @@
 				1384A38922C1B53E006036BA /* Renderer.swift in Sources */,
 				130F081522C43563001B7909 /* Mesh.swift in Sources */,
 				0B9956942410016400F4D06F /* PullDataController.swift in Sources */,
-				0BEA12BE241C821300BCEFA8 /* APolygon2.swift in Sources */,
+				0BEA12BE241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B5DC9AF2405D25A00827383 /* Scene.swift in Sources */,
 				0B9956A22410B66B00F4D06F /* WordsDB.swift in Sources */,
 				0B9286DB2411BD24008CAC19 /* PostScoreController.swift in Sources */,
@@ -1421,7 +1421,7 @@
 				130F081622C43563001B7909 /* Mesh.swift in Sources */,
 				0B5DC9B02405D25A00827383 /* Scene.swift in Sources */,
 				1384A3EF22C1F11D006036BA /* ViewController.swift in Sources */,
-				0BEA12BF241C821300BCEFA8 /* APolygon2.swift in Sources */,
+				0BEA12BF241C821300BCEFA8 /* APolygon.swift in Sources */,
 				0B5DC9C52405D37300827383 /* Renderable.swift in Sources */,
 				0BB446642407636E0006E805 /* WordsViewController.swift in Sources */,
 				0B5DC9B32405D26F00827383 /* TrackBall.swift in Sources */,
