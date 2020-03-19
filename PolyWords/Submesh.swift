@@ -1,8 +1,12 @@
 import MetalKit
 
 class Submesh {
-  var mtkSubmesh: MTKSubmesh
-  
+//  var mtkSubmesh: MTKSubmesh
+	var color:float3 = [1,0,0]
+	let indexBuffer: MTLBuffer
+	let indexCount: Int
+	let indexType: MTLIndexType
+
   struct Textures {
     let baseColor: MTLTexture?
     let normal: MTLTexture?
@@ -12,17 +16,27 @@ class Submesh {
   }
   
   let textures: Textures
-  let material: Material
-	let hasTangents: Bool
+//  let material: Material
+//	let hasTangents: Bool
   let pipelineState: MTLRenderPipelineState
-  
-	init(mdlSubmesh: MDLSubmesh, mtkSubmesh: MTKSubmesh, findTangents:  Bool) {
-		self.hasTangents = findTangents
-    self.mtkSubmesh = mtkSubmesh
-    textures = Textures(material: mdlSubmesh.material)
-    material = Material(material: mdlSubmesh.material)
-		pipelineState = Submesh.makePipelineState(textures: textures, hasTangents: hasTangents)
-  }
+
+	init(indexBuffer buffer:MTLBuffer, indexCount count:Int, indexType type:MTLIndexType, baseColor:float3) {
+		indexBuffer = buffer
+		indexCount = count
+		indexType = type
+		color = baseColor
+		textures = Textures(baseColor: nil, normal: nil, roughness: nil, metallic: nil, ao: nil)
+
+//		pipelineState = Submesh.makePipelineState(textures: textures, hasTangents: false)
+		pipelineState = Submesh.makePipelineState()
+	}
+//	init(mdlSubmesh: MDLSubmesh, mtkSubmesh: MTKSubmesh, findTangents:  Bool) {
+//		self.hasTangents = findTangents
+//    self.mtkSubmesh = mtkSubmesh
+//    textures = Textures(material: mdlSubmesh.material)
+//    material = Material(material: mdlSubmesh.material)
+//		pipelineState = Submesh.makePipelineState(textures: textures, hasTangents: hasTangents)
+//  }
 }
 
 // Pipeline state
@@ -43,8 +57,10 @@ private extension Submesh {
       return functionConstants
   }
 
-	static func makePipelineState(textures: Textures, hasTangents: Bool) -> MTLRenderPipelineState {
-    let functionConstants = makeFunctionConstants(textures: textures)
+//	static func makePipelineState(textures: Textures, hasTangents: Bool) -> MTLRenderPipelineState {
+	static func makePipelineState() -> MTLRenderPipelineState {
+		let textures = Textures(baseColor: nil, normal: nil, roughness: nil, metallic: nil, ao: nil)
+		let functionConstants = makeFunctionConstants(textures: textures)
     
     let library = Renderer.library
     let vertexFunction = library?.makeFunction(name: "vertex_main")
@@ -52,7 +68,7 @@ private extension Submesh {
     do {
       fragmentFunction = try library?.makeFunction(name: "fragment_main",
                                                    constantValues: functionConstants)
-    } catch {
+		} catch {
       fatalError("No Metal function exists")
     }
     
@@ -78,30 +94,30 @@ private extension Submesh {
 
 extension Submesh: Texturable {}
 
-private extension Submesh.Textures {
-  init(material: MDLMaterial?) {
-    func property(with semantic: MDLMaterialSemantic) -> MTLTexture? {
-      guard let property = material?.property(with: semantic),
-        property.type == .string,
-        let filename = property.stringValue,
-        let texture = try? Submesh.loadTexture(imageName: filename)
-        else {
-          if let property = material?.property(with: semantic),
-            property.type == .texture,
-            let mdlTexture = property.textureSamplerValue?.texture {
-            return try? Submesh.loadTexture(texture: mdlTexture)
-          }
-          return nil
-      }
-      return texture
-    }
-    baseColor = property(with: MDLMaterialSemantic.baseColor)
-    normal = property(with: .tangentSpaceNormal)
-    roughness = property(with: .roughness)
-    metallic = property(with: .metallic)
-    ao = property(with: .ambientOcclusion)
-  }
-}
+//private extension Submesh.Textures {
+//  init(material: MDLMaterial?) {
+//    func property(with semantic: MDLMaterialSemantic) -> MTLTexture? {
+//      guard let property = material?.property(with: semantic),
+//        property.type == .string,
+//        let filename = property.stringValue,
+//        let texture = try? Submesh.loadTexture(imageName: filename)
+//        else {
+//          if let property = material?.property(with: semantic),
+//            property.type == .texture,
+//            let mdlTexture = property.textureSamplerValue?.texture {
+//            return try? Submesh.loadTexture(texture: mdlTexture)
+//          }
+//          return nil
+//      }
+//      return texture
+//    }
+//    baseColor = property(with: MDLMaterialSemantic.baseColor)
+//    normal = property(with: .tangentSpaceNormal)
+//    roughness = property(with: .roughness)
+//    metallic = property(with: .metallic)
+//    ao = property(with: .ambientOcclusion)
+//  }
+//}
 
 private extension Material {
   init(material: MDLMaterial?) {

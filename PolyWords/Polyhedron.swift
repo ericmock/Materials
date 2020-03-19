@@ -15,16 +15,10 @@ class Polyhedron: Model {
 	var allActive:[Int] = []
 	var db: PolyhedraDatabase!
 	var numberOfDifferentPolygonTypes = 0
-	//  allIndices[type][polygon][index]
-	var allIndices:[[[UInt16]]] = Array(repeating: [[]], count: AppConstants.kPolygonTypeNames.count)
-	//  allCentroidIndices[polygon][index]
-	var allCentroidIndices:[[UInt16]] = Array()
 	var activeArray:[Bool] = Array(repeating: false, count: AppConstants.kPolygonTypeNames.count)
 	var idArray:[Int] = Array(repeating: 0, count: AppConstants.kPolygonTypeNames.count)
 	var numberOfFacesOfPolygonType:[Int] = Array(repeating: 0, count: AppConstants.kNumPolygonTypes + 1)
 	var numberOfFacesOfPolygonType2:[Int] = Array(repeating: 0, count: AppConstants.kNumPolygonTypes + 1)
-	var allVertices:[Vertex] = Array()
-	var allCentroidVertices:[Vertex] = Array()
 	var polyInfo: NSDictionary!
 	var polygonNumber = 0
 	var numberOfPolygons = 0
@@ -33,8 +27,8 @@ class Polyhedron: Model {
 	var polygons:[[Apolygon]] = Array(repeating: [], count: AppConstants.kPolygonTypeNames.count)
 	
 	
-	override init(name: String, findTangents: Bool) {
-		super.init(name: name, findTangents: findTangents)
+	init(name: String, findTangents: Bool) {
+		super.init()
 
 		openDatabase()
 		polyInfo = ["polyID": 4]
@@ -45,6 +39,8 @@ class Polyhedron: Model {
 			return
 		}
 		initialize(withPolyhedronInfo: polyInfo)
+		
+		super.initialize(name: "Polyhedron")
 	}
 	
 	func openDatabase() {
@@ -239,7 +235,7 @@ class Polyhedron: Model {
 		}
 		
 		print("\(AppConstants.kPolygonTypeNames[type]) indices:")
-		allIndices[type].removeAll()
+		super.allIndices[type].removeAll()
 		while (sqlite3_step(queryStatement) == SQLITE_ROW) {
 			var polyIndices:[UInt16] = Array()
 			for jj in 1..<numSides + 1 {
@@ -247,7 +243,7 @@ class Polyhedron: Model {
 				polyIndices.append(index)
 				print("\(index)", terminator: ",")
 			}
-			allIndices[type].append(polyIndices)
+			super.allIndices[type].append(polyIndices)
 			print("")
 			let result = sqlite3_column_int(queryStatement, Int32(numSides + 1))
 			if result == 0 {

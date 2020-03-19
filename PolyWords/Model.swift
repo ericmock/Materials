@@ -2,12 +2,19 @@ import MetalKit
 
 class Model: Node {
 	
-	let meshes:[Mesh]
+	var mesh:Mesh!
 	var tiling:UInt32 = 1
 	var hasTangents:Bool = false
+	var allVertices:[Vertex] = Array()
+	var allCentroidVertices:[Vertex] = Array()
+	//  allIndices[type][polygon][index]
+	var allIndices:[[[UInt16]]] = Array(repeating: [[]], count: AppConstants.kPolygonTypeNames.count)
+	//  allCentroidIndices[polygon][index]
+	var allCentroidIndices:[[UInt16]] = Array()
+
 	
 	//  let samplerState: MTLSamplerState?
-	var vertexDescriptor:MDLVertexDescriptor
+	var vertexDescriptor:MDLVertexDescriptor!
 	
 //	init(withVertices vertices:[SIMD3<Float>], indices:[Int], normals:[SIMD3<Float>], tangents:[SIMD3<Float>], bitangents:[SIMD3<Float>], textureVertices:[SIMD2<Float>]) {
 //		// need to bundle this all up in a single buffer and then tell GPU the layout
@@ -23,19 +30,22 @@ class Model: Node {
 //
 //		
 //	}
+	override init() {
+		super.init()
+	}
 	
-	init(name: String, findTangents: Bool = false) {
-		guard
-			let assetUrl = Bundle.main.url(forResource: name, withExtension: "obj") else {
-				fatalError("Model: \(name) not found")
-		}
+	func initialize(name: String, findTangents: Bool = false) {
+//		guard
+//			let assetUrl = Bundle.main.url(forResource: name, withExtension: "obj") else {
+//				fatalError("Model: \(name) not found")
+//		}
 		let allocator = MTKMeshBufferAllocator(device: Renderer.device)
 		
 		vertexDescriptor = MDLVertexDescriptor.defaultVertexDescriptor(hasTangents: findTangents)
 		
-		let asset = MDLAsset(url: assetUrl,
-												 vertexDescriptor: vertexDescriptor,
-												 bufferAllocator: allocator)
+//		let asset = MDLAsset(url: assetUrl,
+//												 vertexDescriptor: vertexDescriptor,
+//												 bufferAllocator: allocator)
 		
 //		if findTangents {
 //			for sourceMesh in asset.childObjects(of: MDLMesh.self) as! [MDLMesh] {
@@ -48,7 +58,7 @@ class Model: Node {
 //		}
 		
 		// load Model I/O textures
-		asset.loadTextures()
+//		asset.loadTextures()
 		
 //		var mtkMeshes: [MTKMesh] = []
 //		let mdlMeshes = asset.childObjects(of: MDLMesh.self) as! [MDLMesh]
@@ -64,33 +74,64 @@ class Model: Node {
 //			self.hasTangents = true
 //		}
 		
-		let (mdlMeshes, mtkMeshes) = try! MTKMesh.newMeshes(asset: asset, device: Renderer.device)
+//		let (mdlMeshes, mtkMeshes) = try! MTKMesh.newMeshes(asset: asset, device: Renderer.device)
 
-		_ = mdlMeshes.map { mdlMesh in
-			mdlMesh.addTangentBasis(forTextureCoordinateAttributeNamed:
-				MDLVertexAttributeTextureCoordinate,
-															tangentAttributeNamed: MDLVertexAttributeTangent,
-															bitangentAttributeNamed: MDLVertexAttributeBitangent)
-		}
+//		_ = mdlMeshes.map { mdlMesh in
+//			mdlMesh.addTangentBasis(forTextureCoordinateAttributeNamed:
+//				MDLVertexAttributeTextureCoordinate,
+//															tangentAttributeNamed: MDLVertexAttributeTangent,
+//															bitangentAttributeNamed: MDLVertexAttributeBitangent)
+//		}
 		
-		let zippedMeshes = zip(mdlMeshes, mtkMeshes)
+//		let zippedMeshes = zip(mdlMeshes, mtkMeshes)
 		
-		meshes = zip(mdlMeshes, mtkMeshes).map {
-			Mesh(mdlMesh: $0.0, mtkMesh: $0.1, findTangents: findTangents)
+//		meshes = zip(mdlMeshes, mtkMeshes).map {
+//			Mesh(mdlMesh: $0.0, mtkMesh: $0.1, findTangents: findTangents)
+//		}
+		var colors: [float3] = Array(repeating: [0.0,0.0,0.0], count: allCentroidIndices.count)
+		for (num, _) in colors.enumerated() {
+			let newColor:float3 = [Float(arc4random())/Float(RAND_MAX)/2, Float(arc4random())/Float(RAND_MAX)/2, Float(arc4random())/Float(RAND_MAX)/2]
+			colors[num] = newColor
 		}
-		super.init()
+    var submeshes: [Submesh] = []
+		
+    for (index, group) in allCentroidIndices.enumerated() {
+      let indexBuffer = Renderer.device.makeBuffer(bytes: group,
+                                                   length: MemoryLayout<UInt16>.stride * group.count,
+                                                   options: [])!
+      
+      var submesh = Submesh(indexBuffer: indexBuffer,
+                            indexCount: group.count,
+                            indexType: .uint16,
+														baseColor: colors[index])
+//      submesh.color = colors[index]
+      submeshes.append(submesh)
+			let vertexBuffer = Renderer.device.makeBuffer(bytes: allCentroidVertices,
+																										length: MemoryLayout<Vertex>.stride * allCentroidVertices.count,
+																										options: [])!
+			mesh = Mesh(vertexBuffer: vertexBuffer, submeshes: submeshes)
+
+    }
+
+//		super.init()
 		self.samplerState = Model.buildSamplerState()
 		self.name = name
 	}
 	
 	// the normal vectors should be in the first buffer
 	func render(commandEncoder: MTLRenderCommandEncoder, submesh: Submesh) {
-		let mtkSubmesh = submesh.mtkSubmesh
+//		let mtkSubmesh = submesh.mtkSubmesh
+//		commandEncoder.drawIndexedPrimitives(type: .triangle,
+//																				 indexCount: mtkSubmesh.indexCount,
+//																				 indexType: mtkSubmesh.indexType,
+//																				 indexBuffer: mtkSubmesh.indexBuffer.buffer,
+//																				 indexBufferOffset: mtkSubmesh.indexBuffer.offset)
 		commandEncoder.drawIndexedPrimitives(type: .triangle,
-																				 indexCount: mtkSubmesh.indexCount,
-																				 indexType: mtkSubmesh.indexType,
-																				 indexBuffer: mtkSubmesh.indexBuffer.buffer,
-																				 indexBufferOffset: mtkSubmesh.indexBuffer.offset)
+																				indexCount: submesh.indexCount,
+																				indexType: submesh.indexType,
+																				indexBuffer: submesh.indexBuffer,
+																				indexBufferOffset: 0)
+
 	}
 	
 	private static func buildSamplerState() -> MTLSamplerState? {
@@ -122,23 +163,25 @@ extension Model: Renderable {
 																		length: MemoryLayout<FragmentUniforms>.stride,
 																		index: Int(fragmentUniformsBufferIndex.rawValue))
 		
-		for mesh in meshes {
-			for vertexBuffer in mesh.mtkMesh.vertexBuffers {
-				
+//		for mesh in meshes {
+//			for vertexBuffer in mesh.mtkMesh.vertexBuffers {
+				for vertexBuffer in mesh.vertexBuffers {
+
 //				let uniformBuffer = Renderer.bufferProvider.nextUniformsBuffer(projectionMatrix: uniforms.projectionMatrix, modelViewMatrix: uniforms.modelMatrix)
 				// 5
 //				commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 0)
 				
 				
-				commandEncoder.setVertexBuffer(vertexBuffer.buffer, offset: 0, index: 0)
-				
+//				commandEncoder.setVertexBuffer(vertexBuffer.buffer, offset: 0, index: 0)
+				commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+
 				for submesh in mesh.submeshes {
 					commandEncoder.setRenderPipelineState(submesh.pipelineState)
-					var material = submesh.material
-					commandEncoder.setFragmentBytes(&material,
-																					length: MemoryLayout<Material>.stride,
-																					index: Int(materialsBufferIndex.rawValue))
-					commandEncoder.setFragmentTexture(submesh.textures.baseColor, index: 0)
+//					var material = submesh.material
+//					commandEncoder.setFragmentBytes(&material,
+//																					length: MemoryLayout<Material>.stride,
+//																					index: Int(materialsBufferIndex.rawValue))
+//					commandEncoder.setFragmentTexture(submesh.baseColor, index: 0)
 					
 					if let samplerState = samplerState {
 						commandEncoder.setFragmentSamplerState(samplerState, index: 0)
@@ -151,7 +194,7 @@ extension Model: Renderable {
 					render(commandEncoder: commandEncoder, submesh: submesh)
 				}
 			}
-		}
+//		}
 		
 	}
 }
