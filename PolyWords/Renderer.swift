@@ -34,7 +34,7 @@ class Renderer: NSObject {
 		}
 		Renderer.device = device
 		self.commandQueue = commandQueue
-		Renderer.library = device.makeDefaultLibrary()
+		Renderer.library = device.makeDefaultLibrary()  // Done in buildPipelineState() in MeshGeneration project
 		// Move    Renderer.colorPixelFormat = metalView.colorPixelFormat
 		view.device = device
 		view.depthStencilPixelFormat = .depth32Float
@@ -74,11 +74,8 @@ class Renderer: NSObject {
 	}
 	
 	static func buildDepthStencilState() -> MTLDepthStencilState? {
-		// 1
 		let descriptor = MTLDepthStencilDescriptor()
-		// 2
 		descriptor.depthCompareFunction = .less
-		// 3
 		descriptor.isDepthWriteEnabled = true
 		return
 			Renderer.device.makeDepthStencilState(descriptor: descriptor)

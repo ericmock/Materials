@@ -867,7 +867,7 @@ class PolyWordsView {
 			opponent_ready = false
 			if (appController.send_data_q) {
 				let postController = PostScoreController()
-				postController.startSend(NSArray(array: [score, playTime, appController.level, UInt(appController.mode), wordsFound as NSArray, wordScores as NSArray, wordScores as NSArray]))
+//				postController.startSend(NSArray(array: [score, playTime, appController.level, UInt(appController.mode), wordsFound as NSArray, wordScores as NSArray, wordScores as NSArray]))
 			}
 		}
 

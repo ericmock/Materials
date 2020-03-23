@@ -27,11 +27,11 @@ class Polyhedron: Model {
 	var polygons:[[Apolygon]] = Array(repeating: [], count: AppConstants.kPolygonTypeNames.count)
 	
 	
-	init(name: String, findTangents: Bool) {
+	init(name: String, withPolyID polyID:Int) {
 		super.init()
 
 		openDatabase()
-		polyInfo = ["polyID": 4]
+		polyInfo = ["polyID": polyID]
 		do {
 			try getNumberOfFacesForAllPolygons()
 		} catch {
@@ -48,7 +48,6 @@ class Polyhedron: Model {
 		
 		do {
 			db = try PolyhedraDatabase.open(path: dbPath!)
-			print("Successfully opened connection to database.")
 		} catch SQLiteError.OpenDatabase(_) {
 			print("Unable to open database.")
 			return
@@ -68,6 +67,7 @@ class Polyhedron: Model {
 			return
 		}
 		
+		allCentroidVertices = allVertices
 		for polygon_type in 0..<AppConstants.kPolygonTypeNames.count {
 			do {
 				try getAllIndices(forPolygonType: polygon_type)
@@ -76,11 +76,39 @@ class Polyhedron: Model {
 				return
 			}
 			
-			allCentroidVertices = allVertices
 			initializePolygons(ofType: polygon_type)
 			numberOfPolygons += numberOfFacesOfPolygonType[polygon_type]
 		}
+		generateFaceVerticesAndIndices()
 		generateConnectivityForPolyhedron()
+	}
+	
+	func generateFaceVerticesAndIndices() {
+		var indexCounter:UInt16 = 0
+		for polygonsOfType in polygons {
+			for poly in polygonsOfType {
+				for (num, vertex) in poly.centroidVertices.enumerated() {
+					let newVertex = Vertex(position: vertex,
+																 normal: poly.normal_v,
+																 uv: float2(0.5,0.5)
+//																 uv: poly.baseTextureCoords[num]
+//																 tangent: poly.tangent_v,
+//																 bitangent: poly.bitan_v
+					)
+					faceVertices.append(newVertex)
+				}
+				var localIndices:[UInt16] = Array(repeating: 0, count: 3*poly.numberOfSides)
+				var localIndexCounter:UInt16 = 1
+				for num in 0..<poly.numberOfSides {
+					localIndices[3*num] = 0 + indexCounter
+					localIndices[3*num + 1] = localIndexCounter + indexCounter
+					localIndices[3*num + 2] = (localIndexCounter)%UInt16(poly.numberOfSides) + indexCounter + 1
+					localIndexCounter += 1
+				}
+				faceIndices.append(contentsOf: localIndices)
+				indexCounter += localIndexCounter
+			}
+		}
 	}
 	
 	func generateConnectivityForPolyhedron() {
@@ -93,7 +121,6 @@ class Polyhedron: Model {
 						if poly2.indices.contains(num) {
 							count += 1
 							if (count > 1) {
-//								connections.append(poly2)
 								poly1.connections.append(poly2)
 							}
 						}
@@ -106,8 +133,8 @@ class Polyhedron: Model {
 	
 
 	func initializePolygons(ofType type:Int) {
-		var counter = 0
-		let numSides = AppConstants.kPolygonTypesVertexCount[type]
+//		var counter = 0
+//		let numSides = AppConstants.kPolygonTypesVertexCount[type]
 		for ii in 0..<numberOfFacesOfPolygonType[type] {
 			let poly:Apolygon = Apolygon.init(withType: type, withPolyhedron: self)
 			poly.number = polygonNumber
@@ -120,7 +147,7 @@ class Polyhedron: Model {
 			setPolygonVertices(forPolygon: poly)
 			poly.generateCentroids()
 			poly.generateLocalPolygonBases()
-			poly.getCentroidVertices()  //  Adds vertex to allCentroidVertices
+			poly.generateCentroidVertices()  //  Adds vertex to allCentroidVertices
 			poly.getCentroidIndices(withVertexCount: allCentroidVertices.count)
 			polygons[type].append(poly)
 		}
@@ -132,22 +159,10 @@ class Polyhedron: Model {
 	}
 	
 	func setPolygonVertices(forPolygon polygon:Apolygon) {
-		//		let count = indices.count
-		//		let numSides = AppConstants.kPolygonTypesVertexCount[polygonType]
-		
-		//		numberOfFacesOfPolygonType2[polygonType] = Int(count/numSides)
-		
 		polygon.vertices = []
 		for ii in 0..<polygon.numberOfSides {
 			polygon.vertices.append(allVertices[Int(polygon.indices[ii])])
 		}
-		//		for ii in 0..<count {
-		//			let num = Int(indices[ii])
-		//			ertices.append(polyhedronVertices[num])
-		//			polyVertices[polygonType][3*ii + 0] = Float(polyhedronVertices[3*num].x)//[[polyhedronVertices objectAtIndex:(3*num + 0)] floatValue];
-		//			polyVertices[polygonType][3*ii + 1] = Float(polyhedronVertices[3*num + 1].y)//[[polyhedronVertices objectAtIndex:(3*num + 1)] floatValue];
-		//			polyVertices[polygonType][3*ii + 2] = Float(polyhedronVertices[3*num + 2].z)//[[polyhedronVertices objectAtIndex:(3*num + 2)] floatValue];
-		//		}
 	}
 
 	
@@ -165,21 +180,14 @@ class Polyhedron: Model {
 			else {
 			return
 		}
-		print("Vertices:")
 		while (sqlite3_step(queryStatement) == SQLITE_ROW) {
 			
 			let dataX = Float(sqlite3_column_double(queryStatement, 0))
 			let dataY = Float(sqlite3_column_double(queryStatement, 1))
 			let dataZ = Float(sqlite3_column_double(queryStatement, 2))
-			let vertex = Vertex(x: dataX, y: dataY, z:dataZ)
+			let vertex = float3(dataX, dataY, dataZ)
 			allVertices.append(vertex)
-			print("[\(dataX), \(dataY), \(dataZ)]")
 		}
-		//		sqlite3_finalize(queryStatement)
-		//    guard sqlite3_step(queryStatement) == SQLITE_ROW else {
-		//      return nil
-		//    }
-//		return polyhedronVertices
 	}
 	
 	func getNumberOfFacesForAllPolygons() throws {
@@ -196,14 +204,11 @@ class Polyhedron: Model {
 				sqlite3_finalize(queryStatement)
 			}
 			
-			//			guard sqlite3_bind_text(queryStatement, 1, typeName.utf8String, -1, nil) == SQLITE_OK else {
-			//				return
-			//			}
 			let id = polyInfo.object(forKey: "polyID") as! Int32
 			guard sqlite3_bind_int(queryStatement, 1, id) == SQLITE_OK else {
 				return
 			}
-			print("Query Result:")
+//			print("Query Result:")
 			while (sqlite3_step(queryStatement) == SQLITE_ROW) {
 				numberOfFacesOfPolygonType[type] = Int(sqlite3_column_int(queryStatement, 0))
 				numberOfDifferentPolygonTypes += 1
@@ -215,9 +220,6 @@ class Polyhedron: Model {
 	
 	func getAllIndices(forPolygonType type: Int) throws {
 		var querySql: String
-//		allIndices =
-//		allActive.removeAll()
-//		idArray.removeAll()
 		
 		querySql = "select *, rowid from indices_" + AppConstants.kPolygonTypeNames[type] + " where polyhedron_id = ?;"
 		let numSides = AppConstants.kPolygonTypesVertexCount[type]
@@ -234,17 +236,14 @@ class Polyhedron: Model {
 			return
 		}
 		
-		print("\(AppConstants.kPolygonTypeNames[type]) indices:")
 		super.allIndices[type].removeAll()
 		while (sqlite3_step(queryStatement) == SQLITE_ROW) {
 			var polyIndices:[UInt16] = Array()
 			for jj in 1..<numSides + 1 {
 				let index = UInt16(sqlite3_column_double(queryStatement, Int32(jj)))
 				polyIndices.append(index)
-				print("\(index)", terminator: ",")
 			}
 			super.allIndices[type].append(polyIndices)
-			print("")
 			let result = sqlite3_column_int(queryStatement, Int32(numSides + 1))
 			if result == 0 {
 				activeArray.append(false)

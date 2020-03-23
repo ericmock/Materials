@@ -5,7 +5,8 @@ class PolyWordsViewController: LocalViewController {
   var renderer: Renderer?
 	var gameScene:GameScene?
 	var titleScene:TitleScene?
-
+	@IBOutlet weak var polyhedronPicker: NSMenu!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		

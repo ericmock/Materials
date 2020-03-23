@@ -13,15 +13,12 @@ import Cocoa
 #endif
 
 class GameScene: Scene {
-	//let trains = Instance(name: "train", instanceCount: 3)
-	//let trees = Instance(name: "treefir", instanceCount: 2)
 	
-	let polyhedron = Polyhedron(name: "TestPolyhedron", findTangents: false)
-	//let polyhedra = Instance(name: "TestPolyhedron", instanceCount: 1, findTangents: false)
+	let polyhedron = Polyhedron(name: "TestPolyhedron", withPolyID: 12)
 	
 	override func setupScene() {
 		camera.target = [0, 0.8, 0]
-		camera.distance = 4
+		camera.distance = 3
 		camera.rotation = [-0.4,-0.4,0]
 		
 		add(node: polyhedron)
@@ -43,18 +40,17 @@ class GameScene: Scene {
 			let polyCount: Int = thePolyhedron.polygons.count;
 			if (previouslyTouchedNumber >= 0 && previouslyTouchedNumber < polyCount) {
 //				let poly:Polygons = thePolyhedron.polygons[previouslyTouchedNumber]
-				//                Polygons *poly = [polyhedron.polygons objectAtIndex:prev_touched_num];
+//                Polygons *poly = [polyhedron.polygons objectAtIndex:prev_touched_num];
 //				poly.touched = false;
 			}
 			if (touchedNumber >= 0 && previouslyTouchedNumber < polyCount) {
 //				let poly:Polygons = thePolyhedron.polygons[previouslyTouchedNumber]
-				//                Polygons *poly = [polyhedron.polygons objectAtIndex:touched_num];
+//                Polygons *poly = [polyhedron.polygons objectAtIndex:touched_num];
 //				poly.touched = true;
 //				touchedLetters = oldText + alphabetArray[(poly.textureNumber)%26].lowercased()
 				previouslyTouchedNumber = touchedNumber
 			}
 		}
-		
 	}
 	
 	override func findTouchedPolygon(atPoint touchPos: CGPoint) -> Int {

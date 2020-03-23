@@ -1,3 +1,4 @@
+import CoreGraphics
 import simd
 
 typealias float2 = SIMD2<Float>
@@ -15,34 +16,43 @@ extension Float {
   }
 }
 
-func half(_ size: float3) -> float3 {
-	[size.x * 0.5, size.y * 0.5, size.z * 0.5]
-}
-
-struct Vertex {
-	var x: Float
-	var y: Float
-	var z: Float
-  var position: float3 {
-    get {
-      float3(x, y, z)
-    }
-    set {
-      x = newValue.x
-      y = newValue.y
-      z = newValue.z
-    }
-  }
-//
-//	var position: float3
-}
-
 func radians(fromDegrees degrees: Float) -> Float {
     return (degrees / 180) * π
 }
 
 func degrees(fromRadians radians: Float) -> Float {
     return (radians / π) * 180
+}
+
+
+func half(_ size: float3) -> float3 {
+	[size.x * 0.5, size.y * 0.5, size.z * 0.5]
+}
+
+struct Rect {
+  var x: Float = 0
+  var z: Float = 0
+  var width: Float = 0
+  var height: Float = 0
+  
+  private var cgRect: CGRect {
+    return CGRect(x: CGFloat(x),
+                  y: CGFloat(z),
+                  width: CGFloat(width),
+                  height: CGFloat(height))
+  }
+  
+  func intersects(_ rect: Rect) -> Bool {
+    return self.cgRect.intersects(rect.cgRect)
+  }
+}
+
+struct Vertex {
+	var position: float3
+	var normal: float3
+	var uv: float2
+//	var tangent: float3
+//	var bitangent: float3
 }
 
 func pointInPolygon(withNumberOfPoints npol: Int, withXPoints xp: [Float], withYPoints yp: [Float], withX x: Float, withY y: Float) -> Bool {

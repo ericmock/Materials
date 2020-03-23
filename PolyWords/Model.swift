@@ -5,12 +5,14 @@ class Model: Node {
 	var mesh:Mesh!
 	var tiling:UInt32 = 1
 	var hasTangents:Bool = false
-	var allVertices:[Vertex] = Array()
-	var allCentroidVertices:[Vertex] = Array()
-	//  allIndices[type][polygon][index]
+	var allVertices:[float3] = Array()
+	var allCentroidVertices:[float3] = Array()
+	var faceVertices:[Vertex] = Array()
+	var allCentroidNormals:[float3] = Array()
 	var allIndices:[[[UInt16]]] = Array(repeating: [[]], count: AppConstants.kPolygonTypeNames.count)
-	//  allCentroidIndices[polygon][index]
-	var allCentroidIndices:[[UInt16]] = Array()
+	var allCentroidIndices:[UInt16] = Array()
+	var faceIndices:[UInt16] = Array()
+	var allCentroidNormalIndices:[UInt16] = Array()
 
 	
 	//  let samplerState: MTLSamplerState?
@@ -34,98 +36,51 @@ class Model: Node {
 		super.init()
 	}
 	
+	func loadMyTextures() {
+		var bytes:[UInt8] = [1, 2, 3, 4, 5, 6, 7, 8]
+		let srcImageData = UnsafeMutablePointer<UInt8>.allocate(capacity: 8)
+		srcImageData.initialize(from: &bytes, count: 8)
+	}
+	
 	func initialize(name: String, findTangents: Bool = false) {
-//		guard
-//			let assetUrl = Bundle.main.url(forResource: name, withExtension: "obj") else {
-//				fatalError("Model: \(name) not found")
-//		}
-		let allocator = MTKMeshBufferAllocator(device: Renderer.device)
-		
-		vertexDescriptor = MDLVertexDescriptor.defaultVertexDescriptor(hasTangents: findTangents)
-		
-//		let asset = MDLAsset(url: assetUrl,
-//												 vertexDescriptor: vertexDescriptor,
-//												 bufferAllocator: allocator)
-		
-//		if findTangents {
-//			for sourceMesh in asset.childObjects(of: MDLMesh.self) as! [MDLMesh] {
-//				sourceMesh.addOrthTanBasis(forTextureCoordinateAttributeNamed: MDLVertexAttributeTextureCoordinate,
-//																	 normalAttributeNamed: MDLVertexAttributeNormal,
-//																	 tangentAttributeNamed: MDLVertexAttributeTangent)
-//				sourceMesh.vertexDescriptor = vertexDescriptor
-//			}
-//			self.hasTangents = true
-//		}
-		
-		// load Model I/O textures
-//		asset.loadTextures()
-		
-//		var mtkMeshes: [MTKMesh] = []
-//		let mdlMeshes = asset.childObjects(of: MDLMesh.self) as! [MDLMesh]
-//		if findTangents {
-//			_ = mdlMeshes.map { mdlMesh in
-//				mdlMesh.addTangentBasis(forTextureCoordinateAttributeNamed:
-//					MDLVertexAttributeTextureCoordinate,
-//																tangentAttributeNamed: MDLVertexAttributeTangent,
-//																bitangentAttributeNamed: MDLVertexAttributeBitangent)
-//				//      Model.vertexDescriptor = mdlMesh.vertexDescriptor
-//				mtkMeshes.append(try! MTKMesh(mesh: mdlMesh, device: Renderer.device))
-//			}
-//			self.hasTangents = true
-//		}
-		
-//		let (mdlMeshes, mtkMeshes) = try! MTKMesh.newMeshes(asset: asset, device: Renderer.device)
-
-//		_ = mdlMeshes.map { mdlMesh in
-//			mdlMesh.addTangentBasis(forTextureCoordinateAttributeNamed:
-//				MDLVertexAttributeTextureCoordinate,
-//															tangentAttributeNamed: MDLVertexAttributeTangent,
-//															bitangentAttributeNamed: MDLVertexAttributeBitangent)
-//		}
-		
-//		let zippedMeshes = zip(mdlMeshes, mtkMeshes)
-		
-//		meshes = zip(mdlMeshes, mtkMeshes).map {
-//			Mesh(mdlMesh: $0.0, mtkMesh: $0.1, findTangents: findTangents)
-//		}
-		var colors: [float3] = Array(repeating: [0.0,0.0,0.0], count: allCentroidIndices.count)
-		for (num, _) in colors.enumerated() {
-			let newColor:float3 = [Float(arc4random())/Float(RAND_MAX)/2, Float(arc4random())/Float(RAND_MAX)/2, Float(arc4random())/Float(RAND_MAX)/2]
-			colors[num] = newColor
-		}
     var submeshes: [Submesh] = []
 		
-    for (index, group) in allCentroidIndices.enumerated() {
-      let indexBuffer = Renderer.device.makeBuffer(bytes: group,
-                                                   length: MemoryLayout<UInt16>.stride * group.count,
-                                                   options: [])!
-      
-      var submesh = Submesh(indexBuffer: indexBuffer,
-                            indexCount: group.count,
-                            indexType: .uint16,
-														baseColor: colors[index])
-//      submesh.color = colors[index]
-      submeshes.append(submesh)
-			let vertexBuffer = Renderer.device.makeBuffer(bytes: allCentroidVertices,
-																										length: MemoryLayout<Vertex>.stride * allCentroidVertices.count,
-																										options: [])!
-			mesh = Mesh(vertexBuffer: vertexBuffer, submeshes: submeshes)
+		let indexBuffer = Renderer.device.makeBuffer(bytes: faceIndices, length: MemoryLayout<UInt16>.stride * faceIndices.count, options: [])!
+		let submesh = Submesh(indexBuffer: indexBuffer,
+													indexCount: faceIndices.count,
+													indexType: .uint16,
+													baseColor: [0.0, 1.0, 0.0, 1.0])
+		submeshes.append(submesh)
 
-    }
-
-//		super.init()
+		let stride = MemoryLayout<Vertex>.stride
+		let size = MemoryLayout<Vertex>.size
+		print("Vertex stride: \(stride)")
+		print("Vertex size: \(size)")
+		let length = size * faceVertices.count
+		let vertexBuffer = Renderer.device.makeBuffer(bytes: faceVertices,
+																									length: length,
+																									options: [])!
+		
+		mesh = Mesh(vertexBuffer: vertexBuffer, submeshes: submeshes)
+		
 		self.samplerState = Model.buildSamplerState()
 		self.name = name
 	}
 	
-	// the normal vectors should be in the first buffer
 	func render(commandEncoder: MTLRenderCommandEncoder, submesh: Submesh) {
-//		let mtkSubmesh = submesh.mtkSubmesh
-//		commandEncoder.drawIndexedPrimitives(type: .triangle,
-//																				 indexCount: mtkSubmesh.indexCount,
-//																				 indexType: mtkSubmesh.indexType,
-//																				 indexBuffer: mtkSubmesh.indexBuffer.buffer,
-//																				 indexBufferOffset: mtkSubmesh.indexBuffer.offset)
+		commandEncoder.setTriangleFillMode(.fill)
+		var isWireframe:Bool = false
+		commandEncoder.setFragmentBytes(&isWireframe, length: MemoryLayout<Bool>.stride, index: Int(wireframeQBufferIndex.rawValue))
+		commandEncoder.drawIndexedPrimitives(type: .triangle,
+																				indexCount: submesh.indexCount,
+																				indexType: submesh.indexType,
+																				indexBuffer: submesh.indexBuffer,
+																				indexBufferOffset: 0)
+		commandEncoder.setTriangleFillMode(.lines)
+		var color:float4 = [0,0,0,0]
+		commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: Int(colorBufferIndex.rawValue))
+		isWireframe = true
+		commandEncoder.setFragmentBytes(&isWireframe, length: MemoryLayout<Bool>.stride, index: Int(wireframeQBufferIndex.rawValue))
 		commandEncoder.drawIndexedPrimitives(type: .triangle,
 																				indexCount: submesh.indexCount,
 																				indexType: submesh.indexType,
@@ -163,38 +118,40 @@ extension Model: Renderable {
 																		length: MemoryLayout<FragmentUniforms>.stride,
 																		index: Int(fragmentUniformsBufferIndex.rawValue))
 		
-//		for mesh in meshes {
-//			for vertexBuffer in mesh.mtkMesh.vertexBuffers {
-				for vertexBuffer in mesh.vertexBuffers {
+		for vertexBuffer in mesh.vertexBuffers {
+			
+			commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: Int(verticesBufferIndex.rawValue))
+			
+			for submesh in mesh.submeshes {
+				commandEncoder.setRenderPipelineState(submesh.pipelineState)
+				var color = submesh.color
+				commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: Int(colorBufferIndex.rawValue))
 
-//				let uniformBuffer = Renderer.bufferProvider.nextUniformsBuffer(projectionMatrix: uniforms.projectionMatrix, modelViewMatrix: uniforms.modelMatrix)
-				// 5
-//				commandEncoder.setVertexBuffer(uniformBuffer, offset: 0, index: 0)
-				
-				
-//				commandEncoder.setVertexBuffer(vertexBuffer.buffer, offset: 0, index: 0)
-				commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+				commandEncoder.setFragmentTexture(submesh.textures.baseColor,
+																				 index: Int(BaseColorTexture.rawValue))
+				commandEncoder.setFragmentTexture(submesh.textures.normal,
+																				 index: Int(NormalTexture.rawValue))
+				commandEncoder.setFragmentTexture(submesh.textures.roughness,
+																				 index: Int(RoughnessTexture.rawValue))
+				commandEncoder.setFragmentTexture(submesh.textures.metallic,
+																				 index: Int(MetallicTexture.rawValue))
+				commandEncoder.setFragmentTexture(submesh.textures.ao,
+																				 index: Int(AOTexture.rawValue))
 
-				for submesh in mesh.submeshes {
-					commandEncoder.setRenderPipelineState(submesh.pipelineState)
-//					var material = submesh.material
-//					commandEncoder.setFragmentBytes(&material,
-//																					length: MemoryLayout<Material>.stride,
-//																					index: Int(materialsBufferIndex.rawValue))
-//					commandEncoder.setFragmentTexture(submesh.baseColor, index: 0)
-					
-					if let samplerState = samplerState {
-						commandEncoder.setFragmentSamplerState(samplerState, index: 0)
-					}
-					
-					//          let mtkSubmesh = submesh.mtkSubmesh
-					
-					commandEncoder.setRenderPipelineState(submesh.pipelineState)
-					
-					render(commandEncoder: commandEncoder, submesh: submesh)
+				//					var material = submesh.material
+				//					commandEncoder.setFragmentBytes(&material,
+				//																					length: MemoryLayout<Material>.stride,
+				//																					index: Int(materialsBufferIndex.rawValue))
+				//					commandEncoder.setFragmentTexture(submesh.baseColor, index: 0)
+				
+				if let samplerState = samplerState {
+					commandEncoder.setFragmentSamplerState(samplerState, index: 0)
 				}
+				
+				commandEncoder.setRenderPipelineState(submesh.pipelineState)
+				
+				render(commandEncoder: commandEncoder, submesh: submesh)
 			}
-//		}
-		
+		}
 	}
 }

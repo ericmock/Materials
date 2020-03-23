@@ -301,7 +301,33 @@
                     <view key="view" id="diP-zi-HQ9" customClass="MTKView">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JZq-HW-F3Z">
+                                <rect key="frame" x="42" y="256" width="77" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="WVb-Yg-Lo2" id="7XP-2s-bJN">
+                                    <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <menu key="menu" id="gjv-CC-wtM">
+                                        <items>
+                                            <menuItem title="Item 1" state="on" id="WVb-Yg-Lo2"/>
+                                            <menuItem title="Item 2" id="GbX-Lb-HEB"/>
+                                            <menuItem title="Item 3" id="mSy-wA-B4F"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                                <connections>
+                                    <action selector="handleSelection:" target="uid-qU-UCi" id="u0f-2M-sLQ"/>
+                                </connections>
+                            </popUpButton>
+                        </subviews>
+                        <connections>
+                            <outlet property="polyhedronPicker" destination="gjv-CC-wtM" id="mys-sd-gge"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="polyhedronPicker" destination="JZq-HW-F3Z" id="MY0-mw-e3E"/>
+                    </connections>
                 </viewController>
                 <customObject id="bf2-1r-fwl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>

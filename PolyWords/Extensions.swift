@@ -105,20 +105,3 @@ import MetalKit
 //	}
 //}
 
-struct Rect {
-  var x: Float = 0
-  var z: Float = 0
-  var width: Float = 0
-  var height: Float = 0
-  
-  private var cgRect: CGRect {
-    return CGRect(x: CGFloat(x),
-                  y: CGFloat(z),
-                  width: CGFloat(width),
-                  height: CGFloat(height))
-  }
-  
-  func intersects(_ rect: Rect) -> Bool {
-    return self.cgRect.intersects(rect.cgRect)
-  }
-}

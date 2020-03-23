@@ -12,12 +12,12 @@ extension ViewController {
     let delta = float2(Float(translation.x),
                        Float(translation.y))
     
-    titleScene?.camera.rotate(delta: delta)
+    gameScene?.camera.rotate(delta: delta)
     gesture.setTranslation(.zero, in: gesture.view)
   }
   
   override func scrollWheel(with event: NSEvent) {
-    titleScene?.camera.zoom(delta: Float(event.deltaY))
+    gameScene?.camera.zoom(delta: Float(event.deltaY))
   }
 }
 

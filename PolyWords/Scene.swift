@@ -37,17 +37,13 @@ class Scene {
 		return camera
 	}()
 	
-	// Array of Models allows for rendering multiple models
 	var models: [Model] = []
 	
-//	let camera = ArcballCamera2()
 	let trackball = Trackball()
 	var gTrackBallRotation:SIMD4<Float> = [0, 0, 0, 0]
 	var rotationAngles:SIMD4<Float> = [0, 0, 0, 0]
 	var worldRotationAngles:SIMD4<Float> = [0, 0, 0, 0]
 	var worldRotation:SIMD4<Float> = [0, 0, 0, 0]
-//	var uniforms = Uniforms()
-//	var fragmentUniforms = FragmentUniforms()
 	
 	private var startPoint:CGPoint = .zero
 	private var lastPoint:CGPoint = .zero
@@ -64,10 +60,8 @@ class Scene {
 	var dragTimer:Timer = Timer()
 	var touchedLetters:String = ""
 	var oldText:String = ""
-	//    var viewController: ViewController!
 	var thePolyhedron:Polyhedron!
 	
-	//    var renderer: Renderer!
 	var alphabetArray:[String] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 	var commonLettersArray:[String] = ["A", "E", "I", "O", "T", "N"]
 	var uncommonLettersArray:[String] = ["J", "Q", "X", "Z"];
@@ -98,16 +92,13 @@ class Scene {
 		updateScene(deltaTime: deltaTime)
 		uniforms.viewMatrix = camera.viewMatrix
 		uniforms.projectionMatrix = camera.projectionMatrix
+		uniforms.normalMatrix = uniforms.modelMatrix.upperLeft
+
 		
 		fragmentUniforms.cameraPosition = camera.position
 	}
 	
 	final func add(node: Node, parent: Node? = nil, renderQ: Bool = true) {
-//		if node.name == "TestPolyhedron" {
-//			thePolyhedron = (node as! Polyhedron);
-//		} else if node.name == "TitleQuad" {
-//			
-//		}
 		if let parent = parent {
 			parent.add(childNode: node)
 		} else {

@@ -251,7 +251,7 @@ class PolyhedronViewController: NSViewController {
 			poly.normal_v = normalize(cross(v1, v2))
 			poly.tangent_v = normalize(v1)
 			poly.bitan_v = cross(poly.normal_v, poly.tangent_v)
-			print("{\(String(describing: poly.normal_v))}, {\(String(describing: poly.tangent_v))}, {\(String(describing: poly.bitan_v))}")
+//			print("{\(String(describing: poly.normal_v))}, {\(String(describing: poly.tangent_v))}, {\(String(describing: poly.bitan_v))}")
 		}
 	}
 	
@@ -305,7 +305,7 @@ class PolyhedronViewController: NSViewController {
 		guard sqlite3_bind_int(queryStatement, 1, polyhedron_id) == SQLITE_OK else {
 			return nil
 		}
-		print("Vertices:")
+//		print("Vertices:")
 		while (sqlite3_step(queryStatement) == SQLITE_ROW) {
 			
 			let dataX = Float(sqlite3_column_double(queryStatement, 0))
@@ -313,7 +313,7 @@ class PolyhedronViewController: NSViewController {
 			let dataZ = Float(sqlite3_column_double(queryStatement, 2))
 			let vertex = SIMD3<Float>(x: dataX, y: dataY, z:dataZ)
 			vertices.append(vertex)
-			print("{\(dataX), \(dataY), \(dataZ)}")
+//			print("{\(dataX), \(dataY), \(dataZ)}")
 		}
 		//		sqlite3_finalize(queryStatement)
 		//    guard sqlite3_step(queryStatement) == SQLITE_ROW else {
@@ -343,7 +343,7 @@ class PolyhedronViewController: NSViewController {
 			guard sqlite3_bind_int(queryStatement, 1, id) == SQLITE_OK else {
 				return
 			}
-			print("Query Result:")
+//			print("Query Result:")
 			while (sqlite3_step(queryStatement) == SQLITE_ROW) {
 				numberOfFacesOfPolygonType[type] = Int(sqlite3_column_int(queryStatement, 0))
 				numPolygonTypes += 1
@@ -409,14 +409,14 @@ class PolyhedronViewController: NSViewController {
 			return
 		}
 		
-		print("\(polygonTypes[type]) indices:")
+//		print("\(polygonTypes[type]) indices:")
 		while (sqlite3_step(queryStatement) == SQLITE_ROW) {
 			for jj in 1..<numSides + 1 {
 				let index = Int(sqlite3_column_double(queryStatement, Int32(jj)))
 				indices.append(index)
-				print("\(index)", terminator: ",")
+//				print("\(index)", terminator: ",")
 			}
-			print("")
+//			print("")
 			let result = sqlite3_column_int(queryStatement, Int32(numSides + 1))
 			if result == 0 {
 				activeArray.append(false)

@@ -2,17 +2,19 @@ import MetalKit
 
 class Submesh {
 //  var mtkSubmesh: MTKSubmesh
-	var color:float3 = [1,0,0]
+	var color:float4 = [1,0,0,1]
 	let indexBuffer: MTLBuffer
 	let indexCount: Int
+//	let normalIndexBuffer: MTLBuffer
+//	let normalIndexCount: Int
 	let indexType: MTLIndexType
 
   struct Textures {
-    let baseColor: MTLTexture?
-    let normal: MTLTexture?
-    let roughness: MTLTexture?
-    let metallic: MTLTexture?
-    let ao: MTLTexture?
+		var baseColor: MTLTexture?
+		var normal: MTLTexture?
+		var roughness: MTLTexture?
+		var metallic: MTLTexture?
+		var ao: MTLTexture?
   }
   
   let textures: Textures
@@ -20,15 +22,23 @@ class Submesh {
 //	let hasTangents: Bool
   let pipelineState: MTLRenderPipelineState
 
-	init(indexBuffer buffer:MTLBuffer, indexCount count:Int, indexType type:MTLIndexType, baseColor:float3) {
+	init(indexBuffer buffer:MTLBuffer,
+			 indexCount count:Int,
+//			 normalIndexBuffer normalBuffer:MTLBuffer,
+//			 normalIndexCount normalCount:Int,
+			 indexType type:MTLIndexType,
+			 baseColor:float4) {
 		indexBuffer = buffer
+//		normalIndexBuffer = normalBuffer
 		indexCount = count
+//		normalIndexCount = normalCount
 		indexType = type
 		color = baseColor
-		textures = Textures(baseColor: nil, normal: nil, roughness: nil, metallic: nil, ao: nil)
-
-//		pipelineState = Submesh.makePipelineState(textures: textures, hasTangents: false)
-		pipelineState = Submesh.makePipelineState()
+//		textures = Textures(baseColor: nil, normal: nil, roughness: nil, metallic: nil, ao: nil)
+		let textureDict:Dictionary<MDLMaterialSemantic,String> = [.baseColor:"TestPolyhedron-color", .tangentSpaceNormal:"TestPolyhedron-normal"]
+		textures = Textures(textures: textureDict)
+		pipelineState = Submesh.makePipelineState(textures: textures)
+//		pipelineState = Submesh.makePipelineState()
 	}
 //	init(mdlSubmesh: MDLSubmesh, mtkSubmesh: MTKSubmesh, findTangents:  Bool) {
 //		self.hasTangents = findTangents
@@ -44,7 +54,7 @@ private extension Submesh {
 	static func makeFunctionConstants(textures: Textures)
     -> MTLFunctionConstantValues {
       let functionConstants = MTLFunctionConstantValues()
-      var property = textures.baseColor != nil
+      var property = (textures.baseColor != nil)
       functionConstants.setConstantValue(&property, type: .bool, index: 0)
       property = textures.normal != nil
       functionConstants.setConstantValue(&property, type: .bool, index: 1)
@@ -57,13 +67,14 @@ private extension Submesh {
       return functionConstants
   }
 
-//	static func makePipelineState(textures: Textures, hasTangents: Bool) -> MTLRenderPipelineState {
-	static func makePipelineState() -> MTLRenderPipelineState {
-		let textures = Textures(baseColor: nil, normal: nil, roughness: nil, metallic: nil, ao: nil)
+	static func makePipelineState(textures: Textures) -> MTLRenderPipelineState {
+//	static func makePipelineState() -> MTLRenderPipelineState {
+//		let textures = Textures(baseColor: nil, normal: nil, roughness: nil, metallic: nil, ao: nil)
 		let functionConstants = makeFunctionConstants(textures: textures)
     
     let library = Renderer.library
     let vertexFunction = library?.makeFunction(name: "vertex_main")
+//		let fragmentFunction = library?.makeFunction(name: "fragment_main")
     let fragmentFunction: MTLFunction?
     do {
       fragmentFunction = try library?.makeFunction(name: "fragment_main",
@@ -74,14 +85,14 @@ private extension Submesh {
     
     var pipelineState: MTLRenderPipelineState
     let pipelineDescriptor = MTLRenderPipelineDescriptor()
+		pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
+    pipelineDescriptor.depthAttachmentPixelFormat = .depth32Float
     pipelineDescriptor.vertexFunction = vertexFunction
     pipelineDescriptor.fragmentFunction = fragmentFunction
     
 //    let vertexDescriptor = Model.vertexDescriptor
-		pipelineDescriptor.vertexDescriptor = MTLVertexDescriptor.defaultVertexDescriptor(hasTangents: false)
+		pipelineDescriptor.vertexDescriptor = MTLVertexDescriptor.defaultVertexDescriptor()
 //    pipelineDescriptor.vertexDescriptor = MTKMetalVertexDescriptorFromModelIO(vertexDescriptor)
-		pipelineDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
-    pipelineDescriptor.depthAttachmentPixelFormat = .depth32Float
     do {
       pipelineState = try Renderer.device.makeRenderPipelineState(descriptor: pipelineDescriptor)
     } catch let error {
@@ -94,7 +105,7 @@ private extension Submesh {
 
 extension Submesh: Texturable {}
 
-//private extension Submesh.Textures {
+private extension Submesh.Textures {
 //  init(material: MDLMaterial?) {
 //    func property(with semantic: MDLMaterialSemantic) -> MTLTexture? {
 //      guard let property = material?.property(with: semantic),
@@ -117,14 +128,58 @@ extension Submesh: Texturable {}
 //    metallic = property(with: .metallic)
 //    ao = property(with: .ambientOcclusion)
 //  }
-//}
+  init(textures:Dictionary<MDLMaterialSemantic,String>) {
+		for (semantic, filename) in textures {
+			switch semantic {
+			case .baseColor:
+				guard let texture = try? Submesh.loadTexture(imageName: filename)
+					else {
+						break
+				}
+				baseColor = texture
+				break
+			case .tangentSpaceNormal:
+				guard let texture = try? Submesh.loadTexture(imageName: filename)
+					else {
+						break
+				}
+				normal = texture
+				break
+			case .roughness:
+				guard let texture = try? Submesh.loadTexture(imageName: filename)
+					else {
+						break
+				}
+				roughness = texture
+				break
+			case .metallic:
+				guard let texture = try? Submesh.loadTexture(imageName: filename)
+					else {
+						break
+				}
+				metallic = texture
+				break
+				case .ambientOcclusion:
+					guard let texture = try? Submesh.loadTexture(imageName: filename)
+						else {
+							break
+					}
+					ao = texture
+					break
+
+			default:
+				break
+			}
+		}
+  }
+}
 
 private extension Material {
   init(material: MDLMaterial?) {
     self.init()
     if let baseColor = material?.property(with: .baseColor),
-      baseColor.type == .float3 {
-      self.baseColor = baseColor.float3Value
+      baseColor.type == .float4 {
+      self.baseColor = baseColor.float4Value
     }
     if let specular = material?.property(with: .specular),
       specular.type == .float3 {

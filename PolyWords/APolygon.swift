@@ -18,9 +18,9 @@ class Apolygon {
 	var connections:[Apolygon] = []
 	var centroid:float3 = [0,0,0]
 	var indices:[UInt16] = []
-	var vertices:[Vertex] = []
+	var vertices:[float3] = []
 	var centroidIndices:[UInt16] = []
-	var centroidVertices:[Vertex] = []
+	var centroidVertices:[float3] = []
 	var radius:Float = 0.0
 	var animatingQ:Bool = false
 	var dbID:Int = 0
@@ -41,41 +41,13 @@ class Apolygon {
 		numberOfSides = AppConstants.kPolygonTypesVertexCount[type]
 		let scale:Float = 1/6.0
 		getTextureCoords(type, scale, numberOfSides)
-		
-		
-		//		generateLocalPolygonBases()
-		
-		//  Get indices
-		
-		//		if indices.count > 0 {
-		//			for _ in 0..<numberOfSides {
-		//				poly.indices.append(indices[counter])
-		//				counter += 1
-		//			}
-		//		}
-		
-		// Get centroids
 	}
 	
-	//	init(vertices: [SIMD3<Float>], indices: [SIMD3<Int>], textureNumber: Int) {
-	//			self.vertices = vertices;
-	//			self.indices = indices;
-	//			self.textureNumber = textureNumber
-	//
-	//			self.polyType = indices.count
-	//
-	//			for vertex in vertices {
-	//					centroid += vertex
-	//			}
-	//			centroid = centroid/Float(polyType)
-	//	}
 	fileprivate func getTextureCoords(_ polyhedronType: Int, _ scale: Float, _ numSides: Int) {
 		// Deal with triangles
 		var polygonIndex:Int
 		if numSides == 3 {
 			polygonIndex = 0
-//			baseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count: numSides))
-//			scaledBaseTextureCoords.append(Array(repeating: SIMD2<Float>(0,0), count: numSides))
 			if polyhedronType == 7 {
 				let scale2:Float = 1.1
 				let shift:Float = (scale2 - 1.0)/2.0
@@ -189,37 +161,42 @@ class Apolygon {
 				scaledBaseTextureCoords.append(float2(scale,scale) * baseTextureCoords.last!)
 			}
 		}
+		
+		var centroidTextureCoord = float2(0,0)
+		for coord in baseTextureCoords {
+			centroidTextureCoord += coord
+		}
+		centroidTextureCoord /= Float(numSides)
+		
+		baseTextureCoords.insert(centroidTextureCoord, at: 0)
 	}
 	
 	func setTextureCoords(forType type:Int) {
-		let numSides = AppConstants.kPolygonTypesVertexCount[type]
-//		textureCoords.append(Array())
-		
-		//		for _ in 0..<numberOfFacesOfPolygonType[type] {
-		//			for jj in 0..<numSides {
-		//				textureCoords[type].append(baseTextureCoords[type][jj])
-		//			}
-		//			}
 	}
 	
 	func generateLocalPolygonBases() {
 		var ave = SIMD3<Float>(0,0,0)
-		
-		// get the vertex coordinates
+		var index:UInt16
 		for vertex in vertices {
-			ave += vertex.position
+			ave += vertex
 		}
 		
 		ave = ave/Float(vertices.count)
 		
-		radius = simd_distance(vertices[0].position, ave)
+		radius = simd_distance(vertices[0], ave)
 		
-		let v1 = vertices[0].position - vertices[1].position
-		let v2 = vertices[0].position - vertices[2].position
+		let v1 = vertices[0] - vertices[1]
+		let v2 = vertices[0] - vertices[2]
 		normal_v = normalize(cross(v1, v2))
+		polyhedron.allCentroidNormals.append(normal_v)
+		if let last = polyhedron.allCentroidNormalIndices.last {
+			index = last + 1
+		} else {
+			index = 0
+		}
+		polyhedron.allCentroidNormalIndices.append(index)
 		tangent_v = normalize(v1)
 		bitan_v = cross(normal_v, tangent_v)
-		print("[\(String(describing: normal_v))], [\(String(describing: tangent_v))], [\(String(describing: bitan_v))]")
 	}
 	
 	fileprivate func getNumberOfSides(_ type: Int) -> Int {
@@ -235,27 +212,24 @@ class Apolygon {
 	func generateCentroids() {
 		centroid = [0.0, 0.0, 0.0]
 		for jj in 0..<vertices.count {
-			centroid += vertices[jj].position
+			centroid += vertices[jj]
 		}
 		centroid /= Float(vertices.count)
 	}
 	
-	func getCentroidVertices() {
+	func generateCentroidVertices() {
 		centroidVertices = vertices
-		centroidVertices.append(Vertex(x: centroid.x, y: centroid.y, z: centroid.z))
-		polyhedron.allCentroidVertices.append(Vertex(x: centroid.x, y: centroid.y, z: centroid.z))
+		centroidVertices.insert(centroid, at: 0)
 	}
 
 	func getCentroidIndices(withVertexCount vertexCount:Int) {
-		print("vertexCount: \(vertexCount)")
 		var value2:UInt16
 		centroidIndices = Array()
 		for (num, value) in indices.enumerated() {
 			let centroidIndex = UInt16(vertexCount - 1)
 			value2 = indices[(num+1)%indices.count]
 			centroidIndices.append(contentsOf: [centroidIndex, value, value2])
+			polyhedron.allCentroidIndices.append(contentsOf: [centroidIndex, value, value2])
 		}
-		polyhedron.allCentroidIndices.append(centroidIndices)
 	}
-
 }

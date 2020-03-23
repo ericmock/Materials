@@ -19,7 +19,7 @@ struct AppConstants {
 	static let kPolygonTypeNames = ["triangle", "square", "pentagon", "hexagon", "heptagon", "octagon", "decagon", "twelvegon", "square_2", "square_3", "square_4", "triangle_2", "triangle_3", "triangle_4"]
 	static let kPolygonTypesVertexCount = [3, 4, 5, 6, 7, 8, 10, 12, 4, 4, 4, 3, 3, 3]
 
-	/*static let kPolyhedronNames:[String] = ["Truncated Icosahedron",
+	static let kPolyhedronNames:[String] = ["Truncated Icosahedron",
 						 "Parabigyrate Rhombicosidodecahedron",
 						 "Parabidiminished Rhombicosidodecahedron",
 						 "Deca-faced Polyhedron",
@@ -53,7 +53,7 @@ struct AppConstants {
 						 "Prism-Expanded Truncated Cube",
 						 "Eight-Octahedron Ring",
 						 "Torus Slice",
-						 "Gyroelongated Pentagonal Cupola"]*/
+						 "Gyroelongated Pentagonal Cupola"]
 	static let kNumPolygonTypes = 15
 }
 
@@ -567,9 +567,9 @@ class AppController: AppDelegate {
 		var loc:Int
 		var polyID:NSNumber
 		var completed = [false, false, false, false]
-		print("polyhedronLevelsArray.count: ", polyhedronLevelsArray.count)
-		print("polyhedronNamesArray.count: ", polyhedronNamesArray.count)
-		print("polyhedronNumbersArray.count: ", polyhedronNumbersArray.count)
+//		print("polyhedronLevelsArray.count: ", polyhedronLevelsArray.count)
+//		print("polyhedronNamesArray.count: ", polyhedronNamesArray.count)
+//		print("polyhedronNumbersArray.count: ", polyhedronNumbersArray.count)
 		for ii in 0..<polyhedronLevelsArray.count - 1 {
 			loc = polyhedronLevelsArray.object(at: ii) as! Int
 			polyID = polyhedronNumbersArray.object(at: loc) as! NSNumber

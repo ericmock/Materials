@@ -9,47 +9,39 @@ class PostScoreController {
 		
 	}
 	
-	func startSend(_ informationArray:NSArray) {
-		var success:Bool
-		var url:URL
-		var request:NSMutableURLRequest
+	func startSend(_ information:[Any]) {
+//		var success:Bool
+//		var url:URL
+//		var request:NSMutableURLRequest
 		
 		// I want to use a URLSessionConfiguration = .background
 		
-//		if var urlComponents = URLComponents(string: "https://itunes.apple.com/search") {
-//			urlComponents.query = "media=music&entity=song&term=\(searchTerm)"
-//			// 3
-//			guard let url = urlComponents.url else {
-//				return
-//			}
-//			// 4
-//			dataTask =
-//				defaultSession.dataTask(with: url) { [weak self] data, response, error in
-//				defer {
-//					self?.dataTask = nil
-//				}
-//				// 5
+		let url = URL(string: "http://www.smallfeats.com/polywords/scores.php")!
+		var request = URLRequest(url: url)
+		request.httpMethod = "POST"
+		request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+		
+//		application/x-www-form-urlencoded
+
+//		let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
 //				if let error = error {
-//					self?.errorMessage += "DataTask error: " +
-//																	error.localizedDescription + "\n"
-//				} else if
-//					let data = data,
-//					let response = response as? HTTPURLResponse,
-//					response.statusCode == 200 {
-//					self?.updateSearchResults(data)
-//					// 6
-//					DispatchQueue.main.async {
-//						completion(self?.tracks, self?.errorMessage ?? "")
-//					}
+//						print ("error: \(error)")
+//						return
 //				}
-//			}
-//			// 7
-//			dataTask?.resume()
+//				guard let response = response as? HTTPURLResponse,
+//						(200...299).contains(response.statusCode) else {
+//						print ("server error")
+//						return
+//				}
+//				if let mimeType = response.mimeType,
+//						mimeType == "application/json",
+//						let data = data,
+//						let dataString = String(data: data, encoding: .utf8) {
+//						print ("got data: \(dataString)")
+//				}
 //		}
-//		
-		
-		responseData = NSMutableData()
-		
+//		task.resume()
+
 //		url = URL(string: "http://www.smallfeats.com/polywords/scores.php")
 	}
 }

@@ -36,13 +36,13 @@ class HighScores : NSObject {
 		defer {
 			sqlite3_finalize(queryStatement)
 		}
-		print("Query Result:")
+//		print("Query Result:")
 		
 		while (sqlite3_step(queryStatement) == SQLITE_ROW) {
 			let polyhedronType = Int(sqlite3_column_int(queryStatement, 0))
 			let mode = Int(sqlite3_column_int(queryStatement, 1))
 			let score = Float(sqlite3_column_double(queryStatement, 2))
-			print("type: \(polyhedronType), mode: \(mode), score: \(score)")
+//			print("type: \(polyhedronType), mode: \(mode), score: \(score)")
 			encodedScoreDataArray.append([polyhedronType, mode, score])
 		}
 	}
@@ -52,7 +52,7 @@ class HighScores : NSObject {
 		
 		do {
 			db = try HighScoresDatabase.open(path: dbPath!)
-			print("Successfully opened connection to database.")
+//			print("Successfully opened connection to database.")
 		} catch SQLiteError.OpenDatabase(_) {
 			print("Unable to open database.")
 			return
@@ -263,7 +263,7 @@ class HighScores : NSObject {
 	}
 		
 	func addScoreForPolyhedron(ofType type:Int, forMode newMode:UInt, forTime newTime:Float, withScore newScore:Int) {
-		print("into  addScoreForPolyhedronType:\(type) forMode:\(newMode) forTime:\(newTime) withScore:\(newScore) of \(self.className)")
+//		print("into  addScoreForPolyhedronType:\(type) forMode:\(newMode) forTime:\(newTime) withScore:\(newScore) of \(self.className)")
 		let data = encodeDataForPolyhedron(ofType: type, forMode: newMode, forTime: newTime, withScore: newScore)
 //		encodedScoreDataArray.append(data)
 //		decodedScoreDataArray.append([newMode, type, newTime, newScore])
@@ -296,7 +296,7 @@ class HighScores : NSObject {
 	}
 	
 	func getTopScores(forPolyhedronType type:Int) {
-		print("int getTopScore for polyhedron type \(type) of \(self.className)")
+//		print("int getTopScore for polyhedron type \(type) of \(self.className)")
 		var tempArray:[[Any]] = [[]]
 		
 		for array in encodedScoreDataArray {

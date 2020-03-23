@@ -52,7 +52,7 @@ CGImageRef convertToGreyscale(UIImage *i, float *lightness) {
     CGContextRelease(context);
     CGColorSpaceRelease(color_space);
 	return image;
-}
+} //Ported
 
 + (NSArray *) getBackgroundTextures {
 	NSArray *array = [[NSBundle mainBundle] pathsForResourcesOfType:@"jpg" inDirectory:@"BackgroundTextures"];
