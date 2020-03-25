@@ -12,7 +12,7 @@ import Foundation
 import CoreGraphics
 import MetalKit
 
-enum inputMode {
+enum InputMode {
 	case rotate
 	case select
 }
@@ -50,7 +50,7 @@ class Scene {
 	private var startTime:Float = 0
 	var checked = false
 	var dragging = false
-	var mode = inputMode.select
+	var inputMode = InputMode.select
 	var initialTouchPosition:CGPoint = .zero
 	var currentTouchPosition:CGPoint = .zero
 	var previousTouchPosition:CGPoint = .zero
@@ -69,7 +69,7 @@ class Scene {
 	var previouslyTouchedNumber: Int = 0
 	var touchedNumber: Int = 0
 	
-	var words:[NSString] = [""]
+//	var words:[NSString] = [""]
 	@objc var lookingUpWordsQ:Bool = false
 	
 	var accelz:Float = 0.0

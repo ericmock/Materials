@@ -35,7 +35,7 @@ extension Scene {
 		checked = false
 		dragTimer = Timer(timeInterval: 0.5, target: self, selector: #selector(checkDrag), userInfo: nil, repeats: false) //dragTimer = [[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(checkDrag:) userInfo:nil repeats:NO] retain];
 		
-		mode = .rotate
+		inputMode = .rotate
 		// Do we need this still?
 		touchPosition.y = screenSize.height - touchPosition.y
 		self.trackball.startTrackball(withX: Float(touchPosition.x), withY: Float(touchPosition.y), withOriginX: 0, withOriginY: 0, withWidth: Float(screenSize.width), withHeight: Float(screenSize.height));
@@ -52,11 +52,11 @@ extension Scene {
 		touchPosition = event.locationInWindow//[t locationInView:t.view];
 		currentTouchPosition = touchPosition
 		
-		if (mode == .rotate) {
+		if (inputMode == .rotate) {
 			touchPosition.y = self.screenSize.height - touchPosition.y
 			gTrackBallRotation = self.trackball.rollToTrackball(withX: Float(touchPosition.x), withY: Float(touchPosition.y));
 			//[self setRotationAngle:gTrackBallRotation[0] X:gTrackBallRotation[1] Y:gTrackBallRotation[2] Z:gTrackBallRotation[3]];
-		} else if (mode == .select) {
+		} else if (inputMode == .select) {
 			//            int touched_num = [self findTouchedPolygonAtPoint:touchPos];
 			//            if (prev_touched_num >= 0 && prev_touched_num < [polyhedron.polygons count]) {
 			//                Polygons *poly = [polyhedron.polygons objectAtIndex:prev_touched_num];
@@ -76,7 +76,7 @@ extension Scene {
 		var touchPosition: CGPoint = CGPoint(x:0.0, y:0.0)
 		dragTimer.invalidate()
 		
-		if (dragging && mode == .rotate) {
+		if (dragging && inputMode == .rotate) {
 			//addToRotationTrackball (gTrackBallRotation, worldRotation);
 			gTrackBallRotation[0] = 0.0
 			gTrackBallRotation[1] = 0.0
@@ -85,7 +85,7 @@ extension Scene {
 			
 			rotationAngles = gTrackBallRotation
 			worldRotationAngles = worldRotation
-		} else if (!dragging || mode == .select) {
+		} else if (!dragging || inputMode == .select) {
 			touchPosition = event.locationInWindow//[t locationInView:t.view];
 			
 			if (previousTouchNumber >= 0 && previousTouchNumber < thePolyhedron.polygons.count) {

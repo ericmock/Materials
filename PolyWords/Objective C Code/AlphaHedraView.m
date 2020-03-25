@@ -1383,7 +1383,7 @@ NSLog(@"into  selectPolyhedron:(NSDictionary *)polyhedraInfo  of %@",[self class
 	self.dynamicWordsFoundFileHandle = [NSFileHandle fileHandleForUpdatingAtPath:[[appController getDynamicWordsFoundPath] stringByAppendingFormat:@"_string"]];
 	[dynamicWordsFoundFileHandle seekToEndOfFile];
 
-}
+} // Ported
 
 - (void) assignLetter:(int)letter_num toPolyNumber:(int)ii {
 #ifdef verbose
@@ -1394,7 +1394,7 @@ NSLog(@"into  assignLetter:(int)letter_num toPolyNumber:(int)ii  of %@",[self cl
 		((Polygons *)[polyhedron.polygons objectAtIndex:ii]).texture = letter_num;
 		((Polygons *)[polyhedron.polygons objectAtIndex:ii]).letter = [alphabetArray objectAtIndex:letter_num];
 	}
-}
+} // Ported
 
 - (void) assignLetterToAllPolygonsWithLetterString:(NSString *)letterString {
 	for (int ii = 0; ii < polyhedron.num_polygons; ii++) {
@@ -1403,7 +1403,7 @@ NSLog(@"into  assignLetter:(int)letter_num toPolyNumber:(int)ii  of %@",[self cl
 		poly.letter = [letterString substringWithRange:range];
 		poly.texture = [alphabetArray indexOfObject:poly.letter];
 	}
-}
+} // Ported
 
 - (void) assignLetterToAllPolygons {
 #ifdef verbose
@@ -1416,7 +1416,7 @@ NSLog(@"into  assignLetterToAllPolygons  of %@",[self class]);
 	} else {
 		[self assignLetterToAllPolygonsWithLetterString:appController.letterString];
 	}
-}
+} // Ported
 
 - (void) assignRandomLetterToPolyNumber:(int)ii {
 #ifdef verbose

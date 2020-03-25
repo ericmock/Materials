@@ -55,6 +55,11 @@ struct AppConstants {
 						 "Torus Slice",
 						 "Gyroelongated Pentagonal Cupola"]
 	static let kNumPolygonTypes = 15
+	static let kWordNumbers = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven"]
+	static let kAlphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+	static let kCommonLetters = ["A", "E", "I", "O", "T", "N"]
+	static let kUncommonLetters = ["J", "Q", "X", "Z"]
+	static let kLetterValues:[Int] = [1, 3, 2, 2, 1, 2, 2, 1, 1, 4, 3, 2, 2, 1, 1, 3, 4, 1, 1, 1, 2, 3, 2, 4, 3, 4]
 }
 
 class AppController: AppDelegate {
@@ -75,25 +80,8 @@ class AppController: AppDelegate {
 	var purchasingQ = false
 	var connection_failed = false
 	var resign_state = 0
-	let wordNumbers = ["Zero","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten","Eleven"]
-	let alphabetArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 	let nowTime = Date()
 	var mode:UInt = 0
-	var unlocked = true
-	var upgrading = true
-	var sendDataQ = true
-	var upgraded = true
-	var levelAborted = false
-	var checking = 0
-	var bgTexture = 3
-	var axesQ = false
-	var fontSelected = 1
-	var sound = true
-	var adSize:CGSize!
-	var textures = UnsafeMutablePointer<UInt>.allocate(capacity: numPolygonTypes + 5)
-	var textureExists = [Bool](repeating: false, count: numPolygonTypes + 5)
-	var gameViewInitializedQ = false
-	let polyWordsView:PolyWordsView!
 //	var polyWordsViewController:PolyWordsViewController!
 	var level:UInt = 0
 	var level_aborted = false
@@ -104,10 +92,21 @@ class AppController: AppDelegate {
 	var currentAlertView:NSResponder!
 	var upgradeDelegate:UpgradeDelegate!
 	var send_data_q = false
+	var letterString = ""
+	var unlocked = false
+	var checking = 0
+	var bgTexture = 0
+	var sendDataQ = false
+	var axesQ = false
+	var fontSelected = 0
+	var textureExists:[Bool] = []
+	var gameViewInitializedQ = false
+	var upgrading = false
+	var sound = true
+	var upgraded = false
 
 //	required init(coder aCoder: NSCoder) {
 	override init() {
-		polyWordsView = PolyWordsView()
 		super.init()
 		do {
 			highScores = try HighScores(withAppController: self)
@@ -118,10 +117,6 @@ class AppController: AppDelegate {
 
 	}
 	
-	func removeAllStoredData() {
-		
-	}
-	
 	func initializeGame() {
 		
 	}
@@ -130,38 +125,38 @@ class AppController: AppDelegate {
 		var saveData = NSArray()
 		switch mode {
 		case AppConstants.kStaticTimedMode:
-			saveData = NSArray.init(contentsOfFile: self.getStaticTimedSavePath())!
+			saveData = NSArray.init(contentsOfFile: AppController.getStaticTimedSavePath())!
 			break
 		case AppConstants.kStaticScoredMode:
-			saveData = NSArray.init(contentsOfFile: self.getStaticScoredSavePath())!
+			saveData = NSArray.init(contentsOfFile: AppController.getStaticScoredSavePath())!
 			break
 		case AppConstants.kDynamicTimedMode:
-			saveData = NSArray.init(contentsOfFile: self.getDynamicTimedSavePath())!
+			saveData = NSArray.init(contentsOfFile: AppController.getDynamicTimedSavePath())!
 			break
 		case AppConstants.kDynamicScoredMode:
-			saveData = NSArray.init(contentsOfFile: self.getDynamicScoredSavePath())!
+			saveData = NSArray.init(contentsOfFile: AppController.getDynamicScoredSavePath())!
 			break
 		default:
 			break
 		}
-		self.removeAllStoredData()
+		AppController.removeAllStoredData()
 		if !gameViewInitializedQ {
 			self.initializeGame()
 		}
-		self.mode = mode
-		let decodedDataArray = EncodeDecode.decode(gameData: saveData, withTimeHistory:polyWordsView.timeHistory, withWordsFound:polyWordsView.wordsFound)
-		polyWordsView.score = decodedDataArray.object(at: 0) as! Int
-		polyWordsView.playTime = decodedDataArray.object(at: 1) as! Float
-		polyWordsView.lastSubmitTime = decodedDataArray.object(at: 1) as! Float
-		continuingQ = true
-		polyhedraInfo = saveData.object(at: 0) as? NSDictionary
-		polyWordsView.selectPolyhedron(withInfo: polyhedraInfo!)
-		
-		var ii = 0
-		for num in decodedDataArray.object(at: 2) as! [Int] {
-			polyWordsView.assignLetter(with: num, toPolyNumber: ii)
-			ii += 1
-		}
+//		self.mode = mode
+//		let decodedDataArray = EncodeDecode.decode(gameData: saveData, withTimeHistory:gameScene!.timeHistory, withWordsFound:gameScene.wordsFound)
+//		gameScene.score = decodedDataArray.object(at: 0) as! Int
+//		gameScene.playTime = decodedDataArray.object(at: 1) as! Float
+//		gameScene.lastSubmitTime = decodedDataArray.object(at: 1) as! Float
+//		continuingQ = true
+//		polyhedraInfo = saveData.object(at: 0) as? Dictionary
+//		gameScene.selectPolyhedron(withInfo: polyhedraInfo!)
+//
+//		var ii = 0
+//		for num in decodedDataArray.object(at: 2) as! [Int] {
+//			polyWordsView.assignLetter(toPolygon: ii, ofType: -1, withNumber: num)
+//			ii += 1
+//		}
 	}
 	
 	func copyDatabasesIfNeeded() {
@@ -171,7 +166,7 @@ class AppController: AppDelegate {
 		var success:Bool
 //		var defaultDBPath:String
 		
-		dbPath = self.getWordDBPath()
+		dbPath = AppController.getWordDBPath()
 		success = fileManager.fileExists(atPath: dbPath)
 		if !success {
 			let defaultDBPath = Bundle.main.resourcePath! + "wordlist.sqlite"
@@ -258,7 +253,8 @@ class AppController: AppDelegate {
 		}
 	}
 
-	func setWordChecking(newChecking: Int) {
+	func setWordChecking(newChecking: Int
+	) {
 		if newChecking != checking {
 			checking = newChecking
 			UserDefaults.standard.set(checking, forKey: "checking")
@@ -296,15 +292,15 @@ class AppController: AppDelegate {
 		}
 	}
 	
-	func anchorPoint() -> CGPoint {
-		let anchorPoint:CGPoint
-		if adSize.height > 50 {
-			anchorPoint = CGPoint(x: 0.0, y: self.screenRect.size.height + adSize.height)
-		} else {
-			anchorPoint = CGPoint(x: 0.0, y: self.screenRect.size.height)
-		}
-		return anchorPoint
-	}
+//	func anchorPoint() -> CGPoint {
+//		let anchorPoint:CGPoint
+//		if adSize.height > 50 {
+//			anchorPoint = CGPoint(x: 0.0, y: self.screenRect.size.height + adSize.height)
+//		} else {
+//			anchorPoint = CGPoint(x: 0.0, y: self.screenRect.size.height)
+//		}
+//		return anchorPoint
+//	}
 	
 	func decodeConvert(oldScores:NSArray) -> NSArray {
 		var gameMode = oldScores.object(at: 0) as! Int
@@ -381,42 +377,46 @@ class AppController: AppDelegate {
 		return fullPath
 	}
 
-	func getStaticScoredSavePath() -> String {
+	static func getStaticScoredSavePath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"ss_data"
 		return fullPath
 	}
 
-	func getStaticTimedSavePath() -> String {
+	static func getStaticTimedSavePath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"st_data"
 		return fullPath
 	}
 
-	func getDynamicScoredSavePath() -> String {
+	static func getDynamicScoredSavePath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"ds_data"
 		return fullPath
 	}
 
-	func getDynamicTimedSavePath() -> String {
+	static func getDynamicTimedSavePath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"dt_data"
 		return fullPath
 	}
 
-	func getScoreDBPath() -> String {
+	static func getScoreDBPath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"data.sqlite"
 		return fullPath
 	}
 
-	func getWordDBPath() -> String {
+	static func getWordDBPath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"wordlist.sqlite"
 		return fullPath
 	}
 	
+	static func removeAllStoredData() {
+		
+	}
+
 	func upgradeFromTwoPointOne() {
 		guard let oldEncodedDataArray = NSArray(contentsOfFile: self.getHighScoresPath()) else { return }
 		let newEncodedDataArray = NSMutableArray(capacity: 3)
@@ -590,9 +590,9 @@ class AppController: AppDelegate {
 	
 	func startGame() {
 		if !continuingQ {
-			polyWordsView.playTime = 0.0
-			polyWordsView.lastSubmitTime = 0.0
-			levelAborted = false
+//			gameScene.playTime = 0.0
+//			gameScene.lastSubmitTime = 0.0
+//			levelAborted = false
 		}
 		
 		if polyhedraInfo != nil {
@@ -605,28 +605,4 @@ class AppController: AppDelegate {
 		}
 	}
 	
-	func resetGame() {
-		polyWordsView.wordString = ""
-		polyWordsView.score = 0
-		polyWordsView.opponent_score = 0
-		polyWordsView.word_score = 0
-		polyWordsView.points_avail = 0
-		polyWordsView.points_avail_display = 0
-		polyWordsView.show_get_ready = true
-		polyWordsView.opponent_ready = false
-		self.level_aborted = false
-		self.level_completed = false
-		polyWordsView.wordsFound = NSMutableArray()
-		polyWordsView.wordScores = NSMutableArray()
-		polyWordsView.wordsFoundOpponent = NSMutableArray()
-		polyWordsView.wordScoresOpponent = NSMutableArray()
-		polyWordsView.timeHistory = NSMutableArray()
-		polyWordsView.oldWordsFound = NSMutableArray()
-		polyWordsView.playTime = 0.0
-		polyWordsView.lastSubmitTime = 0.0
-		polyWordsView.setWorldRotation(angle:0.0, X:0.0, Y:0.0, Z:1.0)
-		polyWordsView.setRotation(angle:0.0, X:0.0, Y:0.0, Z:1.0)
-		polyWordsView.endSpin()
-//TODO		polyWordsViewController.gameState = kGameStart
-	}
 }

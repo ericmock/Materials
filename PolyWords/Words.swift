@@ -11,15 +11,15 @@ import SQLite3
 
 class Words : NSObject {
 	let db:SQLiteDatabase_old!
-	let delegate:PolyWordsView!
-	var gameScene:Scene
+	let delegate:GameScene!
+	var gameScene:GameScene
 	let deleteStatement = ""
 	let insertStatament = ""
 	let wordID = 0
 	let word = ""
 	//    let words:[NSString] = []
 	
-	init(withDB dbPath:String, withScene scene:Scene, withDelegate delegate:PolyWordsView) {
+	init(withDB dbPath:String, withScene scene:GameScene, withDelegate delegate:GameScene) {
 		self.gameScene = scene
 		self.delegate = delegate
 		do {

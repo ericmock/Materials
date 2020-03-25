@@ -125,8 +125,8 @@ extension SQLiteDatabase_old {
 }
 
 extension SQLiteDatabase_old {
-  func select(withStatement querySql:String) -> [NSString]? {
-    var words:[NSString] = []
+  func select(withStatement querySql:String) -> [String]? {
+    var words:[String] = []
     guard let queryStatement = try? prepareStatement(sql: querySql) else {
       return nil
     }
@@ -142,7 +142,7 @@ extension SQLiteDatabase_old {
       let word = String(cString: queryResultCol1!)
       print("Query Result:")
       print("\(id) | \(word)")
-        words.append(word as NSString)
+        words.append(word as String)
     }
     return words
   }

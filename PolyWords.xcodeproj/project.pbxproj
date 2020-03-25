@@ -285,6 +285,7 @@
 		0B11CA74240F4035001B76A2 /* PolyWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyWordsView.swift; sourceTree = "<group>"; };
 		0B362D3F2423B1A900F1E8AF /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		0B3BFCDB24290EF100AD9614 /* SimpleShaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = SimpleShaders.metal; sourceTree = "<group>"; };
+		0B3BFCDE242BACBA00AD9614 /* LevelsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelsView.m; sourceTree = "<group>"; };
 		0B5D20522416B29C0052ECF1 /* SQLiteAccess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SQLiteAccess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B5D20542416B29C0052ECF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B5D20562416B29C0052ECF1 /* PolyhedronViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyhedronViewController.swift; sourceTree = "<group>"; };
@@ -657,6 +658,7 @@
 			isa = PBXGroup;
 			children = (
 				0BD332B52424E8C100DADAA3 /* EnDe.m */,
+				0B3BFCDE242BACBA00AD9614 /* LevelsView.m */,
 				0BD332AC2424E52000DADAA3 /* CleanupDataController.m */,
 				0BD332AF2424E52100DADAA3 /* GetGameDataController.m */,
 				0BD332AE2424E52100DADAA3 /* PostDictController.m */,
@@ -764,6 +766,7 @@
 				0B5DC9B42405D27900827383 /* GameScene.swift */,
 				0B62E95A240DC7CC006C7FE3 /* HighScores.swift */,
 				0B62E95F240DCA27006C7FE3 /* HighWords.swift */,
+				0B6542E2241AC8AA009CE36E /* LevelSelectionScene.swift */,
 				13EBBB3E22C6FDA500230D2B /* Lighting.swift */,
 				130F081422C43563001B7909 /* Mesh.swift */,
 				0B5DC9DE2405D7A700827383 /* MetalTexture.swift */,
@@ -790,7 +793,6 @@
 				139D235522C86C1E00C6DB03 /* Textures.xcassets */,
 				0B5DC9BA2405D28C00827383 /* TitleIntegrator.swift */,
 				0B5DC9B72405D28300827383 /* TitleScene.swift */,
-				0B6542E2241AC8AA009CE36E /* LevelSelectionScene.swift */,
 				0B5DC9B12405D26F00827383 /* TrackBall.swift */,
 				0BEA12E3241F1D9C00BCEFA8 /* Primitive.swift */,
 				0B9956A52410D1FB00F4D06F /* UpgradeDelegate.swift */,
