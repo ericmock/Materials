@@ -39,7 +39,7 @@ class Apolygon {
 		select_animation_start_time = Date()
 		
 		numberOfSides = AppConstants.kPolygonTypesVertexCount[type]
-		let scale:Float = 1/6.0
+		let scale:Float = 1/1.0
 		getTextureCoords(type, scale, numberOfSides)
 	}
 	
@@ -84,7 +84,7 @@ class Apolygon {
 				baseTextureCoords = Array()
 				scaledBaseTextureCoords = Array()
 				for ii in 0..<3 {
-					baseTextureCoords.append(float2(1.0/2.0 * (cos(.pi + .pi/6.0 + Float(ii) * .pi/Float(numSides)) + 1), 1.0/2.0 * (sin(.pi + .pi/6.0 + Float(ii) * .pi/Float(numSides)) + 1)))
+					baseTextureCoords.append(float2(1.0/2.0 * (cos(Float(2*ii) * .pi/Float(numSides) + .pi/6.0) + 1), 1.0/2.0 * (sin(Float(2*ii) * .pi/Float(numSides) + .pi/6.0) + 1)))
 					scaledBaseTextureCoords.append(float2(scale,scale) * baseTextureCoords.last!)
 				}
 			}
@@ -145,7 +145,7 @@ class Apolygon {
 				baseTextureCoords = Array()
 				scaledBaseTextureCoords = Array()
 				for ii in 0..<4 {
-					baseTextureCoords.append(float2(1.0/2.0 * (cos((Float(ii) + 1.0) * .pi/4.0) + 1), 1.0/2.0 * (sin((Float(ii) + 1.0) * .pi/4.0) + 1)))
+					baseTextureCoords.append(float2(1.0/2.0 * (cos(Float(ii) * .pi/2.0 + .pi/4.0) + 1), 1.0/2.0 * (sin(Float(ii) * .pi/2.0 + .pi/4.0) + 1)))
 					scaledBaseTextureCoords.append(float2(scale,scale) * baseTextureCoords.last!)
 				}
 			}
@@ -157,7 +157,7 @@ class Apolygon {
 			baseTextureCoords = Array()
 			scaledBaseTextureCoords = Array()
 			for ii in 0..<numSides {
-				baseTextureCoords.append(float2(1.0/2.0 * (cos((Float(ii) + 1.0) * .pi/Float(numSides)) + 1), 1.0/2.0 * (sin((Float(ii) + 1.0) * .pi/Float(numSides)) + 1)))
+				baseTextureCoords.append(float2(1.0/2.0 * (cos(2.0 * Float(ii) * .pi/Float(numSides) + .pi/2.0/Float(numSides)) + 1), 1.0/2.0 * (sin(2.0 * Float(ii) * .pi/Float(numSides) + .pi/2.0/Float(numSides)) + 1)))
 				scaledBaseTextureCoords.append(float2(scale,scale) * baseTextureCoords.last!)
 			}
 		}
@@ -169,6 +169,14 @@ class Apolygon {
 		centroidTextureCoord /= Float(numSides)
 		
 		baseTextureCoords.insert(centroidTextureCoord, at: 0)
+
+		var scaledCentroidTextureCoord = float2(0,0)
+		for coord in scaledBaseTextureCoords {
+			scaledCentroidTextureCoord += coord
+		}
+		scaledCentroidTextureCoord /= Float(numSides)
+		
+		scaledBaseTextureCoords.insert(scaledCentroidTextureCoord, at: 0)
 	}
 	
 	func setTextureCoords(forType type:Int) {

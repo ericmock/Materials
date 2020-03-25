@@ -78,6 +78,8 @@ class Scene {
 	
 	init(screenSize: CGSize, sceneName: String) {
 		self.screenSize = screenSize
+		fragmentUniforms.lightCount = lighting.count
+		print("number of lights: \(lighting.count)")
 		setupScene()
 	}
 	
@@ -93,8 +95,6 @@ class Scene {
 		uniforms.viewMatrix = camera.viewMatrix
 		uniforms.projectionMatrix = camera.projectionMatrix
 		uniforms.normalMatrix = uniforms.modelMatrix.upperLeft
-
-		
 		fragmentUniforms.cameraPosition = camera.position
 	}
 	

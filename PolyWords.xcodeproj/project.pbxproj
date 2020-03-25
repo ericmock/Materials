@@ -12,6 +12,7 @@
 		0B1626EB2417306900A73B5F /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
 		0B1626EC2417306A00A73B5F /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
 		0B1626ED2417306A00A73B5F /* Polyhedron.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5DC9C92405D39800827383 /* Polyhedron.swift */; };
+		0B3BFCDD2429115800AD9614 /* ComplexShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1384A38C22C1BE70006036BA /* ComplexShaders.metal */; };
 		0B5D20572416B29C0052ECF1 /* PolyhedronViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5D20562416B29C0052ECF1 /* PolyhedronViewController.swift */; };
 		0B5D20592416B29F0052ECF1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0B5D20582416B29F0052ECF1 /* Assets.xcassets */; };
 		0B5D205C2416B29F0052ECF1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B5D205A2416B29F0052ECF1 /* Main.storyboard */; };
@@ -157,7 +158,6 @@
 		0B6B9448241A874A0020A06B /* HighScoresDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6B9446241A874A0020A06B /* HighScoresDatabase.swift */; };
 		0B6B9449241A874A0020A06B /* HighScoresDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6B9446241A874A0020A06B /* HighScoresDatabase.swift */; };
 		0B6B944A241A874A0020A06B /* HighScoresDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6B9446241A874A0020A06B /* HighScoresDatabase.swift */; };
-		0B6F22EB2427085000CCEE3E /* ComplexShaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 1384A38C22C1BE70006036BA /* ComplexShaders.metal */; };
 		0B7F55FB2409741100728B5B /* AppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7F55F9240973B000728B5B /* AppController.swift */; };
 		0B9286DB2411BD24008CAC19 /* PostScoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DA2411BD24008CAC19 /* PostScoreController.swift */; };
 		0B9286E02412970E008CAC19 /* ServerResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B9286DF2412970D008CAC19 /* ServerResponse.swift */; };
@@ -284,6 +284,7 @@
 		0B11CA70240F35F1001B76A2 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		0B11CA74240F4035001B76A2 /* PolyWordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyWordsView.swift; sourceTree = "<group>"; };
 		0B362D3F2423B1A900F1E8AF /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		0B3BFCDB24290EF100AD9614 /* SimpleShaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = SimpleShaders.metal; sourceTree = "<group>"; };
 		0B5D20522416B29C0052ECF1 /* SQLiteAccess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SQLiteAccess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B5D20542416B29C0052ECF1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0B5D20562416B29C0052ECF1 /* PolyhedronViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyhedronViewController.swift; sourceTree = "<group>"; };
@@ -781,6 +782,7 @@
 				1384A38822C1B53E006036BA /* Renderer.swift */,
 				0B5DC9AE2405D25A00827383 /* Scene.swift */,
 				0B362D3F2423B1A900F1E8AF /* Shaders.metal */,
+				0B3BFCDB24290EF100AD9614 /* SimpleShaders.metal */,
 				1384A38C22C1BE70006036BA /* ComplexShaders.metal */,
 				0B5DC9BD2405D29E00827383 /* SQLiteDatabase_old.swift */,
 				130F081722C435A0001B7909 /* Submesh.swift */,
@@ -1361,7 +1363,7 @@
 				0B9286E02412970E008CAC19 /* ServerResponse.swift in Sources */,
 				130F081822C435A0001B7909 /* Submesh.swift in Sources */,
 				0B5DC9B52405D27A00827383 /* GameScene.swift in Sources */,
-				0B6F22EB2427085000CCEE3E /* ComplexShaders.metal in Sources */,
+				0B3BFCDD2429115800AD9614 /* ComplexShaders.metal in Sources */,
 				0BD332C02425163E00DADAA3 /* EncodeDecode.swift in Sources */,
 				0B99569824100B4E00F4D06F /* PushDataController.swift in Sources */,
 				0B11CA75240F4035001B76A2 /* PolyWordsView.swift in Sources */,

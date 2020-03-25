@@ -53,10 +53,8 @@ class Model: Node {
 		submeshes.append(submesh)
 
 		let stride = MemoryLayout<Vertex>.stride
-		let size = MemoryLayout<Vertex>.size
-		print("Vertex stride: \(stride)")
-		print("Vertex size: \(size)")
-		let length = size * faceVertices.count
+		let length = stride * faceVertices.count
+		print(faceVertices[0])
 		let vertexBuffer = Renderer.device.makeBuffer(bytes: faceVertices,
 																									length: length,
 																									options: [])!
@@ -77,8 +75,8 @@ class Model: Node {
 																				indexBuffer: submesh.indexBuffer,
 																				indexBufferOffset: 0)
 		commandEncoder.setTriangleFillMode(.lines)
-		var color:float4 = [0,0,0,0]
-		commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: Int(colorBufferIndex.rawValue))
+//		var color:float4 = [0,0,0,0]
+//		commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: Int(colorBufferIndex.rawValue))
 		isWireframe = true
 		commandEncoder.setFragmentBytes(&isWireframe, length: MemoryLayout<Bool>.stride, index: Int(wireframeQBufferIndex.rawValue))
 		commandEncoder.drawIndexedPrimitives(type: .triangle,
@@ -111,6 +109,8 @@ extension Model: Renderable {
 		var fragmentUniforms = fragment
 		
 		uniforms.modelMatrix = worldMatrix
+		fragmentUniforms.tiling = tiling
+//		fragmentUniforms.lightCount = 2
 		commandEncoder.setVertexBytes(&uniforms,
 																	length: MemoryLayout<Uniforms>.stride,
 																	index: Int(uniformsBufferIndex.rawValue))
@@ -124,19 +124,19 @@ extension Model: Renderable {
 			
 			for submesh in mesh.submeshes {
 				commandEncoder.setRenderPipelineState(submesh.pipelineState)
-				var color = submesh.color
-				commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: Int(colorBufferIndex.rawValue))
+//				var color = submesh.color
+//				commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: Int(colorBufferIndex.rawValue))
 
 				commandEncoder.setFragmentTexture(submesh.textures.baseColor,
 																				 index: Int(BaseColorTexture.rawValue))
 				commandEncoder.setFragmentTexture(submesh.textures.normal,
 																				 index: Int(NormalTexture.rawValue))
-				commandEncoder.setFragmentTexture(submesh.textures.roughness,
-																				 index: Int(RoughnessTexture.rawValue))
-				commandEncoder.setFragmentTexture(submesh.textures.metallic,
-																				 index: Int(MetallicTexture.rawValue))
-				commandEncoder.setFragmentTexture(submesh.textures.ao,
-																				 index: Int(AOTexture.rawValue))
+				commandEncoder.setFragmentTexture(submesh.textures.letters,
+																				 index: Int(LettersTexture.rawValue))
+//				commandEncoder.setFragmentTexture(submesh.textures.metallic,
+//																				 index: Int(MetallicTexture.rawValue))
+//				commandEncoder.setFragmentTexture(submesh.textures.ao,
+//																				 index: Int(AOTexture.rawValue))
 
 				//					var material = submesh.material
 				//					commandEncoder.setFragmentBytes(&material,

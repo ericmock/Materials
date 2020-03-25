@@ -84,19 +84,27 @@ class Polyhedron: Model {
 	}
 	
 	func generateFaceVerticesAndIndices() {
+		let colorMultiplier = [float3(1.5,1.0,1.0),float3(1.0,1.5,1.0),float3(1.0,1.0,1.5),float3(1.5,1.5,1)]
 		var indexCounter:UInt16 = 0
+		var polygonCounter:Int = 0
 		for polygonsOfType in polygons {
 			for poly in polygonsOfType {
+				let letter = Int.random(in: 0...25)
+
 				for (num, vertex) in poly.centroidVertices.enumerated() {
+					print(poly.scaledBaseTextureCoords[num])
 					let newVertex = Vertex(position: vertex,
 																 normal: poly.normal_v,
-																 uv: float2(0.5,0.5)
-//																 uv: poly.baseTextureCoords[num]
+																 uv: poly.scaledBaseTextureCoords[num],
+																 colorShift: colorMultiplier[(poly.numberOfSides-3)%4],
+																 faceNumber: letter,
+																 letterNumber: letter
 //																 tangent: poly.tangent_v,
 //																 bitangent: poly.bitan_v
 					)
 					faceVertices.append(newVertex)
 				}
+				polygonCounter += 1
 				var localIndices:[UInt16] = Array(repeating: 0, count: 3*poly.numberOfSides)
 				var localIndexCounter:UInt16 = 1
 				for num in 0..<poly.numberOfSides {
@@ -108,6 +116,9 @@ class Polyhedron: Model {
 				faceIndices.append(contentsOf: localIndices)
 				indexCounter += localIndexCounter
 			}
+		}
+		for vertex in faceVertices {
+				print("Sides: \(vertex.uv), Letter: \(vertex.letterNumber)")
 		}
 	}
 	

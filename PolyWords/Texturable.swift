@@ -1,5 +1,15 @@
 import MetalKit
 
+enum TextureSemantics {
+	case baseColor
+	case tangentSpaceNormal
+	case roughness
+	case metallic
+	case ao
+	case letters
+}
+
+
 protocol Texturable {}
 
 extension Texturable {

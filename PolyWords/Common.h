@@ -49,7 +49,8 @@ typedef enum {
   NormalTexture = 1,
   RoughnessTexture = 2,
   MetallicTexture = 3,
-  AOTexture = 4
+  AOTexture = 4,
+	LettersTexture = 5
 } Textures;
 
 typedef enum {
@@ -59,10 +60,10 @@ typedef enum {
 	bitanBufferIndex = 3,
 	textureCoordbufferIndex = 4,
   uniformsBufferIndex = 11,
-//  lightsBufferIndex = 12,
+  lightsBufferIndex = 12,
   fragmentUniformsBufferIndex = 13,
   materialsBufferIndex = 14,
-	colorBufferIndex = 15,
+//	colorBufferIndex = 15,
 	wireframeQBufferIndex = 16
 } BufferIndices;
 
