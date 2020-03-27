@@ -31,14 +31,18 @@ class LevelSelectionScene: Scene {
 	override func setupScene() {
 		camera.target = [0, 0.8, 0]
 		camera.distance = 3
-		camera.rotation = [-0.4,-0.4,0]
+		camera.rotation = [0.0,0.0,0]
 		
 		// TODO:  Don't load redundant textures.
 		let polyhedraInfo = AppController.initializePolyhedronInfo()
-		for polyhedronInfo in polyhedraInfo {
+		for (num,polyhedronInfo) in polyhedraInfo.enumerated() {
 			if (polyhedronInfo["level"] as! Int) < 6 {
 				let polyhedron = Polyhedron(name: polyhedronInfo["name"] as! String, withPolyID: polyhedronInfo["polyID"] as! Int, scene: self)
 				polyhedron.rotation.y = radians(fromDegrees: Float.random(in: -180..<180))
+				polyhedron.position.x = 0
+				polyhedron.position.y = 1.5 * cos(2.0 * Float(num)/6.0 * .pi)
+				polyhedron.position.z = 1.5 * sin(2.0 * Float(num)/6.0 * .pi)
+				polyhedron.scaleV = float3(1.0/5.0, 1.0/5.0, 1.0/5.0)
 				add(node: polyhedron)
 				models.append(polyhedron)
 			}
