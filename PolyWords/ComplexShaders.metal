@@ -149,4 +149,5 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 	return float4(fragColor,1);
 //	return float4(float2(int(in.polygonNumber/6),in.polygonNumber%6),0,1);
 //	return abs(normalize(in.position));
+//	return float4(1,0,0,1);
 }

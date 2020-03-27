@@ -12,13 +12,11 @@ import CoreGraphics
 
 class LevelSelectionScene: Scene {
 //	MARK:  Instance variables
-	let appController:AppController
 	let touchAngles:[Float] = []
 	let touchTimes:[Float] = []
 	var lockedPolyhedronInfo:Dictionary<String,Any>
 	
-	init(screenSize: CGSize, sceneName: String, appController: AppController) {
-		self.appController = appController
+	override init(screenSize: CGSize, sceneName: String) {
 		lockedPolyhedronInfo = ["name": "Locked",
 														"polyID": 0,
 														"completed": [1, 1, 1, 1],
@@ -31,12 +29,60 @@ class LevelSelectionScene: Scene {
 
 //	MARK:  Methods
 	override func setupScene() {
-	}
-	
-	override func updateScene(deltaTime: Float) {
-	}
+		camera.target = [0, 0.8, 0]
+		camera.distance = 3
+		camera.rotation = [-0.4,-0.4,0]
 		
-	override func update(deltaTime: Float) {
+		// TODO:  Don't load redundant textures.
+		let polyhedraInfo = AppController.initializePolyhedronInfo()
+		for polyhedronInfo in polyhedraInfo {
+			if (polyhedronInfo["level"] as! Int) < 6 {
+				let polyhedron = Polyhedron(name: polyhedronInfo["name"] as! String, withPolyID: polyhedronInfo["polyID"] as! Int, scene: self)
+				polyhedron.rotation.y = radians(fromDegrees: Float.random(in: -180..<180))
+				add(node: polyhedron)
+				models.append(polyhedron)
+			}
+		}
 	}
+
+//	override func updateScene(deltaTime: Float) {
+//	}
+//		
+//	override func update(deltaTime: Float) {
+//	}
 	
+	func getLevel() -> UInt {
+		var level:UInt
+		var levelRotation = worldRotation
+		levelRotation = trackball.addToRotationTrackball(withDA: gTrackBallRotation, withA: levelRotation)
+		
+		if (levelRotation[1] > 0.0) {
+			if (levelRotation[0] > 62.0 && levelRotation[0] < 82.0) {
+				level = 1
+			} else if (levelRotation[0] > 134.0 && levelRotation[0] < 154.0) {
+				level = 2
+			} else if (levelRotation[0] > 206.0 && levelRotation[0] < 226.0) {
+				level = 3
+			} else if (levelRotation[0] > 278.0 && levelRotation[0] < 298.0) {
+				level = 4
+			} else {
+				level = 0
+			}
+		} else {
+			if (levelRotation[0] > 62.0 && levelRotation[0] < 82.0) {
+				level = 4
+			} else if (levelRotation[0] > 134.0 && levelRotation[0] < 154.0) {
+				level = 3
+			} else if (levelRotation[0] > 206.0 && levelRotation[0] < 226.0) {
+				level = 2
+			} else if (levelRotation[0] > 278.0 && levelRotation[0] < 298.0) {
+				level = 1
+			} else {
+				level = 0
+			}
+		}
+		return level;
+
+	}
+
 }

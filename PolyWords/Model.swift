@@ -13,6 +13,7 @@ class Model: Node {
 	var allCentroidIndices:[UInt16] = Array()
 	var faceIndices:[UInt16] = Array()
 	var allCentroidNormalIndices:[UInt16] = Array()
+	let scene:Scene
 
 	
 	//  let samplerState: MTLSamplerState?
@@ -32,7 +33,8 @@ class Model: Node {
 //
 //		
 //	}
-	override init() {
+	init(forScene scene:Scene) {
+		self.scene = scene
 		super.init()
 	}
 	
@@ -42,14 +44,15 @@ class Model: Node {
 		srcImageData.initialize(from: &bytes, count: 8)
 	}
 	
-	func initialize(name: String, findTangents: Bool = false) {
+	func initialize(name: String, scene:Scene) {
     var submeshes: [Submesh] = []
 		
 		let indexBuffer = Renderer.device.makeBuffer(bytes: faceIndices, length: MemoryLayout<UInt16>.stride * faceIndices.count, options: [])!
 		let submesh = Submesh(indexBuffer: indexBuffer,
 													indexCount: faceIndices.count,
 													indexType: .uint16,
-													baseColor: [0.0, 1.0, 0.0, 1.0])
+													baseColor: [0.0, 1.0, 0.0, 1.0],
+													scene: scene)
 		submeshes.append(submesh)
 
 		let stride = MemoryLayout<Vertex>.stride
@@ -126,12 +129,15 @@ extension Model: Renderable {
 				commandEncoder.setRenderPipelineState(submesh.pipelineState)
 //				var color = submesh.color
 //				commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: Int(colorBufferIndex.rawValue))
-
-				commandEncoder.setFragmentTexture(submesh.textures.baseColor,
+				// This is a very ugly hack to share textures across Level Selection Scene models
+				let baseColorTexture = scene.models[0].mesh.submeshes[0].textures.baseColor
+				let normalTexture = scene.models[0].mesh.submeshes[0].textures.normal
+				let lettersTexture = scene.models[0].mesh.submeshes[0].textures.letters
+				commandEncoder.setFragmentTexture(baseColorTexture,
 																				 index: Int(BaseColorTexture.rawValue))
-				commandEncoder.setFragmentTexture(submesh.textures.normal,
+				commandEncoder.setFragmentTexture(normalTexture,
 																				 index: Int(NormalTexture.rawValue))
-				commandEncoder.setFragmentTexture(submesh.textures.letters,
+				commandEncoder.setFragmentTexture(lettersTexture,
 																				 index: Int(LettersTexture.rawValue))
 //				commandEncoder.setFragmentTexture(submesh.textures.metallic,
 //																				 index: Int(MetallicTexture.rawValue))

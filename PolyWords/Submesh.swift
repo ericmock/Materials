@@ -22,13 +22,21 @@ class Submesh {
 	init(indexBuffer buffer:MTLBuffer,
 			 indexCount count:Int,
 			 indexType type:MTLIndexType,
-			 baseColor:float4) {
+			 baseColor:float4,
+			 scene:Scene) {
 		indexBuffer = buffer
 		indexCount = count
 		indexType = type
 //		color = baseColor
 		let textureDict:Dictionary<TextureSemantics,String> = [.baseColor:"TestPolyhedron-color", .tangentSpaceNormal:"TestPolyhedron-normal", .roughness: "TestPolyhedron-roughness", .letters: "Alphabet"]
-		textures = Textures(textures: textureDict)
+		var texturesToLoad:Dictionary<TextureSemantics,String> = [.baseColor:"", .tangentSpaceNormal:"", .roughness:"", .letters:""]
+		for (textureSemantic,name) in textureDict {
+			if !scene.sceneTextures.contains(name) {
+				scene.sceneTextures.append(name)
+				texturesToLoad.updateValue(name, forKey: textureSemantic)
+			}
+		}
+		textures = Textures(textures: texturesToLoad)
 		pipelineState = Submesh.makePipelineState(textures: textures)
 	}
 }

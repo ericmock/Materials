@@ -9,8 +9,8 @@ extension ViewController {
   
   @objc func handlePan(gesture: NSPanGestureRecognizer) {
     let translation = gesture.translation(in: gesture.view)
-    let delta = float2(Float(translation.x),
-                       Float(translation.y))
+    let delta = float3(Float(translation.x),
+                       Float(translation.y),0)
     
     gameScene?.camera.rotate(delta: delta)
     gesture.setTranslation(.zero, in: gesture.view)
@@ -21,7 +21,7 @@ extension ViewController {
   }
 }
 
-extension Scene {
+extension GameScene {
 	
 	func interactionsBegan(with event: NSEvent, inView view: LocalViewController) {//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 		
@@ -88,7 +88,7 @@ extension Scene {
 		} else if (!dragging || inputMode == .select) {
 			touchPosition = event.locationInWindow//[t locationInView:t.view];
 			
-			if (previousTouchNumber >= 0 && previousTouchNumber < thePolyhedron.polygons.count) {
+			if (previousTouchNumber >= 0 && previousTouchNumber < polyhedron.polygons.joined().count) {
 				// need to make sure from level to level that index is within bounds
 				//((Polygons *)[polyhedron.polygons objectAtIndex:prev_touched_num]).touched = FALSE;
 //				thePolyhedron.polygons[previousTouchNumber].touched = false

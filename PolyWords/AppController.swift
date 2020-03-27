@@ -66,34 +66,34 @@ class AppController: AppDelegate {
 	
 	let screenRect:CGRect = CGRect(x: CGFloat(0.0), y: CGFloat(0.0), width: CGFloat(10.0), height: CGFloat(10.0))
 	let darkColor:NSColor = NSColor(red: 43.0/256.0, green: 34.0/256.0, blue: 20.0/256.0, alpha: 1.0)
-	var polyhedronInfoArray:NSMutableArray?
-	var polyhedraInfo:NSDictionary?
-	let polyhedronArray = NSMutableArray()
-	let polyhedronNamesArray = NSMutableArray()
-	let polyhedronNumbersArray = NSMutableArray()
-	let polyhedronLevelsArray = NSMutableArray()
-	var highScores:HighScores!
-	var highest_completed = repeatElement(UInt(), count: 4)
+	var polyhedraInfo:[Dictionary<String,Any>] = []
+//	var polyhedronInfo:NSDictionary?
+	var polyhedra:[Any] = []
+	var polyhedronNames:[String] = []
+	var polyhedronNumbers:[Int] = []
+	var polyhedronLevels:[Int] = []
+//	static var highScores:HighScores = HighScores()
+	static var highest_completed = repeatElement(UInt(), count: 4)
 	var accelQ = false
 	var recordTimeQ = true
 	var continuingQ = false
 	var purchasingQ = false
 	var connection_failed = false
 	var resign_state = 0
-	let nowTime = Date()
-	var mode:UInt = 0
+//	let nowTime = Date()
+//	var mode:UInt = 0
 //	var polyWordsViewController:PolyWordsViewController!
-	var level:UInt = 0
-	var level_aborted = false
-	var level_completed = false
-	var game_id:UInt = 0
+//	var level:UInt = 0
+//	var level_aborted = false
+//	var level_completed = false
+//	var game_id:UInt = 0
 	let swipeSound:NSSound = NSSound(contentsOfFile: Bundle.main.path(forResource: "Select", ofType: "caf")!, byReference: false)!
 	var wordString:String = ""
 	var currentAlertView:NSResponder!
 	var upgradeDelegate:UpgradeDelegate!
 	var send_data_q = false
 	var letterString = ""
-	var unlocked = false
+	static var unlocked = true
 	var checking = 0
 	var bgTexture = 0
 	var sendDataQ = false
@@ -108,13 +108,12 @@ class AppController: AppDelegate {
 //	required init(coder aCoder: NSCoder) {
 	override init() {
 		super.init()
-		do {
-			highScores = try HighScores(withAppController: self)
-		} catch {
-			print("Error initializing high scores database.")
-			return
-		}
-
+//		do {
+//			AppController.highScores = try HighScores()
+//		} catch {
+//			print("Error initializing high scores database.")
+//			return
+//		}
 	}
 	
 	func initializeGame() {
@@ -180,9 +179,9 @@ class AppController: AppDelegate {
 	
 	func createFilesIfNeeded() -> Bool {
 		let fileManager = FileManager()
-		var filePath = self.getHighWordsPath()
+		var filePath = AppController.getHighWordsPath()
 		var success = fileManager.fileExists(atPath: filePath)
-		let numPolyhedra:Int = polyhedronInfoArray!.count
+		let numPolyhedra:Int = polyhedraInfo.count
 		
 		if !success {
 			let tempArray = NSMutableArray(capacity: numPolyhedra)
@@ -192,7 +191,7 @@ class AppController: AppDelegate {
 			tempArray.write(toFile: filePath, atomically: true)
 		}
 		
-		filePath = self.getHighScoresPath()
+		filePath = AppController.getHighScoresPath()
 		success = fileManager.fileExists(atPath: filePath)
 		if !success {
 			let tempArray = NSMutableArray(capacity: numPolyhedra)
@@ -202,33 +201,33 @@ class AppController: AppDelegate {
 			tempArray.write(toFile: filePath, atomically: true)
 		}
 		
-		filePath = self.getStaticWordsFoundPath()
+		filePath = AppController.getStaticWordsFoundPath()
 		success = fileManager.fileExists(atPath: filePath)
 		if !success {
 			let tempArray = NSArray()
 			tempArray.write(toFile: filePath, atomically: true)
 		}
 
-		filePath = self.getDynamicWordsFoundPath()
+		filePath = AppController.getDynamicWordsFoundPath()
 		success = fileManager.fileExists(atPath: filePath)
 		if !success {
 			let tempArray = NSArray()
 			tempArray.write(toFile: filePath, atomically: true)
 		}
 
-		filePath = self.getDynamicWordsFoundPath() + "_string"
+		filePath = AppController.getDynamicWordsFoundPath() + "_string"
 		success = fileManager.fileExists(atPath: filePath)
 		if !success {
 			fileManager.createFile(atPath: filePath, contents: nil, attributes: nil)
 		}
 
-		filePath = self.getAdventureScorePath() + "_string"
+		filePath = AppController.getAdventureScorePath() + "_string"
 		success = fileManager.fileExists(atPath: filePath)
 		if !success {
 			fileManager.createFile(atPath: filePath, contents: nil, attributes: nil)
 		}
 
-		filePath = self.getStaticWordsFoundPath() + "_string"
+		filePath = AppController.getStaticWordsFoundPath() + "_string"
 		success = fileManager.fileExists(atPath: filePath)
 		if !success {
 			fileManager.createFile(atPath: filePath, contents: nil, attributes: nil)
@@ -245,16 +244,7 @@ class AppController: AppDelegate {
 		}
 	}
 
-	func setGameMode(newMode: UInt) {
-		if newMode != mode {
-			mode = newMode
-			UserDefaults.standard.set(mode, forKey: "gameMode")
-			UserDefaults.standard.synchronize()
-		}
-	}
-
-	func setWordChecking(newChecking: Int
-	) {
+	func setWordChecking(newChecking: Int) {
 		if newChecking != checking {
 			checking = newChecking
 			UserDefaults.standard.set(checking, forKey: "checking")
@@ -341,37 +331,37 @@ class AppController: AppDelegate {
 
 	}
 	
-	func getHighScoresPath() -> String {
+	static func getHighScoresPath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"high_scores"
 		return fullPath
 	}
 	
-	func getHighWordsPath() -> String {
+	static func getHighWordsPath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"high_words"
 		return fullPath
 	}
 	
-	func getAdventureScorePath() -> String {
+	static func getAdventureScorePath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"adv_score"
 		return fullPath
 	}
 	
-	func getStaticWordsFoundPath() -> String {
+	static func getStaticWordsFoundPath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"static_words_found"
 		return fullPath
 	}
 	
-	func getDynamicWordsFoundPath() -> String {
+	static func getDynamicWordsFoundPath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"dynamic_words_found"
 		return fullPath
 	}
 	
-	func getStaticSavePath() -> String {
+	static func getStaticSavePath() -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let fullPath = paths[0]+"bg_data"
 		return fullPath
@@ -418,22 +408,22 @@ class AppController: AppDelegate {
 	}
 
 	func upgradeFromTwoPointOne() {
-		guard let oldEncodedDataArray = NSArray(contentsOfFile: self.getHighScoresPath()) else { return }
-		let newEncodedDataArray = NSMutableArray(capacity: 3)
-		for oldEncodedData in oldEncodedDataArray where oldEncodedData is NSArray {
-			if (oldEncodedData as AnyObject).count <= 7 {
-				let newDecodedData = self.decodeConvert(oldScores: oldEncodedData as! NSArray)
-				let newEncodedData = highScores.encodeDataForPolyhedron(ofType: newDecodedData.object(at: 1) as! Int, forMode: UInt(newDecodedData.object(at: 0) as! Int), forTime: newDecodedData.object(at: 3) as! Float, withScore: newDecodedData.object(at: 2) as! Int)
-				newEncodedDataArray.add(newEncodedData)
-			}
-		}
-		newEncodedDataArray.write(toFile: self.getHighScoresPath(), atomically: true)
-		do {
-			highScores = try HighScores(withAppController: self)
-		} catch {
-			print("Error initializing high scores database.")
-			return
-		}
+//		guard let oldEncodedDataArray = NSArray(contentsOfFile: AppController.getHighScoresPath()) else { return }
+//		let newEncodedDataArray = NSMutableArray(capacity: 3)
+//		for oldEncodedData in oldEncodedDataArray where oldEncodedData is NSArray {
+//			if (oldEncodedData as AnyObject).count <= 7 {
+//				let newDecodedData = self.decodeConvert(oldScores: oldEncodedData as! NSArray)
+//				let newEncodedData = AppController.highScores.encodeDataForPolyhedron(ofType: newDecodedData.object(at: 1) as! Int, forMode: UInt(newDecodedData.object(at: 0) as! Int), forTime: newDecodedData.object(at: 3) as! Float, withScore: newDecodedData.object(at: 2) as! Int)
+//				newEncodedDataArray.add(newEncodedData)
+//			}
+//		}
+//		newEncodedDataArray.write(toFile: AppController.getHighScoresPath(), atomically: true)
+//		do {
+//			AppController.highScores = try HighScores()
+//		} catch {
+//			print("Error initializing high scores database.")
+//			return
+//		}
 	}
 	
 	func initializeSetting() {
@@ -442,6 +432,7 @@ class AppController: AppDelegate {
 		var throwBackQ = false
 		var keyData:Data!
 		var codeData:Data!
+		var mode:Int = 0
 		
 		if (upgrading) {
 			sendDataQ = true
@@ -455,7 +446,7 @@ class AppController: AppDelegate {
 			UserDefaults.standard.set(selectModeQ, forKey: "selectModeShownQ")
 			throwBackQ = false
 			UserDefaults.standard.set(throwBackQ, forKey: "throwBackShownQ")
-			mode = 3
+			let mode = 3
 			UserDefaults.standard.set(mode, forKey: "gameMode")
 			checking = 0
 			UserDefaults.standard.set(checking, forKey: "checking")
@@ -473,7 +464,7 @@ class AppController: AppDelegate {
 			sendDataQ = UserDefaults.standard.bool(forKey: "sendDataQ")
 			selectModeQ = UserDefaults.standard.bool(forKey: "selectModeShownQ")
 			throwBackQ = UserDefaults.standard.bool(forKey: "throwBackShownQ")
-			mode = UInt(UserDefaults.standard.integer(forKey: "gameMode"))
+			mode = UserDefaults.standard.integer(forKey: "gameMode")
 			checking = UserDefaults.standard.integer(forKey: "checking")
 			bgTexture = UserDefaults.standard.integer(forKey: "texture")
 			axesQ = UserDefaults.standard.bool(forKey: "axesQ")
@@ -487,19 +478,23 @@ class AppController: AppDelegate {
 			let codeCString = UnsafeMutablePointer<UInt8>.allocate(capacity: MemoryLayout<UInt8>.size * codeLength)
 			keyData.copyBytes(to: keyCString, from: 0..<keyLength)
 			codeData.copyBytes(to: codeCString, from: 0..<codeLength)
-			unlocked = false
+			AppController.unlocked = false
 		}
 		
-		let values2 = [upgraded, sound, fontSelected, mode ?? 0, checking, bgTexture, axesQ, firstTimeQ, throwBackQ, selectModeQ] as [Any]
+		let values2 = [upgraded, sound, fontSelected, mode, checking, bgTexture, axesQ, firstTimeQ, throwBackQ, selectModeQ] as [Any]
 		let keys2 = ["upgraded", "sound", "font", "gameMode", "checking", "texture", "axesQ", "firstTimeQ","throwBackShownQ", "selectModeShownQ"]
 		let resourceDict = Dictionary(uniqueKeysWithValues: zip(keys2, values2))
 		UserDefaults.standard.register(defaults: resourceDict)
 		UserDefaults.standard.synchronize()
 	}
 	
-	func initializePolyhedronInfo() {
-		if unlocked {
-			polyhedronArray.addObjects(from: ["Truncated Icosahedron", 2, 1,
+	static func initializePolyhedronInfo() -> [Dictionary<String,Any>]{
+		var polyhedra:[Any]
+		var polyhedraNames:[String] = []
+		var polyhedraLevels:[Int] = []
+		var polyhedraNumbers:[Int] = []
+		if AppController.unlocked {
+			polyhedra = ["Truncated Icosahedron", 2, 1,
 								 "Parabigyrate Rhombicosidodecahedron", 14, 2,
 								 "Parabidiminished Rhombicosidodecahedron", 16, 3,
 								 "Deca-faced Polyhedron", 20, 4,
@@ -533,9 +528,9 @@ class AppController: AppDelegate {
 								 "Prism-Expanded Truncated Cube", 33, 32,
 								 "Eight-Octahedron Ring", 8, 33,
 								 "Torus Slice", 4, 34,
-								 "Gyroelongated Pentagonal Cupola", 22, 35])
+								 "Gyroelongated Pentagonal Cupola", 22, 35]
 		}	else {
-			polyhedronArray.addObjects(from: ["Truncated Icosahedron", 2, 1,
+			polyhedra = ["Truncated Icosahedron", 2, 1,
 								 "Parabigyrate Rhombicosidodecahedron", 14, 2,
 								 "Parabidiminished Rhombicosidodecahedron", 16, 3,
 								 "Deca-faced Polyhedron", 20, 4,
@@ -544,48 +539,43 @@ class AppController: AppDelegate {
 								 "Truncated Dodecahedron", 24, 7,
 								 "Octagon-Drilled Truncated Cuboctahedron", 11, 8,
 								 "Rhombicosidodecahedron", 12, 9,
-								 "Truncated Truncated Icosahedron", 26, 10])
+								 "Truncated Truncated Icosahedron", 26, 10]
 		}
 		
-		for ii in stride(from: 0, through: polyhedronArray.count - 1, by: 3) {
-//			print(ii)
-			polyhedronNamesArray.add(polyhedronArray.object(at: ii))
+		for ii in stride(from: 0, through: polyhedra.count - 1, by: 3) {
+			polyhedraNames.append(polyhedra[ii] as! String)
 		}
 		
-		for ii in stride(from: 1, through: polyhedronArray.count - 1, by: 3) {
-//			print(ii)
-			polyhedronNumbersArray.add(polyhedronArray.object(at: ii))
+		for ii in stride(from: 1, through: polyhedra.count - 1, by: 3) {
+			polyhedraNumbers.append(polyhedra[ii] as! Int)
 		}
 		
-		for ii in stride(from: 2, through: polyhedronArray.count - 1, by: 3) {
-			polyhedronLevelsArray.add(polyhedronArray.object(at: ii))
+		for ii in stride(from: 2, through: polyhedra.count - 1, by: 3) {
+			polyhedraLevels.append(polyhedra[ii] as! Int)
 		}
 		
-		polyhedronInfoArray = NSMutableArray()
-		highScores.reset(withFile: getHighScoresPath(), delegate: self)
+		var polyhedraInfo:[Dictionary<String,Any>] = []
 
 		var loc:Int
-		var polyID:NSNumber
+		var polyID:Int
 		var completed = [false, false, false, false]
-//		print("polyhedronLevelsArray.count: ", polyhedronLevelsArray.count)
-//		print("polyhedronNamesArray.count: ", polyhedronNamesArray.count)
-//		print("polyhedronNumbersArray.count: ", polyhedronNumbersArray.count)
-		for ii in 0..<polyhedronLevelsArray.count - 1 {
-			loc = polyhedronLevelsArray.object(at: ii) as! Int
-			polyID = polyhedronNumbersArray.object(at: loc) as! NSNumber
-			for jj in 0..<4 {
-				highScores.mode = UInt(jj)
-				completed[jj] = highScores.checkLevelCompleted(num: polyID)
-				if completed[jj],
-					ii > highest_completed[jj] {
-				}
-			}
-			let values = [polyhedronNamesArray.object(at: loc), polyID, [completed[0],completed[1],completed[2],completed[3],true,true],ii]
+		for ii in 0..<polyhedraLevels.count - 1 {
+			loc = polyhedraLevels[ii]
+			polyID = polyhedraNumbers[loc]
+//			for jj in 0..<4 {
+//				highScores.mode = UInt(jj)
+//				completed[jj] = highScores.checkLevelCompleted(num: polyID)
+//				if completed[jj],
+//					ii > AppController.highest_completed[jj] {
+//				}
+//			}
+			let values:[Any] = [polyhedraNames[loc], polyID, [completed[0],completed[1],completed[2],completed[3],true,true],ii]
 			let keys = ["name", "polyID", "completed", "level"]
 			let dict = Dictionary(uniqueKeysWithValues: zip(keys, values))
-			polyhedronInfoArray?.add(dict)
+			polyhedraInfo.append(dict)
 		}
-		highScores.mode = mode
+//		highScores.mode = mode
+		return polyhedraInfo
 	}
 	
 	func startGame() {
@@ -596,8 +586,8 @@ class AppController: AppDelegate {
 		}
 		
 		if polyhedraInfo != nil {
-			self.level = polyhedraInfo?.object(forKey: "level") as! UInt
-			recordTimeQ = true
+//			self.level = polyhedraInfo?.object(forKey: "level") as! UInt
+//			recordTimeQ = true
 //			if (aNavigationController.visibleViewController != alphaHedraViewController)
 //				[aNavigationController pushViewController:alphaHedraViewController animated:NO];
 //			else

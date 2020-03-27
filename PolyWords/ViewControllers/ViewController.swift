@@ -5,6 +5,7 @@ class ViewController: LocalViewController {
   var renderer: Renderer?
 	var gameScene:GameScene?
 	var titleScene:TitleScene?
+	var levelSelectionScene:LevelSelectionScene?
 	var item:NSMenu?
   
 	@IBOutlet weak var polyhedronPicker: NSPopUpButton!
@@ -32,9 +33,10 @@ class ViewController: LocalViewController {
 		metalView.device = Renderer.device
 		metalView.delegate = renderer
 		metalView.clearColor = MTLClearColor(red: 1.0, green: 1.0, blue: 0.8, alpha: 1.0)
-		titleScene = TitleScene(screenSize: metalView.bounds.size, sceneName:"Title")
-		gameScene = GameScene(screenSize: metalView.bounds.size, sceneName:"Game")
-		renderer?.scene = gameScene
+//		titleScene = TitleScene(screenSize: metalView.bounds.size, sceneName:"Title")
+		levelSelectionScene = LevelSelectionScene(screenSize: metalView.bounds.size, sceneName:"Title")
+//		gameScene = GameScene(screenSize: metalView.bounds.size, sceneName:"Game")
+		renderer?.scene = levelSelectionScene
 
   }
 	

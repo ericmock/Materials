@@ -41,7 +41,7 @@ class Camera: Node {
   }
   
   func zoom(delta: Float) {}
-  func rotate(delta: float2) {}
+  func rotate(delta: float3) {}
 }
 
 
@@ -96,13 +96,27 @@ class ArcballCamera: Camera {
     return matrix
   }
   
-  override func rotate(delta: float2) {
+  override func rotate(delta: float3) {
     let sensitivity: Float = 0.005
-    rotation.y += delta.x * sensitivity
-    rotation.x += delta.y * sensitivity
-    rotation.x = max(-Float.pi/2,
-                     min(rotation.x,
-                         Float.pi/2))
+		print(rotation)  // does not cause crash
+		print(delta)  // does not cause crash
+		print(rotation.x)  // does not cause crash
+		print(delta.x)  // does not cause crash
+//		rotation.y += sensitivity  // does not cause crash
+		print(rotation.y)  // does not cause crash
+		print(10.0 * sensitivity)  // does not cause crash
+		let temp = 10.0 * sensitivity; print(temp)  // does not cause crash
+//		var temp2 = 10.0 * sensitivity  // causes crash at rotation.x += delta.y * sensitivity
+//		rotation.y = temp  // causes crash
+//		rotation.y += 10.0 * sensitivity  // causes crash
+//    rotation.y += delta.x * sensitivity  // causes crash
+//    rotation += delta * sensitivity  // causes crash
+		print(rotation)  // does not cause crash
+		print(rotation.x)  // does not cause crash
+		rotation.x += delta.y * sensitivity  // does not cause crash
+//		rotation.y += delta.x * sensitivity
+//		temp = rotation.x; print(temp)
+//    rotation.x = max(-Float.pi/2, min(rotation.x, Float.pi/2))  // causes crash
     _viewMatrix = updateViewMatrix()
   }
 }

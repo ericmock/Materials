@@ -101,7 +101,7 @@ class TitleScene: Scene {
 	override func updateScene(deltaTime: Float) {
 		//        time += deltaTime
 		if camera.speed != 0.0 {
-			camera.rotate(delta: SIMD2<Float>(Float(camera.velocity.x) * deltaTime, Float(camera.velocity.y) * deltaTime))
+			camera.rotate(delta: float3(Float(camera.velocity.x) * deltaTime, Float(camera.velocity.y) * deltaTime, 0))
 			camera.velocity = CGPoint(x:0.99 * camera.velocity.x, y:0.99 * camera.velocity.y)
 		}
 	}

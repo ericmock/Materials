@@ -36,7 +36,7 @@ class PolyWordsView {
 		//		self.initializeIvars(withFrame: frame)
 //Move to new NSView class		self.addSubview(touchedLetterView)
 		var yPos:CGFloat
-		if !appController.unlocked {
+		if !AppController.unlocked {
 			yPos = -48.0
 		} else {
 			yPos = 0.0

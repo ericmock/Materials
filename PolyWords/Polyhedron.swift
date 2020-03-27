@@ -27,8 +27,8 @@ class Polyhedron: Model {
 	var polygons:[[Apolygon]] = Array(repeating: [], count: AppConstants.kPolygonTypeNames.count)
 	
 	
-	init(name: String, withPolyID polyID:Int) {
-		super.init()
+	init(name: String, withPolyID polyID:Int, scene:Scene) {
+		super.init(forScene: scene)
 
 		openDatabase()
 		polyInfo = ["polyID": polyID]
@@ -38,9 +38,9 @@ class Polyhedron: Model {
 			print("Error")
 			return
 		}
-		initialize(withPolyhedronInfo: polyInfo)
+		initialize(withPolyhedronInfo: polyInfo, scene: scene)
 		
-		super.initialize(name: "Polyhedron")
+		super.initialize(name: "Polyhedron", scene: scene)
 	}
 	
 	func openDatabase() {
@@ -56,7 +56,7 @@ class Polyhedron: Model {
 		}
 	}
 	
-	func initialize(withPolyhedronInfo polyInfo:NSDictionary) {
+	func initialize(withPolyhedronInfo polyInfo:NSDictionary, scene:Scene) {
 		self.polyInfo = polyInfo
 		let polyhedronType = polyInfo.object(forKey: "polyID") as! Int
 		

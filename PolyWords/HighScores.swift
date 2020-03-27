@@ -9,7 +9,7 @@
 import Foundation
 import SQLite3
 
-class HighScores : NSObject {
+class HighScores {
 	var high_score: Int = 0
 	var score: Int = 0
 	var longest_word: Int = 0
@@ -18,15 +18,12 @@ class HighScores : NSObject {
 	var mode: UInt = 0
 	var time: Float = 0
 	var filePath: String = ""
-	var appController: AppController
 	var decodedScoreDataArray:[[Any]] = [[]]
 	var encodedScoreDataArray:[[Any]] = [[]]
 	var wordArray: [String] = []
 	var db:HighScoresDatabase!
 	
-	init (withAppController d:AppController) throws {
-		appController = d
-		super.init()
+	init () throws {
 		openDatabase()
 		
 		let querySql = "select * from highScores;"
@@ -61,11 +58,10 @@ class HighScores : NSObject {
 		}
 	}
 
-	func reset(withFile path:String, delegate d:AppController) {
+	func reset(withFile path:String) {
 		mode = 0
 		score = 0
 		time = 0
-		appController = d
 		filePath = path
 		let rawData = Data()
 		if let dataFileHandle = FileHandle(forReadingAtPath: filePath) {
@@ -99,8 +95,8 @@ class HighScores : NSObject {
 	func getHighScoreForEachLevel() -> [Float] {
 		var array:[Float] = []
 		var counter = 1
-		for tempDict in (appController.polyhedronInfoArray as! [NSDictionary]) {
-			let num = getHighScore(forPolyhedron: tempDict.object(forKey: "polyID") as! Int)
+		for tempDict in (AppController.initializePolyhedronInfo()) {
+			let num = getHighScore(forPolyhedron: tempDict["polyID"] as! Int)
 			array.append(Float(counter))
 			if num < Float.greatestFiniteMagnitude {
 				array.append(num)
@@ -115,9 +111,9 @@ class HighScores : NSObject {
 	func letterUse() -> NSArray {
 		var wordsFoundFileHandle:FileHandle
 		if (mode == AppConstants.kDynamicTimedMode || mode == AppConstants.kDynamicScoredMode) {
-			wordsFoundFileHandle = FileHandle(forReadingAtPath: appController.getDynamicWordsFoundPath()+"_string")!
+			wordsFoundFileHandle = FileHandle(forReadingAtPath: AppController.getDynamicWordsFoundPath()+"_string")!
 		} else if (mode == AppConstants.kStaticTimedMode || mode == AppConstants.kStaticScoredMode) {
-			wordsFoundFileHandle = FileHandle(forReadingAtPath: appController.getStaticWordsFoundPath()+"_string")!
+			wordsFoundFileHandle = FileHandle(forReadingAtPath: AppController.getStaticWordsFoundPath()+"_string")!
 		} else {
 			wordsFoundFileHandle = FileHandle.nullDevice
 		}

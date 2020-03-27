@@ -83,8 +83,12 @@ class GameScene: Scene {
 	var game_id = 0
 	var level_completed = false
 	var letterString = ""
+	var oldText = ""
+	var touchedLetters = ""
+	@objc var lookingUpWordsQ = false
+	var dragging = false
 
-	var polyhedron = Polyhedron(name: "TestPolyhedron", withPolyID: 12)
+	lazy var polyhedron = Polyhedron(name: "TestPolyhedron", withPolyID: 12, scene:self)
 	
 	override init(screenSize: CGSize, sceneName: String) {
 		super.init(screenSize: screenSize, sceneName: sceneName)
@@ -125,7 +129,7 @@ class GameScene: Scene {
 		if (inputMode == .select) {
 			oldText = touchedLetters;
 			touchedNumber = findTouchedPolygon(atPoint: initialTouchPosition);
-			let polyCount: Int = thePolyhedron.polygons.count;
+			let polyCount: Int = polyhedron.polygons.joined().count;
 			if (previouslyTouchedNumber >= 0 && previouslyTouchedNumber < polyCount) {
 				//				let poly:Polygons = thePolyhedron.polygons[previouslyTouchedNumber]
 				//                Polygons *poly = [polyhedron.polygons objectAtIndex:prev_touched_num];
@@ -171,7 +175,7 @@ class GameScene: Scene {
 		
 		var counter = 0
 		for ll in 0..<10 {
-			for ii in 0..<thePolyhedron.numberOfFacesOfPolygonType[ll] {
+			for ii in 0..<polyhedron.numberOfFacesOfPolygonType[ll] {
 				var minX: Float = Float(MAXFLOAT)
 				var maxX: Float = -Float(MAXFLOAT)
 				var minY: Float = Float(MAXFLOAT)
@@ -384,9 +388,9 @@ class GameScene: Scene {
 		var g = SystemRandomNumberGenerator()
 		if (poly.active) {
 			rd = Int.random(in: 0...(AppConstants.kAlphabet.count - 1), using: &g);
-			if uncommonLettersArray.contains(AppConstants.kAlphabet[rd]) {
+			if AppConstants.kUncommonLetters.contains(AppConstants.kAlphabet[rd]) {
 				rd = Int.random(in: 0...(AppConstants.kAlphabet.count - 1), using: &g);
-			} else if !uncommonLettersArray.contains(AppConstants.kAlphabet[rd]) {
+			} else if !AppConstants.kUncommonLetters.contains(AppConstants.kAlphabet[rd]) {
 				rd = Int.random(in: 0...(AppConstants.kAlphabet.count - 1), using: &g);
 			}
 			//	rd=ii+1;// for numbers
@@ -553,7 +557,7 @@ class GameScene: Scene {
 		
 		// if there are three letters selected, use the other thread to grab all the words that start with those three letters
 		if wordString.count >= 3 {
-			self.lookingUpWordsQ = true
+			lookingUpWordsQ = true
 			var foundWord = ""
 			words.removeAll()
 			if (availableWords.count == 0) {
@@ -1315,6 +1319,7 @@ class GameScene: Scene {
 			num_words_avail = availableWords.count
 		}
 		
+	//  TODO:  see what called this in original game
 		func selectPolyhedron(polyhedraInfo:Dictionary<String,Any>) {
 			let alphabet = AppConstants.kAlphabet
 			let commonLetters = AppConstants.kCommonLetters
@@ -1338,7 +1343,7 @@ class GameScene: Scene {
 			availableWords.removeAll()
 			availableWordScores.removeAll()
 			
-			polyhedron = Polyhedron(name:"", withPolyID: polyhedraInfo["PolyID"] as! Int)
+//			polyhedron = Polyhedron(name:"", withPolyID: polyhedraInfo["PolyID"] as! Int)
 			
 			let numSides = 6
 			var axes_vertex_coord = Array(repeating: Float(), count: 3*4*numSides)

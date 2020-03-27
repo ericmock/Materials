@@ -49,7 +49,6 @@ class Scene {
 	private var lastPoint:CGPoint = .zero
 	private var startTime:Float = 0
 	var checked = false
-	var dragging = false
 	var inputMode = InputMode.select
 	var initialTouchPosition:CGPoint = .zero
 	var currentTouchPosition:CGPoint = .zero
@@ -58,23 +57,13 @@ class Scene {
 	var touchedPolygon:Int = 0
 	
 	var dragTimer:Timer = Timer()
-	var touchedLetters:String = ""
-	var oldText:String = ""
-	var thePolyhedron:Polyhedron!
-	
-	var alphabetArray:[String] = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-	var commonLettersArray:[String] = ["A", "E", "I", "O", "T", "N"]
-	var uncommonLettersArray:[String] = ["J", "Q", "X", "Z"];
-	
 	var previouslyTouchedNumber: Int = 0
 	var touchedNumber: Int = 0
-	
-//	var words:[NSString] = [""]
-	@objc var lookingUpWordsQ:Bool = false
 	
 	var accelz:Float = 0.0
 	var accely:Float = 0.0
 	
+	var sceneTextures:[String] = []
 	
 	init(screenSize: CGSize, sceneName: String) {
 		self.screenSize = screenSize
@@ -85,7 +74,7 @@ class Scene {
 	
 	func updateScene(deltaTime: Float) {
 		if camera.speed != 0.0 {
-			camera.rotate(delta: SIMD2<Float>(Float(camera.velocity.x) * deltaTime, Float(camera.velocity.y) * deltaTime))
+			camera.rotate(delta: float3(Float(camera.velocity.x) * deltaTime, Float(camera.velocity.y) * deltaTime, 0))
 			camera.velocity = CGPoint(x:0.99 * camera.velocity.x, y:0.99 * camera.velocity.y)
 		}
 	}
