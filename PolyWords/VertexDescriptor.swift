@@ -18,7 +18,7 @@ extension MTLVertexDescriptor {
 		vertexDescriptor.attributes[attributeCounter].offset = 0
 		vertexDescriptor.attributes[attributeCounter].bufferIndex = 0
 		offset += MemoryLayout<float3>.stride
-		print("offset: \(offset)")
+//		print("offset: \(offset)")
 		attributeCounter += 1
 		
 		if (hasNormals) {
@@ -26,7 +26,7 @@ extension MTLVertexDescriptor {
 			vertexDescriptor.attributes[attributeCounter].offset = offset
 			vertexDescriptor.attributes[attributeCounter].bufferIndex = 0
 			offset += MemoryLayout<float3>.stride
-			print("offset: \(offset)")
+//			print("offset: \(offset)")
 			attributeCounter += 1
 		}
 		if (hasTextureCoords) {
@@ -34,7 +34,7 @@ extension MTLVertexDescriptor {
 			vertexDescriptor.attributes[attributeCounter].offset = offset
 			vertexDescriptor.attributes[attributeCounter].bufferIndex = 0
 			offset += MemoryLayout<float2>.stride
-			print("offset: \(offset)")
+//			print("offset: \(offset)")
 			attributeCounter += 1
 		}
 		if (hasColorShift) {
@@ -42,7 +42,7 @@ extension MTLVertexDescriptor {
 			vertexDescriptor.attributes[attributeCounter].offset = offset
 			vertexDescriptor.attributes[attributeCounter].bufferIndex = 0
 			offset += MemoryLayout<float3>.stride
-			print("offset: \(offset)")
+//			print("offset: \(offset)")
 			attributeCounter += 1
 		}
 		if (hasFaceCounter) {
@@ -50,7 +50,7 @@ extension MTLVertexDescriptor {
 			vertexDescriptor.attributes[attributeCounter].offset = offset
 			vertexDescriptor.attributes[attributeCounter].bufferIndex = 0
 			offset += MemoryLayout<Int>.stride
-			print("offset: \(offset)")
+//			print("offset: \(offset)")
 			attributeCounter += 1
 		}
 		if (hasLetter) {
@@ -58,7 +58,7 @@ extension MTLVertexDescriptor {
 			vertexDescriptor.attributes[attributeCounter].offset = offset
 			vertexDescriptor.attributes[attributeCounter].bufferIndex = 0
 			offset += MemoryLayout<Int>.stride
-			print("offset: \(offset)")
+//			print("offset: \(offset)")
 			attributeCounter += 1
 		}
 		if (hasTangents) {
@@ -66,7 +66,7 @@ extension MTLVertexDescriptor {
 			vertexDescriptor.attributes[Int(Tangent.rawValue)].offset = offset
 			vertexDescriptor.attributes[Int(Tangent.rawValue)].bufferIndex = 0
 			offset += MemoryLayout<SIMD3<Float>>.stride
-print("offset: \(offset)")
+//			print("offset: \(offset)")
 //			attributeCounter += 1
 		}
 		if (hasBitangents) {
@@ -74,10 +74,10 @@ print("offset: \(offset)")
 			vertexDescriptor.attributes[Int(Bitangent.rawValue)].offset = offset
 			vertexDescriptor.attributes[Int(Bitangent.rawValue)].bufferIndex = 0
 			offset += MemoryLayout<SIMD3<Float>>.stride
-print("offset: \(offset)")
+//			print("offset: \(offset)")
 //			attributeCounter += 1
 		}
-		print("offset: \(offset)")
+//		print("offset: \(offset)")
 		vertexDescriptor.layouts[0].stride = MemoryLayout<Vertex>.stride
 //		vertexDescriptor.layouts[0].stride = offset
 //    vertexDescriptor.layouts[0] = MDLVertexBufferLayout(stride: offset)

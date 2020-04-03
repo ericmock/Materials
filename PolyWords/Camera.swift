@@ -34,9 +34,9 @@ class Camera: Node {
   }
   
   var viewMatrix: float4x4 {
-    let translateMatrix = float4x4(translation: position)
-    let rotateMatrix = float4x4(rotation: rotation)
-    let scaleMatrix = float4x4(scaling: scaleV)
+    let translateMatrix = float4x4(translation: nodePosition)
+    let rotateMatrix = float4x4(nodeQuaternion)
+    let scaleMatrix = float4x4(scaling: nodeScaleV)
     return (translateMatrix * scaleMatrix * rotateMatrix).inverse
   }
   
@@ -71,7 +71,7 @@ class ArcballCamera: Camera {
 			_viewMatrix = updateViewMatrix()
 	}
 	
-  override var rotation: float3 {
+  override var nodeQuaternion: simd_quatf {
     didSet {
       _viewMatrix = updateViewMatrix()
     }
@@ -88,35 +88,45 @@ class ArcballCamera: Camera {
   
   private func updateViewMatrix() -> float4x4 {
     let translateMatrix = float4x4(translation: [target.x, target.y, target.z - distance])
-    let rotateMatrix = float4x4(rotationYXZ: [-rotation.x,
-                                              rotation.y,
-                                              0])
+    let rotateMatrix = float4x4(nodeQuaternion)
     let matrix = (rotateMatrix * translateMatrix).inverse
-    position = rotateMatrix.upperLeft * -matrix.columns.3.xyz
+    nodePosition = rotateMatrix.upperLeft * -matrix.columns.3.xyz
     return matrix
   }
   
-  override func rotate(delta: float3) {
-    let sensitivity: Float = 0.005
-		print(rotation)  // does not cause crash
-		print(delta)  // does not cause crash
-		print(rotation.x)  // does not cause crash
-		print(delta.x)  // does not cause crash
-//		rotation.y += sensitivity  // does not cause crash
-		print(rotation.y)  // does not cause crash
-		print(10.0 * sensitivity)  // does not cause crash
-		let temp = 10.0 * sensitivity; print(temp)  // does not cause crash
-//		var temp2 = 10.0 * sensitivity  // causes crash at rotation.x += delta.y * sensitivity
-//		rotation.y = temp  // causes crash
-//		rotation.y += 10.0 * sensitivity  // causes crash
-//    rotation.y += delta.x * sensitivity  // causes crash
-//    rotation += delta * sensitivity  // causes crash
-		print(rotation)  // does not cause crash
-		print(rotation.x)  // does not cause crash
-		rotation.x += delta.y * sensitivity  // does not cause crash
-//		rotation.y += delta.x * sensitivity
-//		temp = rotation.x; print(temp)
-//    rotation.x = max(-Float.pi/2, min(rotation.x, Float.pi/2))  // causes crash
+	override func rotate(delta: float3) {
+//    let sensitivity: Float = 0.005
+//    var x = nodeRotation.x + delta.y * sensitivity
+//    x = max(-Float.pi/2, min(x, Float.pi/2))
+//    nodeRotation = [
+//        x,
+//        nodeRotation.y + delta.x * sensitivity,
+//        nodeRotation.z
+//    ]
     _viewMatrix = updateViewMatrix()
   }
+	
+//  override func rotate(delta: float3) {
+//    let sensitivity: Float = 0.005
+//		print(rotation)  // does not cause crash
+//		print(delta)  // does not cause crash
+//		print(rotation.x)  // does not cause crash
+//		print(delta.x)  // does not cause crash
+////		rotation.y += sensitivity  // does not cause crash
+//		print(rotation.y)  // does not cause crash
+//		print(10.0 * sensitivity)  // does not cause crash
+//		let temp = 10.0 * sensitivity; print(temp)  // does not cause crash
+////		var temp2 = 10.0 * sensitivity  // causes crash at rotation.x += delta.y * sensitivity
+////		rotation.y = temp  // causes crash
+////		rotation.y += 10.0 * sensitivity  // causes crash
+////    rotation.y += delta.x * sensitivity  // causes crash
+////    rotation += delta * sensitivity  // causes crash
+//		print(rotation)  // does not cause crash
+//		print(rotation.x)  // does not cause crash
+//		rotation.x += delta.y * sensitivity  // does not cause crash
+////		rotation.y += delta.x * sensitivity
+////		temp = rotation.x; print(temp)
+////    rotation.x = max(-Float.pi/2, min(rotation.x, Float.pi/2))  // causes crash
+//    _viewMatrix = updateViewMatrix()
+//  }
 }

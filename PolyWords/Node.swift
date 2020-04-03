@@ -6,18 +6,24 @@ class Node {
 	var parent: Node? = nil
 	
 	var name: String = "untitled"
-	var position: float3 = [0, 0, 0]
-	var rotation: float3 = [0, 0, 0]
-	var scaleV: float3 = [1, 1, 1]
+	var nodePosition: float3 = [0, 0, 0]
+	var nodeRotationAngles: float3 = [0, 0, 0] {
+		didSet {
+			let rotationMatrix = float4x4(rotationAngles: nodeRotationAngles)
+			nodeQuaternion = simd_quatf(rotationMatrix)
+		}
+	}
+	var nodeScaleV: float3 = [1, 1, 1]
 	
-	var initialPosition = SIMD3<Float>(repeating: 0)
-	var initialRotation = SIMD3<Float>(repeating: 0)
-	var initialScaleV = SIMD3<Float>(repeating: 1)
-	
+	var nodeInitialPosition = float3(repeating: 0)
+//	var initialRotation = float3(repeating: 0)
+	var nodeInitialScaleV = float3(repeating: 1)
+
+	var nodeQuaternion = simd_quatf()
 	var modelMatrix: float4x4 {
-		let translateMatrix = float4x4(translation: position)
-		let rotateMatrix = float4x4(rotation: rotation)
-		let scaleMatrix = float4x4(scaling: scaleV)
+		let translateMatrix = float4x4(translation: nodePosition)
+		let rotateMatrix = float4x4(nodeQuaternion)//;print("rotation: \(rotation)")
+		let scaleMatrix = float4x4(scaling: nodeScaleV)
 		return translateMatrix * rotateMatrix * scaleMatrix
 	}
 	
@@ -60,10 +66,10 @@ class Node {
 		if let matrix = matrix {
 			worldMatrix = worldMatrix * matrix
 		}
-		var lowerLeft = SIMD4<Float>(boundingBox.minBounds.x, 0, boundingBox.minBounds.z, 1)
+		var lowerLeft = float4(boundingBox.minBounds.x, 0, boundingBox.minBounds.z, 1)
 		lowerLeft = worldMatrix * lowerLeft
 		
-		var upperRight = SIMD4<Float>(boundingBox.maxBounds.x, 0, boundingBox.maxBounds.z, 1)
+		var upperRight = float4(boundingBox.maxBounds.x, 0, boundingBox.maxBounds.z, 1)
 		upperRight = worldMatrix * upperRight
 		
 		return Rect(x: lowerLeft.x,

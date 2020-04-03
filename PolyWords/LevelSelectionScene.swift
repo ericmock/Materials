@@ -23,26 +23,25 @@ class LevelSelectionScene: Scene {
 														"level": 0
 		]
 		super.init(screenSize: screenSize, sceneName: sceneName)
-		gTrackBallRotation[1] = 1.0
-		worldRotation[1] = 1.0
+//		gTrackBallRotation[1] = 1.0
+		worldRotation_toLevelSelectionScene[1] = 1.0
 	}
 
 //	MARK:  Methods
 	override func setupScene() {
 		camera.target = [0, 0.8, 0]
 		camera.distance = 3
-		camera.rotation = [0.0,0.0,0]
+		camera.nodeQuaternion = simd_quatf()
 		
-		// TODO:  Don't load redundant textures.
 		let polyhedraInfo = AppController.initializePolyhedronInfo()
 		for (num,polyhedronInfo) in polyhedraInfo.enumerated() {
 			if (polyhedronInfo["level"] as! Int) < 6 {
 				let polyhedron = Polyhedron(name: polyhedronInfo["name"] as! String, withPolyID: polyhedronInfo["polyID"] as! Int, scene: self)
-				polyhedron.rotation.y = radians(fromDegrees: Float.random(in: -180..<180))
-				polyhedron.position.x = 0
-				polyhedron.position.y = 1.5 * cos(2.0 * Float(num)/6.0 * .pi)
-				polyhedron.position.z = 1.5 * sin(2.0 * Float(num)/6.0 * .pi)
-				polyhedron.scaleV = float3(1.0/5.0, 1.0/5.0, 1.0/5.0)
+				polyhedron.nodeQuaternion = simd_quatf(angle: radians(fromDegrees: Float.random(in: -180..<180)), axis: float3(0,1,0))
+				polyhedron.nodePosition.x = 0
+				polyhedron.nodePosition.y = 1.5 * cos(2.0 * Float(num)/6.0 * .pi)
+				polyhedron.nodePosition.z = 1.5 * sin(2.0 * Float(num)/6.0 * .pi)
+				polyhedron.nodeScaleV = float3(1.0/5.0, 1.0/5.0, 1.0/5.0)
 				add(node: polyhedron)
 				models.append(polyhedron)
 			}
@@ -57,8 +56,8 @@ class LevelSelectionScene: Scene {
 	
 	func getLevel() -> UInt {
 		var level:UInt
-		var levelRotation = worldRotation
-		levelRotation = trackball.addToRotationTrackball(withDA: gTrackBallRotation, withA: levelRotation)
+		var levelRotation = worldRotation_toLevelSelectionScene
+//		levelRotation = trackball.addToRotationTrackball(withDA: gTrackBallRotation, withA: levelRotation)
 		
 		if (levelRotation[1] > 0.0) {
 			if (levelRotation[0] > 62.0 && levelRotation[0] < 82.0) {

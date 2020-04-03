@@ -26,6 +26,7 @@ class GameScene: Scene {
 	var wordsFound:[String] = []
 	var wordsFoundOpponent:[String] = []
 	var wordScores:[Int] = []
+	var wordDisplay:Float = 0.0
 	var num_words_found:Int = 0
 	var score_animating = false
 	var dynamicWordsFoundFileHandle:FileHandle!
@@ -60,11 +61,13 @@ class GameScene: Scene {
 	var num_words_avail = 0
 	var timeLeft:Float = 0
 	var touchAngles:[Float] = []
-	var touchTimes:[Float] = []
+	var touchTimes:[Double] = []
+	var touches:[NSEvent] = []
+	var initialDistance:Float = 0.0
+	var submitting = false
 	var freeWheeling = false
 	var recordTimeQ = false
 	var zoomFactor = 1
-	var touchedLetterView:NSTextField!
 	var reds = Array(repeating: CGFloat(), count: 4)
 	var greens = Array(repeating: CGFloat(), count: 4)
 	var blues = Array(repeating: CGFloat(), count: 4)
@@ -87,13 +90,19 @@ class GameScene: Scene {
 	var touchedLetters = ""
 	@objc var lookingUpWordsQ = false
 	var dragging = false
+	var omega = 0.0
+	var touchStartTime = 0.0
+	
+	// For testing
+	var positionX:CGFloat = 0
+	var positionY:CGFloat = 0
 
 	lazy var polyhedron = Polyhedron(name: "TestPolyhedron", withPolyID: 12, scene:self)
 	
 	override init(screenSize: CGSize, sceneName: String) {
 		super.init(screenSize: screenSize, sceneName: sceneName)
-		gTrackBallRotation[1] = 1.0
-		worldRotation[1] = 1.0
+//		gTrackBallRotation[1] = 1.0
+		worldRotation_toLevelSelectionScene[1] = 1.0
 	}
 	
 	func endSpin() {
@@ -109,16 +118,22 @@ class GameScene: Scene {
 	}
 	
 	override func setupScene() {
-		camera.target = [0, 0.8, 0]
-		camera.distance = 3
-		camera.rotation = [-0.4,-0.4,0]
+		camera.target = [0, 0, 0]
+		camera.distance = 4
+		camera.nodeQuaternion = simd_quatf()
 		
-		add(node: polyhedron)
+		let worldModel = Model(forScene: self)
+		worldModel.name = "World"
+		add(node: worldModel, renderQ: false)
+		models.append(worldModel)
 		
-		polyhedron.rotation.y = radians(fromDegrees: Float.random(in: -180..<180))
+		add(node: polyhedron, parent: worldModel)
+		models.append(polyhedron)
+//		polyhedronModelNumber = 1
+		polyhedron.nodeQuaternion = simd_quatf(angle: radians(fromDegrees: Float.random(in: -180..<180)), axis:float3(0,1,0))
 	}
 	
-	@objc override func checkDrag(timer: Timer) {
+	@objc override func checkDrag() {
 		checked = true;
 		if (!dragging || (hypot(currentTouchPosition.x - initialTouchPosition.x,currentTouchPosition.y - initialTouchPosition.y) < 5)) {
 			inputMode = .select; // if dragging hasn't started yet, we're selecting
@@ -146,22 +161,22 @@ class GameScene: Scene {
 	}
 	
 	override func findTouchedPolygon(atPoint touchPos: CGPoint) -> Int {
-		var touchPosition:SIMD2<Float> = [0]
+		var touchPosition:SIMD2<Float> = [0, 0]
 		touchPosition.x = Float(touchPos.x)
 		touchPosition.y = Float(touchPos.y)
-		var vec:SIMD4<Float> = [0]
-		var vec1:SIMD4<Float> = [0]
-		var vec3:SIMD4<Float> = [0]
-		let transform_matrix:float4x4 = float4x4(0)//, touch[3] = {0.0, 0.0, -6.0};
-		let vp:SIMD4<Int32> = [0]
+		var vec:float4 = [0, 0, 0, 0]
+		var vec1:float4 = [0, 0, 0, 0]
+		var vec3:float4 = [0, 0, 0, 0]
+//		var transform_matrix:float4x4 = float4x4(0)//, touch[3] = {0.0, 0.0, -6.0};
+//		let vp:SIMD4<Int32> = [0, 0, 0, 0]
 		var winX:Float = 0
 		var winY:Float = 0
 		//         var winZ: Float
 		//        var ii: Int = 0
 		//        var jj: Int = 0
 		var touchedNumber:Int = 0
-		
-		touchPosition.y = 480.0 - touchPosition.y
+		// Still need this?
+		touchPosition.y = Float(screenSize.height) - touchPosition.y
 		
 		var closePolygons:[Apolygon] = []
 		var centroidZs:[Float] = [0]
@@ -171,21 +186,25 @@ class GameScene: Scene {
 		
 		// TODO
 		//        glGetIntegerv(GL_VIEWPORT, vp);
+		let vp = float4(0,0,Float(screenSize.width),Float(screenSize.height))
 		//        matrixMatrixMultiply(delegate.projectionMatrix, modelViewMatrix, transform_matrix);
+		let transform_matrix = camera.projectionMatrix * camera.viewMatrix * polyhedron.modelMatrix
 		
 		var counter = 0
-		for ll in 0..<10 {
-			for ii in 0..<polyhedron.numberOfFacesOfPolygonType[ll] {
+//		for ll in 0..<10 {
+		for polygonType in polyhedron.polygons {
+//			for ii in 0..<polyhedron.numberOfFacesOfPolygonType[ll] {
+			for poly in polygonType {
 				var minX: Float = Float(MAXFLOAT)
 				var maxX: Float = -Float(MAXFLOAT)
 				var minY: Float = Float(MAXFLOAT)
 				var maxY: Float = -Float(MAXFLOAT)
-				for kk in 0..<(3+ll) {
-					for jj in 0..<3 {
+				for vertex in poly.vertices {
+//					for jj in 0..<3 {
 						//						vec[jj] = thePolyhedron.polyVertices[ll][(3 + ll) * 3 * ii + 3 * kk + jj];
-					}
-					
-					vec3 = transform_matrix * SIMD4<Float>(vec)
+//					}
+					vec = float4(vertex,1)
+					vec3 = transform_matrix * vec
 					
 					vec3[0]/=vec3[3];
 					vec3[1]/=vec3[3];
@@ -202,8 +221,8 @@ class GameScene: Scene {
 				}
 				
 				if (touchPosition.x < maxX && touchPosition.x > minX && touchPosition.y < maxY && touchPosition.y > minY) {
-					//					closePolygons.append(thePolyhedron.polygons[counter])
-					faceNumbers.append(ii)
+					closePolygons.append(poly)
+					faceNumbers.append(counter)
 				}
 				counter += 1
 			}
@@ -213,68 +232,47 @@ class GameScene: Scene {
 		//         var touched_num = -1
 		//         var base_vertex_index = 0;
 		counter = 0;
-		let copyOfClosePolygons = closePolygons;
+		let copyOfClosePolygons = Array(closePolygons)
+		print("Touch position:\n{\(touchPosition.x),\(touchPosition.y)}")
 		for poly in copyOfClosePolygons {
+			print("Close polygon vertices: \(poly.letter)")
 			let polyType: Int = poly.type
-			var deformedVertexX = [Float](repeating: 0, count: polyType + 3)
-			var deformedVertexY = [Float](repeating: 0, count: polyType + 3)
-			for nn in 0..<(polyType + 3) {
-				let tmp: Int = 3 * (3 + polyType)
-				let faceNumber: Int = Int(faceNumbers[counter])
-				let base_vertex_index: Int = tmp * faceNumber + 3 * Int(nn)
-				for kk in 0..<3 {
-					
-					//					vec[kk] = thePolyhedron.polyVertices[polyType][base_vertex_index + kk]
-					//                    poly_vertices_ptr[polyType!][base_vertex_index + kk];
-					//            float temp2[4];
-					//            matrixMultiply(modelViewMatrix, vec, vec1);
-					//            matrixMultiply(delegate.projectionMatrix, vec1, vec3);
-					vec3 = transform_matrix * vec
-					vec3[0]/=vec3[3]
-					vec3[1]/=vec3[3]
-					vec3[2]/=vec3[3]
-					winX = Float(vp[0]) + Float(vp[2]) * (vec3[0] + 1.0) / 2.0
-					winY = Float(vp[1]) + Float(vp[3]) * (vec3[1] + 1.0) / 2.0
-					//                     winZ = (vec3[2] + 1.0) / 2.0;
-					deformedVertexX[nn] = winX;
-					deformedVertexY[nn] = winY;
-					//            NSLog(@"deformed_vertex_coords[%i] = (%2.3f, %2.3f)", nn, deformed_vertex_coords_x[nn], deformed_vertex_coords_y[nn]);
-					
-					let inside: Bool = pointInPolygon(withNumberOfPoints: polyType + 3, withXPoints: deformedVertexX, withYPoints: deformedVertexY, withX: touchPosition.x, withY: touchPosition.y);
-					
-					//            NSLog(@"letter = %@, inside = %i",[delegate.alphabetArray objectAtIndex:poly.texture], inside);
-					if (!inside || !poly.active) {
-						if let idx = closePolygons.firstIndex(where: { $0 === poly }) {
-							closePolygons.remove(at: idx)
-						}
-					} else {
-						let centroid: SIMD3<Float> = poly.centroid
-						//                        vec[0] = [[centroid objectAtIndex:0] floatValue];
-						vec[0] = centroid.x
-						vec[1] = centroid.y
-						vec[2] = centroid.z
-						vec[3] = 1.0
-						vec1 = uniforms.modelMatrix * vec
-						//                        vec[1] = [[centroid objectAtIndex:1] floatValue];
-						//                        vec[2] = [[centroid objectAtIndex:2] floatValue];
-						//                        vec[3] = 1.0;
-						//                        matrixMultiply(modelViewMatrix, vec, vec1);
-						//            NSLog(@"centroid.z = %2.3f", vec1[2]);
-						centroidZs.append(vec1[2])//[centroidsArray addObject:[NSNumber numberWithFloat:vec1[2]]];
-					}
-					counter += 1
-				}
-				counter = 0;
-				for poly in closePolygons {
-					let centroidZ = centroidZs[counter]//[[centroidsArray objectAtIndex:counter] floatValue];
-					if (centroidZ > centroidZmax) {
-						centroidZmax = centroidZ;
-						touchedNumber = poly.number;
-					}
-					counter += 1;
-				}
-				
+			var deformedVertexX:[Float] = []
+			var deformedVertexY:[Float] = []
+			for vertex in poly.vertices {
+				vec = float4(vertex,1)
+				vec3 = transform_matrix * vec
+				vec3[0] /= vec3[3]
+				vec3[1] /= vec3[3]
+				vec3[2] /= vec3[3]
+				print("{\(vec3[0]), \(vec3[1]), \(vec3[2])}")
+				winX = Float(vp[0]) + Float(vp[2]) * (vec3[0] + 1.0) / 2.0
+				winY = Float(vp[1]) + Float(vp[3]) * (vec3[1] + 1.0) / 2.0
+				deformedVertexX.append(winX)
+				deformedVertexY.append(winY)
 			}
+			for (x,y) in zip(deformedVertexX,deformedVertexY) {print("{\(x), \(y)}")}
+			let inside: Bool = pointInPolygon(withNumberOfPoints: polyType + 3, withXPoints: deformedVertexX, withYPoints: deformedVertexY, withX: touchPosition.x, withY: touchPosition.y);
+			if (!inside || !poly.active) {
+				if let idx = closePolygons.firstIndex(where: { $0 === poly }) {
+					closePolygons.remove(at: idx)
+				}
+			} else {
+				let centroid = poly.centroid
+				vec = float4(centroid,1)
+				vec1 = transform_matrix * vec
+				centroidZs.append(vec1[2])//[centroidsArray addObject:[NSNumber numberWithFloat:vec1[2]]];
+			}
+			counter += 1
+		}
+		counter = 0;
+		for poly in closePolygons {
+			let centroidZ = centroidZs[counter]//[[centroidsArray objectAtIndex:counter] floatValue];
+			if (centroidZ > centroidZmax) {
+				centroidZmax = centroidZ;
+				touchedNumber = poly.number;
+			}
+			counter += 1;
 		}
 		return touchedNumber
 	}
@@ -354,7 +352,7 @@ class GameScene: Scene {
 		var counter = 0
 		for polygonType in polyhedron.polygons {
 			for polygon in polygonType {
-				let index = string.index(string.startIndex, offsetBy: counter)
+				let index = string.index(string.startIndex, offsetBy: counter%string.count)
 				polygon.letter = String(string[index])
 				counter = counter + 1
 			}
@@ -526,7 +524,7 @@ class GameScene: Scene {
 			touchedPoly.rot_v[1] = (rot_m[0][2] - rot_m[2][0])/denom
 			touchedPoly.rot_v[2] = (rot_m[1][0] - rot_m[0][1])/denom
 			
-			touchedPoly.select_animation_start_time = Date()
+			touchedPoly.select_animation_start_time = get_time_of_day()
 			
 			var count:UInt = 0
 			for num in touchedPoly.indices {
@@ -789,7 +787,7 @@ class GameScene: Scene {
 			//Move to new NSView class			self.perform(#selector(stopGameAnimation), with: nil, afterDelay: 1.0)
 			//		[self performSelector:@selector(stopGameAnimation) withObject:nil afterDelay:1.0];
 		} else {
-			gameAnimationTimer.invalidate()
+//			gameAnimationTimer.invalidate()
 			gameAnimationTimer = nil
 		}
 	}
@@ -930,8 +928,6 @@ class GameScene: Scene {
 		pullDataController.startSend(arrayWithObjects: NSArray(array: [UInt(game_id), Int(mode)]))
 	}
 
-
-	
 	func showStaticScoredModeEndAlert() {
 		var message = ""
 		let buttons = NSMutableArray(array:["View Word List", "Play Again", "Play Another Level", "Main Menu"])
@@ -1008,7 +1004,7 @@ class GameScene: Scene {
 		self.stopGameAnimation()
 	}
 	
-		func resetGame() {
+	func resetGame() {
 			wordString = ""
 			score = 0
 			opponent_score = 0
@@ -1336,7 +1332,7 @@ class GameScene: Scene {
 			touchAngles.removeAll()
 			touchTimes.removeAll()
 			freeWheeling = false
-			touchedLetterView.placeholderString = ""
+			viewController.touchedLetterView.placeholderString = ""
 			wordString = ""
 			match = false
 			lookingUpWordsQ = false

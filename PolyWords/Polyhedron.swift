@@ -89,16 +89,16 @@ class Polyhedron: Model {
 		var polygonCounter:Int = 0
 		for polygonsOfType in polygons {
 			for poly in polygonsOfType {
-				let letter = Int.random(in: 0...25)
-
+//				let letter = Int.random(in: 0...25)
+				poly.letter = AppConstants.kAlphabet[polygonCounter%25]
 				for (num, vertex) in poly.centroidVertices.enumerated() {
-					print(poly.scaledBaseTextureCoords[num])
+//					print(poly.scaledBaseTextureCoords[num])
 					let newVertex = Vertex(position: vertex,
 																 normal: poly.normal_v,
 																 uv: poly.scaledBaseTextureCoords[num],
 																 colorShift: colorMultiplier[(poly.numberOfSides-3)%4],
-																 faceNumber: letter,
-																 letterNumber: letter
+																 faceNumber: polygonCounter%25,
+																 letterNumber: polygonCounter%25
 //																 tangent: poly.tangent_v,
 //																 bitangent: poly.bitan_v
 					)
@@ -117,9 +117,9 @@ class Polyhedron: Model {
 				indexCounter += localIndexCounter
 			}
 		}
-		for vertex in faceVertices {
-				print("Sides: \(vertex.uv), Letter: \(vertex.letterNumber)")
-		}
+//		for vertex in faceVertices {
+//				print("Sides: \(vertex.uv), Letter: \(vertex.letterNumber)")
+//		}
 	}
 	
 	func generateConnectivityForPolyhedron() {

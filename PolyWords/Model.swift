@@ -100,6 +100,7 @@ class Model: Node {
 			Renderer.device.makeSamplerState(descriptor: descriptor)
 		return samplerState
 	}
+	
 }
 
 extension Model: Renderable {
@@ -130,9 +131,9 @@ extension Model: Renderable {
 //				var color = submesh.color
 //				commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: Int(colorBufferIndex.rawValue))
 				// This is a very ugly hack to share textures across Level Selection Scene models
-				let baseColorTexture = scene.models[0].mesh.submeshes[0].textures.baseColor
-				let normalTexture = scene.models[0].mesh.submeshes[0].textures.normal
-				let lettersTexture = scene.models[0].mesh.submeshes[0].textures.letters
+				let baseColorTexture = scene.models[scene.polyhedronModelNumber].mesh.submeshes[0].textures.baseColor
+				let normalTexture = scene.models[scene.polyhedronModelNumber].mesh.submeshes[0].textures.normal
+				let lettersTexture = scene.models[scene.polyhedronModelNumber].mesh.submeshes[0].textures.letters
 				commandEncoder.setFragmentTexture(baseColorTexture,
 																				 index: Int(BaseColorTexture.rawValue))
 				commandEncoder.setFragmentTexture(normalTexture,

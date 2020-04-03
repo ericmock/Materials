@@ -8,6 +8,7 @@ class ViewController: LocalViewController {
 	var levelSelectionScene:LevelSelectionScene?
 	var item:NSMenu?
   
+	@IBOutlet weak var touchedLetterView: NSTextField!
 	@IBOutlet weak var polyhedronPicker: NSPopUpButton!
 	@IBAction func handleSelection(_ sender: NSPopUpButton) {
 		let item = selectedPolyhedra(sender.titleOfSelectedItem ?? "None")
@@ -34,9 +35,10 @@ class ViewController: LocalViewController {
 		metalView.delegate = renderer
 		metalView.clearColor = MTLClearColor(red: 1.0, green: 1.0, blue: 0.8, alpha: 1.0)
 //		titleScene = TitleScene(screenSize: metalView.bounds.size, sceneName:"Title")
-		levelSelectionScene = LevelSelectionScene(screenSize: metalView.bounds.size, sceneName:"Title")
-//		gameScene = GameScene(screenSize: metalView.bounds.size, sceneName:"Game")
-		renderer?.scene = levelSelectionScene
+//		levelSelectionScene = LevelSelectionScene(screenSize: metalView.bounds.size, sceneName:"Title")
+		gameScene = GameScene(screenSize: metalView.bounds.size, sceneName:"Game")
+		renderer?.scene = gameScene
+		renderer?.scene?.viewController = self
 
   }
 	

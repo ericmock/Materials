@@ -57,7 +57,7 @@ class TitleScene: Scene {
 	override func setupScene() {
 		camera.target = [0, 0.8, 0]
 		camera.distance = 4
-		camera.rotation = [-0.4, -0.4, 0]
+//		camera.nodeRotation = [-0.4, -0.4, 0]
 		//        add(node: title1)
 		//        title1.scaleV.y = 1.0/5.0
 		//        title1.position.x = 0.0
@@ -71,12 +71,12 @@ class TitleScene: Scene {
 		
 		for ii in 0..<titles.count {
 			add(node: titles[ii])
-			titles[ii].scaleV.y = 0.2
-			titles[ii].position.x = 0.0
-			titles[ii].position.y =  2.0 - Float(ii)/5.0
-			titles[ii].initialScaleV.y = 1.0
-			titles[ii].initialPosition.x = 0.0
-			titles[ii].initialPosition.y = 2.0 - Float(ii)/2.0
+			titles[ii].nodeScaleV.y = 0.2
+			titles[ii].nodePosition.x = 0.0
+			titles[ii].nodePosition.y =  2.0 - Float(ii)/5.0
+			titles[ii].nodeInitialScaleV.y = 1.0
+			titles[ii].nodeInitialPosition.x = 0.0
+			titles[ii].nodeInitialPosition.y = 2.0 - Float(ii)/2.0
 		}
 		
 		//        titles[0].scaleV = [1.0, 0.2, 1.0]
@@ -114,10 +114,10 @@ class TitleScene: Scene {
 		//        print("presentState = ",presentState)
 		for (ii, title) in titles.enumerated() {
 			let rotation = SIMD3<Float>(-presentState.theta[ii], 0.0, 0.0)
-			let transformMatrix = float4x4(rotateAboutXYZBy: rotation, aboutPoint: [0, -title.initialPosition.y - title.scaleV.y, 0])
-			let initialPosition = SIMD4<Float>(title.initialPosition.x, title.initialPosition.y, title.initialPosition.z, 1.0)
-			title.rotation.x = 3.14 - presentState.theta[ii]
-			title.position = (transformMatrix * initialPosition).xyz
+			let transformMatrix = float4x4(rotateAboutXYZBy: rotation, aboutPoint: [0, -title.nodeInitialPosition.y - title.nodeScaleV.y, 0])
+			let initialPosition = SIMD4<Float>(title.nodeInitialPosition.x, title.nodeInitialPosition.y, title.nodeInitialPosition.z, 1.0)
+//			title.nodeRotation.x = 3.14 - presentState.theta[ii]
+			title.nodePosition = (transformMatrix * initialPosition).xyz
 			//            tit4ule.position.y += title.initialPosition.y
 		}
 	}
@@ -129,7 +129,7 @@ class TitleScene: Scene {
 		uniforms.viewMatrix = camera.viewMatrix
 		uniforms.projectionMatrix = camera.projectionMatrix
 		
-		fragmentUniforms.cameraPosition = camera.position
+		fragmentUniforms.cameraPosition = camera.nodePosition
 	}
 	
 }

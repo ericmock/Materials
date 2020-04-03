@@ -87,7 +87,9 @@ class AppController: AppDelegate {
 //	var level_aborted = false
 //	var level_completed = false
 //	var game_id:UInt = 0
-	let swipeSound:NSSound = NSSound(contentsOfFile: Bundle.main.path(forResource: "Select", ofType: "caf")!, byReference: false)!
+	static let swipeSound:NSSound = NSSound(contentsOfFile: Bundle.main.path(forResource: "swipe", ofType: "caf")!, byReference: false)!
+	static let touchSound:NSSound = NSSound(contentsOfFile: Bundle.main.path(forResource: "Select", ofType: "caf")!, byReference: false)!
+	static let wordSound:NSSound = NSSound(contentsOfFile: Bundle.main.path(forResource: "word", ofType: "caf")!, byReference: false)!
 	var wordString:String = ""
 	var currentAlertView:NSResponder!
 	var upgradeDelegate:UpgradeDelegate!

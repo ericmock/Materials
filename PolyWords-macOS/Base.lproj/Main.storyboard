@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -320,16 +320,35 @@
                                     <action selector="handleSelection:" target="uid-qU-UCi" id="u0f-2M-sLQ"/>
                                 </connections>
                             </popUpButton>
+                            <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pxg-k3-sOc">
+                                <rect key="frame" x="165" y="259" width="96" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" id="HtL-SV-8TC">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="39g-Kz-Ad4" name="displayPatternValue1" keyPath="values.touchedLetterView" id="qPj-nc-85f">
+                                        <dictionary key="options">
+                                            <string key="NSDisplayPattern">%{value1}@</string>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
                         </subviews>
                         <connections>
                             <outlet property="polyhedronPicker" destination="gjv-CC-wtM" id="mys-sd-gge"/>
+                            <outlet property="touchedLetterView" destination="pxg-k3-sOc" id="JMU-C5-BZl"/>
                         </connections>
                     </view>
                     <connections>
                         <outlet property="polyhedronPicker" destination="JZq-HW-F3Z" id="MY0-mw-e3E"/>
+                        <outlet property="touchedLetterView" destination="pxg-k3-sOc" id="pbS-sU-cYK"/>
                     </connections>
                 </viewController>
                 <customObject id="bf2-1r-fwl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController representsSharedInstance="YES" id="39g-Kz-Ad4"/>
             </objects>
             <point key="canvasLocation" x="630" y="658"/>
         </scene>

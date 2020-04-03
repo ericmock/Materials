@@ -15,6 +15,10 @@ import MetalKit
 enum InputMode {
 	case rotate
 	case select
+	case button
+	case zoom
+	case edit
+	case hint
 }
 
 
@@ -28,22 +32,24 @@ class Scene {
 	var uniforms = Uniforms()
 	var fragmentUniforms = FragmentUniforms()
 	let lighting = Lighting()
+	var viewController:ViewController!
 	
 	lazy var camera: ArcballCamera = {
 		let camera = ArcballCamera()
 		camera.distance = 3
 		camera.target = [0, 1, 0]
-		camera.rotation.x = Float(-10).degreesToRadians
+		camera.nodeQuaternion = simd_quatf(angle:Float(-10).degreesToRadians,axis:float3(1,0,0))
 		return camera
 	}()
 	
 	var models: [Model] = []
 	
 	let trackball = Trackball()
-	var gTrackBallRotation:SIMD4<Float> = [0, 0, 0, 0]
-	var rotationAngles:SIMD4<Float> = [0, 0, 0, 0]
-	var worldRotationAngles:SIMD4<Float> = [0, 0, 0, 0]
-	var worldRotation:SIMD4<Float> = [0, 0, 0, 0]
+	var gTrackballQuaternion = simd_quatf(angle: 0, axis: float3(1,0,0))
+	var initialQuaternion = simd_quatf(angle: 0, axis: float3(1,0,0))
+//	var rotationAngleAxis_delete:float4 = [0, 0, 0, 0]
+	var worldRotationAngleAxis:float4 = [0, 0, 0, 0]
+	var worldRotation_toLevelSelectionScene:float4 = [0, 0, 0, 0]
 	
 	private var startPoint:CGPoint = .zero
 	private var lastPoint:CGPoint = .zero
@@ -65,6 +71,8 @@ class Scene {
 	
 	var sceneTextures:[String] = []
 	
+	var polyhedronModelNumber = 1
+
 	init(screenSize: CGSize, sceneName: String) {
 		self.screenSize = screenSize
 		fragmentUniforms.lightCount = lighting.count
@@ -84,7 +92,7 @@ class Scene {
 		uniforms.viewMatrix = camera.viewMatrix
 		uniforms.projectionMatrix = camera.projectionMatrix
 		uniforms.normalMatrix = uniforms.modelMatrix.upperLeft
-		fragmentUniforms.cameraPosition = camera.position
+		fragmentUniforms.cameraPosition = camera.nodePosition
 	}
 	
 	final func add(node: Node, parent: Node? = nil, renderQ: Bool = true) {
@@ -125,7 +133,7 @@ class Scene {
 		screenSize = size
 	}
 	
-	@objc func checkDrag(timer: Timer) {
+	@objc func checkDrag() {
 		//Override if needed
 	}
 	

@@ -16,6 +16,13 @@ extension Float {
   }
 }
 
+func get_time_of_day() -> Double {
+	var tv:timeval = timeval()
+	gettimeofday(&tv, nil)
+	let time = Double(tv.tv_sec) + Double(tv.tv_usec) * 0.000001
+	return time
+}
+
 func radians(fromDegrees degrees: Float) -> Float {
     return (degrees / 180) * π
 }
@@ -74,6 +81,19 @@ func pointInPolygon(withNumberOfPoints npol: Int, withXPoints xp: [Float], withY
     return c
 }
 
+func contains(polygon: [CGPoint], test: CGPoint) -> Bool {
+
+  var pJ = polygon.last!
+  var contains = false
+  for pI in polygon {
+    if ( ((pI.y >= test.y) != (pJ.y >= test.y)) &&
+    (test.x <= (pJ.x - pI.x) * (test.y - pI.y) / (pJ.y - pI.y) + pI.x) ){
+          contains = !contains
+    }
+    pJ = pI
+  }
+  return contains
+}
 
 // MARK:- float4
 extension float4x4 {
@@ -135,7 +155,7 @@ extension float4x4 {
     self = matrix
   }
   
-  init(rotation angle: float3) {
+  init(rotationAngles angle: float3) {
     let rotationX = float4x4(rotationX: angle.x)
     let rotationY = float4x4(rotationY: angle.y)
     let rotationZ = float4x4(rotationZ: angle.z)
@@ -234,7 +254,27 @@ extension float4x4 {
 	init(scaleByX: Float, scaleByY: Float, scaleByZ: Float) {
 			self = float4x4(scaleBy: SIMD3<Float>(scaleByX, scaleByY, scaleByZ))
 	}
+	
+	init(from3X3 matrix:float3x3) {
+		self = matrix_identity_float4x4
+		columns.0 = float4(matrix.columns.0, 0)
+		columns.1 = float4(matrix.columns.1, 0)
+		columns.2 = float4(matrix.columns.2, 0)
+	}
 
+	init(byAngleAxis angle: float4) {
+		self = float4x4(byAngle: angle[0], rotateAboutAxis: normalize(float3(angle[1],angle[2],angle[3])))
+	}
+	
+	init(byAngle angle: Float, rotateAboutAxis axis: float3) {
+		let unitAxis = normalize(axis)
+		let term1 = cos(angle) * matrix_identity_float3x3
+		let term2 = sin(angle) * float3x3(crossMatrixFrom: unitAxis)
+		let term3 = (1.0 - cos(angle)) * float3x3(outerMatrixFrom: unitAxis)
+		let matrix = term1 + term2 + term3
+		self = float4x4(from3X3: matrix)
+	}
+	
 	init(rotateAboutXBy angle: Float) {
 			self = matrix_identity_float4x4
 			columns.1.y = cos(angle)
@@ -295,6 +335,20 @@ extension float3x3 {
     self.init()
     columns = matrix.upperLeft.inverse.transpose.columns
   }
+	
+	init(crossMatrixFrom vector: float3) {
+		let column0 = float3(0.0, vector.z, -vector.y)
+		let column1 = float3(-vector.z, 0.0, vector.x)
+		let column2 = float3(vector.y, -vector.x, 0.0)
+		self = float3x3(column0, column1, column2)
+	}
+	
+	init(outerMatrixFrom vector: float3) {
+		let column0 = vector.x * float3(vector.x, vector.y, vector.z)
+		let column1 = vector.y * float3(vector.x, vector.y, vector.z)
+		let column2 = vector.z * float3(vector.x, vector.y, vector.z)
+		self = float3x3(column0, column1, column2)
+	}
 }
 
 // MARK:- float4

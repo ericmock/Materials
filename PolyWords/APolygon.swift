@@ -7,13 +7,14 @@ class Apolygon {
 	var number = 0
 	var texture = 0
 	var selected = false
+	var touched = false
 	var tangent_v:float3 = [0,0,0]
 	var bitan_v:float3 = [0,0,0]
 	var normal_v:float3 = [0,0,0]
 	var rot_angle:Float = 0
 	var rot_v:float3 = [0,0,0]
 	var position:float3 = [0,0,0]
-	var select_animation_start_time:Date!
+	var select_animation_start_time = 0.0
 	//	var indices:NSArray!
 	var connections:[Apolygon] = []
 	var centroid:float3 = [0,0,0]
@@ -36,7 +37,7 @@ class Apolygon {
 		self.type = type
 		self.polyhedron = polyhedron
 		name = AppConstants.kPolygonTypeNames[type]
-		select_animation_start_time = Date()
+		select_animation_start_time = 0.0
 		
 		numberOfSides = AppConstants.kPolygonTypesVertexCount[type]
 		let scale:Float = 1/1.0
