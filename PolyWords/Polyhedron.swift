@@ -152,8 +152,8 @@ class Polyhedron: Model {
 			poly.animatingQ = false
 			polygonNumber += 1
 			poly.texture = -1
-			poly.active = activeArray[ii] // Needs to be activeArray[type][ii]
-			poly.dbID = idArray[ii] // Needs to be idArray[type][ii]
+			poly.active = true//activeArray[type][ii] // Needs to be activeArray[type][ii]
+			poly.dbID = 0//idArray[type][ii] // Needs to be idArray[type][ii]
 			setPolygonIndices(forPolygon: poly, withIndices: allIndices[type][ii])
 			setPolygonVertices(forPolygon: poly)
 			poly.generateCentroids()

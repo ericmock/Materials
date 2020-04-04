@@ -96,13 +96,13 @@ extension GameScene {
 	}
 
 	@objc func touchesMoved(with event:NSEvent) {
-		print("Touches Moved")
+//		print("Touches Moved")
 
 		dragging = true
 		
 		let position = event.locationInWindow
 		if (inputMode == .rotate) {
-			print("Rotation Mode")
+//			print("Rotation Mode")
 			touchTimes.append(get_time_of_day())
 			let previousTrackballQuaternion = gTrackballQuaternion
 			gTrackballQuaternion = trackball.rollToTrackball(withX: Float(position.x), withY: Float(position.y))
@@ -110,7 +110,7 @@ extension GameScene {
 			polyhedron.nodeQuaternion = newRotationQuat
 			touchAngles.append(polyhedron.nodeQuaternion.angle)
 		} else if (inputMode == .select) {
-			print("Select Mode")
+//			print("Select Mode")
 			let polygons:[Apolygon] = Array(polyhedron.polygons.joined())
 			let touchedNum = findTouchedPolygon(atPoint: position)
 			if (previouslyTouchedNumber >= 0 && previouslyTouchedNumber < polygons.count) {
@@ -184,6 +184,8 @@ extension GameScene {
 			}
 			
 			let touchedNumber = findTouchedPolygon(atPoint: touchPosition)
+			let touchedPolygon = Array(polyhedron.polygons.joined())[touchedNumber] as Apolygon
+			print("Touched a \(touchedPolygon.type + 3)-sided polygon with letter \(touchedPolygon.letter)")
 			
 			if (touchedNumber >= 0) {
 				let poly = polygons[touchedNumber]

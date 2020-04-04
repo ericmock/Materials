@@ -175,12 +175,12 @@ class GameScene: Scene {
 		//        var ii: Int = 0
 		//        var jj: Int = 0
 		var touchedNumber:Int = 0
-		// Still need this?
-		touchPosition.y = Float(screenSize.height) - touchPosition.y
+		// Still need this? NO! For macOS.
+//		touchPosition.y = Float(screenSize.height) - touchPosition.y
 		
 		var closePolygons:[Apolygon] = []
-		var centroidZs:[Float] = [0]
-		var faceNumbers:[Int] = [0]
+		var centroidZs:[Float] = []
+		var faceNumbers:[Int] = []
 		
 		vec[3] = 1.0
 		
@@ -228,31 +228,30 @@ class GameScene: Scene {
 			}
 		}
 		
-		var centroidZmax:Float = -100;//, temp[4] = {0.0, 0.0, 0.0, 1.0}, vec2[4] = {0.0, 0.0, 0.0, 1.0};
+		var centroidZmin:Float = 100;//, temp[4] = {0.0, 0.0, 0.0, 1.0}, vec2[4] = {0.0, 0.0, 0.0, 1.0};
 		//         var touched_num = -1
 		//         var base_vertex_index = 0;
 		counter = 0;
 		let copyOfClosePolygons = Array(closePolygons)
-		print("Touch position:\n{\(touchPosition.x),\(touchPosition.y)}")
+//		print("Touch position:\n{\(touchPosition.x),\(touchPosition.y)}")
 		for poly in copyOfClosePolygons {
-			print("Close polygon vertices: \(poly.letter)")
-			let polyType: Int = poly.type
-			var deformedVertexX:[Float] = []
-			var deformedVertexY:[Float] = []
+//			print("Close polygon vertices: \(poly.letter)")
+//			let polyType: Int = poly.type
+			var deformedVertices:[SIMD2<Float>] = []
 			for vertex in poly.vertices {
 				vec = float4(vertex,1)
 				vec3 = transform_matrix * vec
 				vec3[0] /= vec3[3]
 				vec3[1] /= vec3[3]
 				vec3[2] /= vec3[3]
-				print("{\(vec3[0]), \(vec3[1]), \(vec3[2])}")
+//				print("{\(vec3[0]), \(vec3[1]), \(vec3[2])}")
 				winX = Float(vp[0]) + Float(vp[2]) * (vec3[0] + 1.0) / 2.0
 				winY = Float(vp[1]) + Float(vp[3]) * (vec3[1] + 1.0) / 2.0
-				deformedVertexX.append(winX)
-				deformedVertexY.append(winY)
+				deformedVertices.append(SIMD2<Float>(winX, winY))
 			}
-			for (x,y) in zip(deformedVertexX,deformedVertexY) {print("{\(x), \(y)}")}
-			let inside: Bool = pointInPolygon(withNumberOfPoints: polyType + 3, withXPoints: deformedVertexX, withYPoints: deformedVertexY, withX: touchPosition.x, withY: touchPosition.y);
+//			for vertex in deformedVertices {print("{\(vertex.x), \(vertex.y)}")}
+			let inside: Bool = contains(polygon: deformedVertices, test: touchPosition);
+//			print("inside: \(inside)")
 			if (!inside || !poly.active) {
 				if let idx = closePolygons.firstIndex(where: { $0 === poly }) {
 					closePolygons.remove(at: idx)
@@ -267,13 +266,16 @@ class GameScene: Scene {
 		}
 		counter = 0;
 		for poly in closePolygons {
+//			print("remaining closePolygons: \(poly.letter)")
 			let centroidZ = centroidZs[counter]//[[centroidsArray objectAtIndex:counter] floatValue];
-			if (centroidZ > centroidZmax) {
-				centroidZmax = centroidZ;
+//			print("centroidZ: \(centroidZ)")
+			if (centroidZ < centroidZmin) {
+				centroidZmin = centroidZ;
 				touchedNumber = poly.number;
 			}
 			counter += 1;
 		}
+//		print("touchedNumber: \(touchedNumber)")
 		return touchedNumber
 	}
 	

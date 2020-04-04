@@ -3,7 +3,7 @@ import Foundation
 class Apolygon {
 	var letter = ""
 	var type:Int!
-	var active = false
+	var active = true
 	var number = 0
 	var texture = 0
 	var selected = false

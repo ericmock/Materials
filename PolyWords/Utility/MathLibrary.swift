@@ -81,7 +81,7 @@ func pointInPolygon(withNumberOfPoints npol: Int, withXPoints xp: [Float], withY
     return c
 }
 
-func contains(polygon: [CGPoint], test: CGPoint) -> Bool {
+func contains(polygon: [SIMD2<Float>], test: SIMD2<Float>) -> Bool {
 
   var pJ = polygon.last!
   var contains = false
