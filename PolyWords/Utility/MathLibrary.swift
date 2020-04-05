@@ -60,7 +60,7 @@ struct Vertex {
 	var uv: float2
 	var colorShift: float3
 	var faceNumber: Int
-	var letterNumber: Int
+//	var letterNumber: Int
 //	var tangent: float3
 //	var bitangent: float3
 }

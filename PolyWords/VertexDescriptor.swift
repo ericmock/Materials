@@ -12,7 +12,7 @@ extension MTLVertexDescriptor {
 		let hasTextureCoords = true
 		let hasColorShift = true
 		let hasFaceCounter = true
-		let hasLetter = true
+		let hasLetter = false
 		
 		vertexDescriptor.attributes[attributeCounter].format = .float3
 		vertexDescriptor.attributes[attributeCounter].offset = 0

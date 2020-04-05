@@ -63,7 +63,7 @@ typedef enum {
   lightsBufferIndex = 12,
   fragmentUniformsBufferIndex = 13,
   materialsBufferIndex = 14,
-//	colorBufferIndex = 15,
+	letterBufferIndex = 15,
 	wireframeQBufferIndex = 16
 } BufferIndices;
 

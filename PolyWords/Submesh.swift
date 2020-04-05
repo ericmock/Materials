@@ -3,7 +3,9 @@ import MetalKit
 class Submesh {
 //	var color:float4 = [1,0,0,1]
 	let indexBuffer: MTLBuffer
+//	let letterBuffer: MTLBuffer
 	let indexCount: Int
+//	let letterCount: Int
 	let indexType: MTLIndexType
 
   struct Textures {

@@ -13,6 +13,7 @@ class Model: Node {
 	var allCentroidIndices:[UInt16] = Array()
 	var faceIndices:[UInt16] = Array()
 	var allCentroidNormalIndices:[UInt16] = Array()
+	var polygonLetters:[Int16] = Array()
 	let scene:Scene
 
 	
@@ -57,7 +58,7 @@ class Model: Node {
 
 		let stride = MemoryLayout<Vertex>.stride
 		let length = stride * faceVertices.count
-		print(faceVertices[0])
+//		print(faceVertices[0])
 		let vertexBuffer = Renderer.device.makeBuffer(bytes: faceVertices,
 																									length: length,
 																									options: [])!
@@ -72,6 +73,7 @@ class Model: Node {
 		commandEncoder.setTriangleFillMode(.fill)
 		var isWireframe:Bool = false
 		commandEncoder.setFragmentBytes(&isWireframe, length: MemoryLayout<Bool>.stride, index: Int(wireframeQBufferIndex.rawValue))
+		commandEncoder.setFragmentBytes(&polygonLetters, length: MemoryLayout<Int16>.stride * polygonLetters.count, index: Int(letterBufferIndex.rawValue))
 		commandEncoder.drawIndexedPrimitives(type: .triangle,
 																				indexCount: submesh.indexCount,
 																				indexType: submesh.indexType,

@@ -12,7 +12,7 @@ struct VertexIn {
   float2 uv;
 	float3 colorShift;
 	int polygonNumber;
-	int letter;
+//	int letter;
 //  float3 tangent [[attribute(Tangent)]];
 //  float3 bitangent [[attribute(Bitangent)]];
 };
@@ -24,7 +24,7 @@ struct VertexOut {
 	float3 meshNormal;
 	float3 colorShift;
 	int polygonNumber;
-	int letter;
+//	int letter;
 //  float3 worldTangent;
 //	float3 meshTangent;
 //  float3 worldBitangent;
@@ -49,7 +49,7 @@ vertex VertexOut vertex_main(constant VertexIn *vertexIn [[buffer(0)]],
     .uv = vertexIn[id].uv,
 		.colorShift = vertexIn[id].colorShift,
 		.polygonNumber = vertexIn[id].polygonNumber,
-		.letter = vertexIn[id].letter
+//		.letter = vertexIn[id].letter
   };
   return out;
 }
@@ -66,11 +66,13 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 															//                                                               function_constant(hasNormalTexture) ]],
                               sampler textureSampler [[sampler(0)]],
                               constant Light *lights [[buffer(lightsBufferIndex)]],
-                              constant FragmentUniforms &fragmentUniforms [[buffer(fragmentUniformsBufferIndex)]]) {
+                              constant FragmentUniforms &fragmentUniforms [[buffer(fragmentUniformsBufferIndex)]],
+															constant short *polygonLetters [[buffer(letterBufferIndex)]]) {
   
 	float3 baseColor = in.colorShift * baseColorTexture.sample(textureSampler,
                                              in.uv * fragmentUniforms.tiling).rgb;
-	float2 letterPosition = in.uv/6.0 + float2(float(in.polygonNumber%6)/6.0,floor(float(in.polygonNumber)/6.0)/6.0) + float2(0.0,0.0);
+	int polygonLetter = polygonLetters[in.polygonNumber];
+	float2 letterPosition = in.uv/6.0 + float2(float(polygonLetter%6)/6.0,floor(float(polygonLetter)/6.0)/6.0) + float2(0.0,0.0);
 	
 	float3 lettersColor = in.colorShift * lettersTexture.sample(textureSampler,
                                              letterPosition * fragmentUniforms.tiling).rgb;
