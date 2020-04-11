@@ -47,7 +47,7 @@ extension GameScene {
 		if submitting {
 			submitting = false
 			for poly in touchedPolygons {
-				poly.selected = false
+				poly.polygon.selected = false
 			}
 			touchedPolygons.removeAll()
 		}
@@ -88,7 +88,6 @@ extension GameScene {
 			trackball.startTrackball(withX: Float(touchPosition.x), withY: Float(touchPosition.y), withOriginX: 0, withOriginY: 0, withWidth: Float(screenSize.width), withHeight: Float(screenSize.height));
 			gTrackballQuaternion = simd_quatf(angle: 0, axis: float3(1,0,0))
 		}
-		
 	}
 	
 	private func printQuat(_ quat:simd_quatf) {
@@ -150,18 +149,12 @@ extension GameScene {
 			}
 			
 			freeWheeling = true
-//			gTrackballQuaternion = simd_quatf(angle: 0, axis: float3(1,0,0))
-			
-//			polyhedron.nodeRotation = float4(0,1,0,0)
-//			;print("model rotation reset:");printQuat(polyhedron.nodeQuaternion)
-//			polyhedron.parent?.nodeRotation = rotation
-//			;print("world rotation final:");printQuat(polyhedron.parent!.nodeQuaternion)
 		}
 		else if inputMode == .button {
 			print("Button Mode")
 			if touchPosition.x > 220.0 {
 				for touchedPoly in touchedPolygons {
-					touchedPoly.select_animation_start_time = get_time_of_day()
+					touchedPoly.polygon.select_animation_start_time = get_time_of_day()
 				}
 				submitWord()
 				submitting = true
@@ -176,20 +169,50 @@ extension GameScene {
 		else if (!dragging || inputMode == .select) {
 			print("Select Mode")
 			touchStartTime = get_time_of_day()
-			let polygons:[Apolygon] = Array(polyhedron.polygons.joined())
+//			let polygons:[Apolygon] = Array(polyhedron.polygons.joined())
 			touchPosition = event.locationInWindow//[t locationInView:t.view];
 			
-			if (previousTouchNumber >= 0 && previousTouchNumber < polygons.count) {
-				polygons[previouslyTouchedNumber].touched = false
+			if (previousTouchNumber >= 0 && previousTouchNumber < polygonModels.count) {
+				polygonModels[previouslyTouchedNumber].polygon.touched = false
 			}
 			
 			let touchedNumber = findTouchedPolygon(atPoint: touchPosition)
-			let touchedPolygon = Array(polyhedron.polygons.joined())[touchedNumber] as Apolygon
-			print("Touched a \(touchedPolygon.type + 3)-sided polygon with letter \(touchedPolygon.letter)")
+			let touchedPolygon = polygonModels[touchedNumber]
+			print("Touched a \(touchedPolygon.polygon.type + 3)-sided polygon with letter \(touchedPolygon.polygon.letter)")
 			
 			if (touchedNumber >= 0) {
-				let poly = polygons[touchedNumber]
-				set(touchedPolygon: poly)
+				let poly = polygonModels[touchedNumber]
+				poly.polygon.select_animation_start_time = touchStartTime
+				if !renderables.contains(poly) {
+					renderables.append(poly)
+//					print(poly.nodeQuaternion)
+//					print(polyhedron.nodeQuaternion)
+//					print("normal:  ",poly.polygon.normal_v)
+//					print("tangent:  ",poly.polygon.tangent_v)
+//					print("bitan:  ",poly.polygon.bitan_v)
+//					let rot:float3x3 = float3x3(tensorProduct: poly.polygon.normal_v, float3(0,0,-1))
+//					+ float3x3(tensorProduct: poly.polygon.tangent_v, float3(0,1,0))
+//					+ float3x3(tensorProduct: poly.polygon.bitan_v, float3(1,0,0))
+//					print("calculated rot:  ", rot)
+//					poly.nodeQuaternion = simd_quatf(rot)//*polyhedron.nodeQuaternion.inverse
+//					print(poly.nodeQuaternion)
+//					print("translated rot:  ", float4x4(poly.nodeQuaternion))
+//					poly.nodePosition = float3(0,2.5,0)
+//					let vec = rot * poly.polygon.normal_v
+//					print(vec)
+//					_ = poly.modelMatrix
+//					let init_quat = simd_quatf(from: float3(0,0,1), to: normalize(poly.polygon.centroid))
+//					poly.nodeQuaternion = init_quat.inverse//quat * polyhedron.nodeQuaternion
+//					poly.nodePosition = polyhedron.nodePosition
+					polyhedron.polygonSelectedQ[touchedNumber] = true
+					poly.initialTouchedPosition = polyhedron.nodePosition
+					poly.initialTouchedQuaternion = polyhedron.nodeQuaternion
+					poly.initialTouchedScaleV = polyhedron.nodeScaleV
+					poly.initialTouchedCentroid = polyhedron.modelMatrix.upperLeft * poly.polygon.centroid
+					print("original centroid: \(poly.polygon.centroid)")
+					print("touched centroid: \(poly.initialTouchedCentroid)")
+				}
+				set(touchedPolygonModel: poly)
 			} else {
 //				set(touchedPolygon: )
 			}

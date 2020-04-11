@@ -201,6 +201,8 @@
 		0BD332C52425163E00DADAA3 /* EncodeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD332BF2425163D00DADAA3 /* EncodeDecode.swift */; };
 		0BD332C62425163E00DADAA3 /* EncodeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD332BF2425163D00DADAA3 /* EncodeDecode.swift */; };
 		0BD332C72425163E00DADAA3 /* EncodeDecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD332BF2425163D00DADAA3 /* EncodeDecode.swift */; };
+		0BE4848E243CE876008FA0A2 /* PolygonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6827A9243B7D1D0041ED61 /* PolygonModel.swift */; };
+		0BE4848F243CE877008FA0A2 /* PolygonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6827A9243B7D1D0041ED61 /* PolygonModel.swift */; };
 		0BEA12BC241BF61700BCEFA8 /* TextureGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BB241BF61700BCEFA8 /* TextureGenerator.swift */; };
 		0BEA12BE241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
 		0BEA12BF241C821300BCEFA8 /* APolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEA12BD241C821300BCEFA8 /* APolygon.swift */; };
@@ -333,6 +335,7 @@
 		0B6542DC241ABDF4009CE36E /* LevelInformation.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LevelInformation.entitlements; sourceTree = "<group>"; };
 		0B6542E0241ABE33009CE36E /* LevelInformation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LevelInformation.storyboard; path = PolyhedronStatistics/LevelInformation.storyboard; sourceTree = SOURCE_ROOT; };
 		0B6542E2241AC8AA009CE36E /* LevelSelectionScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectionScene.swift; sourceTree = "<group>"; };
+		0B6827A9243B7D1D0041ED61 /* PolygonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonModel.swift; sourceTree = "<group>"; };
 		0B6B942E2419B5560020A06B /* Select.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Select.caf; sourceTree = "<group>"; };
 		0B6B942F2419B5570020A06B /* swipe.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = swipe.caf; sourceTree = "<group>"; };
 		0B6B94302419B5580020A06B /* word.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = word.caf; sourceTree = "<group>"; };
@@ -776,6 +779,7 @@
 				130F080B22C4343D001B7909 /* Node.swift */,
 				0B9956952410038A00F4D06F /* PauseDelegate.swift */,
 				130EDE6A22C9BE9100288A31 /* PBR.metal */,
+				0B6827A9243B7D1D0041ED61 /* PolygonModel.swift */,
 				0BEA12BB241BF61700BCEFA8 /* TextureGenerator.swift */,
 				0B5DC9C92405D39800827383 /* Polyhedron.swift */,
 				0B11CA74240F4035001B76A2 /* PolyWordsView.swift */,
@@ -1380,6 +1384,7 @@
 				0B5DC9BB2405D28C00827383 /* TitleIntegrator.swift in Sources */,
 				0B9956A72410D49F00F4D06F /* UpgradeDelegate.swift in Sources */,
 				0B6B9447241A874A0020A06B /* HighScoresDatabase.swift in Sources */,
+				0BE4848E243CE876008FA0A2 /* PolygonModel.swift in Sources */,
 				0B5DCA012406F21800827383 /* BufferProvider.swift in Sources */,
 				0B9956A42410CB6500F4D06F /* MyActionSheet.swift in Sources */,
 				0B9286F82412DD37008CAC19 /* GuideViewController.swift in Sources */,
@@ -1444,6 +1449,7 @@
 				0B5DC9E02405D7A700827383 /* MetalTexture.swift in Sources */,
 				0BB4466624077C9A0006E805 /* WordsViewController2.swift in Sources */,
 				1384A3F022C1F12A006036BA /* Renderer.swift in Sources */,
+				0BE4848F243CE877008FA0A2 /* PolygonModel.swift in Sources */,
 				0BD332C12425163E00DADAA3 /* EncodeDecode.swift in Sources */,
 				0B6542E4241AC8AA009CE36E /* LevelSelectionScene.swift in Sources */,
 				130F082D22C43CC8001B7909 /* ViewControllerExtension.swift in Sources */,

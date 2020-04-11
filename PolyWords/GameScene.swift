@@ -14,11 +14,11 @@ import Cocoa
 
 class GameScene: Scene {
 	var wordsDB:Words!
-	var previousTouchedPoly:Apolygon!
+	var previousTouchedPoly:PolygonModel!
 	var last_submit_time:Float = 0.0
 	var playTime:Float = 0.0
 	var submittingPolygonsValues:[Any] = []
-	var touchedPolygons:[Apolygon] = []
+	var touchedPolygons:[PolygonModel] = []
 	var score:Int = 0
 	var word_score:Int = 0
 	var match:Bool = false
@@ -97,14 +97,41 @@ class GameScene: Scene {
 	var positionX:CGFloat = 0
 	var positionY:CGFloat = 0
 
+	var polygonModels:[PolygonModel] = Array()
 	lazy var polyhedron = Polyhedron(name: "TestPolyhedron", withPolyID: 12, scene:self)
 	
 	override init(screenSize: CGSize, sceneName: String) {
 		super.init(screenSize: screenSize, sceneName: sceneName)
 //		gTrackBallRotation[1] = 1.0
 		worldRotation_toLevelSelectionScene[1] = 1.0
+		for polyType in polyhedron.polygons {
+			for poly in polyType {
+				polygonModels.append(PolygonModel(withPolygon: poly, inScene: self))
+			}
+		}
+		setupScene()
+
 	}
 	
+		override func setupScene() {
+			camera.target = [0, 0, 0]
+			camera.distance = 6
+			camera.nodeQuaternion = simd_quatf()
+			
+			let worldModel = Model(forScene: self)
+			worldModel.name = "World"
+			add(node: worldModel, renderQ: false)
+			models.append(worldModel)
+			
+			add(node: polyhedron, parent: worldModel)
+			models.append(polyhedron)
+			polyhedron.nodeQuaternion = simd_quatf(angle: 0, axis:float3(0,1,0))//simd_quatf(angle: radians(fromDegrees: Float.random(in: -180..<180)), axis:float3(0,1,0))
+			
+			for polygonModel in polygonModels {
+				add(node: polygonModel, parent: worldModel, renderQ: false)
+			}
+		}
+
 	func endSpin() {
 		
 	}
@@ -117,21 +144,6 @@ class GameScene: Scene {
 		
 	}
 	
-	override func setupScene() {
-		camera.target = [0, 0, 0]
-		camera.distance = 4
-		camera.nodeQuaternion = simd_quatf()
-		
-		let worldModel = Model(forScene: self)
-		worldModel.name = "World"
-		add(node: worldModel, renderQ: false)
-		models.append(worldModel)
-		
-		add(node: polyhedron, parent: worldModel)
-		models.append(polyhedron)
-//		polyhedronModelNumber = 1
-		polyhedron.nodeQuaternion = simd_quatf(angle: radians(fromDegrees: Float.random(in: -180..<180)), axis:float3(0,1,0))
-	}
 	
 	@objc override func checkDrag() {
 		checked = true;
@@ -167,13 +179,8 @@ class GameScene: Scene {
 		var vec:float4 = [0, 0, 0, 0]
 		var vec1:float4 = [0, 0, 0, 0]
 		var vec3:float4 = [0, 0, 0, 0]
-//		var transform_matrix:float4x4 = float4x4(0)//, touch[3] = {0.0, 0.0, -6.0};
-//		let vp:SIMD4<Int32> = [0, 0, 0, 0]
 		var winX:Float = 0
 		var winY:Float = 0
-		//         var winZ: Float
-		//        var ii: Int = 0
-		//        var jj: Int = 0
 		var touchedNumber:Int = 0
 		// Still need this? NO! For macOS.
 //		touchPosition.y = Float(screenSize.height) - touchPosition.y
@@ -184,25 +191,17 @@ class GameScene: Scene {
 		
 		vec[3] = 1.0
 		
-		// TODO
-		//        glGetIntegerv(GL_VIEWPORT, vp);
 		let vp = float4(0,0,Float(screenSize.width),Float(screenSize.height))
-		//        matrixMatrixMultiply(delegate.projectionMatrix, modelViewMatrix, transform_matrix);
 		let transform_matrix = camera.projectionMatrix * camera.viewMatrix * polyhedron.modelMatrix
 		
 		var counter = 0
-//		for ll in 0..<10 {
 		for polygonType in polyhedron.polygons {
-//			for ii in 0..<polyhedron.numberOfFacesOfPolygonType[ll] {
 			for poly in polygonType {
 				var minX: Float = Float(MAXFLOAT)
 				var maxX: Float = -Float(MAXFLOAT)
 				var minY: Float = Float(MAXFLOAT)
 				var maxY: Float = -Float(MAXFLOAT)
 				for vertex in poly.vertices {
-//					for jj in 0..<3 {
-						//						vec[jj] = thePolyhedron.polyVertices[ll][(3 + ll) * 3 * ii + 3 * kk + jj];
-//					}
 					vec = float4(vertex,1)
 					vec3 = transform_matrix * vec
 					
@@ -212,7 +211,6 @@ class GameScene: Scene {
 					
 					winX = Float(vp[0]) + Float(vp[2]) * (vec3[0] + 1.0) / 2.0
 					winY = Float(vp[1]) + Float(vp[3]) * (vec3[1] + 1.0) / 2.0
-					//                     winZ = (vec3[2] + 1.0) / 2.0
 					
 					if (winX > maxX) {maxX = Float(winX)}
 					if (winX < minX) {minX = Float(winX)}
@@ -228,15 +226,12 @@ class GameScene: Scene {
 			}
 		}
 		
-		var centroidZmin:Float = 100;//, temp[4] = {0.0, 0.0, 0.0, 1.0}, vec2[4] = {0.0, 0.0, 0.0, 1.0};
-		//         var touched_num = -1
-		//         var base_vertex_index = 0;
+		var centroidZmin:Float = 100;
 		counter = 0;
 		let copyOfClosePolygons = Array(closePolygons)
 //		print("Touch position:\n{\(touchPosition.x),\(touchPosition.y)}")
 		for poly in copyOfClosePolygons {
 //			print("Close polygon vertices: \(poly.letter)")
-//			let polyType: Int = poly.type
 			var deformedVertices:[SIMD2<Float>] = []
 			for vertex in poly.vertices {
 				vec = float4(vertex,1)
@@ -260,7 +255,7 @@ class GameScene: Scene {
 				let centroid = poly.centroid
 				vec = float4(centroid,1)
 				vec1 = transform_matrix * vec
-				centroidZs.append(vec1[2])//[centroidsArray addObject:[NSNumber numberWithFloat:vec1[2]]];
+				centroidZs.append(vec1[2])
 			}
 			counter += 1
 		}
@@ -406,7 +401,8 @@ class GameScene: Scene {
 		//		var letter_score:Float = 0.0
 		var base_word_score:Float = 0.0
 		submittingPolygonsValues.removeAll()
-		for poly in touchedPolygons {
+		for polyModel in touchedPolygons {
+			let poly = polyModel.polygon
 			let letter_num = AppConstants.kAlphabet.firstIndex(of: poly.letter)!
 			let polygon_type = poly.type
 			var num_sides = polygon_type! + 3;
@@ -457,14 +453,14 @@ class GameScene: Scene {
 	}
 	
 	// TODO: Make Apolygon conform to equatable
-	func set(touchedPolygon touchedPoly:Apolygon) {
+	func set(touchedPolygonModel touchedPoly:PolygonModel) {
 		
 		// reset the match identifier
 		match = false
 		
-		if !(touchedPoly.active) {
-			for poly in touchedPolygons {
-				poly.selected = false
+		if !(touchedPoly.polygon.active) {
+			for polyModel in touchedPolygons {
+				polyModel.polygon.selected = false
 			}
 			touchedPolygons.removeAll()
 			
@@ -473,7 +469,7 @@ class GameScene: Scene {
 			return
 		}
 		
-		touchedPoly.selected = true
+		touchedPoly.polygon.selected = true
 		
 		// check to see if it is already selected
 		//		if (touchedPolygons.contains(touchedPoly)) {
@@ -484,7 +480,7 @@ class GameScene: Scene {
 			let length = touchedPolygons.count - index
 			// reset the touched flag of all the previously touched polygons
 			for poly in touchedPolygons {
-				poly.selected = false
+				poly.polygon.selected = false
 			}
 			//			let range = NSMakeRange(index, length)
 			// remove the touched polygon and all those higher on the stack
@@ -492,8 +488,8 @@ class GameScene: Scene {
 			// reset the word string to contain only selected letters
 			wordString = ""
 			for poly in touchedPolygons {
-				poly.selected = true
-				wordString.append(poly.letter.lowercased())
+				poly.polygon.selected = true
+				wordString.append(poly.polygon.letter.lowercased())
 			}
 			
 		} else {
@@ -507,30 +503,30 @@ class GameScene: Scene {
 			//
 			//			 generate a rotation matrix that takes the polygon basis to the global basis
 			var rot_m:float3x3 = matrix_identity_float3x3
-			rot_m[0][0] = touchedPoly.tangent_v[0]
-			rot_m[0][1] = touchedPoly.tangent_v[1]
-			rot_m[0][2] = touchedPoly.tangent_v[2]
-			rot_m[1][0] = touchedPoly.bitan_v[0]
-			rot_m[1][1] = touchedPoly.bitan_v[1]
-			rot_m[1][2] = touchedPoly.bitan_v[2]
-			rot_m[2][0] = touchedPoly.normal_v[0]
-			rot_m[2][1] = touchedPoly.normal_v[1]
-			rot_m[2][2] = touchedPoly.normal_v[2]
+			rot_m[0][0] = touchedPoly.polygon.tangent_v[0]
+			rot_m[0][1] = touchedPoly.polygon.tangent_v[1]
+			rot_m[0][2] = touchedPoly.polygon.tangent_v[2]
+			rot_m[1][0] = touchedPoly.polygon.bitan_v[0]
+			rot_m[1][1] = touchedPoly.polygon.bitan_v[1]
+			rot_m[1][2] = touchedPoly.polygon.bitan_v[2]
+			rot_m[2][0] = touchedPoly.polygon.normal_v[0]
+			rot_m[2][1] = touchedPoly.polygon.normal_v[1]
+			rot_m[2][2] = touchedPoly.polygon.normal_v[2]
 			
 			// calculate the rotation angle per http://en.wikipedia.org/wiki/Rotation_representation
-			touchedPoly.rot_angle = acos( (rot_m[0][0] + rot_m[1][1] + rot_m[2][2] - 1.0)/2.0 )
+			touchedPoly.polygon.rot_angle = acos( (rot_m[0][0] + rot_m[1][1] + rot_m[2][2] - 1.0)/2.0 )
 			
 			// calculate the rotation vector per http://en.wikipedia.org/wiki/Rotation_representation
-			let denom = 2.0*sin(touchedPoly.rot_angle)
-			touchedPoly.rot_v[0] = (rot_m[2][1] - rot_m[1][2])/denom
-			touchedPoly.rot_v[1] = (rot_m[0][2] - rot_m[2][0])/denom
-			touchedPoly.rot_v[2] = (rot_m[1][0] - rot_m[0][1])/denom
+			let denom = 2.0*sin(touchedPoly.polygon.rot_angle)
+			touchedPoly.polygon.rot_v[0] = (rot_m[2][1] - rot_m[1][2])/denom
+			touchedPoly.polygon.rot_v[1] = (rot_m[0][2] - rot_m[2][0])/denom
+			touchedPoly.polygon.rot_v[2] = (rot_m[1][0] - rot_m[0][1])/denom
 			
-			touchedPoly.select_animation_start_time = get_time_of_day()
+			touchedPoly.polygon.select_animation_start_time = get_time_of_day()
 			
 			var count:UInt = 0
-			for num in touchedPoly.indices {
-				if (touchedPolygons.last?.indices.contains(num))! {
+			for num in touchedPoly.polygon.indices {
+				if (touchedPolygons.last?.polygon.indices.contains(num))! {
 					count += 1
 				}
 			}
@@ -538,12 +534,12 @@ class GameScene: Scene {
 			if (count < 2 && touchedPolygons.count > 0) {
 				// ...reset touched flag for all previously touched polygons...
 				for poly in touchedPolygons {
-					poly.selected = false
+					poly.polygon.selected = false
 				}
 				// ...clear the array of selected polygons...
 				touchedPolygons.removeAll()
 				// ...and set the touched flag and add the touched polygon to the array.
-				touchedPoly.selected = true
+				touchedPoly.polygon.selected = true
 				touchedPolygons.append(touchedPoly)
 			} else {
 				touchedPolygons.append(touchedPoly)
@@ -551,7 +547,7 @@ class GameScene: Scene {
 			// update the word string
 			wordString = ""
 			for poly in touchedPolygons {
-				wordString.append(poly.letter.lowercased())
+				wordString.append(poly.polygon.letter.lowercased())
 			}
 		}
 		

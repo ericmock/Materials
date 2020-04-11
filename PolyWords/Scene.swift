@@ -24,7 +24,7 @@ enum InputMode {
 
 class Scene {
 	var rootNode = Node()
-	var renderables: [Renderable] = []
+	var renderables: [Model] = []
 	
 	var screenSize: CGSize
 	
@@ -36,7 +36,7 @@ class Scene {
 	
 	lazy var camera: ArcballCamera = {
 		let camera = ArcballCamera()
-		camera.distance = 3
+		camera.distance = 10
 		camera.target = [0, 1, 0]
 		camera.nodeQuaternion = simd_quatf(angle:Float(-10).degreesToRadians,axis:float3(1,0,0))
 		return camera
@@ -77,7 +77,6 @@ class Scene {
 		self.screenSize = screenSize
 		fragmentUniforms.lightCount = lighting.count
 		print("number of lights: \(lighting.count)")
-		setupScene()
 	}
 	
 	func updateScene(deltaTime: Float) {
@@ -102,7 +101,7 @@ class Scene {
 			rootNode.add(childNode: node)
 		}
 		
-		guard let renderable = node as? Renderable else { return }
+		guard let renderable = node as? Model else { return }
 		if renderQ {
 			renderables.append(renderable)
 		}

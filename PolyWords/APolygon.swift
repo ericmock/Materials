@@ -26,7 +26,7 @@ class Apolygon {
 	var animatingQ:Bool = false
 	var dbID:Int = 0
 	var name:String = ""
-	let basePolygon:[BasePolygon] = []
+	var basePolygon:BasePolygon!
 	var baseTextureCoords:[SIMD2<Float>] = Array()
 	var scaledBaseTextureCoords:[SIMD2<Float>] = Array()
 	var textureCoords:[SIMD2<Float>] = Array()
@@ -216,6 +216,15 @@ class Apolygon {
 			numSides = 3
 		}
 		return numSides
+	}
+	
+	func generateBasePolygon() {
+		var baseVertices:[float3] = Array()
+		let rot = float3x3(tensorProduct: normal_v, zAxis) + float3x3(tensorProduct: tangent_v, xAxis) + float3x3(tensorProduct: bitan_v, yAxis)
+		for vertex in vertices {
+			baseVertices.append(rot * (vertex - centroid))
+		}
+		basePolygon = BasePolygon(vertices: baseVertices, indices: indices, textureNumber: texture)
 	}
 	
 	func generateCentroids() {

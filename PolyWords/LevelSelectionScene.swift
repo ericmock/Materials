@@ -25,6 +25,8 @@ class LevelSelectionScene: Scene {
 		super.init(screenSize: screenSize, sceneName: sceneName)
 //		gTrackBallRotation[1] = 1.0
 		worldRotation_toLevelSelectionScene[1] = 1.0
+		setupScene()
+
 	}
 
 //	MARK:  Methods

@@ -5,6 +5,10 @@ typealias float2 = SIMD2<Float>
 typealias float3 = SIMD3<Float>
 typealias float4 = SIMD4<Float>
 
+let xAxis = float3(1,0,0)
+let yAxis = float3(0,1,0)
+let zAxis = float3(0,0,1)
+
 let π = Float.pi
 
 extension Float {
@@ -349,6 +353,16 @@ extension float3x3 {
 		let column2 = vector.z * float3(vector.x, vector.y, vector.z)
 		self = float3x3(column0, column1, column2)
 	}
+
+	init(tensorProduct vectorA: float3, _ vectorB: float3) {
+		let vector2 = normalize(vectorA)
+		let vector1 = normalize(vectorB)
+		let column0 = vector2.x * float3(vector1.x, vector1.y, vector1.z)
+		let column1 = vector2.y * float3(vector1.x, vector1.y, vector1.z)
+		let column2 = vector2.z * float3(vector1.x, vector1.y, vector1.z)
+		self = float3x3(column0, column1, column2)
+	}
+
 }
 
 // MARK:- float4

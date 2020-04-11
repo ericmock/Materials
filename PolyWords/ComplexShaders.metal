@@ -67,9 +67,15 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
                               sampler textureSampler [[sampler(0)]],
                               constant Light *lights [[buffer(lightsBufferIndex)]],
                               constant FragmentUniforms &fragmentUniforms [[buffer(fragmentUniformsBufferIndex)]],
-															constant short *polygonLetters [[buffer(letterBufferIndex)]]) {
+															constant short *polygonLetters [[buffer(letterBufferIndex)]],
+															constant float3 *polygonColors [[buffer(polygonColorBufferIndex)]],
+															constant bool *polygonSelectedQ [[buffer(polygonSelectedIndex)]]) {
   
-	float3 baseColor = in.colorShift * baseColorTexture.sample(textureSampler,
+	if (polygonSelectedQ[in.polygonNumber]) {
+		discard_fragment();
+	}
+	
+	float3 baseColor = polygonColors[in.polygonNumber] * baseColorTexture.sample(textureSampler,
                                              in.uv * fragmentUniforms.tiling).rgb;
 	int polygonLetter = polygonLetters[in.polygonNumber];
 	float2 letterPosition = in.uv/6.0 + float2(float(polygonLetter%6)/6.0,floor(float(polygonLetter)/6.0)/6.0) + float2(0.0,0.0);
@@ -149,6 +155,48 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
 //  return float4(in.polygonNumber/denom,in.polygonNumber/denom,in.polygonNumber/denom,1);
 //	return float4(fragmentUniforms.tiling, 0, 0, 1);
 	return float4(fragColor,1);
+//	return float4(float2(int(in.polygonNumber/6),in.polygonNumber%6),0,1);
+//	return abs(normalize(in.position));
+//	return float4(1,0,0,1);
+}
+
+fragment float4 polygon_fragment_main(VertexOut in [[stage_in]],
+//                              constant Material &material [[buffer(materialsBufferIndex)]],
+//															constant float4 &color [[buffer(colorBufferIndex)]],
+															constant bool &isWireframe [[buffer(wireframeQBufferIndex)]],
+                              texture2d<float> baseColorTexture [[ texture(BaseColorTexture) ]],
+//																																	function_constant(hasColorTexture) ]],
+                              texture2d<float> normalTexture [[ texture(NormalTexture) ]],
+//                                                               function_constant(hasNormalTexture) ]],
+															texture2d<float> lettersTexture [[ texture(LettersTexture) ]],
+															//                                                               function_constant(hasNormalTexture) ]],
+                              sampler textureSampler [[sampler(0)]],
+                              constant Light *lights [[buffer(lightsBufferIndex)]],
+                              constant FragmentUniforms &fragmentUniforms [[buffer(fragmentUniformsBufferIndex)]],
+															constant short *polygonLetters [[buffer(letterBufferIndex)]],
+															constant float3 *polygonColors [[buffer(polygonColorBufferIndex)]]) {
+  
+	float4 baseColor = float4(polygonColors[in.polygonNumber],1) * baseColorTexture.sample(textureSampler,
+                                             in.uv * fragmentUniforms.tiling);
+	int polygonLetter = polygonLetters[in.polygonNumber];
+	float2 letterPosition = in.uv/6.0 + float2(float(polygonLetter%6)/6.0,floor(float(polygonLetter)/6.0)/6.0) + float2(0.0,0.0);
+	
+	float4 lettersColor = float4(in.colorShift,1) * lettersTexture.sample(textureSampler,
+                                             letterPosition * fragmentUniforms.tiling);
+	baseColor = baseColor * lettersColor;
+  
+//  float3 normalDirection = float3x3(in.worldTangent,
+//                                    in.worldBitangent,
+//                                    in.worldNormal) * normalValue;
+//  normalDirection = normalize(normalDirection);
+	
+  float4 fragColor = saturate(baseColor);
+//  return float4(in.polygonNumber/denom,in.polygonNumber/denom,in.polygonNumber/denom,1);
+//	return float4(fragmentUniforms.tiling, 0, 0, 1);
+	if (fragColor.a < 0.1) {
+		discard_fragment();
+	}
+	return fragColor;
 //	return float4(float2(int(in.polygonNumber/6),in.polygonNumber%6),0,1);
 //	return abs(normalize(in.position));
 //	return float4(1,0,0,1);

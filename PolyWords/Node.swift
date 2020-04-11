@@ -19,7 +19,7 @@ class Node {
 //	var initialRotation = float3(repeating: 0)
 	var nodeInitialScaleV = float3(repeating: 1)
 
-	var nodeQuaternion = simd_quatf()
+	var nodeQuaternion = simd_quatf(angle: 0, axis: float3(0,0,1)) 
 	var modelMatrix: float4x4 {
 		let translateMatrix = float4x4(translation: nodePosition)
 		let rotateMatrix = float4x4(nodeQuaternion)//;print("rotation: \(rotation)")

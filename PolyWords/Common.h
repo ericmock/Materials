@@ -64,7 +64,9 @@ typedef enum {
   fragmentUniformsBufferIndex = 13,
   materialsBufferIndex = 14,
 	letterBufferIndex = 15,
-	wireframeQBufferIndex = 16
+	wireframeQBufferIndex = 16,
+	polygonColorBufferIndex = 17,
+	polygonSelectedIndex = 18
 } BufferIndices;
 
 typedef struct {

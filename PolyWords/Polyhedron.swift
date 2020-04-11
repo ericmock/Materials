@@ -5,7 +5,7 @@
 //  Created by Eric Mockensturm on 2/14/20.
 //  Copyright © 2020 Eric Mockensturm. All rights reserved.
 //
-
+import MetalKit
 import Foundation
 import SQLite3
 import simd
@@ -90,8 +90,11 @@ class Polyhedron: Model {
 		for polygonsOfType in polygons {
 			for poly in polygonsOfType {
 				let letter = Int.random(in: 0...25)
-				poly.letter = AppConstants.kAlphabet[letter%25]
+				poly.letter = AppConstants.kAlphabet[letter%26]
+				polygonColors.append(colorMultiplier[poly.type])
 				polygonLetters.append(Int16(letter))
+				polygonSelectedQ.append(false)
+
 				for (num, vertex) in poly.centroidVertices.enumerated() {
 //					print(poly.scaledBaseTextureCoords[num])
 					let newVertex = Vertex(position: vertex,
@@ -99,9 +102,6 @@ class Polyhedron: Model {
 																 uv: poly.scaledBaseTextureCoords[num],
 																 colorShift: colorMultiplier[(poly.numberOfSides-3)%4],
 																 faceNumber: poly.number
-//																 letterNumber: polygonCounter%25
-//																 tangent: poly.tangent_v,
-//																 bitangent: poly.bitan_v
 					)
 					faceVertices.append(newVertex)
 				}
@@ -161,6 +161,7 @@ class Polyhedron: Model {
 			poly.generateLocalPolygonBases()
 			poly.generateCentroidVertices()  //  Adds vertex to allCentroidVertices
 			poly.getCentroidIndices(withVertexCount: allCentroidVertices.count)
+			poly.generateBasePolygon()
 			polygons[type].append(poly)
 		}
 	}
@@ -284,6 +285,61 @@ class Polyhedron: Model {
 		}
 		return indicesNew
 	}
+	
+	override func render(commandEncoder: MTLRenderCommandEncoder,
+							uniforms vertex: Uniforms,
+							fragmentUniforms fragment: FragmentUniforms) {
+		var uniforms = vertex
+				var fragmentUniforms = fragment
+				
+				uniforms.modelMatrix = worldMatrix
+				fragmentUniforms.tiling = tiling
+		//		fragmentUniforms.lightCount = 2
+				commandEncoder.setVertexBytes(&uniforms,
+																			length: MemoryLayout<Uniforms>.stride,
+																			index: Int(uniformsBufferIndex.rawValue))
+				commandEncoder.setFragmentBytes(&fragmentUniforms,
+																				length: MemoryLayout<FragmentUniforms>.stride,
+																				index: Int(fragmentUniformsBufferIndex.rawValue))
+				
+				for vertexBuffer in mesh.vertexBuffers {
+					
+					commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: Int(verticesBufferIndex.rawValue))
+					
+					for submesh in mesh.submeshes {
+						commandEncoder.setRenderPipelineState(submesh.pipelineState)
+		//				var color = submesh.color
+		//				commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: Int(colorBufferIndex.rawValue))
+						// This is a very ugly hack to share textures across Level Selection Scene models
+						let baseColorTexture = scene.models[scene.polyhedronModelNumber].mesh.submeshes[0].textures.baseColor
+						let normalTexture = scene.models[scene.polyhedronModelNumber].mesh.submeshes[0].textures.normal
+						let lettersTexture = scene.models[scene.polyhedronModelNumber].mesh.submeshes[0].textures.letters
+						commandEncoder.setFragmentTexture(baseColorTexture,
+																						 index: Int(BaseColorTexture.rawValue))
+						commandEncoder.setFragmentTexture(normalTexture,
+																						 index: Int(NormalTexture.rawValue))
+						commandEncoder.setFragmentTexture(lettersTexture,
+																						 index: Int(LettersTexture.rawValue))
+		//				commandEncoder.setFragmentTexture(submesh.textures.metallic,
+		//																				 index: Int(MetallicTexture.rawValue))
+		//				commandEncoder.setFragmentTexture(submesh.textures.ao,
+		//																				 index: Int(AOTexture.rawValue))
+
+						//					var material = submesh.material
+						//					commandEncoder.setFragmentBytes(&material,
+						//																					length: MemoryLayout<Material>.stride,
+						//																					index: Int(materialsBufferIndex.rawValue))
+						//					commandEncoder.setFragmentTexture(submesh.baseColor, index: 0)
+						
+						if let samplerState = samplerState {
+							commandEncoder.setFragmentSamplerState(samplerState, index: 0)
+						}
+						
+						commandEncoder.setRenderPipelineState(submesh.pipelineState)
+						
+						render(commandEncoder: commandEncoder, submesh: submesh)
+					}
+				}
+	}
 
 }
-

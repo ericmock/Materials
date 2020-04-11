@@ -1,6 +1,6 @@
 import MetalKit
 
-class Model: Node {
+class Model: Node, Renderable {
 	
 	var mesh:Mesh!
 	var tiling:UInt32 = 1
@@ -14,6 +14,8 @@ class Model: Node {
 	var faceIndices:[UInt16] = Array()
 	var allCentroidNormalIndices:[UInt16] = Array()
 	var polygonLetters:[Int16] = Array()
+	var polygonColors:[float3] = Array()
+	var polygonSelectedQ:[Bool] = Array()
 	let scene:Scene
 
 	
@@ -74,6 +76,9 @@ class Model: Node {
 		var isWireframe:Bool = false
 		commandEncoder.setFragmentBytes(&isWireframe, length: MemoryLayout<Bool>.stride, index: Int(wireframeQBufferIndex.rawValue))
 		commandEncoder.setFragmentBytes(&polygonLetters, length: MemoryLayout<Int16>.stride * polygonLetters.count, index: Int(letterBufferIndex.rawValue))
+		commandEncoder.setFragmentBytes(&polygonColors, length: MemoryLayout<float3>.stride * polygonColors.count, index: Int(polygonColorBufferIndex.rawValue))
+		commandEncoder.setFragmentBytes(&polygonSelectedQ, length: MemoryLayout<Bool>.stride * polygonSelectedQ.count, index: Int(polygonSelectedIndex.rawValue))
+
 		commandEncoder.drawIndexedPrimitives(type: .triangle,
 																				indexCount: submesh.indexCount,
 																				indexType: submesh.indexType,
@@ -103,64 +108,15 @@ class Model: Node {
 		return samplerState
 	}
 	
-}
-
-extension Model: Renderable {
+	// override this for each model type.
 	func render(commandEncoder: MTLRenderCommandEncoder,
 							uniforms vertex: Uniforms,
 							fragmentUniforms fragment: FragmentUniforms) {
-		
-		
-		var uniforms = vertex
-		var fragmentUniforms = fragment
-		
-		uniforms.modelMatrix = worldMatrix
-		fragmentUniforms.tiling = tiling
-//		fragmentUniforms.lightCount = 2
-		commandEncoder.setVertexBytes(&uniforms,
-																	length: MemoryLayout<Uniforms>.stride,
-																	index: Int(uniformsBufferIndex.rawValue))
-		commandEncoder.setFragmentBytes(&fragmentUniforms,
-																		length: MemoryLayout<FragmentUniforms>.stride,
-																		index: Int(fragmentUniformsBufferIndex.rawValue))
-		
-		for vertexBuffer in mesh.vertexBuffers {
-			
-			commandEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: Int(verticesBufferIndex.rawValue))
-			
-			for submesh in mesh.submeshes {
-				commandEncoder.setRenderPipelineState(submesh.pipelineState)
-//				var color = submesh.color
-//				commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: Int(colorBufferIndex.rawValue))
-				// This is a very ugly hack to share textures across Level Selection Scene models
-				let baseColorTexture = scene.models[scene.polyhedronModelNumber].mesh.submeshes[0].textures.baseColor
-				let normalTexture = scene.models[scene.polyhedronModelNumber].mesh.submeshes[0].textures.normal
-				let lettersTexture = scene.models[scene.polyhedronModelNumber].mesh.submeshes[0].textures.letters
-				commandEncoder.setFragmentTexture(baseColorTexture,
-																				 index: Int(BaseColorTexture.rawValue))
-				commandEncoder.setFragmentTexture(normalTexture,
-																				 index: Int(NormalTexture.rawValue))
-				commandEncoder.setFragmentTexture(lettersTexture,
-																				 index: Int(LettersTexture.rawValue))
-//				commandEncoder.setFragmentTexture(submesh.textures.metallic,
-//																				 index: Int(MetallicTexture.rawValue))
-//				commandEncoder.setFragmentTexture(submesh.textures.ao,
-//																				 index: Int(AOTexture.rawValue))
+	}
+}
 
-				//					var material = submesh.material
-				//					commandEncoder.setFragmentBytes(&material,
-				//																					length: MemoryLayout<Material>.stride,
-				//																					index: Int(materialsBufferIndex.rawValue))
-				//					commandEncoder.setFragmentTexture(submesh.baseColor, index: 0)
-				
-				if let samplerState = samplerState {
-					commandEncoder.setFragmentSamplerState(samplerState, index: 0)
-				}
-				
-				commandEncoder.setRenderPipelineState(submesh.pipelineState)
-				
-				render(commandEncoder: commandEncoder, submesh: submesh)
-			}
-		}
+extension Model: Equatable {
+	static func == (lhs: Model, rhs: Model) -> Bool {
+		return lhs === rhs
 	}
 }
