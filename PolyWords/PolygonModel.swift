@@ -16,7 +16,7 @@ class PolygonModel : Model {
 	
 	override var nodeQuaternion:simd_quatf {
 		didSet {
-			let rotationMatrix = float4x4(nodeQuaternion).upperLeft
+//			let rotationMatrix = float4x4(nodeQuaternion).upperLeft
 //			print("didSet rot:  ",rotationMatrix)
 //			print("new normal:  ",rotationMatrix * self.polygon.normal_v)
 		}
@@ -27,7 +27,7 @@ class PolygonModel : Model {
 		self.polygon = polygon
 		super.init(forScene: scene)
 		let colorMultiplier = [float3(1.5,1.0,1.0),float3(1.0,1.5,1.0),float3(1.0,1.0,1.5),float3(1.5,1.5,1)]
-		for (num, vertex) in polygon.centroidVertices.enumerated() {
+		for (num, vertex) in polygon.basePolygon.vertices.enumerated() {
 			let newVertex = Vertex(position: vertex,
 														 normal: polygon.normal_v,
 														 uv: polygon.scaledBaseTextureCoords[num],

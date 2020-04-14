@@ -118,7 +118,7 @@ class Scene {
 		}
 		
 		if node is Renderable,
-			let index = renderables.firstIndex(where: { $0 as? Node === node }) {
+			let index = renderables.firstIndex(where: { $0 as Node === node }) {
 			renderables.remove(at: index)
 		}
 	}

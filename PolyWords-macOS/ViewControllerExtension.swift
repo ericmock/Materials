@@ -9,14 +9,17 @@ extension ViewController {
   
 	override func mouseDown(with event: NSEvent) {
 		gameScene?.interactionsBegan(with: event)
+		levelSelectionScene?.interactionsBegan(with: event)
 	}
 	
 	override func mouseDragged(with event: NSEvent) {
 		gameScene?.touchesMoved(with: event)
+		levelSelectionScene?.touchesMoved(with: event)
 	}
 	
 	override func mouseUp(with event: NSEvent) {
 		gameScene?.interactionsEnded(withEvent: event)
+		levelSelectionScene?.interactionsEnded(withEvent: event)
 	}
 	
 //  @objc func handlePan(gesture: NSPanGestureRecognizer) {
@@ -159,7 +162,7 @@ extension GameScene {
 				submitWord()
 				submitting = true
 			}
-			else if (touchPosition.x < 90.0 && mode != AppConstants.kTwoPlayerClientMode && mode != AppConstants.kTwoPlayerServerMode) {
+			else if (touchPosition.x < 90.0 && AppController.gameMode != AppConstants.kTwoPlayerClientMode && AppController.gameMode != AppConstants.kTwoPlayerServerMode) {
 				pause()
 			}
 		}
@@ -181,10 +184,10 @@ extension GameScene {
 			print("Touched a \(touchedPolygon.polygon.type + 3)-sided polygon with letter \(touchedPolygon.polygon.letter)")
 			
 			if (touchedNumber >= 0) {
-				let poly = polygonModels[touchedNumber]
-				poly.polygon.select_animation_start_time = touchStartTime
-				if !renderables.contains(poly) {
-					renderables.append(poly)
+				let touchedPoly = polygonModels[touchedNumber]
+				touchedPoly.polygon.select_animation_start_time = touchStartTime
+				if !renderables.contains(touchedPoly) {
+					renderables.append(touchedPoly)
 //					print(poly.nodeQuaternion)
 //					print(polyhedron.nodeQuaternion)
 //					print("normal:  ",poly.polygon.normal_v)
@@ -205,14 +208,32 @@ extension GameScene {
 //					poly.nodeQuaternion = init_quat.inverse//quat * polyhedron.nodeQuaternion
 //					poly.nodePosition = polyhedron.nodePosition
 					polyhedron.polygonSelectedQ[touchedNumber] = true
-					poly.initialTouchedPosition = polyhedron.nodePosition
-					poly.initialTouchedQuaternion = polyhedron.nodeQuaternion
-					poly.initialTouchedScaleV = polyhedron.nodeScaleV
-					poly.initialTouchedCentroid = polyhedron.modelMatrix.upperLeft * poly.polygon.centroid
-					print("original centroid: \(poly.polygon.centroid)")
-					print("touched centroid: \(poly.initialTouchedCentroid)")
+					touchedPoly.initialTouchedQuaternion = polyhedron.nodeQuaternion
+//								if (level == 0) {
+//									touchedPoly.nodeQuaternion += simd_quatf(angle: 130.0 * .pi/180.0, axis:float3(0,0,1))
+//								} else {
+//									switch touchedPoly.polygon.type {
+//									case 5:
+//										touchedPoly.nodeQuaternion += simd_quatf(angle: -180.0 * .pi/180.0, axis:float3(0,0,1))
+//										break
+//									case 3:
+//										touchedPoly.nodeQuaternion += simd_quatf(angle: -360.0 * .pi/180.0, axis:float3(0,0,1))
+//										break
+//									default:
+//										touchedPoly.nodeQuaternion = touchedPoly.nodeQuaternion * simd_quatf(angle: -180.0 * .pi/180.0, axis:float3(0,1,0)) * simd_quatf(angle: -180.0 * .pi/180.0, axis:float3(0,0,1))
+//										break
+//									}
+//								}
+
+//					basePoly.nodePosition = (polyhedron.modelMatrix * float4(touchedPolygon.centroid,1)).xyz
+//					poly.initialTouchedPosition = polyhedron.nodePosition
+//					poly.initialTouchedQuaternion = polyhedron.nodeQuaternion
+//					poly.initialTouchedScaleV = polyhedron.nodeScaleV
+//					poly.initialTouchedCentroid = polyhedron.modelMatrix.upperLeft * poly.polygon.centroid
+//					print("original centroid: \(poly.polygon.centroid)")
+//					print("touched centroid: \(poly.initialTouchedCentroid)")
 				}
-				set(touchedPolygonModel: poly)
+				set(touchedPolygonModel: touchedPoly)
 			} else {
 //				set(touchedPolygon: )
 			}
@@ -231,72 +252,122 @@ extension GameScene {
 	}
 }
 
-/*
-extension GameScene {
-	func touchesMoved(with event: NSEvent, inView view: NSViewController) {
+extension LevelSelectionScene {
+	// TODO:  Rotate the polyhedron only when clicking in a circumscribing circle.
+	func interactionsBegan(with event: NSEvent) {
+		print("Touches Began")
+
+		touchAngles.removeAll()
+		touchTimes.removeAll()
+//		touches.removeAll()
 		
-		dragging = true
+		if (freeWheeling) {
+			freeWheeling = false
+			endSpin()
+		}
 		
-		//NSArray *touchArray = [touches allObjects];
-		var touchPosition: CGPoint = CGPoint(x:0.0, y:0.0)
-		
-		//UITouch *t = [touchArray objectAtIndex:0];
-		touchPosition = event.locationInWindow//[t locationInView:t.view];
-		currentTouchPosition = touchPosition
-		
-		if (mode == .rotate) {
-			touchPosition.y = screenSize.height - touchPosition.y
-			gTrackBallRotation = trackball.rollToTrackball(withX: Float(touchPosition.x), withY: Float(touchPosition.y));
-			//[self setRotationAngle:gTrackBallRotation[0] X:gTrackBallRotation[1] Y:gTrackBallRotation[2] Z:gTrackBallRotation[3]];
-		} else if (mode == .select) {
-			//            int touched_num = [self findTouchedPolygonAtPoint:touchPos];
-			//            if (prev_touched_num >= 0 && prev_touched_num < [polyhedron.polygons count]) {
-			//                Polygons *poly = [polyhedron.polygons objectAtIndex:prev_touched_num];
-			//                poly.touched = FALSE;
-			//            }
-			//            if (touched_num >= 0) {
-			//                Polygons *poly = [polyhedron.polygons objectAtIndex:touched_num];
-			//                poly.touched = TRUE;
-			//                delegate.touchedLetterView.text = [oldText stringByAppendingString:[[alphabetArray objectAtIndex:(poly.texture)%26] lowercaseString]];
-			//                prev_touched_num = touched_num;
-			//            }
+		let touchPosition = event.locationInWindow
+		initialTouchPosition = touchPosition
+		initialQuaternion = models[0].nodeQuaternion
+				
+		dragging = false
+		checked = false
+
+		var touchZone:Float = 405.0
+		if AppController.unlocked {touchZone -= 45.0}
+		if (Float(touchPosition.y) < touchZone && (touchPosition.x < 90.0 || touchPosition.x > 230.0)) {
+			inputMode = .button
+			touchTimes.append(get_time_of_day())
+		} else if touchPosition.y < 50 {
+			inputMode = .edit
+		} else {
+			dragTimer = Timer(timeInterval: 0.5, target: self, selector: #selector(checkDrag), userInfo: nil, repeats: false)
+			inputMode = .rotate
+			trackball.startTrackball(withX: Float(screenSize.width/2), withY: Float(touchPosition.y), withOriginX: 0, withOriginY: 0, withWidth: Float(screenSize.width), withHeight: Float(screenSize.height));
+			gTrackballQuaternion = simd_quatf(angle: 0, axis: float3(1,0,0))
 		}
 	}
 	
-	func interactionsEnded(withEvent event:NSEvent) {
-		
-		var touchPosition: CGPoint = CGPoint(x:0.0, y:0.0)
-		dragTimer.invalidate()
-		
-		if (dragging && mode == .rotate) {
-			//addToRotationTrackball (gTrackBallRotation, worldRotation);
-			gTrackBallRotation[0] = 0.0
-			gTrackBallRotation[1] = 0.0
-			gTrackBallRotation[2] = 0.0
-			gTrackBallRotation[3] = 0.0
-			
-			rotationAngles = gTrackBallRotation
-			worldRotationAngles = worldRotation
-		} else if (!dragging || mode == .select) {
-			touchPosition = event.locationInWindow//[t locationInView:t.view];
-			
-			if (previousTouchNumber >= 0 && previousTouchNumber < thePolyhedron.polygons.count) {
-				// need to make sure from level to level that index is within bounds
-				//((Polygons *)[polyhedron.polygons objectAtIndex:prev_touched_num]).touched = FALSE;
-				thePolyhedron.polygons[previousTouchNumber].touched = false
-			}
-			
-			let touchedNumber = findTouchedPolygon(atPoint: touchPosition)//[self findTouchedPolygonAtPoint:touchPos];
-			
-			if (touchedNumber >= 0) {
-				touchedPolygon = touchedNumber//][delegate setTouchedPolygon:[polyhedron.polygons objectAtIndex:touched_num]];
-			} else {
-				touchedPolygon = 0//[delegate setTouchedPolygon:nil]
-			}
-			
-		}
-		dragging = false
+	private func printQuat(_ quat:simd_quatf) {
+		print("angle:\(quat.angle), axis:\(quat.axis)\n")
 	}
 
+	@objc func touchesMoved(with event:NSEvent) {
+//		print("Touches Moved")
+
+		dragging = true
+		
+		let position = event.locationInWindow
+		if (inputMode == .rotate) {
+//			print("Rotation Mode")
+			touchTimes.append(get_time_of_day())
+			let previousTrackballQuaternion = gTrackballQuaternion
+			gTrackballQuaternion = trackball.rollToTrackball(withX: Float(screenSize.width/2), withY: Float(position.y))
+			let newRotationQuat = gTrackballQuaternion * previousTrackballQuaternion.inverse * models[0].nodeQuaternion
+			models[0].nodeQuaternion = newRotationQuat
+			touchAngles.append(models[0].nodeQuaternion.angle)
+		} 
+	}
+	
+	func interactionsEnded(withEvent event:NSEvent) {
+		print("Touches Ended")
+
+		NSObject.cancelPreviousPerformRequests(withTarget: self)
+//		var touchPosition:CGPoint = CGPoint(x:0.0, y:0.0)
+		dragTimer.invalidate()
+		
+		if (dragging) {
+			print("Rotation Mode")
+			let count = touchTimes.count
+			if (count > 3) {
+				let dt = touchTimes[count - 1] - touchTimes[count - 3]
+				omega = Double(touchAngles[count - 1] - touchAngles[count - 3])/dt
+			}
+			else if (count > 2) {
+				let dt = touchTimes[count - 1] - touchTimes[count - 2]
+				omega = Double(touchAngles[count - 1] - touchAngles[count - 2])/dt
+			}
+			else {
+				omega = 0.0
+			}
+			freeWheeling = true
+		}
+		else if inputMode == .button {
+			print("Button Mode")
+			let touchPosition = event.locationInWindow
+			if touchPosition.x > 280.0 && ((stage < 7 && AppController.unlocked) || (stage < 2 && AppController.upgraded)) {
+				goingToNextLevel = true
+			}
+			else if (touchPosition.x < 40.0 && stage > 1) {
+				goingToPreviousLevel = true
+			}
+			else {
+				var localAngle = models[0].nodeQuaternion.angle
+				
+				if (localAngle < 0.0) {
+					localAngle = 2.0 * .pi - localAngle
+				}
+				if (localAngle > 62.0 && localAngle < 82.0) {
+					level = 1
+				} else if (localAngle > 134.0 && localAngle < 154.0) {
+					level = 2
+				} else if (localAngle > 206.0 && localAngle < 226.0) {
+					level = 3
+				} else if (localAngle > 278.0 && localAngle < 298.0) {
+					level = 4
+				} else {
+					level = 0
+				}
+				
+				let base_level = (stage-1)*5
+				let mode = AppController.gameMode
+				var index:Int
+				var complete:Bool
+				
+
+			}
+		}
+		
+		dragging = false
+	}
 }
-*/

@@ -32,11 +32,12 @@ class Submesh {
 		indexType = type
 		//		color = baseColor
 		let textureDict:Dictionary<TextureSemantics,String> = [.baseColor:"TestPolyhedron-color", .tangentSpaceNormal:"TestPolyhedron-normal", .roughness: "TestPolyhedron-roughness", .letters: "Alphabet"]
-		var texturesToLoad:Dictionary<TextureSemantics,String> = [.baseColor:"", .tangentSpaceNormal:"", .roughness:"", .letters:""]
+		var texturesToLoad:Dictionary<TextureSemantics,String> = Dictionary()//= [.baseColor:"", .tangentSpaceNormal:"", .roughness:"", .letters:""]
 		for (textureSemantic,name) in textureDict {
 			if !scene.sceneTextures.contains(name) {
 				scene.sceneTextures.append(name)
-				texturesToLoad.updateValue(name, forKey: textureSemantic)
+				texturesToLoad.merge([textureSemantic:name]) { (_, new) in new }
+//				texturesToLoad.updateValue(name, forKey: textureSemantic)
 			}
 		}
 		textures = Textures(textures: texturesToLoad)
@@ -168,9 +169,6 @@ private extension Submesh.Textures {
 						break
 				}
 				letters = texture
-				break
-				
-			default:
 				break
 			}
 		}

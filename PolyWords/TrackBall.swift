@@ -204,7 +204,7 @@ class Trackball {
 		return q
 	}
 	
-	func addToRotationTrackball(withDA dA:float4, withA A:float4) -> float4 {
+	func addToRotationTrackball(withDA dA:simd_quatf, withA A:simd_quatf) -> simd_quatf {
 //		var theta2:Float = 0
 		
 		// Figure out A' = A . dA
@@ -213,11 +213,11 @@ class Trackball {
 		// A' <- q2.
 		// last element of q is the component on the 1 basis
 		
-		let q0 = rotation2Quat(withA: A)
-		let q1 = rotation2Quat(withA: dA);
+//		let q0 = rotation2Quat(withA: A)
+//		let q1 = rotation2Quat(withA: dA);
 		
 		// q2 = q1 + q0;
-		let q2 = q0 * q1
+		let q2 = A * dA
 		// Here's an excersize for the reader: it's a good idea to re-normalize your quaternions
 		// every so often.  Experiment with different frequencies.
 		
@@ -227,18 +227,14 @@ class Trackball {
 		// then you have an identity rotation.
 		if (abs(abs(q2.real - 1.0)) < 1.0e-7) {
 			// Identity rotation.
-			return float4(0,1,0,0)
+			return simd_quatf(angle: 0, axis: float3(1,0,0))
 		}
 		
 		// If you get here, then you have a non-identity rotation.  In non-identity rotations,
 		// the cosine of the half-angle is non-0, which means the sine of the angle is also
 		// non-0.  So we can safely divide by sin(theta2).
-		
-		// Turn the quaternion back into an {angle, {axis}} rotation.
-		let angle = q2.angle
-		let axis = q2.axis
-		
-		return float4(angle,axis[0],axis[1],axis[2])
+				
+		return q2
 	}
 		
 	func length3D(withA a:SIMD4<Float>, withB b:SIMD4<Float>) -> Float {

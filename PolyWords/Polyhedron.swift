@@ -58,7 +58,7 @@ class Polyhedron: Model {
 	
 	func initialize(withPolyhedronInfo polyInfo:NSDictionary, scene:Scene) {
 		self.polyInfo = polyInfo
-		let polyhedronType = polyInfo.object(forKey: "polyID") as! Int
+//		let polyhedronType = polyInfo.object(forKey: "polyID") as! Int
 		
 		do {
 			try getAllVertices()
@@ -84,14 +84,14 @@ class Polyhedron: Model {
 	}
 	
 	func generateFaceVerticesAndIndices() {
-		let colorMultiplier = [float3(1.5,1.0,1.0),float3(1.0,1.5,1.0),float3(1.0,1.0,1.5),float3(1.5,1.5,1)]
+		let colorMultiplier = [float3(1.5,1.0,1.0),float3(1.0,1.5,1.0),float3(1.0,1.0,1.5),float3(1.5,1.5,1),float3(1.5,1,1.5),float3(1,1.5,1.5)]
 		var indexCounter:UInt16 = 0
 		var polygonCounter:Int = 0
 		for polygonsOfType in polygons {
 			for poly in polygonsOfType {
 				let letter = Int.random(in: 0...25)
 				poly.letter = AppConstants.kAlphabet[letter%26]
-				polygonColors.append(colorMultiplier[poly.type])
+				polygonColors.append(colorMultiplier[poly.type % colorMultiplier.count])
 				polygonLetters.append(Int16(letter))
 				polygonSelectedQ.append(false)
 

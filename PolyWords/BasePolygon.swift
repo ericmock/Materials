@@ -16,9 +16,9 @@ struct BasePolygon {
     var polyType: Int = 0
     var active: Bool = false
     var centroid: SIMD3<Float> = [0, 0, 0]
-	var normal = float3(0,0,1)
-	var tangent = float3(1,0,0)
-	var bitangent = float3(0,1,0)
+	var normal = zAxis
+	var tangent = xAxis
+	var bitangent = yAxis
 
     init(vertices: [SIMD3<Float>], indices: [UInt16], textureNumber: Int) {
         self.vertices = vertices;

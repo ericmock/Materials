@@ -78,7 +78,6 @@ class GameScene: Scene {
 	var differentPolygonTypes = 0
 	var show_get_ready = false
 	var lastSubmitTime:Float = 0.0
-	var mode = 0
 	var unlocked = false
 	var upgraded = false
 	var level = 1
@@ -133,7 +132,7 @@ class GameScene: Scene {
 		}
 
 	func endSpin() {
-		
+		gTrackballQuaternion = trackball.addToRotationTrackball(withDA: gTrackballQuaternion, withA: models[0].nodeQuaternion)
 	}
 
 	func setWorldRotation(angle:Float, X:Float, Y:Float, Z:Float) {
@@ -283,7 +282,7 @@ class GameScene: Scene {
 		
 		self.getWordScore()
 		// if we in dynamic letter mode, replace the submitted letters
-		if (mode == AppConstants.kDynamicTimedMode || mode == AppConstants.kDynamicScoredMode) {
+		if (AppController.gameMode == AppConstants.kDynamicTimedMode || AppController.gameMode == AppConstants.kDynamicScoredMode) {
 			let polygonsToReplace = NSArray(array: touchedPolygons)
 			submittingPolygonsValues.removeAll()
 			for poly in touchedPolygons {
@@ -309,18 +308,18 @@ class GameScene: Scene {
 			let wordStringCopy = wordString.copy()
 			wordsFound.append(wordStringCopy as! String)
 			wordScores.append(Int(word_score))
-			if mode == AppConstants.kTwoPlayerClientMode || mode == AppConstants.kTwoPlayerServerMode {
+			if AppController.gameMode == AppConstants.kTwoPlayerClientMode || AppController.gameMode == AppConstants.kTwoPlayerServerMode {
 				self.pushData()
 				num_words_found = wordsFound.count
 				match = false
 				score_animating = true
-				if mode == AppConstants.kDynamicTimedMode || mode == AppConstants.kDynamicScoredMode {
+				if AppController.gameMode == AppConstants.kDynamicTimedMode || AppController.gameMode == AppConstants.kDynamicScoredMode {
 					let polyInfoString = polyhedron.polyInfo.object(forKey:"polyID") as! String
 					let wordScoreString = String(word_score)
 					let wordsFoundString = wordString + "," + wordScoreString + "," + polyInfoString
 					dynamicWordsFoundFileHandle.write(wordsFoundString.data(using:.utf8)!)
 				}
-			} else if mode == AppConstants.kStaticTimedMode || mode == AppConstants.kStaticScoredMode {
+			} else if AppController.gameMode == AppConstants.kStaticTimedMode || AppController.gameMode == AppConstants.kStaticScoredMode {
 				let polyInfoString = polyhedron.polyInfo.object(forKey:"polyID") as! String
 				let wordScoreString = String(word_score)
 				let wordsFoundString = wordString + "," + wordScoreString + "," + polyInfoString
@@ -357,7 +356,7 @@ class GameScene: Scene {
 	}
 	
 	func assignLetterToAllPolygons() {
-		if mode != AppConstants.kTwoPlayerClientMode {
+		if AppController.gameMode != AppConstants.kTwoPlayerClientMode {
 			var counter = 0
 			for polygonType in polyhedron.polygons {
 				for _ in polygonType {
@@ -422,7 +421,7 @@ class GameScene: Scene {
 		//		let word_length = wordString.count
 		var word_score = base_word_score;//-1.0*pow(-1,(float)match)*letter_score * (match?[wordString length]:1.0);
 		
-		if ((mode != AppConstants.kDynamicTimedMode && mode != AppConstants.kDynamicScoredMode) && word_score < 0) {
+		if ((AppController.gameMode != AppConstants.kDynamicTimedMode && AppController.gameMode != AppConstants.kDynamicScoredMode) && word_score < 0) {
 			word_score = 0
 		}
 		
@@ -602,8 +601,8 @@ class GameScene: Scene {
 		
 		//		[[NSRunLoop currentRunLoop] addTimer:clock forMode:NSDefaultRunLoopMode];
 		
-		if (mode == AppConstants.kTwoPlayerClientMode) || (mode == AppConstants.kTwoPlayerServerMode) {
-			pullDataController.startSend(arrayWithObjects:[game_id, Int(mode)]);
+		if (AppController.gameMode == AppConstants.kTwoPlayerClientMode) || (AppController.gameMode == AppConstants.kTwoPlayerServerMode) {
+			pullDataController.startSend(arrayWithObjects:[game_id, Int(AppController.gameMode)]);
 		}
 	}
 	
@@ -613,7 +612,7 @@ class GameScene: Scene {
 	
 	func showDynamicTimedModeEndAlert() {
 		var message:String = ""
-		var next_level_unlocked = false
+		let next_level_unlocked = false
 //		let this_level_completed = ((polyhedronInfoArray?.object(at: Int(level - 1) ) as! NSDictionary).object(forKey: "completed") as! NSArray).object(at: Int(appController!.mode)) as! Bool
 //		if (score >= AppConstants.kScoreToObtainDynamic && !this_level_completed &&
 //			((unlocked && level < 35) ||
@@ -798,29 +797,29 @@ class GameScene: Scene {
 		}
 		
 		/*		let game_state = polyWordsViewController.game_state
-		if (points_avail < 3000 && mode == AppConstants.kStaticScoredMode && !level_aborted && game_state != AppConstants.kGameContinue) {
+		if (points_avail < 3000 && AppController.gameMode == AppConstants.kStaticScoredMode && !level_aborted && game_state != AppConstants.kGameContinue) {
 		let alert = NSPanel.init()
 		//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reshuffle Letters" message:[NSString stringWithFormat:@"Only %i points are available with these letters.",points_avail]
 		//															 delegate:self cancelButtonTitle:@"Shuffle" otherButtonTitles:nil];
 		//			alert.tag = 1
 		//			alert.makeKeyAndOrderFront(nil)
 		}
-		else if ((game_state == AppConstants.kGameStart || game_state == AppConstants.kGameRestart) && show_get_ready && mode != AppConstants.kTwoPlayerClientMode && mode != AppConstants.kTwoPlayerServerMode) {
+		else if ((game_state == AppConstants.kGameStart || game_state == AppConstants.kGameRestart) && show_get_ready && AppController.gameMode != AppConstants.kTwoPlayerClientMode && AppController.gameMode != AppConstants.kTwoPlayerServerMode) {
 		//			gameAnimationTimer = Timer(timeInterval:animationInterval, target: self, selector: #selector(drawView), userInfo: nil, repeats: true)
-		//			if mode == AppConstants.kDynamicTimedMode {
+		//			if AppController.gameMode == AppConstants.kDynamicTimedMode {
 		//				message = "Score as many points as you can in \(AppConstants.kTimeToCompleteDynamic) seconds.  Don't forget you can throw back letters.\n\n\n\n\n\n"
-		//			} else if (mode == AppConstants.kStaticTimedMode) {
+		//			} else if (AppController.gameMode == AppConstants.kStaticTimedMode) {
 		//				message = "Score as many points as you can in \(AppConstants.kTimeToCompleteStatic) seconds.  Don't forget you can throw back letters.\n\n\n\n\n\n"
-		//			} else if (mode == AppConstants.kDynamicScoredMode) {
+		//			} else if (AppController.gameMode == AppConstants.kDynamicScoredMode) {
 		//				message = "Score \(AppConstants.kScoreToObtainDynamic) points as fast as you can.  Don't forget you can throw back letters.\n\n\n\n\n\n"
-		//			} else if (mode == AppConstants.kStaticScoredMode) {
+		//			} else if (AppController.gameMode == AppConstants.kStaticScoredMode) {
 		//				message = "Score \(AppConstants.kScoreToObtainStatic) points as fast as you can.\n\n\n\n\n\n"
 		//			}
 		//			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Get Ready" message:message
 		//															 delegate:self cancelButtonTitle:@"Continue" otherButtonTitles:nil];
 		//			alert.tag = 3;
 		var rect:CGRect
-		if (mode == AppConstants.kDynamicTimedMode || mode == AppConstants.kDynamicScoredMode) {
+		if (AppController.gameMode == AppConstants.kDynamicTimedMode || AppController.gameMode == AppConstants.kDynamicScoredMode) {
 		rect = CGRect(x: 16,y: 100,width: 252,height: 115);
 		} else {
 		rect = CGRect(x: 16,y: 80,width: 252,height: 115);
@@ -905,7 +904,7 @@ class GameScene: Scene {
 		
 		oldWordsFound = []
 		oldWordsFound.append(contentsOf: wordsFound)
-		let updatedData = NSArray(array: [newWordsFound, newWordScores, UInt(game_id), Int(mode)])
+		let updatedData = NSArray(array: [newWordsFound, newWordScores, UInt(game_id), Int(AppController.gameMode)])
 		pushDataController.startSend(with: updatedData)
 	}
 	
@@ -923,7 +922,7 @@ class GameScene: Scene {
 				wordScoresOpponent.append(Int(scoreString) ?? 0)
 			}
 		}
-		pullDataController.startSend(arrayWithObjects: NSArray(array: [UInt(game_id), Int(mode)]))
+		pullDataController.startSend(arrayWithObjects: NSArray(array: [UInt(game_id), Int(AppController.gameMode)]))
 	}
 
 	func showStaticScoredModeEndAlert() {
@@ -1086,7 +1085,7 @@ class GameScene: Scene {
 		var level_unlock = false
 		var recorded_score = AppConstants.kScoreToObtainDynamic
 		var recorded_time = AppConstants.kTimeToCompleteDynamic
-		if mode == AppConstants.kDynamicTimedMode {
+		if AppController.gameMode == AppConstants.kDynamicTimedMode {
 			if (playTime.rounded(.towardZero) >= AppConstants.kTimeToCompleteDynamic || level_aborted) {
 				if (score >= AppConstants.kScoreToObtainDynamic) {
 					level_unlock = true
@@ -1099,7 +1098,7 @@ class GameScene: Scene {
 				recorded_time = AppConstants.kTimeToCompleteDynamic
 				recorded_score = UInt(score)
 			}
-		}	else if (mode == AppConstants.kStaticTimedMode) {
+		}	else if (AppController.gameMode == AppConstants.kStaticTimedMode) {
 			if (playTime.rounded(.towardZero) >= AppConstants.kTimeToCompleteStatic || level_aborted) {
 				if (score >= AppConstants.kScoreToObtainStatic) {
 					level_unlock = true
@@ -1112,7 +1111,7 @@ class GameScene: Scene {
 				recorded_time = AppConstants.kTimeToCompleteStatic
 				recorded_score = UInt(score)
 			}
-		}	else if (mode == AppConstants.kDynamicScoredMode) {
+		}	else if (AppController.gameMode == AppConstants.kDynamicScoredMode) {
 			if (playTime >= AppConstants.kTimeToCompleteStatic || level_aborted) {
 				if (score >= AppConstants.kScoreToObtainStatic) {
 					level_unlock = true
@@ -1125,7 +1124,7 @@ class GameScene: Scene {
 				recorded_time = playTime
 				recorded_score = AppConstants.kScoreToObtainDynamic
 			}
-		} else if (mode == AppConstants.kStaticScoredMode) {
+		} else if (AppController.gameMode == AppConstants.kStaticScoredMode) {
 			if (score >= AppConstants.kScoreToObtainStatic || level_aborted) {
 				if (playTime <= AppConstants.kTimeToCompleteStatic) {
 					level_unlock = true
@@ -1139,7 +1138,7 @@ class GameScene: Scene {
 				recorded_score = AppConstants.kScoreToObtainStatic
 			}
 		}
-		else if (mode == AppConstants.kTwoPlayerClientMode || mode == AppConstants.kTwoPlayerServerMode) {
+		else if (AppController.gameMode == AppConstants.kTwoPlayerClientMode || AppController.gameMode == AppConstants.kTwoPlayerServerMode) {
 			if (playTime.rounded(.towardZero) >= AppConstants.kTimeToCompleteStatic || level_aborted) {
 				AppController.removeAllStoredData()
 				pullDataController.session.finishTasksAndInvalidate()
@@ -1196,7 +1195,7 @@ class GameScene: Scene {
 //		}
 
 	func checkMatch() {
-		if (mode == AppConstants.kStaticTimedMode || mode == AppConstants.kStaticScoredMode || mode == AppConstants.kTwoPlayerClientMode || mode == AppConstants.kTwoPlayerServerMode) {
+		if (AppController.gameMode == AppConstants.kStaticTimedMode || AppController.gameMode == AppConstants.kStaticScoredMode || AppController.gameMode == AppConstants.kTwoPlayerClientMode || AppController.gameMode == AppConstants.kTwoPlayerServerMode) {
 			if (wordString.count > 2 && words.contains(wordString) && !wordsFound.contains(wordString) && !wordsFoundOpponent.contains(wordString)) {
 				match = true
 				self.getWordScore()
@@ -1316,10 +1315,10 @@ class GameScene: Scene {
 	//  TODO:  see what called this in original game
 		func selectPolyhedron(polyhedraInfo:Dictionary<String,Any>) {
 			let alphabet = AppConstants.kAlphabet
-			let commonLetters = AppConstants.kCommonLetters
-			let uncommonLetters = AppConstants.kUncommonLetters
-			let letterValues = AppConstants.kLetterValues
-			let alphabetCount = alphabet.count
+//			let commonLetters = AppConstants.kCommonLetters
+//			let uncommonLetters = AppConstants.kUncommonLetters
+//			let letterValues = AppConstants.kLetterValues
+//			let alphabetCount = alphabet.count
 			touchedPolygons.removeAll()
 			dragging = false
 			score_animating = false

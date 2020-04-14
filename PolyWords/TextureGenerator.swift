@@ -65,9 +65,9 @@ class TextureGenerator {
 		let texHeight = 256
 		//		GLubyte *textureData = (GLubyte *)malloc(texWidth * texHeight * 4);
 		let textureData = UnsafeMutablePointer<UInt8>.allocate(capacity: texWidth * texHeight * 4)
-		let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue)
+//		let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedFirst.rawValue)
 
-		let textureContext = CGContext(data: textureData, width: texWidth, height: texHeight, bitsPerComponent: 8, bytesPerRow: texWidth * 4, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
+//		let textureContext = CGContext(data: textureData, width: texWidth, height: texHeight, bitsPerComponent: 8, bytesPerRow: texWidth * 4, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
 
 		for ii in stride(from: 0, to: texWidth * texHeight * 4, by: 4) {
 			let denom = UInt32(2/RAND_MAX/255)
@@ -134,7 +134,7 @@ class TextureGenerator {
 		//		var offsetY:CGFloat
 		//		var point:CGPoint
 		//		var pointOutline:CGPoint
-		var imagePath:String
+//		var imagePath:String
 		var tileSizeX:CGFloat
 		var tileSizeY:CGFloat
 		var tileSize:CGFloat
@@ -151,7 +151,7 @@ class TextureGenerator {
 		//		let white:CGColor = .white
 		//		let black:CGColor = .black
 		
-		imagePath = NSHomeDirectory() + "/Documents/temp.png"
+//		imagePath = NSHomeDirectory() + "/Documents/temp.png"
 //		var textureImage = (NSImage.init(contentsOfFile: imagePath)!).convertedToGrayImage() as! CGImage
 //		var lightness:CGFloat = ((NSImage.init(contentsOfFile: imagePath)!).areaAverage()).brightnessComponent
 		var lightness:CGFloat = 1.0
@@ -217,7 +217,7 @@ class TextureGenerator {
 			let height:CGFloat = tileSize
 			let radius:CGFloat = (height - 6.0)/2.0
 			offsetX = 2.0
-			var offsetFactor:CGFloat = 0.9
+			let offsetFactor:CGFloat = 0.9
 			textureContext.translateBy(x: 0.0, y: -CGFloat(texHeight))
 			var polygonSides:Int = 0
 			
@@ -228,11 +228,12 @@ class TextureGenerator {
 			} else if textureNum == 1{
 				textureContext.setFillColor(gray: 0.0, alpha: 1.0)
 				textureContext.fill(CGRect(x: 0, y: 0, width: texWidth, height: texHeight))
-			} else {
-				for ii in 0..<array.count {
-//					textureContext.draw(textureImage, in: CGRect(x: tileSize * CGFloat(ii%gridSize), y: CGFloat(texHeight) - tileSize - tileSizeY*CGFloat(ii/gridSize), width: tileSize, height: tileSize))
-				}
 			}
+//			else {
+//				for ii in 0..<array.count {
+//					textureContext.draw(textureImage, in: CGRect(x: tileSize * CGFloat(ii%gridSize), y: CGFloat(texHeight) - tileSize - tileSizeY*CGFloat(ii/gridSize), width: tileSize, height: tileSize))
+//				}
+//			}
 			
 			for ii in 0..<array.count {
 				var angleOffset:CGFloat = 0

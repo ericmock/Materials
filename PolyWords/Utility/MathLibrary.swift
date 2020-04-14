@@ -355,12 +355,16 @@ extension float3x3 {
 	}
 
 	init(tensorProduct vectorA: float3, _ vectorB: float3) {
-		let vector2 = normalize(vectorA)
-		let vector1 = normalize(vectorB)
+		let vector1 = normalize(vectorA)
+		let vector2 = normalize(vectorB)
 		let column0 = vector2.x * float3(vector1.x, vector1.y, vector1.z)
 		let column1 = vector2.y * float3(vector1.x, vector1.y, vector1.z)
 		let column2 = vector2.z * float3(vector1.x, vector1.y, vector1.z)
 		self = float3x3(column0, column1, column2)
+	}
+	
+	init(rotateFromBases bases1:[float3], toBases bases2:[float3]) {
+		self = float3x3(tensorProduct: bases2[0], bases1[0]) + float3x3(tensorProduct: bases2[1], bases1[1]) + float3x3(tensorProduct: bases2[2], bases1[2])
 	}
 
 }

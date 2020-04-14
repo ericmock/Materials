@@ -7,12 +7,12 @@
 		<key>GuideView.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>5</integer>
 		</dict>
 		<key>LevelInformation.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>5</integer>
+			<integer>7</integer>
 		</dict>
 		<key>PolyWords-iOS.xcscheme_^#shared#^_</key>
 		<dict>
@@ -27,22 +27,22 @@
 		<key>PolyhedronStatistics.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>3</integer>
 		</dict>
 		<key>SQLiteAccess.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>6</integer>
 		</dict>
 		<key>TextureViewer.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>6</integer>
+			<integer>4</integer>
 		</dict>
 		<key>WordListView.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>7</integer>
+			<integer>2</integer>
 		</dict>
 	</dict>
 </dict>

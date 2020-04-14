@@ -63,13 +63,13 @@ class HighScores {
 		score = 0
 		time = 0
 		filePath = path
-		let rawData = Data()
-		if let dataFileHandle = FileHandle(forReadingAtPath: filePath) {
-			let rawData = dataFileHandle.readDataToEndOfFile()//Data(contentsOf: URL(fileURLWithPath: filePath))
-		} else {
+//		let rawData = Data()
+//		if let dataFileHandle = FileHandle(forReadingAtPath: filePath) {
+//			let rawData = dataFileHandle.readDataToEndOfFile()//Data(contentsOf: URL(fileURLWithPath: filePath))
+//		} else {
 			//TODO:  Create the file
 //			let rawData = Data()
-		}
+//		}
 //		encodedScoreDataArray = try! (PropertyListSerialization.propertyList(from: rawData, format: nil) as? [[String]] ?? [[String]])
 //
 //		for encodedScoreData in encodedScoreDataArray {
@@ -196,7 +196,7 @@ class HighScores {
 	
 	func checkLevelCompleted(num:NSNumber) -> Bool {
 //		print("into checkLevelCompleted:  \(num) of \(self.className)")
-		var complete = false
+		let complete = false
 /*		if (mode == AppConstants.kStaticTimedMode) {
 			for array in decodedScoreDataArray {
 				if num.isEqual(to: array[1]),
@@ -260,7 +260,7 @@ class HighScores {
 		
 	func addScoreForPolyhedron(ofType type:Int, forMode newMode:UInt, forTime newTime:Float, withScore newScore:Int) {
 //		print("into  addScoreForPolyhedronType:\(type) forMode:\(newMode) forTime:\(newTime) withScore:\(newScore) of \(self.className)")
-		let data = encodeDataForPolyhedron(ofType: type, forMode: newMode, forTime: newTime, withScore: newScore)
+//		let data = encodeDataForPolyhedron(ofType: type, forMode: newMode, forTime: newTime, withScore: newScore)
 //		encodedScoreDataArray.append(data)
 //		decodedScoreDataArray.append([newMode, type, newTime, newScore])
 //		encodedScoreDataArray.write(toFile: filePath, atomically: true)

@@ -105,7 +105,8 @@ class AppController: AppDelegate {
 	var gameViewInitializedQ = false
 	var upgrading = false
 	var sound = true
-	var upgraded = false
+	static var upgraded = false
+	static var gameMode = 0
 
 //	required init(coder aCoder: NSCoder) {
 	override init() {
@@ -439,7 +440,7 @@ class AppController: AppDelegate {
 		if (upgrading) {
 			sendDataQ = true
 			UserDefaults.standard.set(sendDataQ, forKey: "sendDataQ")
-			UserDefaults.standard.set(upgraded, forKey: "upgraded")
+			UserDefaults.standard.set(AppController.upgraded, forKey: "upgraded")
 			UserDefaults.standard.synchronize()
 		} else if (firstTimeQ) {
 			sendDataQ = true
@@ -462,7 +463,7 @@ class AppController: AppDelegate {
 			UserDefaults.standard.set(sound, forKey: "sound")
 			UserDefaults.standard.synchronize()
 		} else {
-			upgraded = UserDefaults.standard.bool(forKey: "upgraded")
+			AppController.upgraded = UserDefaults.standard.bool(forKey: "upgraded")
 			sendDataQ = UserDefaults.standard.bool(forKey: "sendDataQ")
 			selectModeQ = UserDefaults.standard.bool(forKey: "selectModeShownQ")
 			throwBackQ = UserDefaults.standard.bool(forKey: "throwBackShownQ")
@@ -483,7 +484,7 @@ class AppController: AppDelegate {
 			AppController.unlocked = false
 		}
 		
-		let values2 = [upgraded, sound, fontSelected, mode, checking, bgTexture, axesQ, firstTimeQ, throwBackQ, selectModeQ] as [Any]
+		let values2 = [AppController.upgraded, sound, fontSelected, mode, checking, bgTexture, axesQ, firstTimeQ, throwBackQ, selectModeQ] as [Any]
 		let keys2 = ["upgraded", "sound", "font", "gameMode", "checking", "texture", "axesQ", "firstTimeQ","throwBackShownQ", "selectModeShownQ"]
 		let resourceDict = Dictionary(uniqueKeysWithValues: zip(keys2, values2))
 		UserDefaults.standard.register(defaults: resourceDict)
@@ -560,7 +561,7 @@ class AppController: AppDelegate {
 
 		var loc:Int
 		var polyID:Int
-		var completed = [false, false, false, false]
+		let completed = [false, false, false, false]
 		for ii in 0..<polyhedraLevels.count - 1 {
 			loc = polyhedraLevels[ii]
 			polyID = polyhedraNumbers[loc]
@@ -581,20 +582,20 @@ class AppController: AppDelegate {
 	}
 	
 	func startGame() {
-		if !continuingQ {
+//		if !continuingQ {
 //			gameScene.playTime = 0.0
 //			gameScene.lastSubmitTime = 0.0
 //			levelAborted = false
-		}
+//		}
 		
-		if polyhedraInfo != nil {
+//		if polyhedraInfo != nil {
 //			self.level = polyhedraInfo?.object(forKey: "level") as! UInt
 //			recordTimeQ = true
 //			if (aNavigationController.visibleViewController != alphaHedraViewController)
 //				[aNavigationController pushViewController:alphaHedraViewController animated:NO];
 //			else
 //				[alphaHedraViewController startGame];
-		}
+//		}
 	}
 	
 }

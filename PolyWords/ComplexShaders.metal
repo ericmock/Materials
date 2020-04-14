@@ -151,7 +151,7 @@ fragment float4 fragment_main(VertexOut in [[stage_in]],
     }
   }
   float3 fragColor = saturate(diffuseColor + ambientColor + specularColor);
-	float denom = 26.0;
+//	float denom = 26.0;
 //  return float4(in.polygonNumber/denom,in.polygonNumber/denom,in.polygonNumber/denom,1);
 //	return float4(fragmentUniforms.tiling, 0, 0, 1);
 	return float4(fragColor,1);

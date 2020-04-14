@@ -56,39 +56,55 @@ extension Renderer: MTKViewDelegate {
 		//Move		camera.aspect = Float(view.bounds.width)/Float(view.bounds.height)
 	}
 	
-	func flyingPolygon(touchedPolygons:[PolygonModel], time:Double, letterNumber:Int, letterCount:Int, rotationAngle:Float, worldRotationAngle:Float) {
+	func flyingPolygon(touchedPolygons:[PolygonModel], time:Double, letterNumber:Int, letterCount:Int) {
 		var letterNum = letterNumber
-		let gameScene = scene as! GameScene
+//		let gameScene = scene as! GameScene
 		for poly in touchedPolygons {
 			let dt:Float = Float(time - poly.polygon.select_animation_start_time)/4.0
 			letterNum += 1
-			let polygonType = poly.polygon.type
+//			let polygonType = poly.polygon.type
 			
-			var trans:Float, trans2:Float
+			var trans:Float, trans2:Float, trans3:Float
 			if (dt < 0.2) {
 				trans = 0.5*(1.0 + atan(40.0*(dt - 0.1))/atan(40.0*(-0.1)))
 				trans2 = 1.0 - exp(40.0*(dt-0.2))
+				trans3 = 3.11775 * exp(-27.0 * dt) * sin(13.0767 * dt)
 			}
 			else {
 				trans = 0.0
 				trans2 = 0.0
+				trans3 = 0.0
 			}
 			
 //			poly.nodePosition += float3(dt,0,0)
-			let currentCentroid = (poly.initialTouchedModelMatrix * float4(poly.polygon.centroid,1)).xyz
+//			let currentCentroid = (poly.initialTouchedModelMatrix * float4(poly.polygon.centroid,1)).xyz
 //			poly.nodeQuaternion = simd_quatf(angle:1.0/100.0, axis: normalize(poly.initialTouchedCentroid)) * poly.nodeQuaternion
-			let rot:float3x3 = float3x3(tensorProduct: poly.polygon.normal_v, float3(0,0,-1))
-			+ float3x3(tensorProduct: poly.polygon.tangent_v, float3(1,0,0))
-			+ float3x3(tensorProduct: poly.polygon.bitan_v, float3(0,-1,0))
-			switch poly.polygon.type {
-			case 2:
-				poly.nodeQuaternion = simd_quatf(angle: -.pi/5.0, axis: float3(0,0,-1)) * simd_quatf(rot)
-				break
-			default:
-				poly.nodeQuaternion = simd_quatf(rot)//*polyhedron.nodeQuaternion.inverse
-			}
-//			poly.nodeScaleV = float3(0.5,0.5,1.0)
-			poly.nodePosition = (1.0 - trans)*float3(3*(Float(letterNum-1)*0.25 - Float(letterCount-1)*0.25/2.0),2.5,0)
+			let initialRotationMatrix = float3x3(poly.initialTouchedQuaternion)
+//			let currentNormal = initialRotationMatrix *
+			let rot = float3x3(rotateFromBases: [poly.polygon.basePolygon.normal, poly.polygon.basePolygon.tangent, poly.polygon.basePolygon.bitangent], toBases: [poly.polygon.normal_v, poly.polygon.tangent_v, poly.polygon.bitan_v])
+//			let test1 = rot * poly.polygon.basePolygon.normal
+//			print(poly.nodeQuaternion)
+//			print(poly.polygon.normal_v)
+//			print(test1)
+//			let test2 = rot * rot.transpose
+//			poly.nodeQuaternion = /*poly.initialTouchedQuaternion * */simd_quatf(rot)
+			let startPosition =  initialRotationMatrix * poly.polygon.centroid
+			let startQuaternion = poly.initialTouchedQuaternion * simd_quatf(rot)
+			let startScale = float3(1,1,1)
+			let endPosition = float3(0,2,-2)
+			let endQuaternion = simd_quatf(angle: .pi, axis:float3(0,1,0)) * simd_quatf(angle: .pi, axis: float3(0,0,1))
+			let endScale = float3(0.5,0.5,1)
+			poly.nodePosition = (1.0 - trans) * endPosition + (trans + trans3) * startPosition
+			poly.nodeQuaternion = simd_slerp(startQuaternion, endQuaternion, 1.0-trans)
+			poly.nodeScaleV = (1.0 - trans) * endScale + trans * startScale
+//			switch poly.polygon.type {
+//			case 2:
+//				poly.nodeQuaternion = simd_quatf(angle: -.pi/5.0, axis: float3(0,0,-1)) * simd_quatf(rot)
+//				break
+//			default:
+//				poly.nodeQuaternion = simd_quatf(rot)//*polyhedron.nodeQuaternion.inverse
+//			}
+//			poly.nodePosition = (1.0 - trans)*float3(3*(Float(letterNum-1)*0.25 - Float(letterCount-1)*0.25/2.0),2.5,0)
 //			poly.nodeQuaternion = simd_quatf(rot)*poly.initialTouchedQuaternion
 //			poly.nodeQuaternion = simd_quatf(angle:0, axis: float3(0,0,0))
 //			poly.nodePosition = float3(0.0,2.0,0.0)
@@ -113,26 +129,6 @@ extension Renderer: MTKViewDelegate {
 //				print("nodeRotationAxis: {\(poly.nodeQuaternion.axis.x), \(poly.nodeQuaternion.axis.y), \(poly.nodeQuaternion.axis.z)}")
 //				print("nodeRotationAngle: \(poly.nodeQuaternion.angle)")
 //			}
-			if (true/*gameScene.level == 0*/) {
-//				poly.nodeQuaternion += simd_quatf(angle: 130.0 * .pi/180.0, axis:float3(0,0,1)) }
-			} else {
-				switch poly.polygon.type {
-				case 5:
-					poly.nodeQuaternion += simd_quatf(angle: -180.0 * .pi/180.0, axis:float3(0,0,1))
-					break
-				case 3:
-					poly.nodeQuaternion += simd_quatf(angle: -360.0 * .pi/180.0, axis:float3(0,0,1))
-					break
-				case 2:
-					poly.nodeQuaternion += simd_quatf(angle: -180.0 * .pi/180.0, axis:float3(0,0,1))
-					break
-				case 0:
-					poly.nodeQuaternion += simd_quatf(angle: -180.0 * .pi/180.0, axis:float3(0,0,1))
-					break
-				default:
-					break
-				}
-			}
 		}
 	}
 	
@@ -158,16 +154,18 @@ extension Renderer: MTKViewDelegate {
 		scene.update(deltaTime: deltaTime)
 		
 		for (num,renderable) in scene.renderables.enumerated() {
-			if num > 0 {
+			if num > 0 && scene is GameScene {
 				let polygonModel = renderable as! PolygonModel
-				let poly = polygonModel.polygon
+//				let poly = polygonModel.polygon
 //				print("modelMatrix: \(polygonModel.modelMatrix)")
 //				print("scene Uniforms: \(scene.uniforms)")
 //				print("nodePosition: {\(polygonModel.nodePosition.x), \(polygonModel.nodePosition.y), \(polygonModel.nodePosition.z)}")
 //				print("nodeScale: {\(polygonModel.nodeScaleV.x), \(polygonModel.nodeScaleV.y), \(polygonModel.nodeScaleV.z)}")
 //				print("nodeRotationAxis: {\(polygonModel.nodeQuaternion.axis.x), \(polygonModel.nodeQuaternion.axis.y), \(polygonModel.nodeQuaternion.axis.z)}")
 //				print("nodeRotationAngle: \(polygonModel.nodeQuaternion.angle)")
-				flyingPolygon(touchedPolygons: [polygonModel], time: get_time_of_day(), letterNumber: num, letterCount: (scene.renderables.count - 1), rotationAngle: polygonModel.nodeQuaternion.angle, worldRotationAngle: 0.0)
+//				let quat = scene.renderables[0].nodeQuaternion;
+//				let quat2 = simd_quatf(angle: quat.angle, axis:quat.axis)
+				flyingPolygon(touchedPolygons: [polygonModel], time: get_time_of_day(), letterNumber: num, letterCount: (scene.renderables.count - 1))
 			}
 			renderEncoder.pushDebugGroup(renderable.name)
 			renderable.render(commandEncoder: renderEncoder,

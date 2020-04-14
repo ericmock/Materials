@@ -206,8 +206,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "interactionsBegan(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -222,8 +222,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
             landmarkName = "ViewController"
             landmarkType = "21">
          </BreakpointContent>
@@ -264,22 +264,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6A698037-9143-46DB-8858-45CE2062842A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PolyWords/TrackBall.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
-            landmarkName = "addToRotationTrackball(withDA:withA:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "D951DF8A-0BB2-4BED-938F-DEFF8FB5ED79"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -303,8 +287,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "interactionsBegan(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -319,8 +303,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "interactionsBegan(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -335,8 +319,8 @@
             filePath = "PolyWords/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "361"
-            endingLineNumber = "361"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
             landmarkName = "assignLetterToAllPolygons()"
             landmarkType = "7">
          </BreakpointContent>
@@ -351,8 +335,8 @@
             filePath = "PolyWords/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "375"
-            endingLineNumber = "375"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
             landmarkName = "assignLetter(toPolygon:ofType:withNumber:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -367,8 +351,8 @@
             filePath = "PolyWords/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "380"
-            endingLineNumber = "380"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
             landmarkName = "assignRandomLetterToPoly(number:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -383,8 +367,8 @@
             filePath = "PolyWords/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "352"
-            endingLineNumber = "352"
+            startingLineNumber = "351"
+            endingLineNumber = "351"
             landmarkName = "assignLetterToAllPolygons(withString:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -399,8 +383,8 @@
             filePath = "PolyWords/Renderer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "draw(in:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -431,8 +415,8 @@
             filePath = "PolyWords/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "121"
-            endingLineNumber = "121"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "setupScene()"
             landmarkType = "7">
          </BreakpointContent>
@@ -497,7 +481,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "62"
             endingLineNumber = "62"
-            landmarkName = "flyingPolygon(touchedPolygons:time:letterNumber:letterCount:rotationAngle:worldRotationAngle:)"
+            landmarkName = "flyingPolygon(touchedPolygons:time:letterNumber:letterCount:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -511,25 +495,9 @@
             filePath = "PolyWords/Renderer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
             landmarkName = "draw(in:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "965F2731-B937-4C70-A841-E941DCF71D17"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PolyWords/Renderer.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "flyingPolygon(touchedPolygons:time:letterNumber:letterCount:rotationAngle:worldRotationAngle:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -575,8 +543,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "interactionsEnded(withEvent:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -642,6 +610,70 @@
             startingLineNumber = "222"
             endingLineNumber = "222"
             landmarkName = "generateBasePolygon()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F07EB83C-C547-4D00-8B2C-2577516D8E8E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PolyWords-macOS/ViewControllerExtension.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "interactionsEnded(withEvent:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A04307BE-E664-4475-9DB1-1BFBE46BD34F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PolyWords/LevelSelectionScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "setupScene()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3F67E729-CBE1-41D0-A27D-C29E473DD17F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PolyWords/Submesh.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
+            landmarkName = "init(textures:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F1CAE418-AA15-4F9F-A806-5E8A29D05F74"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PolyWords/Polyhedron.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "314"
+            endingLineNumber = "314"
+            landmarkName = "render(commandEncoder:uniforms:fragmentUniforms:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

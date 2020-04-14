@@ -46,9 +46,9 @@ class Apolygon {
 	
 	fileprivate func getTextureCoords(_ polyhedronType: Int, _ scale: Float, _ numSides: Int) {
 		// Deal with triangles
-		var polygonIndex:Int
+//		var polygonIndex:Int
 		if numSides == 3 {
-			polygonIndex = 0
+//			polygonIndex = 0
 			if polyhedronType == 7 {
 				let scale2:Float = 1.1
 				let shift:Float = (scale2 - 1.0)/2.0
@@ -93,7 +93,7 @@ class Apolygon {
 		
 		// Deal with squares
 		if numSides == 4 {
-			polygonIndex = 1
+//			polygonIndex = 1
 			if polyhedronType == 3 {
 				let baseTextureCoords = [
 					float2(0.5, 1.0),
@@ -154,7 +154,7 @@ class Apolygon {
 		
 		// Deal with remaining polygons
 		if (numSides > 4) {
-			polygonIndex = numSides - 3
+//			polygonIndex = numSides - 3
 			baseTextureCoords = Array()
 			scaledBaseTextureCoords = Array()
 			for ii in 0..<numSides {
@@ -220,11 +220,16 @@ class Apolygon {
 	
 	func generateBasePolygon() {
 		var baseVertices:[float3] = Array()
-		let rot = float3x3(tensorProduct: normal_v, zAxis) + float3x3(tensorProduct: tangent_v, xAxis) + float3x3(tensorProduct: bitan_v, yAxis)
+		let rot = float3x3(tensorProduct: zAxis, normal_v) + float3x3(tensorProduct: xAxis, tangent_v) + float3x3(tensorProduct: yAxis, bitan_v)
 		for vertex in vertices {
 			baseVertices.append(rot * (vertex - centroid))
 		}
+		baseVertices.insert(float3(0,0,0), at: 0)
+
 		basePolygon = BasePolygon(vertices: baseVertices, indices: indices, textureNumber: texture)
+		basePolygon.normal = rot * normal_v
+		basePolygon.tangent = rot * tangent_v
+		basePolygon.bitangent = rot * bitan_v
 	}
 	
 	func generateCentroids() {

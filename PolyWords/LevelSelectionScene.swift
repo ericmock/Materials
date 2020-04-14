@@ -12,9 +12,18 @@ import CoreGraphics
 
 class LevelSelectionScene: Scene {
 //	MARK:  Instance variables
-	let touchAngles:[Float] = []
-	let touchTimes:[Float] = []
+	var touchAngles:[Float] = []
+	var touchTimes:[Double] = []
 	var lockedPolyhedronInfo:Dictionary<String,Any>
+	var freeWheeling = false
+	var dragging = false
+	var omega = 0.0
+	var touchStartTime = 0.0
+	var stage:Int = 1
+	var goingToNextLevel = false
+	var goingToPreviousLevel = false
+	var level = 0
+
 	
 	override init(screenSize: CGSize, sceneName: String) {
 		lockedPolyhedronInfo = ["name": "Locked",
@@ -31,20 +40,25 @@ class LevelSelectionScene: Scene {
 
 //	MARK:  Methods
 	override func setupScene() {
-		camera.target = [0, 0.8, 0]
+		camera.target = [0, 0, 0]
 		camera.distance = 3
 		camera.nodeQuaternion = simd_quatf()
 		
+		let worldModel = Model(forScene: self)
+		worldModel.name = "World"
+		add(node: worldModel, renderQ: false)
+		models.append(worldModel)
+
 		let polyhedraInfo = AppController.initializePolyhedronInfo()
 		for (num,polyhedronInfo) in polyhedraInfo.enumerated() {
 			if (polyhedronInfo["level"] as! Int) < 6 {
 				let polyhedron = Polyhedron(name: polyhedronInfo["name"] as! String, withPolyID: polyhedronInfo["polyID"] as! Int, scene: self)
 				polyhedron.nodeQuaternion = simd_quatf(angle: radians(fromDegrees: Float.random(in: -180..<180)), axis: float3(0,1,0))
 				polyhedron.nodePosition.x = 0
-				polyhedron.nodePosition.y = 1.5 * cos(2.0 * Float(num)/6.0 * .pi)
-				polyhedron.nodePosition.z = 1.5 * sin(2.0 * Float(num)/6.0 * .pi)
+				polyhedron.nodePosition.y = 1.25 * cos(2.0 * Float(num)/6.0 * .pi)
+				polyhedron.nodePosition.z = 1.25 * sin(2.0 * Float(num)/6.0 * .pi)
 				polyhedron.nodeScaleV = float3(1.0/5.0, 1.0/5.0, 1.0/5.0)
-				add(node: polyhedron)
+				add(node: polyhedron, parent: worldModel)
 				models.append(polyhedron)
 			}
 		}
@@ -58,7 +72,7 @@ class LevelSelectionScene: Scene {
 	
 	func getLevel() -> UInt {
 		var level:UInt
-		var levelRotation = worldRotation_toLevelSelectionScene
+		let levelRotation = worldRotation_toLevelSelectionScene
 //		levelRotation = trackball.addToRotationTrackball(withDA: gTrackBallRotation, withA: levelRotation)
 		
 		if (levelRotation[1] > 0.0) {
@@ -89,5 +103,9 @@ class LevelSelectionScene: Scene {
 		return level;
 
 	}
-
+	
+	func endSpin() {
+		gTrackballQuaternion = trackball.addToRotationTrackball(withDA: gTrackballQuaternion, withA: models[0].nodeQuaternion)
+	}
 }
+
