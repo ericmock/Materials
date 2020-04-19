@@ -38,17 +38,17 @@ class Scene {
 		let camera = ArcballCamera()
 		camera.distance = 10
 		camera.target = [0, 1, 0]
-		camera.nodeQuaternion = simd_quatf(angle:Float(-10).degreesToRadians,axis:float3(1,0,0))
+		camera.nodeAngleAxis = AngleAxis(angle:Float(-10).degreesToRadians, axis:xAxis)
 		return camera
 	}()
 	
 	var models: [Model] = []
 	
 	let trackball = Trackball()
-	var gTrackballQuaternion = simd_quatf(angle: 0, axis: float3(1,0,0))
-	var initialQuaternion = simd_quatf(angle: 0, axis: float3(1,0,0))
+	var gTrackballAngleAxis = AngleAxis(0, xAxis)
+	var initialAngleAxis = AngleAxis(0, xAxis)
 //	var rotationAngleAxis_delete:float4 = [0, 0, 0, 0]
-	var worldRotationAngleAxis:float4 = [0, 0, 0, 0]
+	var worldRotationAngleAxis:AngleAxis = AngleAxis(0, xAxis)
 	var worldRotation_toLevelSelectionScene:float4 = [0, 0, 0, 0]
 	
 	private var startPoint:CGPoint = .zero
@@ -80,10 +80,10 @@ class Scene {
 	}
 	
 	func updateScene(deltaTime: Float) {
-		if camera.speed != 0.0 {
-			camera.rotate(delta: float3(Float(camera.velocity.x) * deltaTime, Float(camera.velocity.y) * deltaTime, 0))
-			camera.velocity = CGPoint(x:0.99 * camera.velocity.x, y:0.99 * camera.velocity.y)
-		}
+//		if camera.speed != 0.0 {
+//			camera.rotate(delta: float3(Float(camera.velocity.x) * deltaTime, Float(camera.velocity.y) * deltaTime, 0))
+//			camera.velocity = CGPoint(x:0.99 * camera.velocity.x, y:0.99 * camera.velocity.y)
+//		}		
 	}
 	
 	func update(deltaTime: Float) {

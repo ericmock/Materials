@@ -9,229 +9,142 @@
 import Foundation
 import simd
 
-let kNumParticles = 10
-
 struct stateStructure {
-    var theta:[Float] = [Float](repeating:1.0, count: kNumParticles)
-    var omega:[Float] = [Float](repeating:0.0, count: kNumParticles)
-    var alpha:[Float] = [Float](repeating:0.0, count: kNumParticles)
-    var cos_theta:[Float] = [Float](repeating:0.0, count: kNumParticles)
-    var sin_theta:[Float] = [Float](repeating:0.0, count: kNumParticles)
-    
-    init() {
-        for ii in 0..<kNumParticles {
-            theta[ii] = Float(Int.random(in: -100...100))/100.0
-        }
-    }
+	var theta:[Float] = Array()//[Float](repeating:1.0, count: kNumParticles)
+	var omega:[Float] = Array()//[Float](repeating:0.0, count: kNumParticles)
+	var alpha:[Float] = Array()//[Float](repeating:0.0, count: kNumParticles)
+	var cos_theta:[Float] = Array()//[Float](repeating:0.0, count: kNumParticles)
+	var sin_theta:[Float] = Array()//[Float](repeating:0.0, count: kNumParticles)
+	
+	init(withDOFs dofs:Int) {
+		for _ in 0..<dofs {
+			theta.append(0.0)
+			omega.append(0.0)
+			alpha.append(0.0)
+			cos_theta.append(0.0)
+			sin_theta.append(0.0)
+		}
+	}
 }
 
 struct derivative {
-    var dtheta:[Float] = [Float](repeating:0.0, count: kNumParticles)
-    var domega:[Float] = [Float](repeating:0.0, count: kNumParticles)
-};
-
-struct acceleration {
-    var alpha:[Float] = [Float](repeating:0.0, count: kNumParticles)
-};
-
-//
-//  IntegratorMain.m
-//  SlingShot
-//
-//  Created by Eric Mockensturm on 4/17/09.
-//  Copyright 2009 Penn State University. All rights reserved.
-//
-//
-//#import "IntegratorTitle.h"
-//#import "AppController.h"
-//#import "random.h"
-//
-
-
-class TitleIntegrator {
-    
-    var scene:TitleScene
-    var state:stateStructure = stateStructure()
-	var F:[Float] = []
-    
-	init(withScene scene:TitleScene) {
-        self.scene = scene
-        resetState()
-    }
-    //@implementation IntegratorTitle
-    //
-    //@synthesize endState;
-    //
-    //- (id) initWithDelegate: (AppController *)d {
-    //    if ((self = [super init])) {
-    //        delegate = d;
-    //        [self resetState];
-    //    }
-    //    return self;
-    //}
-    //
-    func integrate(with dt:TimeInterval) {
-        var a = derivative()
-        var b = derivative()
-        var c = derivative()
-        var d = derivative()
-        var dthetadt:Float = 0.0
-        var domegadt:Float = 0.0
-        
-        a = evaluate(with: state)
-        b = evaluate(with: state, deltaT:dt*0.5, d:a)
-        c = evaluate(with: state, deltaT:dt*0.5, d:b)
-        d = evaluate(with: state, deltaT:dt, d:c)
-        
-        for ll in 0..<kNumParticles {
-            dthetadt = 1.0/6.0 * (a.dtheta[ll] + 2.0 * (b.dtheta[ll] + c.dtheta[ll]) + d.dtheta[ll])
-            domegadt = 1.0/6.0 * (a.domega[ll] + 2.0 * (b.domega[ll] + c.domega[ll]) + d.domega[ll])
-            state.theta[ll] = state.theta[ll] + dthetadt*Float(dt)
-            state.omega[ll] = state.omega[ll] + domegadt*Float(dt)
-        }
-    }
-    
-    //- (void) integrate:(double) dt {
-    //    struct derivative a;
-    //    struct derivative b;
-    //    struct derivative c;
-    //    struct derivative d;
-    //    double dthetadt;//, drdt;
-    //    double domegadt;//, dvdt;
-    //
-    //    a = [self evaluate:state];
-    //    b = [self evaluate:state deltat:dt*0.5 deriv:a];
-    //    c = [self evaluate:state deltat:dt*0.5 deriv:b];
-    //    d = [self evaluate:state deltat:dt deriv:c];
-    //
-    //    uint ll;
-    //    for (ll=0;ll<kNumParticles;ll++) {
-    //        dthetadt = 1.0/6.0 * (a.dtheta[ll] + 2.0*(b.dtheta[ll] + c.dtheta[ll]) + d.dtheta[ll]);
-    //        domegadt = 1.0/6.0 * (a.domega[ll] + 2.0*(b.domega[ll] + c.domega[ll]) + d.domega[ll]);
-    //        state.theta[ll] = state.theta[ll] + dthetadt*dt;
-    //        state.omega[ll] = state.omega[ll] + domegadt*dt;
-    ////        state.sin_theta[ll] = sin(state.theta[ll]);
-    ////        state.cos_theta[ll] = cos(state.theta[ll]);
-    //    }
-    //    endState = state;
-    //
-    //    return;
-    //}
-    //
-    
-    func evaluate(with initial:stateStructure) -> derivative {
-        var output:derivative = derivative()
-        var accelXY:acceleration = acceleration()
-        
-        for ll in 0..<kNumParticles {
-            output.dtheta[ll] = initial.omega[ll]
-            accelXY = accel(with: initial)
-            output.domega[ll] = accelXY.alpha[ll]
-        }
-        return output
-    }
-    //- (struct derivative) evaluate:(struct statestruc) initial {
-    //    struct derivative output;
-    //    struct acceleration accelXY;
-    //
-    //    uint ll;
-    //    for (ll=0;ll<kNumParticles;ll++) {
-    //        output.dtheta[ll] = initial.omega[ll];
-    //        accelXY = [self accelerationAtInitialState:initial];
-    //        output.domega[ll] = accelXY.alpha[ll];
-    //    }
-    //
-    //    return output;
-    //}
-    //
-    
-    func evaluate(with initial:stateStructure, deltaT dt:TimeInterval, d:derivative) -> derivative {
-        var output:derivative = derivative()
-        var accelXY:acceleration = acceleration()
-        
-        for ll in 0..<kNumParticles {
-            state.theta[ll] = initial.theta[ll] + d.dtheta[ll]*Float(dt)
-            state.omega[ll] = initial.omega[ll] + d.domega[ll]*Float(dt)
-            output.dtheta[ll] = state.omega[ll]
-            
-            accelXY = accel(with: initial)
-            output.domega[ll] = accelXY.alpha[ll]
-        }
-        return output
-    }
-    //- (struct derivative) evaluate:(struct statestruc) initial deltat:(double)dt deriv:(struct derivative) d {
-    //    struct acceleration accelXY;
-    //    struct derivative output;
-    //
-    //    uint ll;
-    //    for (ll=0;ll<kNumParticles;ll++) {
-    //        state.theta[ll] = initial.theta[ll] + d.dtheta[ll]*dt;
-    //        state.omega[ll] = initial.omega[ll] + d.domega[ll]*dt;
-    //        output.dtheta[ll] = state.omega[ll];
-    //
-    //        accelXY = [self accelerationAtInitialState:initial];
-    //
-    //        output.domega[ll] = accelXY.alpha[ll];
-    //    }
-    //
-    //    return output;
-    //}
-    //
-    func accel(with initial:stateStructure) -> acceleration {
-        var accelXY = acceleration()
-        let g:Float = 10.0
-        let gangle:Float = atan2(-scene.accelz, -scene.accely)
-        for ii in 0..<kNumParticles {
-            accelXY.alpha[ii] = -g/2*sin(initial.theta[ii] - gangle) - 0.25*initial.omega[ii]
-        }
-        return accelXY
-    }
-    //- (struct acceleration) accelerationAtInitialState:(struct statestruc) initial {
-    //
-    //    struct acceleration accelXY;
-    //
-    //    double g = 10.0;
-    //    float gangle = atan2(-delegate.accelz,-delegate.accely);
-    //    for (int ii = 0; ii < kNumParticles; ii++) {
-    //        accelXY.alpha[ii] = -g/2*sin(initial.theta[ii] - gangle) - 0.25*initial.omega[ii];
-    //    }
-    //
-    //    return accelXY;
-    //}
-    //
-	
-	func setF(to force:[Float]) {
-		for ii in 0..<scene.titles.count {
-			if state.omega[ii] < 0.2 {
-				F[ii] = force[ii]
-			}
+	var dtheta:[Float] = Array()//[Float](repeating:0.0, count: kNumParticles)
+	var domega:[Float] = Array()//[Float](repeating:0.0, count: kNumParticles)
+	init(withDOFs dofs:Int) {
+		for _ in 0..<dofs {
+			dtheta.append(0.0)
+			domega.append(0.0)
 		}
 	}
-    
-//	- (void) setF:(double *)force {
-//	#ifdef verbose
-//	NSLog(@"into  setF:(double *)force  of %@",[self class]);
-//	#endif
-//
-//		for (int ii = 0; ii < menuView.menu_count; ii++) {
-//			if (state.omega[ii] < 0.2)
-//				F[ii] = force[ii];
+}
+
+struct acceleration {
+	var alpha:[Float] = Array()//[Float](repeating:0.0, count: kNumParticles)
+	init(withDOFs dofs:Int) {
+		for _ in 0..<dofs {
+			alpha.append(0.0)
+		}
+	}
+
+}
+
+class Integrator {
+	
+	var scene:Scene
+	var state:stateStructure
+	var F:[Float] = []
+	var dofs:Int
+//	var setF: ([Double],[Double],Double) -> Void
+	
+	init(withScene scene:Scene, withDOFs dofs:Int, withInitialState initial:stateStructure, withForceFunction setF:@escaping (_ coords:[Double], _ vels:[Double], _ time:Any) -> Void) {
+		self.scene = scene
+		self.dofs = dofs
+//		self.setF = setF
+//		state = stateStructure(withDOFs: dofs)
+		F = Array(repeating: 0.0, count: dofs)
+		state = initial
+		resetState()
+	}
+	
+	func integrate(with dt:TimeInterval) {
+		print("integrate start:  ", 180.0 / .pi * state.theta[0])
+		var a = derivative(withDOFs: dofs)
+		var b = derivative(withDOFs: dofs)
+		var c = derivative(withDOFs: dofs)
+		var d = derivative(withDOFs: dofs)
+		var dthetadt:Float = 0.0
+		var domegadt:Float = 0.0
+		
+		a = evaluate(with: state)
+		b = evaluate(with: state, deltaT:dt*0.5, d:a)
+		c = evaluate(with: state, deltaT:dt*0.5, d:b)
+		d = evaluate(with: state, deltaT:dt, d:c)
+		
+		for ll in 0..<dofs {
+			dthetadt = 1.0/6.0 * (a.dtheta[ll] + 2.0 * (b.dtheta[ll] + c.dtheta[ll]) + d.dtheta[ll])
+			domegadt = 1.0/6.0 * (a.domega[ll] + 2.0 * (b.domega[ll] + c.domega[ll]) + d.domega[ll])
+			state.theta[ll] = state.theta[ll] + dthetadt*Float(dt)
+			state.omega[ll] = state.omega[ll] + domegadt*Float(dt)
+			while state.omega[ll] > 2.0 * .pi {
+				state.omega[ll] -= 2.0 * .pi
+			}
+		}
+		print("integrate end:  ", 180.0 / .pi * state.theta[0])
+	}
+	
+	func evaluate(with initial:stateStructure) -> derivative {
+		var output:derivative = derivative(withDOFs: dofs)
+		var accelXY:acceleration = acceleration(withDOFs: dofs)
+		
+		for ll in 0..<dofs {
+			output.dtheta[ll] = initial.omega[ll]
+			accelXY = accel(with: initial)
+			output.domega[ll] = accelXY.alpha[ll]
+		}
+		return output
+	}
+	
+	func evaluate(with initial:stateStructure, deltaT dt:TimeInterval, d:derivative) -> derivative {
+		var output:derivative = derivative(withDOFs: dofs)
+		var accelXY:acceleration = acceleration(withDOFs: dofs)
+		
+		for ll in 0..<dofs {
+			state.theta[ll] = initial.theta[ll] + d.dtheta[ll]*Float(dt)
+			state.omega[ll] = initial.omega[ll] + d.domega[ll]*Float(dt)
+			output.dtheta[ll] = state.omega[ll]
+			
+			accelXY = accel(with: initial)
+			output.domega[ll] = accelXY.alpha[ll]
+		}
+		return output
+	}
+	
+	func accel(with initial:stateStructure) -> acceleration {
+		var accelXY = acceleration(withDOFs: dofs)
+		setF(withCoords: initial.theta, vels: initial.omega, time: 0.0)
+		for ii in 0..<dofs {
+			accelXY.alpha[ii] = F[ii]
+		}
+		return accelXY
+	}
+	
+//	func setF(withCoords coords:[Float], vels:[Float], time:Double) {
+//		let g:Float = 10.0
+//		let gangle:Float = atan2(-scene.accelz, -scene.accely)
+//		for ii in 0..<dofs {
+//			if state.omega[ii] < 0.2 {
+//				F[ii] = -g/2*sin(coords[ii] - gangle) - 0.25*vels[ii]
+//			}
 //		}
 //	}
+	
+	func setF(withCoords coords:[Float], vels:[Float], time:Double) {
+		for ii in 0..<dofs {
+			F[ii] = 0.2 * sin(6.0 * coords[ii]) - 0.3 * vels[ii]
+		}
+	}
 
-    func resetState() {
-        state = stateStructure()
-    }
-    
-    //- (void) resetState {
-    //    int ii;
-    //    for (ii=0;ii<kNumParticles;ii++) {
-    //        state.theta[ii] = 0.0;//frandom(-M_PI, M_PI);
-    ////        state.sin_theta[ii] = sin(state.theta[ii]);
-    ////        state.cos_theta[ii] = cos(state.theta[ii]);
-    //        state.omega[ii] = frandom(-0.08, 0.08);
-    //    }
-    //}
-    //
-    //@end
+	func resetState() {
+		state = stateStructure(withDOFs: dofs)
+	}
 }

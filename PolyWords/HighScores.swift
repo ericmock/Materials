@@ -95,7 +95,7 @@ class HighScores {
 	func getHighScoreForEachLevel() -> [Float] {
 		var array:[Float] = []
 		var counter = 1
-		for tempDict in (AppController.initializePolyhedronInfo()) {
+		for tempDict in AppController.polyhedraInfo {
 			let num = getHighScore(forPolyhedron: tempDict["polyID"] as! Int)
 			array.append(Float(counter))
 			if num < Float.greatestFiniteMagnitude {

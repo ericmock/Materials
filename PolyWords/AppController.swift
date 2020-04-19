@@ -66,7 +66,8 @@ class AppController: AppDelegate {
 	
 	let screenRect:CGRect = CGRect(x: CGFloat(0.0), y: CGFloat(0.0), width: CGFloat(10.0), height: CGFloat(10.0))
 	let darkColor:NSColor = NSColor(red: 43.0/256.0, green: 34.0/256.0, blue: 20.0/256.0, alpha: 1.0)
-	var polyhedraInfo:[Dictionary<String,Any>] = []
+	static var polyhedraInfo:[Dictionary<String,Any>] = []
+	static var polyhedronInfo:Dictionary<String,Any> = [:]
 //	var polyhedronInfo:NSDictionary?
 	var polyhedra:[Any] = []
 	var polyhedronNames:[String] = []
@@ -107,10 +108,12 @@ class AppController: AppDelegate {
 	var sound = true
 	static var upgraded = false
 	static var gameMode = 0
+	static var gameViewInitialized = false
 
 //	required init(coder aCoder: NSCoder) {
 	override init() {
 		super.init()
+		AppController.initializePolyhedraInfo()
 //		do {
 //			AppController.highScores = try HighScores()
 //		} catch {
@@ -119,7 +122,11 @@ class AppController: AppDelegate {
 //		}
 	}
 	
-	func initializeGame() {
+	static func initializeGame() {
+		
+	}
+	
+	static func resetGame() {
 		
 	}
 	
@@ -143,7 +150,7 @@ class AppController: AppDelegate {
 		}
 		AppController.removeAllStoredData()
 		if !gameViewInitializedQ {
-			self.initializeGame()
+			AppController.self.initializeGame()
 		}
 //		self.mode = mode
 //		let decodedDataArray = EncodeDecode.decode(gameData: saveData, withTimeHistory:gameScene!.timeHistory, withWordsFound:gameScene.wordsFound)
@@ -184,7 +191,7 @@ class AppController: AppDelegate {
 		let fileManager = FileManager()
 		var filePath = AppController.getHighWordsPath()
 		var success = fileManager.fileExists(atPath: filePath)
-		let numPolyhedra:Int = polyhedraInfo.count
+		let numPolyhedra:Int = AppController.polyhedraInfo.count
 		
 		if !success {
 			let tempArray = NSMutableArray(capacity: numPolyhedra)
@@ -491,7 +498,7 @@ class AppController: AppDelegate {
 		UserDefaults.standard.synchronize()
 	}
 	
-	static func initializePolyhedronInfo() -> [Dictionary<String,Any>]{
+	static func initializePolyhedraInfo() {
 		var polyhedra:[Any]
 		var polyhedraNames:[String] = []
 		var polyhedraLevels:[Int] = []
@@ -557,7 +564,7 @@ class AppController: AppDelegate {
 			polyhedraLevels.append(polyhedra[ii] as! Int)
 		}
 		
-		var polyhedraInfo:[Dictionary<String,Any>] = []
+//		var polyhedraInfo:[Dictionary<String,Any>] = []
 
 		var loc:Int
 		var polyID:Int
@@ -575,13 +582,12 @@ class AppController: AppDelegate {
 			let values:[Any] = [polyhedraNames[loc], polyID, [completed[0],completed[1],completed[2],completed[3],true,true],ii]
 			let keys = ["name", "polyID", "completed", "level"]
 			let dict = Dictionary(uniqueKeysWithValues: zip(keys, values))
-			polyhedraInfo.append(dict)
+			AppController.polyhedraInfo.append(dict)
 		}
 //		highScores.mode = mode
-		return polyhedraInfo
 	}
 	
-	func startGame() {
+	@objc func startGame() {
 //		if !continuingQ {
 //			gameScene.playTime = 0.0
 //			gameScene.lastSubmitTime = 0.0

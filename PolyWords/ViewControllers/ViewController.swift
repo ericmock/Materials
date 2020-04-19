@@ -16,7 +16,8 @@ class ViewController: LocalViewController {
 	}
 	override func viewDidLoad() {
     super.viewDidLoad()
-    guard let metalView = view as? MTKView else {
+		let appController = AppController()
+		guard let metalView = view as? MTKView else {
       fatalError("metal view not set up in storyboard")
     }
 		renderer = Renderer(view: metalView)

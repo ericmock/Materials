@@ -40,6 +40,21 @@ func half(_ size: float3) -> float3 {
 	[size.x * 0.5, size.y * 0.5, size.z * 0.5]
 }
 
+func angleAxis2Quat(withA A:SIMD4<Float>) -> simd_quatf {
+	var ang2:Float = 0
+	var sinAng2:Float = 0
+	var q:simd_quatf
+	
+	// Convert a GL-style rotation to a quaternion.  The GL rotation looks like this:
+	// {angle, x, y, z}, the corresponding quaternion looks like this:
+	// {{v}, cos(angle/2)}, where {v} is {x, y, z} / sin(angle/2).
+	
+	ang2 = A[0] * 0.5  // Convert from degrees ot radians, get the half-angle.
+	sinAng2 = sin(ang2)
+	q = simd_quatf(ix: A[1] * sinAng2, iy: A[2] * sinAng2, iz: A[3] * sinAng2, r: cos(ang2))
+	return q
+}
+
 struct Rect {
   var x: Float = 0
   var z: Float = 0
@@ -56,6 +71,54 @@ struct Rect {
   func intersects(_ rect: Rect) -> Bool {
     return self.cgRect.intersects(rect.cgRect)
   }
+}
+
+struct AngleAxis {
+	var angle: Float
+	var axis: float3
+	
+	init(_ vec:float4) {
+		angle = vec[0]
+		axis = float3(vec[1],vec[2],vec[3])
+	}
+	
+	init(_ a:Float, _ b:Float, _ c:Float, _ d:Float) {
+		angle = a
+		axis = float3(b,c,d)
+	}
+	
+	init(_ angle:Float, _ axis:float3) {
+		self.angle = angle
+		self.axis = axis
+	}
+	
+	init(angle:Float, axis:float3) {
+		self.angle = angle
+		self.axis = axis
+	}
+	
+	init(_ quat:simd_quatf) {
+		axis = quat.axis
+		angle = quat.angle
+	}
+	
+	init() {
+		axis = xAxis
+		angle = 0.0
+	}
+	
+  var inverse: AngleAxis {
+    let x = -angle
+    let y = axis
+		return AngleAxis(angle: x, axis: y)
+  }
+
+}
+
+extension simd_quatf {
+	init(_ aa:AngleAxis) {
+		self = simd_quatf(angle:aa.angle, axis:aa.axis)
+	}
 }
 
 struct Vertex {

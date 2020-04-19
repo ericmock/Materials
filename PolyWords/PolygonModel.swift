@@ -5,16 +5,16 @@ class PolygonModel : Model {
 	let polygon:Apolygon
 	var initialTouchedCentroid = float3(0,0,0)
 	var initialTouchedPosition = float3(0,0,0)
-	var initialTouchedQuaternion = simd_quatf()
+	var initialTouchedAngleAxis = AngleAxis()
 	var initialTouchedScaleV = float3(1,1,1)
 	var initialTouchedModelMatrix: float4x4 {
 		let translateMatrix = float4x4(translation: initialTouchedPosition)
-		let rotateMatrix = float4x4(initialTouchedQuaternion)//;print("rotation: \(rotation)")
+		let rotateMatrix = float4x4(simd_quatf(initialTouchedAngleAxis))//;print("rotation: \(rotation)")
 		let scaleMatrix = float4x4(scaling: initialTouchedScaleV)
 		return translateMatrix * rotateMatrix * scaleMatrix
 	}
 	
-	override var nodeQuaternion:simd_quatf {
+	override var nodeAngleAxis:AngleAxis {
 		didSet {
 //			let rotationMatrix = float4x4(nodeQuaternion).upperLeft
 //			print("didSet rot:  ",rotationMatrix)

@@ -35,7 +35,7 @@ class Camera: Node {
   
   var viewMatrix: float4x4 {
     let translateMatrix = float4x4(translation: nodePosition)
-    let rotateMatrix = float4x4(nodeQuaternion)
+    let rotateMatrix = float4x4(simd_quatf(angle: nodeAngleAxis.angle, axis: nodeAngleAxis.axis))
     let scaleMatrix = float4x4(scaling: nodeScaleV)
     return (translateMatrix * scaleMatrix * rotateMatrix).inverse
   }
@@ -71,7 +71,7 @@ class ArcballCamera: Camera {
 			_viewMatrix = updateViewMatrix()
 	}
 	
-  override var nodeQuaternion: simd_quatf {
+  override var nodeAngleAxis: AngleAxis {
     didSet {
       _viewMatrix = updateViewMatrix()
     }
@@ -88,7 +88,7 @@ class ArcballCamera: Camera {
   
   private func updateViewMatrix() -> float4x4 {
     let translateMatrix = float4x4(translation: [target.x, target.y, target.z - distance])
-    let rotateMatrix = float4x4(nodeQuaternion)
+    let rotateMatrix = float4x4(simd_quatf(angle: nodeAngleAxis.angle, axis: nodeAngleAxis.axis))
     let matrix = (rotateMatrix * translateMatrix).inverse
     nodePosition = rotateMatrix.upperLeft * -matrix.columns.3.xyz
     return matrix

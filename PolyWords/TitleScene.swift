@@ -35,10 +35,9 @@ class TitleScene: Scene {
 	var timeSinceStart: TimeInterval = 0.0
 	var previousTime = Date()
 	var dT:TimeInterval = 0.0
-	var integrator:TitleIntegrator?
-	var initialState = stateStructure()
-	var presentState = stateStructure()
-	
+	var integrator:Integrator?
+	var initialState:stateStructure?
+	var presentState:stateStructure?
 	//    let title1 = Model(name: "Title1")
 	let titles:[Model] = []//[Model(name: "TestPolyhedron"),
 //												Model(name: "Title2"),
@@ -49,8 +48,7 @@ class TitleScene: Scene {
 	
 	override init(screenSize: CGSize, sceneName: String) {
 		super.init(screenSize: screenSize, sceneName: sceneName)
-		integrator = TitleIntegrator(withScene: self)
-		//       super.init(screenSize: s, sceneName: <#T##String#>)
+		integrator = Integrator(withScene: self, withDOFs: 1, withInitialState: stateStructure(withDOFs: 1), withForceFunction: {(coords, vels, time) in print(time)})
 	}
 
 //	MARK:  Methods
@@ -98,13 +96,13 @@ class TitleScene: Scene {
 		previousTime = Date()
 	}
 	
-	override func updateScene(deltaTime: Float) {
-		//        time += deltaTime
-		if camera.speed != 0.0 {
-			camera.rotate(delta: float3(Float(camera.velocity.x) * deltaTime, Float(camera.velocity.y) * deltaTime, 0))
-			camera.velocity = CGPoint(x:0.99 * camera.velocity.x, y:0.99 * camera.velocity.y)
-		}
-	}
+//	override func updateScene(deltaTime: Float) {
+//		//        time += deltaTime
+//		if camera.speed != 0.0 {
+//			camera.rotate(delta: float3(Float(camera.velocity.x) * deltaTime, Float(camera.velocity.y) * deltaTime, 0))
+//			camera.velocity = CGPoint(x:0.99 * camera.velocity.x, y:0.99 * camera.velocity.y)
+//		}
+//	}
 	
 	func updateNodePositions(deltaTime: Float) {
 		//        print("initialState= ",initialState)
@@ -113,7 +111,7 @@ class TitleScene: Scene {
 		initialState = presentState
 		//        print("presentState = ",presentState)
 		for (ii, title) in titles.enumerated() {
-			let rotation = SIMD3<Float>(-presentState.theta[ii], 0.0, 0.0)
+			let rotation = SIMD3<Float>(-presentState!.theta[ii], 0.0, 0.0)
 			let transformMatrix = float4x4(rotateAboutXYZBy: rotation, aboutPoint: [0, -title.nodeInitialPosition.y - title.nodeScaleV.y, 0])
 			let initialPosition = SIMD4<Float>(title.nodeInitialPosition.x, title.nodeInitialPosition.y, title.nodeInitialPosition.z, 1.0)
 //			title.nodeRotation.x = 3.14 - presentState.theta[ii]
@@ -128,7 +126,7 @@ class TitleScene: Scene {
 		updateScene(deltaTime: deltaTime)
 		uniforms.viewMatrix = camera.viewMatrix
 		uniforms.projectionMatrix = camera.projectionMatrix
-		
+		uniforms.normalMatrix = uniforms.modelMatrix.upperLeft
 		fragmentUniforms.cameraPosition = camera.nodePosition
 	}
 	

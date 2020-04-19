@@ -10,7 +10,7 @@ class Node {
 	var nodeRotationAngles: float3 = [0, 0, 0] {
 		didSet {
 			let rotationMatrix = float4x4(rotationAngles: nodeRotationAngles)
-			nodeQuaternion = simd_quatf(rotationMatrix)
+			nodeAngleAxis = AngleAxis(simd_quatf(rotationMatrix))
 		}
 	}
 	var nodeScaleV: float3 = [1, 1, 1]
@@ -19,10 +19,10 @@ class Node {
 //	var initialRotation = float3(repeating: 0)
 	var nodeInitialScaleV = float3(repeating: 1)
 
-	var nodeQuaternion = simd_quatf(angle: 0, axis: float3(0,0,1)) 
+	var nodeAngleAxis = AngleAxis(angle: 0, axis: float3(0,0,1)) 
 	var modelMatrix: float4x4 {
 		let translateMatrix = float4x4(translation: nodePosition)
-		let rotateMatrix = float4x4(nodeQuaternion)//;print("rotation: \(rotation)")
+		let rotateMatrix = float4x4(simd_quatf(angle: nodeAngleAxis.angle, axis: nodeAngleAxis.axis))//;print("rotation: \(rotation)")
 		let scaleMatrix = float4x4(scaling: nodeScaleV)
 		return translateMatrix * rotateMatrix * scaleMatrix
 	}

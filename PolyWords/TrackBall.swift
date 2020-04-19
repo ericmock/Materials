@@ -122,7 +122,7 @@ class Trackball {
 	}
 	
 	// update to new mouse position, output rotation angle, rot is output rotation angle
-	func rollToTrackball(withX x:Float, withY y:Float) -> simd_quatf {
+	func rollToTrackballAngleAxis(withX x:Float, withY y:Float) -> AngleAxis {
 		var xxyy:Float = 0
 		var cosAng:Float = 0
 		var sinAng:Float = 0
@@ -137,7 +137,7 @@ class Trackball {
 //		print("gEndPtTrackball: (\(gEndPtTrackball[0]), \(gEndPtTrackball[1]))")
 
 		if (abs(gEndPtTrackball[0] - gStartPtTrackball[0]) < kTol && abs(gEndPtTrackball[1] - gStartPtTrackball[1]) < kTol) {
-			return rotation2Quat(withA: rot)// Not enough change in the vectors to have an action.
+			return AngleAxis(rot)// Not enough change in the vectors to have an action.
 		}
 		
 		// Compute the ending vector from the surface of the ball to its center.
@@ -151,7 +151,7 @@ class Trackball {
 		}
 		
 		// Take the cross product of the two vectors. r = s X e
-		let cross = normalize(simd_cross(gStartPtTrackball,gEndPtTrackball))
+//		let cross = normalize(simd_cross(gStartPtTrackball,gEndPtTrackball))
 //		print("trackball radius: \(gRadiusTrackball)")
 //		print("cross product: \(cross)")
 		rot[1] =  gStartPtTrackball[1] * gEndPtTrackball[2] - gStartPtTrackball[2] * gEndPtTrackball[1]
@@ -186,25 +186,11 @@ class Trackball {
 		
 //		;print("trackball angle: \(rot[0]), axis: {\(rot[1]), \(rot[2]), \(rot[3])}")
 		
-		return rotation2Quat(withA: rot)
+		return AngleAxis(rot)
 	}
 	
-	func rotation2Quat(withA A:SIMD4<Float>) -> simd_quatf {
-		var ang2:Float = 0
-		var sinAng2:Float = 0
-		var q:simd_quatf
-		
-		// Convert a GL-style rotation to a quaternion.  The GL rotation looks like this:
-		// {angle, x, y, z}, the corresponding quaternion looks like this:
-		// {{v}, cos(angle/2)}, where {v} is {x, y, z} / sin(angle/2).
-		
-		ang2 = A[0] * 0.5  // Convert from degrees ot radians, get the half-angle.
-		sinAng2 = sin(ang2)
-		q = simd_quatf(ix: A[1] * sinAng2, iy: A[2] * sinAng2, iz: A[3] * sinAng2, r: cos(ang2))
-		return q
-	}
 	
-	func addToRotationTrackball(withDA dA:simd_quatf, withA A:simd_quatf) -> simd_quatf {
+	func addToRotationTrackball(withDA dA:AngleAxis, withA A:AngleAxis) -> AngleAxis {
 //		var theta2:Float = 0
 		
 		// Figure out A' = A . dA
@@ -217,7 +203,7 @@ class Trackball {
 //		let q1 = rotation2Quat(withA: dA);
 		
 		// q2 = q1 + q0;
-		let q2 = A * dA
+		let q2 = simd_quatf(A) * simd_quatf(dA)
 		// Here's an excersize for the reader: it's a good idea to re-normalize your quaternions
 		// every so often.  Experiment with different frequencies.
 		
@@ -227,14 +213,14 @@ class Trackball {
 		// then you have an identity rotation.
 		if (abs(abs(q2.real - 1.0)) < 1.0e-7) {
 			// Identity rotation.
-			return simd_quatf(angle: 0, axis: float3(1,0,0))
+			return AngleAxis(angle: 0, axis: xAxis)
 		}
 		
 		// If you get here, then you have a non-identity rotation.  In non-identity rotations,
 		// the cosine of the half-angle is non-0, which means the sine of the angle is also
 		// non-0.  So we can safely divide by sin(theta2).
 				
-		return q2
+		return AngleAxis(angle: q2.angle, axis:q2.axis)
 	}
 		
 	func length3D(withA a:SIMD4<Float>, withB b:SIMD4<Float>) -> Float {

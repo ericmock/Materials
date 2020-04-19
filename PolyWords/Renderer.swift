@@ -79,7 +79,7 @@ extension Renderer: MTKViewDelegate {
 //			poly.nodePosition += float3(dt,0,0)
 //			let currentCentroid = (poly.initialTouchedModelMatrix * float4(poly.polygon.centroid,1)).xyz
 //			poly.nodeQuaternion = simd_quatf(angle:1.0/100.0, axis: normalize(poly.initialTouchedCentroid)) * poly.nodeQuaternion
-			let initialRotationMatrix = float3x3(poly.initialTouchedQuaternion)
+			let initialRotationMatrix = float3x3(simd_quatf(poly.initialTouchedAngleAxis))
 //			let currentNormal = initialRotationMatrix *
 			let rot = float3x3(rotateFromBases: [poly.polygon.basePolygon.normal, poly.polygon.basePolygon.tangent, poly.polygon.basePolygon.bitangent], toBases: [poly.polygon.normal_v, poly.polygon.tangent_v, poly.polygon.bitan_v])
 //			let test1 = rot * poly.polygon.basePolygon.normal
@@ -89,13 +89,13 @@ extension Renderer: MTKViewDelegate {
 //			let test2 = rot * rot.transpose
 //			poly.nodeQuaternion = /*poly.initialTouchedQuaternion * */simd_quatf(rot)
 			let startPosition =  initialRotationMatrix * poly.polygon.centroid
-			let startQuaternion = poly.initialTouchedQuaternion * simd_quatf(rot)
+			let startQuaternion = simd_quatf(poly.initialTouchedAngleAxis) * simd_quatf(rot)
 			let startScale = float3(1,1,1)
 			let endPosition = float3(0,2,-2)
 			let endQuaternion = simd_quatf(angle: .pi, axis:float3(0,1,0)) * simd_quatf(angle: .pi, axis: float3(0,0,1))
 			let endScale = float3(0.5,0.5,1)
 			poly.nodePosition = (1.0 - trans) * endPosition + (trans + trans3) * startPosition
-			poly.nodeQuaternion = simd_slerp(startQuaternion, endQuaternion, 1.0-trans)
+			poly.nodeAngleAxis = AngleAxis(simd_slerp(startQuaternion, endQuaternion, 1.0-trans))
 			poly.nodeScaleV = (1.0 - trans) * endScale + trans * startScale
 //			switch poly.polygon.type {
 //			case 2:

@@ -62,7 +62,7 @@ extension GameScene {
 		
 		let touchPosition = event.locationInWindow
 		initialTouchPosition = touchPosition
-		initialQuaternion = polyhedron.nodeQuaternion
+		initialAngleAxis = polyhedron.nodeAngleAxis
 		
 		if touches.count > 1 {
 			let t2 = touches[1]
@@ -89,7 +89,7 @@ extension GameScene {
 			dragTimer = Timer(timeInterval: 0.5, target: self, selector: #selector(checkDrag), userInfo: nil, repeats: false)
 			inputMode = .rotate
 			trackball.startTrackball(withX: Float(touchPosition.x), withY: Float(touchPosition.y), withOriginX: 0, withOriginY: 0, withWidth: Float(screenSize.width), withHeight: Float(screenSize.height));
-			gTrackballQuaternion = simd_quatf(angle: 0, axis: float3(1,0,0))
+			gTrackballAngleAxis = AngleAxis(angle: 0, axis: float3(1,0,0))
 		}
 	}
 	
@@ -106,11 +106,11 @@ extension GameScene {
 		if (inputMode == .rotate) {
 //			print("Rotation Mode")
 			touchTimes.append(get_time_of_day())
-			let previousTrackballQuaternion = gTrackballQuaternion
-			gTrackballQuaternion = trackball.rollToTrackball(withX: Float(position.x), withY: Float(position.y))
-			let newRotationQuat = gTrackballQuaternion * previousTrackballQuaternion.inverse * polyhedron.nodeQuaternion
-			polyhedron.nodeQuaternion = newRotationQuat
-			touchAngles.append(polyhedron.nodeQuaternion.angle)
+			let previousTrackballAngleAxis = gTrackballAngleAxis
+			gTrackballAngleAxis = trackball.rollToTrackballAngleAxis(withX: Float(position.x), withY: Float(position.y))
+//			let newRotationAA = gTrackballAngleAxis * previousTrackballAngleAxis.inverse * polyhedron.nodeQuaternion
+//			polyhedron.nodeAngleAxis = newRotationAA
+			touchAngles.append(polyhedron.nodeAngleAxis.angle)
 		} else if (inputMode == .select) {
 //			print("Select Mode")
 			let polygons:[Apolygon] = Array(polyhedron.polygons.joined())
@@ -208,7 +208,7 @@ extension GameScene {
 //					poly.nodeQuaternion = init_quat.inverse//quat * polyhedron.nodeQuaternion
 //					poly.nodePosition = polyhedron.nodePosition
 					polyhedron.polygonSelectedQ[touchedNumber] = true
-					touchedPoly.initialTouchedQuaternion = polyhedron.nodeQuaternion
+					touchedPoly.initialTouchedAngleAxis = polyhedron.nodeAngleAxis
 //								if (level == 0) {
 //									touchedPoly.nodeQuaternion += simd_quatf(angle: 130.0 * .pi/180.0, axis:float3(0,0,1))
 //								} else {
@@ -255,7 +255,7 @@ extension GameScene {
 extension LevelSelectionScene {
 	// TODO:  Rotate the polyhedron only when clicking in a circumscribing circle.
 	func interactionsBegan(with event: NSEvent) {
-		print("Touches Began")
+		print("\n\n\n\n\n\nTouches Began")
 
 		touchAngles.removeAll()
 		touchTimes.removeAll()
@@ -268,7 +268,7 @@ extension LevelSelectionScene {
 		
 		let touchPosition = event.locationInWindow
 		initialTouchPosition = touchPosition
-		initialQuaternion = models[0].nodeQuaternion
+		initialAngleAxis = models[0].nodeAngleAxis
 				
 		dragging = false
 		checked = false
@@ -284,7 +284,7 @@ extension LevelSelectionScene {
 			dragTimer = Timer(timeInterval: 0.5, target: self, selector: #selector(checkDrag), userInfo: nil, repeats: false)
 			inputMode = .rotate
 			trackball.startTrackball(withX: Float(screenSize.width/2), withY: Float(touchPosition.y), withOriginX: 0, withOriginY: 0, withWidth: Float(screenSize.width), withHeight: Float(screenSize.height));
-			gTrackballQuaternion = simd_quatf(angle: 0, axis: float3(1,0,0))
+			gTrackballAngleAxis = AngleAxis()
 		}
 	}
 	
@@ -293,7 +293,7 @@ extension LevelSelectionScene {
 	}
 
 	@objc func touchesMoved(with event:NSEvent) {
-//		print("Touches Moved")
+		print("TM", terminator:"")
 
 		dragging = true
 		
@@ -301,26 +301,36 @@ extension LevelSelectionScene {
 		if (inputMode == .rotate) {
 //			print("Rotation Mode")
 			touchTimes.append(get_time_of_day())
-			let previousTrackballQuaternion = gTrackballQuaternion
-			gTrackballQuaternion = trackball.rollToTrackball(withX: Float(screenSize.width/2), withY: Float(position.y))
-			let newRotationQuat = gTrackballQuaternion * previousTrackballQuaternion.inverse * models[0].nodeQuaternion
-			models[0].nodeQuaternion = newRotationQuat
-			touchAngles.append(models[0].nodeQuaternion.angle)
+			let previousTrackballAngleAxis = gTrackballAngleAxis
+			gTrackballAngleAxis = trackball.rollToTrackballAngleAxis(withX: Float(screenSize.width/2), withY: Float(position.y))
+			let changeAngleAxis = AngleAxis(simd_quatf(gTrackballAngleAxis) * simd_quatf(previousTrackballAngleAxis).inverse)
+			let newRotationAA = AngleAxis(simd_quatf(changeAngleAxis) * simd_quatf(models[0].nodeAngleAxis))
+			print("rotations: \(180.0 / .pi * newRotationAA.angle) = \(-sign(changeAngleAxis.axis[0]))*\(180.0 / .pi * changeAngleAxis.angle) + \(180.0 / .pi * models[0].nodeAngleAxis.angle)")
+			models[0].nodeAngleAxis = newRotationAA
+			touchAngles.append(models[0].nodeAngleAxis.angle)
 		} 
 	}
 	
 	func interactionsEnded(withEvent event:NSEvent) {
-		print("Touches Ended")
+		print("\n\n\n\n\n\nTouches Ended")
 
 		NSObject.cancelPreviousPerformRequests(withTarget: self)
 //		var touchPosition:CGPoint = CGPoint(x:0.0, y:0.0)
 		dragTimer.invalidate()
-		
+		gTrackballAngleAxis = AngleAxis()
+		integrator?.resetState()
+		integrator?.state.theta[0] = models[0].nodeAngleAxis.angle
+		print("viewController: ", 180.0 / .pi * integrator!.state.theta[0])
 		if (dragging) {
 			print("Rotation Mode")
-			let count = touchTimes.count
+			let count = min(touchTimes.count,touchAngles.count)
+//			if count > 0 {
+//				integrator?.initialState.theta[0] = touchAngles[count - 1]
+//			}
+//			else {
+//			}
 			if (count > 3) {
-				let dt = touchTimes[count - 1] - touchTimes[count - 3]
+				let dt = touchTimes[count - 1] - touchTimes[0]
 				omega = Double(touchAngles[count - 1] - touchAngles[count - 3])/dt
 			}
 			else if (count > 2) {
@@ -331,6 +341,7 @@ extension LevelSelectionScene {
 				omega = 0.0
 			}
 			freeWheeling = true
+			integrator?.state.omega[0] = Float(omega)
 		}
 		else if inputMode == .button {
 			print("Button Mode")
@@ -342,7 +353,7 @@ extension LevelSelectionScene {
 				goingToPreviousLevel = true
 			}
 			else {
-				var localAngle = models[0].nodeQuaternion.angle
+				var localAngle = models[0].nodeAngleAxis.angle
 				
 				if (localAngle < 0.0) {
 					localAngle = 2.0 * .pi - localAngle
@@ -359,12 +370,32 @@ extension LevelSelectionScene {
 					level = 0
 				}
 				
-				let base_level = (stage-1)*5
-				let mode = AppController.gameMode
+				let baseLevel = (stage-1)*5
+//				let mode = AppController.gameMode
 				var index:Int
 				var complete:Bool
 				
+//				if baseLevels + level - 1 < 0 {
+				if true {
+					complete = true
+				}
+				else {
+					index = baseLevel + level - 1
+					let polyDict = AppController.polyhedraInfo[index]
+					complete = (Array(arrayLiteral: polyDict["complete"])[AppController.gameMode] != nil)
+				}
 
+				if complete {
+					models.removeSubrange(1...)
+//					[viewController.indicatorView startAnimating];
+					AppController.polyhedronInfo = AppController.polyhedraInfo[baseLevel + level]
+					if !AppController.gameViewInitialized {
+						AppController.initializeGame()
+					}
+					AppController.resetGame()
+					AppController.perform(#selector(AppController.startGame), with: nil, afterDelay: 0.5)
+
+				}
 			}
 		}
 		

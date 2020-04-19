@@ -72,6 +72,9 @@ class Model: Node, Renderable {
 	}
 	
 	func render(commandEncoder: MTLRenderCommandEncoder, submesh: Submesh) {
+//		if name.contains("Parabig") {
+//			print("render \(name):  ", 180.0 * parent!.nodeQuaternion.angle / .pi)
+//		}
 		commandEncoder.setTriangleFillMode(.fill)
 		var isWireframe:Bool = false
 		commandEncoder.setFragmentBytes(&isWireframe, length: MemoryLayout<Bool>.stride, index: Int(wireframeQBufferIndex.rawValue))
@@ -84,16 +87,16 @@ class Model: Node, Renderable {
 																				indexType: submesh.indexType,
 																				indexBuffer: submesh.indexBuffer,
 																				indexBufferOffset: 0)
-		commandEncoder.setTriangleFillMode(.lines)
+//		commandEncoder.setTriangleFillMode(.lines)
 //		var color:float4 = [0,0,0,0]
 //		commandEncoder.setFragmentBytes(&color, length: MemoryLayout<float4>.stride, index: Int(colorBufferIndex.rawValue))
-		isWireframe = true
-		commandEncoder.setFragmentBytes(&isWireframe, length: MemoryLayout<Bool>.stride, index: Int(wireframeQBufferIndex.rawValue))
-		commandEncoder.drawIndexedPrimitives(type: .triangle,
-																				indexCount: submesh.indexCount,
-																				indexType: submesh.indexType,
-																				indexBuffer: submesh.indexBuffer,
-																				indexBufferOffset: 0)
+//		isWireframe = true
+//		commandEncoder.setFragmentBytes(&isWireframe, length: MemoryLayout<Bool>.stride, index: Int(wireframeQBufferIndex.rawValue))
+//		commandEncoder.drawIndexedPrimitives(type: .triangle,
+//																				indexCount: submesh.indexCount,
+//																				indexType: submesh.indexType,
+//																				indexBuffer: submesh.indexBuffer,
+//																				indexBufferOffset: 0)
 
 	}
 	

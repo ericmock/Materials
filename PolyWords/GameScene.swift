@@ -115,7 +115,7 @@ class GameScene: Scene {
 		override func setupScene() {
 			camera.target = [0, 0, 0]
 			camera.distance = 6
-			camera.nodeQuaternion = simd_quatf()
+			camera.nodeAngleAxis = AngleAxis()
 			
 			let worldModel = Model(forScene: self)
 			worldModel.name = "World"
@@ -124,7 +124,7 @@ class GameScene: Scene {
 			
 			add(node: polyhedron, parent: worldModel)
 			models.append(polyhedron)
-			polyhedron.nodeQuaternion = simd_quatf(angle: 0, axis:float3(0,1,0))//simd_quatf(angle: radians(fromDegrees: Float.random(in: -180..<180)), axis:float3(0,1,0))
+			polyhedron.nodeAngleAxis = AngleAxis(angle: 0, axis:yAxis)//simd_quatf(angle: radians(fromDegrees: Float.random(in: -180..<180)), axis:float3(0,1,0))
 			
 			for polygonModel in polygonModels {
 				add(node: polygonModel, parent: worldModel, renderQ: false)
@@ -132,7 +132,7 @@ class GameScene: Scene {
 		}
 
 	func endSpin() {
-		gTrackballQuaternion = trackball.addToRotationTrackball(withDA: gTrackballQuaternion, withA: models[0].nodeQuaternion)
+		gTrackballAngleAxis = trackball.addToRotationTrackball(withDA: gTrackballAngleAxis, withA: models[0].nodeAngleAxis)
 	}
 
 	func setWorldRotation(angle:Float, X:Float, Y:Float, Z:Float) {
