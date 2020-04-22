@@ -98,7 +98,7 @@ extension GameScene {
 	}
 
 	@objc func touchesMoved(with event:NSEvent) {
-//		print("Touches Moved")
+		print("Touches Moved")
 
 		dragging = true
 		
@@ -108,8 +108,8 @@ extension GameScene {
 			touchTimes.append(get_time_of_day())
 			let previousTrackballAngleAxis = gTrackballAngleAxis
 			gTrackballAngleAxis = trackball.rollToTrackballAngleAxis(withX: Float(position.x), withY: Float(position.y))
-//			let newRotationAA = gTrackballAngleAxis * previousTrackballAngleAxis.inverse * polyhedron.nodeQuaternion
-//			polyhedron.nodeAngleAxis = newRotationAA
+			let newRotationAA = simd_quatf(gTrackballAngleAxis) * simd_quatf(previousTrackballAngleAxis).inverse * simd_quatf(polyhedron.nodeAngleAxis)
+			polyhedron.nodeAngleAxis = AngleAxis(newRotationAA)
 			touchAngles.append(polyhedron.nodeAngleAxis.angle)
 		} else if (inputMode == .select) {
 //			print("Select Mode")
@@ -188,21 +188,12 @@ extension GameScene {
 				touchedPoly.polygon.select_animation_start_time = touchStartTime
 				if !renderables.contains(touchedPoly) {
 					renderables.append(touchedPoly)
-//					print(poly.nodeQuaternion)
-//					print(polyhedron.nodeQuaternion)
-//					print("normal:  ",poly.polygon.normal_v)
-//					print("tangent:  ",poly.polygon.tangent_v)
-//					print("bitan:  ",poly.polygon.bitan_v)
 //					let rot:float3x3 = float3x3(tensorProduct: poly.polygon.normal_v, float3(0,0,-1))
 //					+ float3x3(tensorProduct: poly.polygon.tangent_v, float3(0,1,0))
 //					+ float3x3(tensorProduct: poly.polygon.bitan_v, float3(1,0,0))
-//					print("calculated rot:  ", rot)
 //					poly.nodeQuaternion = simd_quatf(rot)//*polyhedron.nodeQuaternion.inverse
-//					print(poly.nodeQuaternion)
-//					print("translated rot:  ", float4x4(poly.nodeQuaternion))
 //					poly.nodePosition = float3(0,2.5,0)
 //					let vec = rot * poly.polygon.normal_v
-//					print(vec)
 //					_ = poly.modelMatrix
 //					let init_quat = simd_quatf(from: float3(0,0,1), to: normalize(poly.polygon.centroid))
 //					poly.nodeQuaternion = init_quat.inverse//quat * polyhedron.nodeQuaternion
@@ -255,7 +246,7 @@ extension GameScene {
 extension LevelSelectionScene {
 	// TODO:  Rotate the polyhedron only when clicking in a circumscribing circle.
 	func interactionsBegan(with event: NSEvent) {
-		print("\n\n\n\n\n\nTouches Began")
+//		print("\n\n\n\n\n\nTouches Began")
 
 		touchAngles.removeAll()
 		touchTimes.removeAll()
@@ -299,13 +290,11 @@ extension LevelSelectionScene {
 		
 		let position = event.locationInWindow
 		if (inputMode == .rotate) {
-//			print("Rotation Mode")
 			touchTimes.append(get_time_of_day())
 			let previousTrackballAngleAxis = gTrackballAngleAxis
 			gTrackballAngleAxis = trackball.rollToTrackballAngleAxis(withX: Float(screenSize.width/2), withY: Float(position.y))
-			let changeAngleAxis = AngleAxis(simd_quatf(gTrackballAngleAxis) * simd_quatf(previousTrackballAngleAxis).inverse)
-			let newRotationAA = AngleAxis(simd_quatf(changeAngleAxis) * simd_quatf(models[0].nodeAngleAxis))
-			print("rotations: \(180.0 / .pi * newRotationAA.angle) = \(-sign(changeAngleAxis.axis[0]))*\(180.0 / .pi * changeAngleAxis.angle) + \(180.0 / .pi * models[0].nodeAngleAxis.angle)")
+			let changeAngle = sign(gTrackballAngleAxis.axis[0]) * (gTrackballAngleAxis.angle - previousTrackballAngleAxis.angle)
+			let newRotationAA = AngleAxis(angle:changeAngle + models[0].nodeAngleAxis.angle, axis:xAxis)
 			models[0].nodeAngleAxis = newRotationAA
 			touchAngles.append(models[0].nodeAngleAxis.angle)
 		} 

@@ -79,14 +79,14 @@ class Scene {
 		print("number of lights: \(lighting.count)")
 	}
 	
-	func updateScene(deltaTime: Float) {
+	func updateScene(deltaTime: Double) {
 //		if camera.speed != 0.0 {
 //			camera.rotate(delta: float3(Float(camera.velocity.x) * deltaTime, Float(camera.velocity.y) * deltaTime, 0))
 //			camera.velocity = CGPoint(x:0.99 * camera.velocity.x, y:0.99 * camera.velocity.y)
 //		}		
 	}
 	
-	func update(deltaTime: Float) {
+	func update(deltaTime: Double) {
 		updateScene(deltaTime: deltaTime)
 		uniforms.viewMatrix = camera.viewMatrix
 		uniforms.projectionMatrix = camera.projectionMatrix

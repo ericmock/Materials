@@ -31,13 +31,16 @@ class Submesh {
 		indexCount = count
 		indexType = type
 		//		color = baseColor
-		let textureDict:Dictionary<TextureSemantics,String> = [.baseColor:"TestPolyhedron-color", .tangentSpaceNormal:"TestPolyhedron-normal", .roughness: "TestPolyhedron-roughness", .letters: "Alphabet"]
 		var texturesToLoad:Dictionary<TextureSemantics,String> = Dictionary()//= [.baseColor:"", .tangentSpaceNormal:"", .roughness:"", .letters:""]
-		for (textureSemantic,name) in textureDict {
-			if !scene.sceneTextures.contains(name) {
-				scene.sceneTextures.append(name)
-				texturesToLoad.merge([textureSemantic:name]) { (_, new) in new }
-//				texturesToLoad.updateValue(name, forKey: textureSemantic)
+
+		if scene is LevelSelectionScene || scene is GameScene {
+			let textureDict:Dictionary<TextureSemantics,String> = [.baseColor:"TestPolyhedron-color", .tangentSpaceNormal:"TestPolyhedron-normal", .roughness: "TestPolyhedron-roughness", .letters: "Alphabet"]
+			for (textureSemantic,name) in textureDict {
+				if !scene.sceneTextures.contains(name) {
+					scene.sceneTextures.append(name)
+					texturesToLoad.merge([textureSemantic:name]) { (_, new) in new }
+	//				texturesToLoad.updateValue(name, forKey: textureSemantic)
+				}
 			}
 		}
 		textures = Textures(textures: texturesToLoad)

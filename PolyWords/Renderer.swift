@@ -7,6 +7,7 @@ class Renderer: NSObject {
 	var samplerState:MTLSamplerState?
 	weak var scene:Scene?
 	let depthStencilState: MTLDepthStencilState
+	var previousTime: Double
 	
 	init(view: MTKView) {
 		guard
@@ -21,6 +22,7 @@ class Renderer: NSObject {
 		view.device = device
 		view.depthStencilPixelFormat = .depth32Float
 		
+		previousTime = get_time_of_day()
 		depthStencilState = Renderer.buildDepthStencilState()!
 		super.init()
 		samplerState = defaultSampler(device: device)
@@ -150,7 +152,8 @@ extension Renderer: MTKViewDelegate {
 																	 length: MemoryLayout<Light>.stride * lights.count,
 																	 index: Int(lightsBufferIndex.rawValue))
 		
-		let deltaTime = 1/Float(view.preferredFramesPerSecond)
+		let deltaTime = (get_time_of_day() - previousTime)/1000.0//1/Float(view.preferredFramesPerSecond)
+//		print("deltaTime: \(deltaTime)")
 		scene.update(deltaTime: deltaTime)
 		
 		for (num,renderable) in scene.renderables.enumerated() {

@@ -1,7 +1,7 @@
 import Foundation
 
 class Apolygon {
-	var letter = ""
+	var letter = "A"
 	var type:Int!
 	var active = true
 	var number = 0
@@ -31,7 +31,7 @@ class Apolygon {
 	var scaledBaseTextureCoords:[SIMD2<Float>] = Array()
 	var textureCoords:[SIMD2<Float>] = Array()
 	var numberOfSides:Int = 0
-	var polyhedron:Polyhedron
+	var polyhedron:Polyhedron?
 	
 	init(withType type:Int, withPolyhedron polyhedron:Polyhedron) {
 		self.type = type
@@ -43,7 +43,18 @@ class Apolygon {
 		let scale:Float = 1/1.0
 		getTextureCoords(type, scale, numberOfSides)
 	}
-	
+
+	init(withType type:Int) {
+		self.type = type
+		name = AppConstants.kPolygonTypeNames[type]
+		select_animation_start_time = 0.0
+		
+		numberOfSides = AppConstants.kPolygonTypesVertexCount[type]
+		let scale:Float = 1/1.0
+		getTextureCoords(type, scale, numberOfSides)
+		generateBasePolygon()
+	}
+
 	fileprivate func getTextureCoords(_ polyhedronType: Int, _ scale: Float, _ numSides: Int) {
 		// Deal with triangles
 //		var polygonIndex:Int
@@ -197,13 +208,13 @@ class Apolygon {
 		let v1 = vertices[0] - vertices[1]
 		let v2 = vertices[0] - vertices[2]
 		normal_v = normalize(cross(v1, v2))
-		polyhedron.allCentroidNormals.append(normal_v)
-		if let last = polyhedron.allCentroidNormalIndices.last {
+		polyhedron!.allCentroidNormals.append(normal_v)
+		if let last = polyhedron!.allCentroidNormalIndices.last {
 			index = last + 1
 		} else {
 			index = 0
 		}
-		polyhedron.allCentroidNormalIndices.append(index)
+		polyhedron!.allCentroidNormalIndices.append(index)
 		tangent_v = normalize(v1)
 		bitan_v = cross(normal_v, tangent_v)
 	}
@@ -252,7 +263,7 @@ class Apolygon {
 			let centroidIndex = UInt16(vertexCount - 1)
 			value2 = indices[(num+1)%indices.count]
 			centroidIndices.append(contentsOf: [centroidIndex, value, value2])
-			polyhedron.allCentroidIndices.append(contentsOf: [centroidIndex, value, value2])
+			polyhedron!.allCentroidIndices.append(contentsOf: [centroidIndex, value, value2])
 		}
 	}
 }

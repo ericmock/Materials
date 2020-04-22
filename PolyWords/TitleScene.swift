@@ -39,16 +39,18 @@ class TitleScene: Scene {
 	var initialState:stateStructure?
 	var presentState:stateStructure?
 	//    let title1 = Model(name: "Title1")
-	let titles:[Model] = []//[Model(name: "TestPolyhedron"),
-//												Model(name: "Title2"),
-//												Model(name: "Title3"),
-//												Model(name: "Title4"),
-//												Model(name: "Title5"),
-//												Model(name: "Title1")]
 	
 	override init(screenSize: CGSize, sceneName: String) {
 		super.init(screenSize: screenSize, sceneName: sceneName)
-		integrator = Integrator(withScene: self, withDOFs: 1, withInitialState: stateStructure(withDOFs: 1), withForceFunction: {(coords, vels, time) in print(time)})
+		models = [PolygonModel(withPolygon: Apolygon(withType: 1), inScene: self),
+							PolygonModel(withPolygon: Apolygon(withType: 1), inScene: self),
+							PolygonModel(withPolygon: Apolygon(withType: 1), inScene: self),
+							PolygonModel(withPolygon: Apolygon(withType: 1), inScene: self),
+							PolygonModel(withPolygon: Apolygon(withType: 1), inScene: self),
+							PolygonModel(withPolygon: Apolygon(withType: 1), inScene: self)]
+		integrator = Integrator(withScene: self, withDOFs: models.count, withInitialState: stateStructure(withDOFs: models.count), withForceFunction: {(coords, vels, time) in print(time)})
+		setupScene()
+
 	}
 
 //	MARK:  Methods
@@ -67,14 +69,14 @@ class TitleScene: Scene {
 		timeAtStart = Date()
 		previousTime = Date()
 		
-		for ii in 0..<titles.count {
-			add(node: titles[ii])
-			titles[ii].nodeScaleV.y = 0.2
-			titles[ii].nodePosition.x = 0.0
-			titles[ii].nodePosition.y =  2.0 - Float(ii)/5.0
-			titles[ii].nodeInitialScaleV.y = 1.0
-			titles[ii].nodeInitialPosition.x = 0.0
-			titles[ii].nodeInitialPosition.y = 2.0 - Float(ii)/2.0
+		for ii in 0..<models.count {
+			add(node: models[ii])
+			models[ii].nodeScaleV.y = 0.2
+			models[ii].nodePosition.x = 0.0
+			models[ii].nodePosition.y =  2.0 - Float(ii)/5.0
+			models[ii].nodeInitialScaleV.y = 1.0
+			models[ii].nodeInitialPosition.x = 0.0
+			models[ii].nodeInitialPosition.y = 2.0 - Float(ii)/2.0
 		}
 		
 		//        titles[0].scaleV = [1.0, 0.2, 1.0]
@@ -104,13 +106,13 @@ class TitleScene: Scene {
 //		}
 //	}
 	
-	func updateNodePositions(deltaTime: Float) {
+	func updateNodePositions(deltaTime: Double) {
 		//        print("initialState= ",initialState)
-		integrator?.integrate(with: TimeInterval(deltaTime))
+		integrator?.integrate(with: deltaTime)
 		presentState = integrator!.state
 		initialState = presentState
 		//        print("presentState = ",presentState)
-		for (ii, title) in titles.enumerated() {
+		for (ii, title) in models.enumerated() {
 			let rotation = SIMD3<Float>(-presentState!.theta[ii], 0.0, 0.0)
 			let transformMatrix = float4x4(rotateAboutXYZBy: rotation, aboutPoint: [0, -title.nodeInitialPosition.y - title.nodeScaleV.y, 0])
 			let initialPosition = SIMD4<Float>(title.nodeInitialPosition.x, title.nodeInitialPosition.y, title.nodeInitialPosition.z, 1.0)
@@ -120,7 +122,7 @@ class TitleScene: Scene {
 		}
 	}
 	
-	override func update(deltaTime: Float) {
+	override func update(deltaTime: Double) {
 		updateTime()
 		updateNodePositions(deltaTime: deltaTime)
 		updateScene(deltaTime: deltaTime)

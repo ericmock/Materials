@@ -66,8 +66,8 @@ class Integrator {
 		resetState()
 	}
 	
-	func integrate(with dt:TimeInterval) {
-		print("integrate start:  ", 180.0 / .pi * state.theta[0])
+	func integrate(with dt:Double) {
+//		print("integrate start:  ", 180.0 / .pi * state.theta[0])
 		var a = derivative(withDOFs: dofs)
 		var b = derivative(withDOFs: dofs)
 		var c = derivative(withDOFs: dofs)
@@ -89,7 +89,7 @@ class Integrator {
 				state.omega[ll] -= 2.0 * .pi
 			}
 		}
-		print("integrate end:  ", 180.0 / .pi * state.theta[0])
+//		print("integrate end:  ", 180.0 / .pi * state.theta[0])
 	}
 	
 	func evaluate(with initial:stateStructure) -> derivative {
@@ -140,7 +140,7 @@ class Integrator {
 	
 	func setF(withCoords coords:[Float], vels:[Float], time:Double) {
 		for ii in 0..<dofs {
-			F[ii] = 0.2 * sin(6.0 * coords[ii]) - 0.3 * vels[ii]
+			F[ii] = 0.5 * sin(6.0 * coords[ii]) - 1.0 * vels[ii]
 		}
 	}
 

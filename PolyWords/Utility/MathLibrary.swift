@@ -112,6 +112,10 @@ struct AngleAxis {
     let y = axis
 		return AngleAxis(angle: x, axis: y)
   }
+	
+	public static func * (lhs: AngleAxis, rhs: AngleAxis) -> AngleAxis {
+		return AngleAxis(angle: lhs.angle + rhs.angle, axis: lhs.axis)
+	}
 
 }
 

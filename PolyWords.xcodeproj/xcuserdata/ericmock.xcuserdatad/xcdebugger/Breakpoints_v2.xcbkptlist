@@ -94,8 +94,8 @@
             filePath = "PolyWords/APolygon.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
             landmarkName = "getTextureCoords(_:_:_:)"
             landmarkType = "7">
             <Locations>
@@ -161,22 +161,6 @@
             startingLineNumber = "39"
             endingLineNumber = "39"
             landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "77C37C5F-C39D-4098-91FF-2497863609CF"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "PolyWords/Submesh.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "init(indexBuffer:indexCount:indexType:baseColor:scene:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -383,8 +367,8 @@
             filePath = "PolyWords/Renderer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "draw(in:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -479,8 +463,8 @@
             filePath = "PolyWords/Renderer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
             landmarkName = "flyingPolygon(touchedPolygons:time:letterNumber:letterCount:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -495,8 +479,8 @@
             filePath = "PolyWords/Renderer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "draw(in:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -543,8 +527,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "232"
-            endingLineNumber = "232"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
             landmarkName = "interactionsEnded(withEvent:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -607,8 +591,8 @@
             filePath = "PolyWords/APolygon.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "generateBasePolygon()"
             landmarkType = "7">
          </BreakpointContent>
@@ -623,8 +607,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
             landmarkName = "interactionsEnded(withEvent:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -639,8 +623,8 @@
             filePath = "PolyWords/LevelSelectionScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "setupScene()"
             landmarkType = "7">
          </BreakpointContent>
@@ -655,8 +639,8 @@
             filePath = "PolyWords/Submesh.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
             landmarkName = "init(textures:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -687,8 +671,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "389"
-            endingLineNumber = "389"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
             landmarkName = "interactionsEnded(withEvent:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -703,8 +687,8 @@
             filePath = "PolyWords/LevelSelectionScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "setupScene()"
             landmarkType = "7">
          </BreakpointContent>
@@ -783,8 +767,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
             landmarkName = "interactionsEnded(withEvent:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -799,8 +783,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
+            startingLineNumber = "323"
+            endingLineNumber = "323"
             landmarkName = "interactionsEnded(withEvent:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -815,8 +799,8 @@
             filePath = "PolyWords/LevelSelectionScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
             landmarkName = "updateNodePositions(deltaTime:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -847,8 +831,8 @@
             filePath = "PolyWords/Renderer.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "draw(in:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -879,8 +863,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
             landmarkName = "interactionsBegan(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -895,8 +879,8 @@
             filePath = "PolyWords/LevelSelectionScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
             landmarkName = "endSpin()"
             landmarkType = "7">
          </BreakpointContent>
@@ -911,8 +895,8 @@
             filePath = "PolyWords-macOS/ViewControllerExtension.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "305"
-            endingLineNumber = "305"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "touchesMoved(with:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -927,9 +911,73 @@
             filePath = "PolyWords/LevelSelectionScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "updateNodePositions(deltaTime:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "75C96D76-0053-4F9D-A816-F378BAE9380C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PolyWords/LevelSelectionScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "updateNodePositions(deltaTime:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C49745ED-BF1E-4A7D-8688-0305A9B78680"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PolyWords/TitleScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "updateNodePositions(deltaTime:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4E5E88B7-E3FF-4DB7-9BEF-ACE2E4C77977"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PolyWords/Scene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "add(node:parent:renderQ:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "394B0259-9370-4835-B5E8-2A3FD9C50EB0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PolyWords/TitleScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "setupScene()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

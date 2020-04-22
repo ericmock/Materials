@@ -26,6 +26,8 @@ class LevelSelectionScene: Scene {
 	var integrator:Integrator?
 	var initialState:stateStructure?
 	var presentState:stateStructure?
+	var polyhedraRotationAxes:[float3] = Array()
+	var polyhedraRotationAngles:[Float] = Array()
 	
 	
 	override init(screenSize: CGSize, sceneName: String) {
@@ -36,6 +38,14 @@ class LevelSelectionScene: Scene {
 		]
 		super.init(screenSize: screenSize, sceneName: sceneName)
 		integrator = Integrator(withScene: self, withDOFs: 1, withInitialState: stateStructure(withDOFs: 1), withForceFunction: {(coords, vels, time) in print(time)})
+		
+		for _ in 0..<6 {
+			let x = Float.random(in: -1...1)
+			let y = Float.random(in: -1...1)
+			let z = Float.random(in: -1...1)
+			polyhedraRotationAxes.append(normalize(float3(x, y, z)))
+			polyhedraRotationAngles.append(0.0)
+		}
 		
 		worldRotation_toLevelSelectionScene[1] = 1.0
 		setupScene()
@@ -75,9 +85,13 @@ class LevelSelectionScene: Scene {
 //
 //	}
 	
-	func updateNodePositions(deltaTime: Float) {
+	func updateNodePositions(deltaTime: Double) {
+		for (num, polyhedron) in models[0].children.enumerated() {
+			polyhedron.nodeAngleAxis = AngleAxis(angle: polyhedraRotationAngles[num], axis: polyhedraRotationAxes[num])
+			polyhedraRotationAngles[num] += 0.01
+		}
 		if freeWheeling {
-			integrator?.integrate(with: TimeInterval(deltaTime))
+			integrator?.integrate(with: deltaTime)
 			presentState = integrator!.state
 //		print("updateNodePosition:", presentState!.theta[0])
 			initialState = presentState
@@ -85,7 +99,7 @@ class LevelSelectionScene: Scene {
 //			gTrackballQuaternion = simd_quatf(angle: presentState!.theta[0], axis: gTrackballQuaternion.axis)
 			let newRotationQuat = AngleAxis(angle: presentState!.theta[0], axis: xAxis)
 			models[0].nodeAngleAxis = newRotationQuat
-			print("updateNodePosition: \(models[0].nodeAngleAxis.angle), \(presentState!.theta[0]), \(gTrackballAngleAxis.axis)")
+//			print("updateNodePosition: \(models[0].nodeAngleAxis.angle), \(presentState!.theta[0]), \(gTrackballAngleAxis.axis)")
 //			if omega > 0.001 {
 //				let previousTrackballQuaternion = gTrackballQuaternion
 //				gTrackballQuaternion = simd_quatf(angle: gTrackballQuaternion.angle + Float(omega) * 0.02, axis: gTrackballQuaternion.axis)
@@ -109,10 +123,8 @@ class LevelSelectionScene: Scene {
 		//			}
 	}
 	
-	override func update(deltaTime: Float) {
-		if freeWheeling {
-			updateNodePositions(deltaTime: deltaTime)
-		}
+	override func update(deltaTime: Double) {
+		updateNodePositions(deltaTime: deltaTime)
 		updateScene(deltaTime: deltaTime)
 		uniforms.viewMatrix = camera.viewMatrix
 		uniforms.projectionMatrix = camera.projectionMatrix
@@ -155,10 +167,10 @@ class LevelSelectionScene: Scene {
 	}
 	
 	func endSpin() {
-		print("start endSpin: ", 180.0 / .pi * gTrackballAngleAxis.angle)
+//		print("start endSpin: ", 180.0 / .pi * gTrackballAngleAxis.angle)
 //		gTrackballQuaternion = trackball.addToRotationTrackball(withDA: gTrackballQuaternion, withA: models[0].nodeQuaternion)
 		gTrackballAngleAxis = AngleAxis(angle: 0, axis: xAxis)
-		print("end endSpin: ", 180.0 / .pi * gTrackballAngleAxis.angle)
+//		print("end endSpin: ", 180.0 / .pi * gTrackballAngleAxis.angle)
 	}
 }
 
